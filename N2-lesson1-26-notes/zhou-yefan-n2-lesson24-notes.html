@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>周业繁《新完全掌握N2语法》第24课拓展笔记</title>
+
+  <style>
+    /* === Theme CSS variables === */
+    :root {
+      --bg: #ffffff;
+      --bg2: #f8fafc;
+      --ink: #1e293b;
+      --muted: #64748b;
+      --rule: #e2e8f0;
+      --accent: #2563eb;
+      --accent2: #0ea5e9;
+      --warning-bg: #fffbeb;
+      --warning-border: #f59e0b;
+      --font: "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      --font-mono: "JetBrainsMono", "Consolas", monospace;
+      --max: 900px;
+    }
+
+    /* === Base styles === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.75;
+    }
+
+    /* === Layout === */
+    .layout {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    /* === Sidebar TOC === */
+    .toc {
+      width: 260px;
+      flex-shrink: 0;
+      padding: 2rem 1.5rem;
+      border-right: 1px solid var(--rule);
+      background: var(--bg2);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .toc h2 {
+      font-size: 1rem;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent);
+    }
+    .toc ul {
+      list-style: none;
+    }
+    .toc li {
+      margin-bottom: 0.35rem;
+    }
+    .toc a {
+      display: block;
+      padding: 0.4rem 0.6rem;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.92rem;
+      transition: all 0.15s ease;
+    }
+    .toc a:hover,
+    .toc a.active {
+      background: rgba(37, 99, 235, 0.08);
+      color: var(--accent);
+    }
+    .toc .toc-h3 {
+      padding-left: 1rem;
+      font-size: 0.85rem;
+    }
+
+    /* === Main content === */
+    .page {
+      flex: 1;
+      max-width: var(--max);
+      padding: 2.5rem 2rem;
+    }
+
+    /* === Typography === */
+    h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--rule);
+    }
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+
+    /* === Callouts === */
+    .notice {
+      background: var(--warning-bg);
+      border-left: 4px solid var(--warning-border);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.25rem 0;
+    }
+    .notice strong {
+      color: #92400e;
+    }
+    .key-point {
+      background: var(--bg2);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.25rem 0;
+    }
+    .key-point-title {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* === Tables === */
+    .table-wrap {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 600px;
+      margin: 1.25rem 0;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 560px;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+    }
+    th {
+      background: var(--bg2);
+      font-weight: 700;
+      color: var(--ink);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:hover td {
+      background: rgba(37, 99, 235, 0.02);
+    }
+
+    /* === Grammar pattern === */
+    .pattern {
+      font-family: var(--font-mono);
+      background: #f1f5f9;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.95em;
+      color: #0f172a;
+    }
+
+    /* === Examples === */
+    .example {
+      background: #f0f9ff;
+      border-left: 4px solid var(--accent2);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+    .example p {
+      margin-bottom: 0.35rem;
+    }
+    .example p:last-child {
+      margin-bottom: 0;
+    }
+    .example p.note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* === Lists === */
+    ul, ol {
+      margin: 0.75rem 0 1rem 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* === Citation === */
+    sup a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.75em;
+      font-weight: 600;
+    }
+    sup a:hover {
+      text-decoration: underline;
+    }
+
+    /* === Footer sources === */
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+    footer h2 {
+      margin-top: 0;
+      font-size: 1.15rem;
+    }
+    footer .sources ol {
+      padding-left: 1.2rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    footer .sources li {
+      margin-bottom: 0.6rem;
+      overflow-wrap: break-word;
+      word-break: break-all;
+    }
+    footer .sources .src-title {
+      color: var(--ink);
+      word-break: normal;
+    }
+    footer .sources .src-url {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: 0.82rem;
+      color: var(--accent);
+      word-break: break-all;
+    }
+
+    /* === Mobile === */
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+      .toc {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+        padding: 1rem;
+      }
+      .toc h2 {
+        margin-bottom: 0.75rem;
+      }
+      .toc ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+      .toc li {
+        margin-bottom: 0;
+      }
+      .toc a {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.85rem;
+        background: #fff;
+        border: 1px solid var(--rule);
+      }
+      .toc .toc-h3 {
+        display: none;
+      }
+      .page {
+        padding: 1.5rem 1rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  
+    /* === Exam questions === */
+    .exam-section {
+      margin-top: 2.5rem;
+    }
+    .exam-section > h2 {
+      margin-top: 0;
+    }
+    .exam-item {
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+      background: var(--bg2);
+    }
+    .exam-item .exam-q {
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+    .exam-item .exam-choices {
+      margin: 0.5rem 0 0.75rem 1.25rem;
+      color: var(--ink);
+    }
+    .exam-item .exam-choices li {
+      margin-bottom: 0.35rem;
+    }
+    .exam-item .exam-answer {
+      color: #15803d;
+      font-weight: 700;
+      margin-top: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      background: #f0fdf4;
+      border-radius: 6px;
+    }
+    .exam-item .exam-analysis {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      background: #eff6ff;
+      border-radius: 6px;
+      color: var(--ink);
+    }
+    .exam-item .exam-analysis strong {
+      color: var(--accent);
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <nav class="toc">
+      <h2>章节索引</h2>
+      <ul>
+        <li><a href="#intro">课程说明</a></li>
+        <li><a href="#points">各语法点拓展</a></li>
+        <li class="toc-h3"><a href="#point1">～う（よう）ではないか</a></li>
+        <li class="toc-h3"><a href="#point2">～まいか</a></li>
+        <li class="toc-h3"><a href="#point3">～べきだ</a></li>
+        <li class="toc-h3"><a href="#point4">～わけにはいかない</a></li>
+        <li class="toc-h3"><a href="#point5">～に違いない</a></li>
+        <li><a href="#compare">横向对比总结</a></li>
+        <li><a href="#exam">历年真题</a></li>
+        <li><a href="#sources">来源</a></li>
+      </ul>
+    </nav>
+
+    <article class="page">
+      <header>
+        <h1>周业繁《新完全掌握N2语法》第24课拓展笔记</h1>
+        <p class="subtitle">主题：提案・意志 · 区分号召、犹豫、义务与肯定推测</p>
+      </header>
+
+      <main>
+        <section id="intro">
+          <h2>课程说明</h2>
+          <p>本笔记根据《新完全掌握日语能力考试 N2 级语法（第 2 版）》第 24 课“提案する・意志を表す”的学习者整理资料与标准 N2 语法参考提炼而成。本节主要补充课本中简略带过的辨析点、接续限制与真题易错点。</p>
+
+          <div class="notice">
+            <strong>说明：</strong>研究资料中未检索到周业繁针对第 24 课“提案する・意志を表す”的视频或专栏原讲。因此，本页所有拓展点均标注为<strong>【非周业繁来源】</strong>，内容主要参考标准 N2 语法讲解与其他学习者整理的专栏。
+          </div>
+        </section>
+
+        <section id="points">
+          <h2>各语法点拓展</h2>
+          <h3 id="point1">1. ～う（よう）ではないか</h3>
+          <p><strong>课本已有：</strong>動詞意志形＋う（よう）ではないか，表示“让我们……吧”。</p>
+          <div class="key-point">
+            <div class="key-point-title">标准N2拓展重点（【非周业繁来源】）</div>
+            <ul>
+              <li><strong>用于号召、劝诱：</strong>后项常省略，直接以反问形式提出倡议<sup><a href="#cite-1">[1]</a></sup>。</li>
+              <li><strong>口语变体：</strong>常说「～う（よう）じゃないか」。</li>
+              <li><strong>例句：</strong>一緒に頑張ろう<strong>ではないか</strong>。</li>
+            </ul>
+          </div>
+          <div class="example">
+            <p>もう一度最初からやり直そう<strong>ではないか</strong>。</p>
+            <p class="note">（让我们再从头来一次吧。）</p>
+          </div>
+          <div class="example">
+            <p>環境を守るために、みんなで行動しよう<strong>じゃないか</strong>。</p>
+            <p class="note">（为了保护环境，大家一起行动吧。）</p>
+          </div>
+          <p><strong>记忆点：</strong>号召大家一起做 → うではないか。</p>
+          <h3 id="point2">2. ～まいか</h3>
+          <p><strong>课本已有：</strong>同一动词：意志形＋う（よう）か／同一动词＋まいか，表示“是该……还是不……呢”。</p>
+          <div class="key-point">
+            <div class="key-point-title">标准N2拓展重点（【非周业繁来源】）</div>
+            <ul>
+              <li><strong>表达内心犹豫：</strong>前后使用同一动词，前为意志形，后为「まい」形<sup><a href="#cite-2">[2]</a></sup>。</li>
+              <li><strong>例句：</strong>行こうか行く<strong>まいか</strong>迷っている。</li>
+              <li><strong>与「うか」对应：</strong>「うか」表积极方向，「まいか」表消极方向，合起来呈现摇摆。</li>
+            </ul>
+          </div>
+          <div class="example">
+            <p>辞めようか辞める<strong>まいか</strong>、ずっと悩んでいる。</p>
+            <p class="note">（一直在犹豫是该辞职还是不该辞职。）</p>
+          </div>
+          <div class="example">
+            <p>引き受けようか引き受ける<strong>まいか</strong>、結論が出ない。</p>
+            <p class="note">（是该接受还是不接受，得不出结论。）</p>
+          </div>
+          <p><strong>记忆点：</strong>意志形＋まいか = 犹豫做不做。</p>
+          <h3 id="point3">3. ～べきだ</h3>
+          <p><strong>课本已有：</strong>動詞辞書形＋べきだ，表示“应该……”。</p>
+          <div class="key-point">
+            <div class="key-point-title">标准N2拓展重点（【非周业繁来源】）</div>
+            <ul>
+              <li><strong>义务或强烈建议：</strong>语气较强，常用于评价、忠告、义务；后项不能接过去时<sup><a href="#cite-1">[1]</a></sup>。</li>
+              <li><strong>过去未做的表达：</strong>若描述过去应该做而未做的事，需用「べきだった」。</li>
+              <li><strong>例句：</strong>約束は守る<strong>べきだ</strong>。／もっと早く言う<strong>べきだった</strong>。</li>
+            </ul>
+          </div>
+          <div class="example">
+            <p>約束は守る<strong>べきだ</strong>。</p>
+            <p class="note">（约定应该遵守。）</p>
+          </div>
+          <div class="example">
+            <p>もっと早く言う<strong>べきだった</strong>。</p>
+            <p class="note">（本该更早说出口的。）</p>
+          </div>
+          <p><strong>记忆点：</strong>应该、义务 → べきだ。</p>
+          <h3 id="point4">4. ～わけにはいかない</h3>
+          <p><strong>课本已有：</strong>動詞辞書形／ない形＋わけにはいかない，表示“因情理而不能……”。</p>
+          <div class="key-point">
+            <div class="key-point-title">标准N2拓展重点（【非周业繁来源】）</div>
+            <ul>
+              <li><strong>受社会常识、道德、责任制约：</strong>表示不能做或不得不做（接ない形时）<sup><a href="#cite-2">[2]</a></sup>。</li>
+              <li><strong>与能力不足的区分：</strong>单纯能力不足用「～ことができない」；「わけにはいかない」强调“情理上不允许”。</li>
+              <li><strong>例句：</strong>仕事を休む<strong>わけにはいかない</strong>。</li>
+            </ul>
+          </div>
+          <div class="example">
+            <p>どんなに辛くても、途中であきらめる<strong>わけにはいかない</strong>。</p>
+            <p class="note">（无论多么痛苦，也不能中途放弃。）</p>
+          </div>
+          <div class="example">
+            <p>家族に頼まれてしまったから、断る<strong>わけにはいかない</strong>。</p>
+            <p class="note">（因为被家人拜托了，所以不能拒绝。）</p>
+          </div>
+          <p><strong>记忆点：</strong>情理上不能 → わけにはいかない。</p>
+          <h3 id="point5">5. ～に違いない</h3>
+          <p><strong>课本已有：</strong>名詞／形容動詞語幹＋な／イ形容詞／動詞普通形＋に違いない，表示“一定……”。</p>
+          <div class="key-point">
+            <div class="key-point-title">标准N2拓展重点（【非周业繁来源】）</div>
+            <ul>
+              <li><strong>有根据的推测：</strong>语气肯定，但不能接说话人的意志或命令<sup><a href="#cite-3">[3]</a></sup>。</li>
+              <li><strong>与「はずだ」区分：</strong>「に違いない」比「はずだ」更笃定，带有“八九不离十”的把握。</li>
+              <li><strong>例句：</strong>彼はきっと来る<strong>に違いない</strong>。</li>
+            </ul>
+          </div>
+          <div class="example">
+            <p>あの人が犯人<strong>に違いない</strong>。目撃情報と一致しているからだ。</p>
+            <p class="note">（那个人一定是犯人，因为和目击信息一致。）</p>
+          </div>
+          <div class="example">
+            <p>彼女はきっと合格した<strong>に違いない</strong>。毎日10時間も勉強していたのだから。</p>
+            <p class="note">（她一定合格了，因为她每天学习十个小时。）</p>
+          </div>
+          <p><strong>记忆点：</strong>有根据的肯定推测 → に違いない。</p>
+        </section>
+
+        <section id="compare">
+          <h2>横向对比总结</h2>
+          <p>将第24课中“意志/提议/义务/推测”相关句型按功能和语气整理如下。</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>句型</th>
+                  <th>功能</th>
+                  <th>语气</th>
+                  <th>后项限制</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="pattern">～う（よう）ではないか</span></td>
+                  <td>号召、劝诱</td>
+                  <td>积极、煽动</td>
+                  <td>常省略后项</td>
+                </tr>
+                <tr>
+                  <td><span class="pattern">～まいか</span></td>
+                  <td>犹豫</td>
+                  <td>内心摇摆</td>
+                  <td>同一动词前后对照</td>
+                </tr>
+                <tr>
+                  <td><span class="pattern">～べきだ</span></td>
+                  <td>义务/强烈建议</td>
+                  <td>强</td>
+                  <td>不能接过去时</td>
+                </tr>
+                <tr>
+                  <td><span class="pattern">～わけにはいかない</span></td>
+                  <td>因情理而不能</td>
+                  <td>受约束</td>
+                  <td>常接基本形/ない形</td>
+                </tr>
+                <tr>
+                  <td><span class="pattern">～に違いない</span></td>
+                  <td>肯定推测</td>
+                  <td>非常确定</td>
+                  <td>不接意志/命令</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      
+        
+        <section id="exam" class="exam-section">
+          <h2>历年真题 / 练习题</h2>
+          <p>以下题目来自 JLPT N2 历年真题或同难度练习题，用于巩固本课语法点的接续与使用场景。</p>
+<div class="exam-item">
+<div class="exam-q">みんなで協力し（　　　）。</div>
+<ul class="exam-choices">
+<li>1. ようではないか</li>
+<li>2. うものか</li>
+<li>3. うわけだ</li>
+<li>4. うはずだ</li>
+</ul>
+<div class="exam-answer">正解：1. ようではないか</div>
+<div class="exam-analysis"><strong>解析：</strong>正确答案是选项 <strong>1</strong>（ようではないか）。该题重点考查本课语法的接续与语境，请结合课内拓展点注意使用场景、后项限制及近义区别。</div>
+</div>
+<div class="exam-item">
+<div class="exam-q">もうあの人には頼る（　　　）。</div>
+<ul class="exam-choices">
+<li>1. まい</li>
+<li>2. ものか</li>
+<li>3. わけだ</li>
+<li>4. はずだ</li>
+</ul>
+<div class="exam-answer">正解：1. まい</div>
+<div class="exam-analysis"><strong>解析：</strong>正确答案是选项 <strong>1</strong>（まい）。该题重点考查本课语法的接续与语境，请结合课内拓展点注意使用场景、后项限制及近义区别。</div>
+</div>
+<div class="exam-item">
+<div class="exam-q">明日から禁煙する（　　　）だ。</div>
+<ul class="exam-choices">
+<li>1. つもり</li>
+<li>2. まい</li>
+<li>3. ものか</li>
+<li>4. わけ</li>
+</ul>
+<div class="exam-answer">正解：1. つもり</div>
+<div class="exam-analysis"><strong>解析：</strong>正确答案是选项 <strong>1</strong>（つもり）。该题重点考查本课语法的接续与语境，请结合课内拓展点注意使用场景、后项限制及近义区别。</div>
+</div>
+<div class="exam-item">
+<div class="exam-q">週末は早寝早起きする（　　　）にしている。</div>
+<ul class="exam-choices">
+<li>1. こと</li>
+<li>2. つもり</li>
+<li>3. わけ</li>
+<li>4. はず</li>
+</ul>
+<div class="exam-answer">正解：1. こと</div>
+<div class="exam-analysis"><strong>解析：</strong>正确答案是选项 <strong>1</strong>（こと）。该题重点考查本课语法的接续与语境，请结合课内拓展点注意使用场景、后项限制及近义区别。</div>
+</div>
+        </section>
+
+      </main>
+
+      <footer>
+        <div class="sources" id="sources">
+          <h2>来源</h2>
+          <ol>
+            <li id="cite-1">
+              <span class="src-title">新东方在线，《日语N2语法：提议、意志与推测》（2019）。</span>
+              <a class="src-url" href="https://m.koolearn.com/language/20190516/853658.html" target="_blank" rel="noopener">https://m.koolearn.com/language/20190516/853658.html</a>
+            </li>
+            <li id="cite-2">
+              <span class="src-title">Bilibili专栏，《N2语法辨析与学习笔记》（2023）。</span>
+              <a class="src-url" href="https://m.bilibili.com/opus/711259782816727088" target="_blank" rel="noopener">https://m.bilibili.com/opus/711259782816727088</a>
+            </li>
+            <li id="cite-3">
+              <span class="src-title">豆瓣读书，《新完全掌握日语能力考试N2级 语法》（学习者整理）。</span>
+              <a class="src-url" href="https://m.douban.com/book/subject/7000091/" target="_blank" rel="noopener">https://m.douban.com/book/subject/7000091/</a>
+            </li>
+          </ol>
+        </div>
+      </footer>
+    </article>
+  </div>
+
+  <script>
+    // Highlight current TOC item on scroll
+    const sections = document.querySelectorAll('section[id], h3[id]');
+    const tocLinks = document.querySelectorAll('.toc a');
+
+    function updateActive() {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop <= 120) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActive);
+    updateActive();
+  </script>
+</body>
+</html>
