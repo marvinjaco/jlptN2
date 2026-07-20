@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JLPT N2 每日阅读推送 - 2026年7月5日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Noto Sans CJK SC", "WenQuanYi Micro Hei", "Microsoft YaHei", sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.8;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .header h1 { font-size: 24px; margin-bottom: 8px; }
+        .header p { opacity: 0.9; font-size: 14px; }
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .article-header {
+            border-bottom: 2px solid #e8ecf1;
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+        .tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .article-title {
+            font-size: 20px;
+            color: #222;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .article-link {
+            font-size: 13px;
+            color: #667eea;
+            word-break: break-all;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #667eea;
+        }
+        .difficulty-box {
+            background: #f8f9fa;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .difficulty-box .level {
+            color: #e65100;
+            font-weight: 700;
+        }
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .vocab-item {
+            background: #fafafa;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border-left: 2px solid #90caf9;
+        }
+        .vocab-item .jp { font-weight: 600; color: #1565c0; }
+        .vocab-item .reading { font-size: 12px; color: #888; }
+        .vocab-item .cn { font-size: 13px; color: #555; }
+        .summary-jp {
+            background: #fff8e1;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 15px;
+            line-height: 2;
+            color: #333;
+        }
+        .summary-cn {
+            font-size: 14px;
+            color: #666;
+            padding: 10px 0;
+        }
+        .question-box {
+            background: #f3e5f5;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+        .question-box .q-num {
+            font-weight: 700;
+            color: #7b1fa2;
+            margin-bottom: 6px;
+        }
+        .question-box .q-text {
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .options {
+            margin-left: 16px;
+            font-size: 14px;
+        }
+        .answer-box {
+            background: #e8f5e9;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .answer-box h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        .answer-item {
+            font-size: 14px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #c8e6c9;
+        }
+        .answer-item:last-child { border-bottom: none; }
+        .answer-item .ans { font-weight: 700; color: #d32f2f; }
+        .answer-item .exp { color: #555; margin-top: 4px; }
+        .footer {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 30px;
+            padding: 20px;
+        }
+        .toc {
+            background: white;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .toc h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #222;
+        }
+        .toc ul { list-style: none; }
+        .toc li { margin-bottom: 10px; }
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .toc a:hover { text-decoration: underline; }
+        .toc .toc-section { font-weight: 700; color: #444; }
+        .toc .toc-item { padding-left: 16px; color: #666; }
+        @media (max-width: 600px) {
+            .vocab-grid { grid-template-columns: 1fr; }
+            body { padding: 10px; }
+            .article-card { padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>JLPT N2 每日阅读推送</h1>
+            <p>2026年7月5日 ｜ 精选 2 篇日语阅读材料</p>
+        </div>
+
+        <div class="toc" id="toc">
+            <h2>📑 目录索引</h2>
+            <ul>
+                <li class="toc-section"><a href="#article1">第一篇：AI技術を活用した新たな医療診断システムの開発に成功</a></li>
+                <li class="toc-item"><a href="#a1-difficulty">　难度判断</a></li>
+                <li class="toc-item"><a href="#a1-guide">　中文导读</a></li>
+                <li class="toc-item"><a href="#a1-summary">　文章摘要</a></li>
+                <li class="toc-item"><a href="#a1-vocab">　核心词汇</a></li>
+                <li class="toc-item"><a href="#a1-questions">　阅读理解题</a></li>
+                <li class="toc-section"><a href="#article2">第二篇：環境問題2026：気候危機と脱炭素、日本の転換点</a></li>
+                <li class="toc-item"><a href="#a2-difficulty">　难度判断</a></li>
+                <li class="toc-item"><a href="#a2-guide">　中文导读</a></li>
+                <li class="toc-item"><a href="#a2-summary">　文章摘要</a></li>
+                <li class="toc-item"><a href="#a2-vocab">　核心词汇</a></li>
+                <li class="toc-item"><a href="#a2-questions">　阅读理解题</a></li>
+            </ul>
+        </div>
+
+        <!-- Article 1 -->
+        <div class="article-card" id="article1">
+            <div class="article-header">
+                <span class="tag">科技 / 医药</span>
+                <h2 class="article-title">AI技術を活用した新たな医療診断システムの開発に成功</h2>
+                <div class="article-link">
+                    来源：<a href="https://nihonnews.jp.net/kagaku/AI/ai-77708.html" target="_blank">https://nihonnews.jp.net/kagaku/AI/ai-77708.html</a>
+                </div>
+            </div>
+
+            <div class="section" id="a1-difficulty">
+                <div class="section-title">难度判断</div>
+                <div class="difficulty-box">
+                    <span class="level">【N2 相当】</span><br>
+                    适合理由：本文属于说明性文章，围绕AI医疗诊断系统展开论述，结构清晰（背景→特征→展望→专家意见）。涉及的词汇如「実用化」「臨床試験」「パーソナライズド診断」「医療過疎」等属于N2~N1常见学术词汇；语法以中级敬体、被动语态、假定表达为主，与JLPT N2阅读理解中常见的「科学技術」「医療健康」题材高度吻合。
+                </div>
+            </div>
+
+            <div class="section" id="a1-guide">
+                <div class="section-title">中文导读</div>
+                <p class="summary-cn">
+                    本文介绍日本国内研究团队成功开发了一款利用AI技术的新型医疗诊断系统。该系统通过学习大量医疗数据，能够实现比传统方法更高精度、更迅速的诊断，尤其有望应用于癌症和心血管疾病的早期发现。文章还提及了该系统面临的伦理与规制挑战，适合关注科技与社会交叉议题的学习者阅读。
+                </p>
+            </div>
+
+            <div class="section" id="a1-summary">
+                <div class="section-title">文章摘要（阅读材料）</div>
+                <div class="summary-jp">
+                    国内の研究チームは、人工知能（AI）技術を活用した新たな医療診断システムの開発に成功した。このシステムは、大量の医療データを学習することで、従来よりも高精度かつ迅速な診断を実現する。特に画像診断の分野で大きな革新が期待され、がんや循環器疾患など幅広い疾患の早期発見に対応可能だ。研究チームは2026年度中の実用化を目指し、臨床試験を開始する予定である。実用化されれば、医療過疎地域での診断支援や医師の負担軽減に貢献するほか、患者の遺伝情報や生活習慣データを統合したパーソナライズド診断の実現も視野に入れている。一方、専門家は、実用化には倫理的な課題や規制の整備も必要だと指摘している。
+                </div>
+            </div>
+
+            <div class="section" id="a1-vocab">
+                <div class="section-title">核心词汇和表达</div>
+                <div class="vocab-grid">
+                    <div class="vocab-item">
+                        <div class="jp">人工知能（じんこうちのう）</div>
+                        <div class="cn">人工智能（AI）</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">活用（かつよう）する</div>
+                        <div class="cn">灵活应用，有效利用</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">診断（しんだん）</div>
+                        <div class="cn">诊断</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">実用化（じつようか）</div>
+                        <div class="cn">实用化，投入实际使用</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">臨床試験（りんしょうしけん）</div>
+                        <div class="cn">临床试验</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">医療過疎（いりょうかそ）地域</div>
+                        <div class="cn">医疗匮乏地区</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">負担軽減（ふたんけいげん）</div>
+                        <div class="cn">减轻负担</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">遺伝情報（いでんじょうほう）</div>
+                        <div class="cn">遗传信息</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">統合（とうごう）する</div>
+                        <div class="cn">整合，综合</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">視野（しや）に入れる</div>
+                        <div class="cn">纳入视野，作为备选</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">倫理的（りんりてき）課題</div>
+                        <div class="cn">伦理课题</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">規制（きせい）の整備</div>
+                        <div class="cn">完善规制/法规</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="a1-questions">
+                <div class="section-title">JLPT N2 风格阅读理解题</div>
+
+                <div class="question-box">
+                    <div class="q-num">問1（内容理解）</div>
+                    <div class="q-text">このシステムの主な特徴として、文章の内容と合っているものはどれか。</div>
+                    <div class="options">
+                        A　従来の方法より診断に時間がかかるが、精度は高い<br>
+                        B　がんの診断のみに特化したシステムである<br>
+                        C　医療データを学習し、高精度で迅速な診断が可能だ<br>
+                        D　すでに全国の病院で実用化されている
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="q-num">問2（推論）</div>
+                    <div class="q-text">「パーソナライズド診断」の実現によって、何が期待されているか。</div>
+                    <div class="options">
+                        A　診断コストの大幅な削減<br>
+                        B　患者一人ひとりに合わせた医療の提供<br>
+                        C　医師の数を増やすこと<br>
+                        D　すべての病気を完全に治すこと
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="q-num">問3（主旨理解）</div>
+                    <div class="q-text">専門家が指摘しているこのシステムの課題は何か。</div>
+                    <div class="options">
+                        A　診断精度が低いこと<br>
+                        B　倫理的な問題や規制の整備が必要なこと<br>
+                        C　開発に時間がかかりすぎること<br>
+                        D　対応できる疾患が少ないこと
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="q-num">問4（詳細）</div>
+                    <div class="q-text">2026年度中に研究チームが始める予定のものは何か。</div>
+                    <div class="options">
+                        A　全国での販売<br>
+                        B　臨床試験<br>
+                        C　海外への輸出<br>
+                        D　医師の育成プログラム
+                    </div>
+                </div>
+
+                <div class="answer-box">
+                    <h4>答案与解析</h4>
+                    <div class="answer-item">
+                        <span class="ans">問1 正解：C</span>
+                        <div class="exp">解析：文中明确提到「大量の医療データを学習することで、従来よりも高精度かつ迅速な診断を実現する」，与C选项一致。A与文中「迅速な診断」矛盾；B与「幅広い疾患」矛盾；D与「2026年度中の実用化を目指し」矛盾，说明尚未实用化。</div>
+                    </div>
+                    <div class="answer-item">
+                        <span class="ans">問2 正解：B</span>
+                        <div class="exp">解析：文中提到「より個別化された医療の提供が可能になると見込まれている」，「個別化された医療」即「患者一人ひとりに合わせた医療」。A、C、D均未在文中提及。</div>
+                    </div>
+                    <div class="answer-item">
+                        <span class="ans">問3 正解：B</span>
+                        <div class="exp">解析：文中直接引用専門家的意见：「実用化には倫理的な課題や規制の整備も必要だ」。A与文中「高精度」矛盾；C、D文中未提及。</div>
+                    </div>
+                    <div class="answer-item">
+                        <span class="ans">問4 正解：B</span>
+                        <div class="exp">解析：文中明确写道「2026年度中の実用化を目指し、臨床試験を開始する予定」。A「販売」、C「輸出」、D「育成プログラム」均未提及。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article 2 -->
+        <div class="article-card" id="article2">
+            <div class="article-header">
+                <span class="tag">社会 / 环境</span>
+                <h2 class="article-title">環境問題2026：気候危機と脱炭素、日本の転換点</h2>
+                <div class="article-link">
+                    来源：<a href="https://www.today-jp.com/news/japan-climate-crisis-2026-environmental-action" target="_blank">https://www.today-jp.com/news/japan-climate-crisis-2026-environmental-action</a>
+                </div>
+            </div>
+
+            <div class="section" id="a2-difficulty">
+                <div class="section-title">难度判断</div>
+                <div class="difficulty-box">
+                    <span class="level">【N2~N1 相当】</span><br>
+                    适合理由：本文属于社会/环境类说明文，是JLPT N2阅读中高频出现的题材。文章结构为「问题呈现→政策措施→技术革新→个人行动呼吁」，逻辑链条完整。词汇方面包含「脱炭素」「排出量取引制度」「ペロブスカイト太陽電池」「持続可能」等N2以上环境类高频词；语法方面涉及被动语态、使役被动、形式名词「もの」「こと」的辨析，适合N2学习者挑战长文阅读。
+                </div>
+            </div>
+
+            <div class="section" id="a2-guide">
+                <div class="section-title">中文导读</div>
+                <p class="summary-cn">
+                    2026年，全球气候行动正从"谈判"阶段转入"行动"阶段。日本也在本年度启动碳排放交易制度（GX-ETS），并加速钙钛矿太阳能电池的实用化。文章指出，环境议题已不再是专家与政府的专属领域，而是每个人都应参与的"身边事"。文章兼具数据支撑与情感呼吁，适合练习N2级别长文的信息提取与主旨归纳。
+                </p>
+            </div>
+
+            <div class="section" id="a2-summary">
+                <div class="section-title">文章摘要（阅读材料）</div>
+                <div class="summary-jp">
+                    2026年、世界は気候変動対策のフェーズを「交渉」から「行動」へと本格的に移行させている。大気中のCO2濃度は上昇を続け、日本国内でも大雨の頻度増加や猛暑日の増加が顕著だ。こうした中、日本では2026年度から「GX-ETS（排出量取引制度）」の導入など、脱炭素社会への移行を担う制度が動き出している。技術革新の面では、ペロブスカイト太陽電池の実用化が注目されており、建物の壁面や乗り物に貼り付ける柔軟性を持つこの新素材は、日本が世界トップクラスの埋蔵量を誇るヨウ素が原料となる。環境問題に対する国民の関心も高まっており、専門家は気候危機を「脅威」ではなく「社会変革のチャンス」として捉える必要性を提言している。
+                </div>
+            </div>
+
+            <div class="section" id="a2-vocab">
+                <div class="section-title">核心词汇和表达</div>
+                <div class="vocab-grid">
+                    <div class="vocab-item">
+                        <div class="jp">気候変動（きこうへんどう）</div>
+                        <div class="cn">气候变化</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">脱炭素（だつたんそ）</div>
+                        <div class="cn">脱碳，零碳</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">フェーズ</div>
+                        <div class="cn">阶段，时期</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">本格的（ほんかくてき）</div>
+                        <div class="cn">正式的，真正的</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">顕著（けんちょ）</div>
+                        <div class="cn">显著的，明显的</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">排出量取引制度（はいしゅつりょうとりひきせいど）</div>
+                        <div class="cn">碳排放交易制度</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">ペロブスカイト太陽電池</div>
+                        <div class="cn">钙钛矿太阳能电池</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">実用化（じつようか）</div>
+                        <div class="cn">实用化</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">柔軟性（じゅうなんせい）</div>
+                        <div class="cn">柔韧性，灵活性</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">埋蔵量（まいぞうりょう）</div>
+                        <div class="cn">蕴藏量，储量</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">誇（ほこ）る</div>
+                        <div class="cn">拥有，自豪于</div>
+                    </div>
+                    <div class="vocab-item">
+                        <div class="jp">提言（ていげん）する</div>
+                        <div class="cn">建议，提议</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="a2-questions">
+                <div class="section-title">JLPT N2 风格阅读理解题</div>
+
+                <div class="question-box">
+                    <div class="q-num">問1（内容理解）</div>
+                    <div class="q-text">日本で2026年度から導入される制度はどれか。</div>
+                    <div class="options">
+                        A　再生可能エネルギーの無償提供制度<br>
+                        B　GX-ETS（排出量取引制度）<br>
+                        C　ガソリン車の完全禁止<br>
+                        D　国民一人ひとりへの環境補助金
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="q-num">問2（推論）</div>
+                    <div class="q-text">ペロブスカイト太陽電池が「日本発のイノベーション」と言える理由は何か。</div>
+                    <div class="options">
+                        A　日本でしか使われないから<br>
+                        B　原料のヨウ素の埋蔵量が日本が世界トップクラスだから<br>
+                        C　日本の政治家が発明したから<br>
+                        D　日本の気候にしか合わないから
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="q-num">問3（主旨理解）</div>
+                    <div class="q-text">筆者が最も言いたいことは何か。</div>
+                    <div class="options">
+                        A　環境問題は専門家の仕事である<br>
+                        B　技術革新だけで環境問題は解決する<br>
+                        C　環境問題は「自分事」として行動する必要がある<br>
+                        D　日本は環境問題に対して十分な対策をしている
+                    </div>
+                </div>
+
+                <div class="question-box">
+                    <div class="q-num">問4（詳細）</div>
+                    <div class="q-text">現在の政策のままでは、今世紀中の地球の平均気温はどうなると予測されているか。</div>
+                    <div class="options">
+                        A　約1.5℃上昇する<br>
+                        B　約2.8℃上昇する<br>
+                        C　変化はない<br>
+                        D　低下する
+                    </div>
+                </div>
+
+                <div class="answer-box">
+                    <h4>答案与解析</h4>
+                    <div class="answer-item">
+                        <span class="ans">問1 正解：B</span>
+                        <div class="exp">解析：文中明确写道「日本では2026年度から『GX-ETS（排出量取引制度）』の導入など、脱炭素社会への移行を担う制度が動き出している」。A、C、D均未在文中提及。</div>
+                    </div>
+                    <div class="answer-item">
+                        <span class="ans">問2 正解：B</span>
+                        <div class="exp">解析：文中提到「日本が世界トップクラスの埋蔵量を誇るヨウ素が原料となるこの技術は、エネルギー自給率の向上にも寄与する、まさに日本発のイノベーションと言える」。关键信息是原料ヨウ素的埋蔵量。A、C、D与原文不符。</div>
+                    </div>
+                    <div class="answer-item">
+                        <span class="ans">問3 正解：C</span>
+                        <div class="exp">解析：文章结尾部分强调「環境問題は専門家や政治家だけのものではない」「私たち一人ひとりの選択が、未来のCO2濃度を決める」，核心主旨是将环境问题视为每个人的"身边事"并付诸行动。A与文章观点相反；B过于片面；D文中未肯定。</div>
+                    </div>
+                    <div class="answer-item">
+                        <span class="ans">問4 正解：B</span>
+                        <div class="exp">解析：文中直接引用UNEP报告：「現在の政策のままであれば、今世紀中に地球の平均気温は約2.8℃上昇すると予測されている」。A的1.5℃是巴黎协定的目标而非预测值。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>推送日期：2026年7月5日 ｜ 内容整理自公开新闻报道，仅供日语学习参考</p>
+            <p>学习建议：建议先通读日文摘要，标记不懂的词汇，再回答问题，最后对照解析反思。</p>
+        </div>
+    </div>
+</body>
+</html>
