@@ -42,29 +42,42 @@
   }
   .top-controls {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  .top-row-1 {
+    display: flex;
+    justify-content: center;
+  }
+  .top-row-2 {
+    display: flex;
+    gap: 10px;
     align-items: center;
-    margin-bottom: 20px;
-    gap: 15px;
-    flex-wrap: wrap;
+  }
+  .top-row-2 > * {
+    flex: 1;
   }
   .mode-selector {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 0;
+    flex-wrap: nowrap;
+    width: 100%;
   }
   .mode-btn {
-    padding: 12px 24px;
+    flex: 1;
+    padding: 10px 12px;
     border: 2px solid #e94560;
     background: transparent;
     color: #e94560;
-    border-radius: 30px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.85rem;
     transition: all 0.3s;
     font-weight: bold;
+    min-width: 0;
+    white-space: nowrap;
   }
   .mode-btn:hover {
     background: rgba(233, 69, 96, 0.1);
@@ -81,16 +94,17 @@
     flex-wrap: wrap;
   }
   .wrong-note-toggle {
-    padding: 10px 18px;
+    padding: 10px 12px;
     border: 2px solid #e94560;
     background: transparent;
     color: #ff9090;
-    border-radius: 25px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     transition: all 0.3s;
     font-weight: bold;
     white-space: nowrap;
+    text-align: center;
   }
   .wrong-note-toggle:hover {
     background: rgba(233, 69, 96, 0.15);
@@ -115,42 +129,56 @@
 
   .line-filter {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    border: 2px solid #e94560;
     position: relative;
-    z-index: 10;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    z-index: 100;
+    min-width: 0;
   }
   .line-filter-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 8px 12px;
     cursor: pointer;
     -webkit-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    background: transparent;
+    border: none;
+    width: 100%;
+    padding: 8px 0;
+    font-family: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: manipulation;
+  }
+  .line-filter-header:active {
+    opacity: 0.7;
   }
   .line-filter-title {
-    font-size: 0.9rem;
-    color: #c0c0e0;
+    font-size: 0.8rem;
+    color: #ff9090;
     font-weight: bold;
+    pointer-events: none;
   }
   .line-filter-toggle {
-    font-size: 0.8rem;
-    color: #a0a0c0;
+    font-size: 0.7rem;
+    color: #ff9090;
     transition: transform 0.3s;
+    pointer-events: none;
+    flex-shrink: 0;
+    margin-left: 8px;
   }
   .line-filter.open .line-filter-toggle {
     transform: rotate(180deg);
   }
   .line-filter-groups {
     display: none;
-    gap: 15px;
+    gap: 12px;
     flex-direction: column;
+    padding: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   .line-filter.open .line-filter-groups {
     display: flex;
@@ -171,17 +199,20 @@
     gap: 5px;
   }
   .line-btn {
-    padding: 4px 10px;
+    padding: 8px 14px;
+    min-height: 32px;
     border: 1px solid rgba(255, 255, 255, 0.15);
     background: transparent;
     color: #a0a0c0;
-    border-radius: 12px;
+    border-radius: 16px;
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     transition: all 0.2s;
     -webkit-appearance: none;
     appearance: none;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    line-height: 1;
   }
   .line-btn:hover {
     border-color: #e94560;
@@ -309,6 +340,38 @@
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+  }
+  .button-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  .button-row button {
+    flex: 1;
+    padding: 12px 8px;
+    font-size: 0.85rem;
+    border-radius: 10px;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .next-btn-small {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .next-btn-small:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
+  }
+  .next-btn-small:active {
+    transform: translateY(0);
   }
   #answerInput {
     flex: 1;
@@ -683,6 +746,347 @@
   }
   .pulse { animation: pulse 0.5s ease; }
 
+  /* Station list view */
+  .view-toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .view-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: #a0a0c0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .view-btn:hover {
+    color: #fff;
+  }
+  .view-btn.active {
+    background: linear-gradient(135deg, #5b8def, #4a6fd4);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(91, 141, 239, 0.3);
+  }
+  .station-list-view {
+    display: none;
+  }
+  .station-list-view.show {
+    display: block;
+  }
+  .station-list-game {
+    display: block;
+  }
+  .station-list-game.hide {
+    display: none;
+  }
+  .sl-line {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .sl-line-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s;
+    touch-action: manipulation;
+  }
+  .sl-line-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .sl-line-header:active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .sl-line-name {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #f0c060;
+  }
+  .sl-line-count {
+    font-size: 0.75rem;
+    color: #a0a0c0;
+    margin-left: 8px;
+    font-weight: normal;
+  }
+  .sl-line-toggle {
+    font-size: 0.75rem;
+    color: #a0a0c0;
+    transition: transform 0.3s;
+  }
+  .sl-line.open .sl-line-toggle {
+    transform: rotate(180deg);
+  }
+  .sl-line-stations {
+    display: none;
+    padding: 0 16px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
+  }
+  .sl-line.open .sl-line-stations {
+    display: block;
+  }
+  .sl-station-row {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .sl-station-name {
+    color: #fff;
+    font-weight: bold;
+    cursor: default;
+  }
+  .sl-station-kana {
+    font-size: 0.7rem;
+    color: #a0a0c0;
+    margin-left: 3px;
+    font-weight: normal;
+  }
+  .sl-station-arrow {
+    color: #533483;
+    margin: 0 4px;
+    font-weight: bold;
+  }
+  .sl-category-title {
+    font-size: 0.8rem;
+    color: #8080a0;
+    font-weight: bold;
+    margin: 15px 0 8px;
+    padding-left: 4px;
+    letter-spacing: 1px;
+  }
+  .sl-category-title:first-child {
+    margin-top: 0;
+  }
+  .sl-search {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .sl-search:focus {
+    border-color: #e94560;
+  }
+  .sl-search::placeholder {
+    color: #606080;
+  }
+  .sl-index {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+  }
+  .sl-index-btn {
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    color: #c0c0e0;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .sl-index-btn:hover {
+    background: rgba(91, 141, 239, 0.2);
+    border-color: #5b8def;
+    color: #fff;
+  }
+  .sl-index-btn:active {
+    transform: scale(0.96);
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .modal-overlay.show {
+    display: flex;
+  }
+  .modal {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    animation: modalIn 0.3s ease;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .modal-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #f0c060;
+  }
+  .modal-close {
+    background: none;
+    border: none;
+    color: #a0a0c0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 8px;
+    transition: color 0.2s;
+  }
+  .modal-close:hover {
+    color: #fff;
+  }
+  .clickable-line {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .clickable-line:hover {
+    background: rgba(233, 69, 96, 0.3) !important;
+    border-color: #e94560 !important;
+    transform: scale(1.05);
+  }
+
+  /* Line Select Modal */
+  .ls-modal-all {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 8px;
+  }
+  .ls-modal-all .line-btn {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+  .ls-modal-all .clear-btn {
+    flex: 1;
+    background: rgba(255, 100, 100, 0.15);
+    border-color: rgba(255, 100, 100, 0.4);
+    color: #ff8080;
+  }
+  .ls-modal-all .clear-btn:hover {
+    background: rgba(255, 100, 100, 0.25);
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+  }
+  .ls-modal-all .clear-btn:active {
+    transform: scale(0.97);
+  }
+  .ls-modal-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 50vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ls-modal-group-title {
+    font-size: 0.8rem;
+    color: #8080a0;
+    font-weight: bold;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .ls-modal-group-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .ls-modal-group-btns .line-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  .ls-modal-group-btns .line-btn.active {
+    background: #5b8def;
+    border-color: #5b8def;
+    color: #fff;
+  }
+  .ls-modal-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .ls-modal-done {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #5b8def, #4a6fd4);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    position: relative;
+    z-index: 1;
+    touch-action: manipulation;
+    min-height: 48px;
+  }
+  .ls-modal-done:hover {
+    transform: translateY(-1px);
+    -webkit-transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(91, 141, 239, 0.4);
+  }
+  .ls-modal-done:active {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    opacity: 0.9;
+  }
+
   @media (max-width: 500px) {
     h1 { font-size: 1.5rem; }
     .kana-box { width: 80px; height: 80px; font-size: 2rem; }
@@ -698,23 +1102,32 @@
   <h1>🚃 東京駅名クイズ</h1>
   <p class="subtitle">首尾の文字から駅名を当てよう！</p>
 
-  <div class="top-controls">
-    <div class="mode-selector">
-      <button class="mode-btn active" data-mode="simple">首尾文字モード</button>
-      <button class="mode-btn" data-mode="hint">ヒント付きモード</button>
-    </div>
-    <button class="wrong-note-toggle" id="wrongNoteToggle">
-      📝 間違えノート <span class="wn-count" id="wrongNoteCount">0</span>
-    </button>
+  <div class="view-toggle">
+    <button class="view-btn active" id="viewGameBtn">🎮 クイズ</button>
+    <button class="view-btn" id="viewListBtn">📋 駅一覧</button>
   </div>
 
-  <div class="line-filter" id="lineFilter">
-    <div class="line-filter-header" id="lineFilterHeader" role="button" tabindex="0" onclick="">
-      <span class="line-filter-title">🚇 路線を選択 <span id="selectedLineCount" style="font-size:0.75rem;color:#a0a0c0;">（全路線）</span></span>
-      <span class="line-filter-toggle">▼</span>
+  <div class="station-list-game" id="gameView">
+  <div class="top-controls">
+    <div class="top-row-1">
+      <div class="mode-selector">
+        <button class="mode-btn active" data-mode="simple">首尾文字モード</button>
+        <button class="mode-btn" data-mode="hint">ヒント付きモード</button>
+      </div>
     </div>
-    <div class="line-filter-groups" id="lineFilterGroups">
-      <!-- Line buttons will be generated by JS -->
+    <div class="top-row-2">
+      <button class="wrong-note-toggle" id="wrongNoteToggle">
+        📝 間違えノート <span class="wn-count" id="wrongNoteCount">0</span>
+      </button>
+      <div class="line-filter" id="lineFilter">
+        <button class="line-filter-header" id="lineFilterHeader" type="button" onclick="openLineSelectModal()">
+          <span class="line-filter-title">🚇 路線 <span id="selectedLineCount" style="font-size:0.75rem;color:#a0a0c0;">（全路線）</span></span>
+          <span class="line-filter-toggle">▼</span>
+        </button>
+        <div class="line-filter-groups" id="lineFilterGroups">
+          <!-- Line buttons will be generated by JS -->
+        </div>
+      </div>
     </div>
   </div>
 
@@ -756,13 +1169,14 @@
     <div class="input-area">
       <div class="input-row">
         <input type="text" id="answerInput" placeholder="駅名をひらがなで入力..." autocomplete="off">
+      </div>
+      <div class="button-row">
+        <button class="submit-btn" id="submitBtn">答える</button>
+        <button class="next-btn-small" id="nextBtn">次へ</button>
         <button class="hint-btn" id="hintBtn">
           ヒント<span class="hint-count" id="hintCount">3</span>
         </button>
-        <button class="submit-btn" id="submitBtn">答える</button>
-      </div>
-      <div class="input-row">
-        <button class="skip-btn" id="skipBtn" style="flex:1;">わからない（スキップ）</button>
+        <button class="skip-btn" id="skipBtn">わからない</button>
       </div>
     </div>
 
@@ -788,7 +1202,6 @@
           <div id="answerList" style="display: flex; flex-direction: column; gap: 6px;"></div>
         </div>
       </div>
-      <button class="next-btn" id="nextBtn">次の問題へ →</button>
     </div>
   </div>
 
@@ -801,9 +1214,21 @@
       <div class="history-empty">まだ履歴はありません</div>
     </div>
   </div>
+  </div> <!-- /gameView -->
+
+  <!-- Station List View -->
+  <div class="station-list-view" id="listView">
+    <input type="text" class="sl-search" id="slSearch" placeholder="🔍 駅名・かな・路線で検索...">
+    <div class="sl-index" id="slIndex">
+      <!-- Index buttons generated by JS -->
+    </div>
+    <div id="slGroups">
+      <!-- Groups will be generated by JS -->
+    </div>
+  </div>
 
   <div class="footer">
-    東京メトロ・都営地下鉄・JR山手線 他 計 <span id="totalStations">0</span> 駅収録
+    東京メトロ・都営地下鉄・JR・私鉄 計 <span id="totalStations">0</span> 駅収録
   </div>
 </div>
 
@@ -1696,16 +2121,16 @@ let historyList = [];
 // Line groups definition
 const lineGroups = [
   {
+    name: 'JR',
+    lines: ['JR山手線', 'JR京浜東北線', 'JR根岸線', 'JR横須賀線', 'JR総武快速線', 'JR京葉線', 'JR武蔵野線', 'JR南武線', 'JR埼京線', 'JR湘南新宿ライン', 'JR上野東京ライン', 'JR常磐線各駅停車', 'JR中央線快速', 'JR総武線各駅停車', 'JR東海道線']
+  },
+  {
     name: '東京メトロ',
     lines: ['銀座線', '丸ノ内線', '日比谷線', '東西線', '千代田線', '有楽町線', '半蔵門線', '南北線', '副都心線']
   },
   {
     name: '都営地下鉄',
     lines: ['都営浅草線', '都営三田線', '都営新宿線', '都営大江戸線']
-  },
-  {
-    name: 'JR',
-    lines: ['JR山手線', 'JR京浜東北線', 'JR根岸線', 'JR横須賀線', 'JR総武快速線', 'JR京葉線', 'JR武蔵野線', 'JR南武線', 'JR埼京線', 'JR湘南新宿ライン', 'JR上野東京ライン', 'JR常磐線各駅停車', 'JR中央線快速', 'JR総武線各駅停車', 'JR東海道線']
   },
   {
     name: '私鉄・その他',
@@ -1756,38 +2181,39 @@ function initLineFilter() {
   
   container.innerHTML = html;
   
-  // Add click handlers
-  container.querySelectorAll('.line-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const line = btn.dataset.line;
+  // Use event delegation for more reliable click handling
+  function handleLineBtnClick(e) {
+    const btn = e.target.closest('.line-btn');
+    if (!btn) return;
+    
+    const line = btn.dataset.line;
+    
+    if (line === '__all__') {
+      selectedLines.clear();
+      container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    } else {
+      const allBtn = container.querySelector('.line-btn.all-btn');
+      allBtn.classList.remove('active');
       
-      if (line === '__all__') {
-        selectedLines.clear();
-        container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      } else {
-        // Toggle individual line
-        const allBtn = container.querySelector('.line-btn.all-btn');
-        allBtn.classList.remove('active');
-        
-        if (selectedLines.has(line)) {
-          selectedLines.delete(line);
-          btn.classList.remove('active');
-          // If nothing selected, default to all
-          if (selectedLines.size === 0) {
-            allBtn.classList.add('active');
-          }
-        } else {
-          selectedLines.add(line);
-          btn.classList.add('active');
+      if (selectedLines.has(line)) {
+        selectedLines.delete(line);
+        btn.classList.remove('active');
+        if (selectedLines.size === 0) {
+          allBtn.classList.add('active');
         }
+      } else {
+        selectedLines.add(line);
+        btn.classList.add('active');
       }
-      
-      updateSelectedLineCount();
-      usedHeadTails.clear();
-      nextQuestion();
-    });
-  });
+    }
+    
+    updateSelectedLineCount();
+    usedHeadTails.clear();
+    nextQuestion();
+  }
+  
+  container.addEventListener('click', handleLineBtnClick);
 }
 
 function updateSelectedLineCount() {
@@ -1813,7 +2239,9 @@ document.getElementById('lineFilterHeader').addEventListener('keydown', (e) => {
 
 // Get filtered stations based on selected lines and wrong note mode
 function getFilteredStations() {
-  let filtered = uniqueStations;
+  // 元のDBからフィルターして、その後で重複排除
+  // （uniqueStations を使うと路線情報が1つしか残らず、路線フィルターが漏れるため）
+  let filtered = stationDB.slice();
   
   // Wrong note mode: use stations from history (wrong answers + hint-used answers)
   if (wrongNoteMode) {
@@ -1824,13 +2252,19 @@ function getFilteredStations() {
       }
     });
     filtered = filtered.filter(s => wrongKanjiSet.has(s.kanji));
-    return filtered;
-  }
-  
-  // Filter by selected lines
-  if (selectedLines.size > 0) {
+  } else if (selectedLines.size > 0) {
+    // Filter by selected lines
     filtered = filtered.filter(s => selectedLines.has(s.line));
   }
+  
+  // 重複排除（漢字ベースで最初の1件を採用）
+  const seen = new Set();
+  filtered = filtered.filter(s => {
+    const key = s.kanji + s.kana;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
   
   return filtered;
 }
@@ -2136,7 +2570,7 @@ function showResult(isCorrect, userAnswer) {
         <span style="color: #a0a0c0; font-size: 0.85rem; margin-left: 6px;">（${s.kana}）</span>
       </div>
       <div style="display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end;">
-        ${s.lines.map(l => `<span class="history-tag line-tag">${l}</span>`).join('')}
+        ${s.lines.map(l => `<span class="history-tag line-tag clickable-line" onclick="showLineModal('${l}')">${l} ↗</span>`).join('')}
       </div>
     </div>
   `).join('');
@@ -2288,10 +2722,310 @@ function updateWrongNoteCount() {
   document.getElementById('wrongNoteCount').textContent = wrongKanjiSet.size;
 }
 
+// ===== 駅一覧ビュー =====
+let currentView = 'game'; // game or list
+
+function switchView(view) {
+  currentView = view;
+  const gameView = document.getElementById('gameView');
+  const listView = document.getElementById('listView');
+  const gameBtn = document.getElementById('viewGameBtn');
+  const listBtn = document.getElementById('viewListBtn');
+  
+  if (view === 'game') {
+    gameView.classList.remove('hide');
+    listView.classList.remove('show');
+    gameBtn.classList.add('active');
+    listBtn.classList.remove('active');
+  } else {
+    gameView.classList.add('hide');
+    listView.classList.add('show');
+    gameBtn.classList.remove('active');
+    listBtn.classList.add('active');
+    renderStationList();
+  }
+}
+
+document.getElementById('viewGameBtn').addEventListener('click', () => switchView('game'));
+document.getElementById('viewListBtn').addEventListener('click', () => switchView('list'));
+
+// Build stations grouped by line for list view
+function buildLineStationMap() {
+  const map = {};
+  stationDB.forEach(s => {
+    if (!map[s.line]) {
+      map[s.line] = [];
+    }
+    // Avoid duplicates within same line
+    if (!map[s.line].find(x => x.kanji === s.kanji)) {
+      map[s.line].push({ kanji: s.kanji, kana: s.kana });
+    }
+  });
+  return map;
+}
+
+// Render station list view - line list with → connected stations
+function renderStationList(searchQuery = '') {
+  const container = document.getElementById('slGroups');
+  const indexContainer = document.getElementById('slIndex');
+  const lineMap = buildLineStationMap();
+  const query = searchQuery.toLowerCase().trim();
+  
+  // Filter groups that have content
+  const visibleGroups = lineGroups.filter(group => {
+    return group.lines.some(line => {
+      if (!query) return true;
+      if (line.toLowerCase().includes(query)) return true;
+      const stations = lineMap[line] || [];
+      return stations.some(s => 
+        s.kanji.toLowerCase().includes(query) || 
+        s.kana.toLowerCase().includes(query)
+      );
+    });
+  });
+  
+  // Render index (only when not searching)
+  if (!query && visibleGroups.length > 0) {
+    indexContainer.style.display = 'flex';
+    indexContainer.innerHTML = visibleGroups.map((g, i) => `
+      <button class="sl-index-btn" onclick="document.getElementById('sl-group-${i}').scrollIntoView({behavior:'smooth',block:'start'})">
+        ${g.name}
+      </button>
+    `).join('');
+  } else {
+    indexContainer.style.display = 'none';
+  }
+  
+  let html = '';
+  
+  visibleGroups.forEach((group, groupIdx) => {
+    const groupLines = group.lines.filter(line => {
+      if (!query) return true;
+      if (line.toLowerCase().includes(query)) return true;
+      const stations = lineMap[line] || [];
+      return stations.some(s => 
+        s.kanji.toLowerCase().includes(query) || 
+        s.kana.toLowerCase().includes(query)
+      );
+    });
+    
+    if (groupLines.length === 0) return;
+    
+    html += `<div class="sl-category-title" id="sl-group-${groupIdx}">${group.name}</div>`;
+    
+    groupLines.forEach(line => {
+      const stations = lineMap[line] || [];
+      let filteredStations = stations;
+      if (query) {
+        filteredStations = stations.filter(s => 
+          s.kanji.toLowerCase().includes(query) || 
+          s.kana.toLowerCase().includes(query)
+        );
+      }
+      if (filteredStations.length === 0 && query) return;
+      
+      const stationHtml = filteredStations.map((s, i) => `
+        <span class="sl-station-name">${s.kanji}<span class="sl-station-kana">${s.kana}</span></span>
+        ${i < filteredStations.length - 1 ? '<span class="sl-station-arrow">→</span>' : ''}
+      `).join('');
+      
+      html += `
+        <div class="sl-line">
+          <div class="sl-line-header" onclick="this.parentElement.classList.toggle('open')">
+            <span>
+              <span class="sl-line-name">${line}</span>
+              <span class="sl-line-count">${stations.length}駅</span>
+            </span>
+            <span class="sl-line-toggle">▼</span>
+          </div>
+          <div class="sl-line-stations">
+            <div class="sl-station-row">${stationHtml}</div>
+          </div>
+        </div>
+      `;
+    });
+  });
+  
+  if (!html) {
+    html = '<div style="text-align: center; color: #8080a0; padding: 40px 0;">該当する路線・駅がありません</div>';
+  }
+  
+  container.innerHTML = html;
+}
+
+// Search
+document.getElementById('slSearch').addEventListener('input', (e) => {
+  renderStationList(e.target.value);
+});
+
+// ===== 路線選択モーダル =====
+function openLineSelectModal() {
+  const modal = document.getElementById('lineSelectModal');
+  const container = document.getElementById('lsModalGroups');
+  const allBtn = document.getElementById('lsSelectAll');
+  
+  // Build group HTML
+  let html = '';
+  lineGroups.forEach((group, gi) => {
+    html += `
+      <div class="ls-modal-group">
+        <div class="ls-modal-group-title">${group.name}</div>
+        <div class="ls-modal-group-btns">
+          ${group.lines.map(line => {
+            const isActive = selectedLines.has(line);
+            return `<button class="line-btn ${isActive ? 'active' : ''}" type="button" data-line="${line}">${line}</button>`;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+  
+  // Update "all" button state
+  allBtn.classList.toggle('active', selectedLines.size === 0);
+  
+  // Event delegation
+  function handleClick(e) {
+    const btn = e.target.closest('.line-btn');
+    if (!btn) return;
+    
+    const line = btn.dataset.line;
+    if (line === '__all__') {
+      // Select all
+      selectedLines.clear();
+      container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
+      allBtn.classList.add('active');
+    } else {
+      allBtn.classList.remove('active');
+      if (selectedLines.has(line)) {
+        selectedLines.delete(line);
+        btn.classList.remove('active');
+        if (selectedLines.size === 0) {
+          allBtn.classList.add('active');
+        }
+      } else {
+        selectedLines.add(line);
+        btn.classList.add('active');
+      }
+    }
+  }
+  
+  container.onclick = handleClick;
+  allBtn.onclick = function() {
+    selectedLines.clear();
+    container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+  };
+  const clearBtn = document.getElementById('lsClearAll');
+  clearBtn.onclick = function() {
+    selectedLines.clear();
+    container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+  };
+  
+  modal.classList.add('show');
+  
+  // 背景点击关闭（在元素存在时绑定）
+  modal.onclick = function(e) {
+    if (e.target === modal) closeLineSelectModal();
+  };
+}
+
+// 确保全局可访问（内联onclick用）
+window.closeLineSelectModal = closeLineSelectModal;
+window.openLineSelectModal = openLineSelectModal;
+
+function closeLineSelectModal() {
+  // 先关闭弹窗，确保一定能关闭
+  const modal = document.getElementById('lineSelectModal');
+  if (modal) modal.classList.remove('show');
+  
+  try {
+    updateSelectedLineCount();
+    usedHeadTails.clear();
+    nextQuestion();
+  } catch (e) {
+    console.error('closeLineSelectModal error:', e);
+  }
+}
+
+document.getElementById('lineSelectClose').addEventListener('click', closeLineSelectModal);
+document.getElementById('lsModalDone').addEventListener('click', closeLineSelectModal);
+document.getElementById('lineSelectModal').addEventListener('click', (e) => {
+  if (e.target.id === 'lineSelectModal') closeLineSelectModal();
+});
+
+// ===== 路線モーダル =====
+function showLineModal(lineName) {
+  const modal = document.getElementById('lineModal');
+  const title = document.getElementById('modalTitle');
+  const content = document.getElementById('modalContent');
+  
+  const lineMap = buildLineStationMap();
+  const stations = lineMap[lineName] || [];
+  
+  title.textContent = `${lineName}（全${stations.length}駅）`;
+  
+  const stationHtml = stations.map((s, i) => `
+    <span class="sl-station-name">${s.kanji}<span class="sl-station-kana">${s.kana}</span></span>
+    ${i < stations.length - 1 ? '<span class="sl-station-arrow">→</span>' : ''}
+  `).join('');
+  
+  content.innerHTML = `<div class="sl-station-row">${stationHtml}</div>`;
+  
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('lineModal').classList.remove('show');
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('lineModal').addEventListener('click', (e) => {
+  if (e.target.id === 'lineModal') closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// グローバル関数として登録（内联onclick用）
+window.closeModal = closeModal;
+window.showLineModal = showLineModal;
+
 // ===== ゲーム開始 =====
 initLineFilter();
 updateWrongNoteCount();
 nextQuestion();
 </script>
+
+<!-- Line Station Modal -->
+<div class="modal-overlay" id="lineModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">路線の駅一覧</div>
+      <button class="modal-close" id="modalClose" onclick="closeModal()">&times;</button>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- Line Select Modal -->
+<div class="modal-overlay" id="lineSelectModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🚇 路線を選択</div>
+      <button class="modal-close" id="lineSelectClose" onclick="closeLineSelectModal()">&times;</button>
+    </div>
+    <div class="ls-modal-all">
+      <button class="line-btn all-btn active" type="button" id="lsSelectAll">全路線</button>
+      <button class="line-btn clear-btn" type="button" id="lsClearAll">クリア</button>
+    </div>
+    <div class="ls-modal-groups" id="lsModalGroups"></div>
+    <div class="ls-modal-footer">
+      <button class="ls-modal-done" type="button" id="lsModalDone" onclick="closeLineSelectModal()">完了</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
