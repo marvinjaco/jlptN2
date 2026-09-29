@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日本都市かなクイズ - 首尾文字で当てる！</title>
+<title>東京駅名クイズ - 首尾文字で当てる！</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   button, input {
@@ -86,6 +86,13 @@
     background: #e94560;
     color: #fff;
   }
+  .difficulty-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
   .wrong-note-toggle {
     padding: 10px 12px;
     border: 2px solid #e94560;
@@ -120,7 +127,7 @@
     text-align: center;
   }
 
-  .pref-filter {
+  .line-filter {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     border: 2px solid #e94560;
@@ -128,7 +135,7 @@
     z-index: 100;
     min-width: 0;
   }
-  .pref-filter-header {
+  .line-filter-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -146,16 +153,16 @@
     appearance: none;
     touch-action: manipulation;
   }
-  .pref-filter-header:active {
+  .line-filter-header:active {
     opacity: 0.7;
   }
-  .pref-filter-title {
+  .line-filter-title {
     font-size: 0.8rem;
     color: #ff9090;
     font-weight: bold;
     pointer-events: none;
   }
-  .pref-filter-toggle {
+  .line-filter-toggle {
     font-size: 0.7rem;
     color: #ff9090;
     transition: transform 0.3s;
@@ -163,35 +170,35 @@
     flex-shrink: 0;
     margin-left: 8px;
   }
-  .pref-filter.open .pref-filter-toggle {
+  .line-filter.open .line-filter-toggle {
     transform: rotate(180deg);
   }
-  .pref-filter-groups {
+  .line-filter-groups {
     display: none;
     gap: 12px;
     flex-direction: column;
     padding: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
-  .pref-filter.open .pref-filter-groups {
+  .line-filter.open .line-filter-groups {
     display: flex;
   }
-  .pref-group {
+  .line-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
-  .pref-group-title {
+  .line-group-title {
     font-size: 0.75rem;
     color: #8080a0;
     margin-bottom: 2px;
   }
-  .pref-group-btns {
+  .line-group-btns {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
   }
-  .pref-btn {
+  .line-btn {
     padding: 8px 14px;
     min-height: 32px;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -207,21 +214,21 @@
     touch-action: manipulation;
     line-height: 1;
   }
-  .pref-btn:hover {
+  .line-btn:hover {
     border-color: #e94560;
     color: #e94560;
   }
-  .pref-btn.active {
+  .line-btn.active {
     background: #e94560;
     color: #fff;
     border-color: #e94560;
   }
-  .pref-btn.all-btn {
+  .line-btn.all-btn {
     border-color: #533483;
     color: #c0a0e0;
     font-weight: bold;
   }
-  .pref-btn.all-btn.active {
+  .line-btn.all-btn.active {
     background: #533483;
     color: #fff;
   }
@@ -495,21 +502,21 @@
     box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
   }
 
-  .place-info {
+  .station-info {
     display: flex;
     gap: 15px;
     align-items: center;
     flex-wrap: wrap;
   }
-  .place-kanji {
+  .station-kanji {
     font-size: 1.5rem;
     font-weight: bold;
   }
-  .place-kana {
+  .station-kana {
     color: #a0a0c0;
     font-size: 1rem;
   }
-  .place-pref {
+  .station-line {
     font-size: 0.8rem;
     padding: 3px 10px;
     background: rgba(255, 255, 255, 0.1);
@@ -693,7 +700,7 @@
     flex: 1;
     min-width: 0;
   }
-  .history-place {
+  .history-station {
     font-weight: bold;
     font-size: 0.95rem;
   }
@@ -718,7 +725,7 @@
     background: rgba(243, 156, 18, 0.2);
     color: #f39c12;
   }
-  .history-tag.pref-tag {
+  .history-tag.line-tag {
     background: rgba(78, 205, 196, 0.15);
     color: #4ecdc4;
   }
@@ -746,7 +753,7 @@
   }
   .pulse { animation: pulse 0.5s ease; }
 
-  /* Place list view */
+  /* Station list view */
   .view-toggle {
     display: flex;
     gap: 0;
@@ -793,19 +800,19 @@
     color: #fff;
     background: rgba(91, 141, 239, 0.2);
   }
-  .place-list-view {
+  .station-list-view {
     display: none;
   }
-  .place-list-view.show {
+  .station-list-view.show {
     display: block;
   }
-  .place-list-game {
+  .station-list-game {
     display: block;
   }
-  .place-list-game.hide {
+  .station-list-game.hide {
     display: none;
   }
-  .sl-pref {
+  .sl-line {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     margin-bottom: 8px;
@@ -814,7 +821,7 @@
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
-  .sl-pref-header {
+  .sl-line-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -826,58 +833,58 @@
     transition: background 0.2s;
     touch-action: manipulation;
   }
-  .sl-pref-header:hover {
+  .sl-line-header:hover {
     background: rgba(255, 255, 255, 0.05);
   }
-  .sl-pref-header:active {
+  .sl-line-header:active {
     background: rgba(255, 255, 255, 0.1);
   }
-  .sl-pref-name {
+  .sl-line-name {
     font-size: 0.95rem;
     font-weight: bold;
     color: #f0c060;
   }
-  .sl-pref-count {
+  .sl-line-count {
     font-size: 0.75rem;
     color: #a0a0c0;
     margin-left: 8px;
     font-weight: normal;
   }
-  .sl-pref-toggle {
+  .sl-line-toggle {
     font-size: 0.75rem;
     color: #a0a0c0;
     transition: transform 0.3s;
   }
-  .sl-pref.open .sl-pref-toggle {
+  .sl-line.open .sl-line-toggle {
     transform: rotate(180deg);
   }
-  .sl-pref-places {
+  .sl-line-stations {
     display: none;
     padding: 0 16px 14px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-top: 12px;
   }
-  .sl-pref.open .sl-pref-places {
+  .sl-line.open .sl-line-stations {
     display: block;
   }
-  .sl-place-row {
+  .sl-station-row {
     font-size: 0.85rem;
     line-height: 1.8;
     word-break: keep-all;
     overflow-wrap: anywhere;
   }
-  .sl-place-name {
+  .sl-station-name {
     color: #fff;
     font-weight: bold;
     cursor: default;
   }
-  .sl-place-kana {
+  .sl-station-kana {
     font-size: 0.7rem;
     color: #a0a0c0;
     margin-left: 3px;
     font-weight: normal;
   }
-  .sl-place-arrow {
+  .sl-station-arrow {
     color: #533483;
     margin: 0 4px;
     font-weight: bold;
@@ -998,43 +1005,43 @@
   .modal-close:hover {
     color: #fff;
   }
-  .clickable-pref {
+  .clickable-line {
     cursor: pointer;
     transition: all 0.2s;
   }
-  .clickable-pref:hover {
+  .clickable-line:hover {
     background: rgba(233, 69, 96, 0.3) !important;
     border-color: #e94560 !important;
     transform: scale(1.05);
   }
 
-  /* Pref Select Modal */
-  .ps-modal-all {
+  /* Line Select Modal */
+  .ls-modal-all {
     margin-bottom: 12px;
     display: flex;
     gap: 8px;
   }
-  .ps-modal-all .pref-btn {
+  .ls-modal-all .line-btn {
     flex: 1;
     padding: 10px 16px;
     font-size: 0.9rem;
     border-radius: 10px;
   }
-  .ps-modal-all .clear-btn {
+  .ls-modal-all .clear-btn {
     flex: 1;
     background: rgba(255, 100, 100, 0.15);
     border-color: rgba(255, 100, 100, 0.4);
     color: #ff8080;
   }
-  .ps-modal-all .clear-btn:hover {
+  .ls-modal-all .clear-btn:hover {
     background: rgba(255, 100, 100, 0.25);
     border-color: #ff6b6b;
     color: #ff6b6b;
   }
-  .ps-modal-all .clear-btn:active {
+  .ls-modal-all .clear-btn:active {
     transform: scale(0.97);
   }
-  .ps-modal-groups {
+  .ls-modal-groups {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -1042,33 +1049,33 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
-  .ps-modal-group-title {
+  .ls-modal-group-title {
     font-size: 0.8rem;
     color: #8080a0;
     font-weight: bold;
     margin-bottom: 6px;
     letter-spacing: 1px;
   }
-  .ps-modal-group-btns {
+  .ls-modal-group-btns {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
   }
-  .ps-modal-group-btns .pref-btn {
+  .ls-modal-group-btns .line-btn {
     padding: 6px 12px;
     font-size: 0.8rem;
   }
-  .ps-modal-group-btns .pref-btn.active {
+  .ls-modal-group-btns .line-btn.active {
     background: #5b8def;
     border-color: #5b8def;
     color: #fff;
   }
-  .ps-modal-footer {
+  .ls-modal-footer {
     margin-top: 20px;
     padding-top: 15px;
     border-top: 1px solid rgba(255,255,255,0.1);
   }
-  .ps-modal-done {
+  .ls-modal-done {
     width: 100%;
     padding: 16px;
     background: linear-gradient(135deg, #5b8def, #4a6fd4);
@@ -1089,12 +1096,12 @@
     touch-action: manipulation;
     min-height: 48px;
   }
-  .ps-modal-done:hover {
+  .ls-modal-done:hover {
     transform: translateY(-1px);
     -webkit-transform: translateY(-1px);
     box-shadow: 0 4px 15px rgba(91, 141, 239, 0.4);
   }
-  .ps-modal-done:active {
+  .ls-modal-done:active {
     transform: translateY(0);
     -webkit-transform: translateY(0);
     opacity: 0.9;
@@ -1112,17 +1119,17 @@
 </head>
 <body>
 <div class="container">
-  <h1>🗾 日本都市かなクイズ</h1>
-  <p class="subtitle">首尾の文字から都市名を当てよう！</p>
+  <h1>🚃 東京駅名クイズ</h1>
+  <p class="subtitle">首尾の文字から駅名を当てよう！</p>
 
   <div class="view-toggle">
-    <a class="view-btn view-btn-link" href="tokyo_station_game.html">🚇 駅クイズ</a>
-    <a class="view-btn view-btn-link" href="tokyo_station_game.html?view=list">📋 駅一覧</a>
-    <button class="view-btn active" id="viewGameBtn">🎮 都市クイズ</button>
-    <button class="view-btn" id="viewListBtn">📋 都市一覧</button>
+    <button class="view-btn active" id="viewGameBtn">🎮 駅クイズ</button>
+    <button class="view-btn" id="viewListBtn">📋 駅一覧</button>
+    <a class="view-btn view-btn-link" href="japan_city_game.html">🗾 都市クイズ</a>
+    <a class="view-btn view-btn-link" href="japan_city_game.html?view=list">📋 都市一覧</a>
   </div>
 
-  <div class="place-list-game" id="gameView">
+  <div class="station-list-game" id="gameView">
   <div class="top-controls">
     <div class="top-row-1">
       <div class="mode-selector">
@@ -1134,13 +1141,13 @@
       <button class="wrong-note-toggle" id="wrongNoteToggle">
         📝 間違えノート <span class="wn-count" id="wrongNoteCount">0</span>
       </button>
-      <div class="pref-filter" id="prefFilter">
-        <button class="pref-filter-header" id="prefFilterHeader" type="button" onclick="openPrefSelectModal()">
-          <span class="pref-filter-title">🗾 地域 <span id="selectedPrefCount" style="font-size:0.75rem;color:#a0a0c0;">（全都道府県）</span></span>
-          <span class="pref-filter-toggle">▼</span>
+      <div class="line-filter" id="lineFilter">
+        <button class="line-filter-header" id="lineFilterHeader" type="button" onclick="openLineSelectModal()">
+          <span class="line-filter-title">🚇 路線 <span id="selectedLineCount" style="font-size:0.75rem;color:#a0a0c0;">（全路線）</span></span>
+          <span class="line-filter-toggle">▼</span>
         </button>
-        <div class="pref-filter-groups" id="prefFilterGroups">
-          <!-- Pref buttons will be generated by JS -->
+        <div class="line-filter-groups" id="lineFilterGroups">
+          <!-- Line buttons will be generated by JS -->
         </div>
       </div>
     </div>
@@ -1183,7 +1190,7 @@
 
     <div class="input-area">
       <div class="input-row">
-        <input type="text" id="answerInput" placeholder="都市名をひらがなで入力..." autocomplete="off">
+        <input type="text" id="answerInput" placeholder="駅名をひらがなで入力..." autocomplete="off">
       </div>
       <div class="button-row">
         <button class="submit-btn" id="submitBtn">答える</button>
@@ -1201,20 +1208,20 @@
         <div class="result-text" id="resultText"></div>
       </div>
       <div id="allAnswersContainer">
-        <div class="place-info" id="userAnswerInfo" style="display:none;">
+        <div class="station-info" id="userAnswerInfo" style="display:none;">
           <div class="history-icon" style="font-size:1.2rem;">🎯</div>
           <div style="flex:1;">
             <div style="font-size:0.85rem; color:#a0a0c0; margin-bottom:3px;">あなたの答え</div>
             <div>
-              <span class="place-kanji" id="userKanji"></span>
-              <span class="place-kana" id="userKana"></span>
+              <span class="station-kanji" id="userKanji"></span>
+              <span class="station-kana" id="userKana"></span>
             </div>
           </div>
-          <span class="place-pref" id="userPref"></span>
+          <span class="station-line" id="userLine"></span>
         </div>
         <div style="margin-top: 15px;">
           <div style="font-size:0.85rem; color:#a0a0c0; margin-bottom:8px;">
-            正解の都市（<span id="answerCount">0</span>都市）
+            正解の駅（<span id="answerCount">0</span>駅）
           </div>
           <div id="answerList" style="display: flex; flex-direction: column; gap: 6px;"></div>
         </div>
@@ -1233,9 +1240,9 @@
   </div>
   </div> <!-- /gameView -->
 
-  <!-- Place List View -->
-  <div class="place-list-view" id="listView">
-    <input type="text" class="sl-search" id="slSearch" placeholder="🔍 都市名・かな・都道府県で検索...">
+  <!-- Station List View -->
+  <div class="station-list-view" id="listView">
+    <input type="text" class="sl-search" id="slSearch" placeholder="🔍 駅名・かな・路線で検索...">
     <div class="sl-index" id="slIndex">
       <!-- Index buttons generated by JS -->
     </div>
@@ -1245,613 +1252,1124 @@
   </div>
 
   <div class="footer">
-    47都道府県・主要都市 計 <span id="totalPlaces">0</span> 件収録
+    東京メトロ・都営地下鉄・JR・私鉄 計 <span id="totalStations">0</span> 駅収録
   </div>
 </div>
 
 <script>
-// ===== 都市データベース =====
-// データ形式: { kanji: 漢字名, kana: ひらがな, prefecture: 都道府県, region: 地方 }
-const placeDB = [
-  // === 北海道地方 ===
-  { kanji: "北海道", kana: "ほっかいどう", prefecture: "北海道", region: "北海道" },
-  { kanji: "札幌", kana: "さっぽろ", prefecture: "北海道", region: "北海道" },
-  { kanji: "函館", kana: "はこだて", prefecture: "北海道", region: "北海道" },
-  { kanji: "小樽", kana: "おたる", prefecture: "北海道", region: "北海道" },
-  { kanji: "旭川", kana: "あさひかわ", prefecture: "北海道", region: "北海道" },
-  { kanji: "帯広", kana: "おびひろ", prefecture: "北海道", region: "北海道" },
-  { kanji: "釧路", kana: "くしろ", prefecture: "北海道", region: "北海道" },
-  { kanji: "北見", kana: "きたみ", prefecture: "北海道", region: "北海道" },
-  { kanji: "室蘭", kana: "むろらん", prefecture: "北海道", region: "北海道" },
-  { kanji: "千歳", kana: "ちとせ", prefecture: "北海道", region: "北海道" },
-  { kanji: "苫小牧", kana: "とまこまい", prefecture: "北海道", region: "北海道" },
+// ===== 駅データベース =====
+// データ形式: { kanji: 漢字名, kana: ひらがな, line: 路線名 }
+const stationDB = [
+  // === 東京メトロ 銀座線 ===
+  { kanji: "渋谷", kana: "しぶや", line: "銀座線" },
+  { kanji: "表参道", kana: "おもてさんどう", line: "銀座線" },
+  { kanji: "外苑前", kana: "がいえんまえ", line: "銀座線" },
+  { kanji: "青山一丁目", kana: "あおやまいっちょうめ", line: "銀座線" },
+  { kanji: "赤坂見附", kana: "あかさかみつけ", line: "銀座線" },
+  { kanji: "溜池山王", kana: "ためいけさんのう", line: "銀座線" },
+  { kanji: "虎ノ門", kana: "とらのもん", line: "銀座線" },
+  { kanji: "新橋", kana: "しんばし", line: "銀座線" },
+  { kanji: "銀座", kana: "ぎんざ", line: "銀座線" },
+  { kanji: "京橋", kana: "きょうばし", line: "銀座線" },
+  { kanji: "日本橋", kana: "にほんばし", line: "銀座線" },
+  { kanji: "三越前", kana: "みつこしまえ", line: "銀座線" },
+  { kanji: "神田", kana: "かんだ", line: "銀座線" },
+  { kanji: "末広町", kana: "すえひろちょう", line: "銀座線" },
+  { kanji: "上野広小路", kana: "うえのひろこうじ", line: "銀座線" },
+  { kanji: "上野", kana: "うえの", line: "銀座線" },
+  { kanji: "稲荷町", kana: "いなりちょう", line: "銀座線" },
+  { kanji: "田原町", kana: "たわらまち", line: "銀座線" },
+  { kanji: "浅草", kana: "あさくさ", line: "銀座線" },
 
-  // === 東北地方 ===
-  { kanji: "青森県", kana: "あおもりけん", prefecture: "青森県", region: "東北" },
-  { kanji: "青森", kana: "あおもり", prefecture: "青森県", region: "東北" },
-  { kanji: "八戸", kana: "はちのへ", prefecture: "青森県", region: "東北" },
-  { kanji: "弘前", kana: "ひろさき", prefecture: "青森県", region: "東北" },
-  { kanji: "むつ", kana: "むつ", prefecture: "青森県", region: "東北" },
+  // === 東京メトロ 丸ノ内線 ===
+  { kanji: "荻窪", kana: "おぎくぼ", line: "丸ノ内線" },
+  { kanji: "南阿佐ケ谷", kana: "みなみあさがや", line: "丸ノ内線" },
+  { kanji: "新高円寺", kana: "しんこうえんじ", line: "丸ノ内線" },
+  { kanji: "東高円寺", kana: "ひがしこうえんじ", line: "丸ノ内線" },
+  { kanji: "新中野", kana: "しんなかの", line: "丸ノ内線" },
+  { kanji: "中野富士見町", kana: "なかのふじみちょう", line: "丸ノ内線" },
+  { kanji: "中野新橋", kana: "なかのしんばし", line: "丸ノ内線" },
+  { kanji: "中野坂上", kana: "なかのさかうえ", line: "丸ノ内線" },
+  { kanji: "西新宿", kana: "にししんじゅく", line: "丸ノ内線" },
+  { kanji: "新宿", kana: "しんじゅく", line: "丸ノ内線" },
+  { kanji: "新宿三丁目", kana: "しんじゅくさんちょうめ", line: "丸ノ内線" },
+  { kanji: "新宿御苑前", kana: "しんじゅくぎょえんまえ", line: "丸ノ内線" },
+  { kanji: "四ツ谷", kana: "よつや", line: "丸ノ内線" },
+  { kanji: "四谷三丁目", kana: "よつやさんちょうめ", line: "丸ノ内線" },
+  { kanji: "赤坂見附", kana: "あかさかみつけ", line: "丸ノ内線" },
+  { kanji: "国会議事堂前", kana: "こっかいぎじどうまえ", line: "丸ノ内線" },
+  { kanji: "霞ケ関", kana: "かすみがせき", line: "丸ノ内線" },
+  { kanji: "銀座", kana: "ぎんざ", line: "丸ノ内線" },
+  { kanji: "京橋", kana: "きょうばし", line: "丸ノ内線" },
+  { kanji: "大手町", kana: "おおてまち", line: "丸ノ内線" },
+  { kanji: "淡路町", kana: "あわじちょう", line: "丸ノ内線" },
+  { kanji: "御茶ノ水", kana: "おちゃのみず", line: "丸ノ内線" },
+  { kanji: "本郷三丁目", kana: "ほんごうさんちょうめ", line: "丸ノ内線" },
+  { kanji: "後楽園", kana: "こうらくえん", line: "丸ノ内線" },
+  { kanji: "茗荷谷", kana: "みょうがだに", line: "丸ノ内線" },
+  { kanji: "新大塚", kana: "しんおおつか", line: "丸ノ内線" },
+  { kanji: "池袋", kana: "いけぶくろ", line: "丸ノ内線" },
+  { kanji: "向ケ丘遊園", kana: "むかいがおかゆうえん", line: "丸ノ内線" },
+  { kanji: "方南町", kana: "ほうなんちょう", line: "丸ノ内線" },
+  { kanji: "中野新橋", kana: "なかのしんばし", line: "丸ノ内線" },
 
-  { kanji: "岩手県", kana: "いわてけん", prefecture: "岩手県", region: "東北" },
-  { kanji: "盛岡", kana: "もりおか", prefecture: "岩手県", region: "東北" },
-  { kanji: "花巻", kana: "はなまき", prefecture: "岩手県", region: "東北" },
-  { kanji: "奥州", kana: "おうしゅう", prefecture: "岩手県", region: "東北" },
-  { kanji: "一関", kana: "いちのせき", prefecture: "岩手県", region: "東北" },
+  // === 東京メトロ 日比谷線 ===
+  { kanji: "中目黒", kana: "なかめぐろ", line: "日比谷線" },
+  { kanji: "恵比寿", kana: "えびす", line: "日比谷線" },
+  { kanji: "広尾", kana: "ひろお", line: "日比谷線" },
+  { kanji: "六本木", kana: "ろっぽんぎ", line: "日比谷線" },
+  { kanji: "神谷町", kana: "かみやちょう", line: "日比谷線" },
+  { kanji: "霞ケ関", kana: "かすみがせき", line: "日比谷線" },
+  { kanji: "日比谷", kana: "ひびや", line: "日比谷線" },
+  { kanji: "銀座", kana: "ぎんざ", line: "日比谷線" },
+  { kanji: "東銀座", kana: "ひがしぎんざ", line: "日比谷線" },
+  { kanji: "築地", kana: "つきじ", line: "日比谷線" },
+  { kanji: "八丁堀", kana: "はっちょうぼり", line: "日比谷線" },
+  { kanji: "茅場町", kana: "かやばちょう", line: "日比谷線" },
+  { kanji: "人形町", kana: "にんぎょうちょう", line: "日比谷線" },
+  { kanji: "小伝馬町", kana: "こでんまちょう", line: "日比谷線" },
+  { kanji: "秋葉原", kana: "あきはばら", line: "日比谷線" },
+  { kanji: "仲御徒町", kana: "なかおかちまち", line: "日比谷線" },
+  { kanji: "上野", kana: "うえの", line: "日比谷線" },
+  { kanji: "入谷", kana: "いりや", line: "日比谷線" },
+  { kanji: "三ノ輪", kana: "みのわ", line: "日比谷線" },
+  { kanji: "南千住", kana: "みなみせんじゅ", line: "日比谷線" },
+  { kanji: "北千住", kana: "きたせんじゅ", line: "日比谷線" },
 
-  { kanji: "宮城県", kana: "みやぎけん", prefecture: "宮城県", region: "東北" },
-  { kanji: "仙台", kana: "せんだい", prefecture: "宮城県", region: "東北" },
-  { kanji: "石巻", kana: "いしのまき", prefecture: "宮城県", region: "東北" },
-  { kanji: "塩竈", kana: "しおがま", prefecture: "宮城県", region: "東北" },
-  { kanji: "気仙沼", kana: "けせんぬま", prefecture: "宮城県", region: "東北" },
-  { kanji: "古川", kana: "ふるかわ", prefecture: "宮城県", region: "東北" },
+  // === 東京メトロ 東西線 ===
+  { kanji: "中野", kana: "なかの", line: "東西線" },
+  { kanji: "落合", kana: "おちあい", line: "東西線" },
+  { kanji: "高田馬場", kana: "たかだのばば", line: "東西線" },
+  { kanji: "早稲田", kana: "わせだ", line: "東西線" },
+  { kanji: "神楽坂", kana: "かぐらざか", line: "東西線" },
+  { kanji: "飯田橋", kana: "いいだばし", line: "東西線" },
+  { kanji: "九段下", kana: "くだんした", line: "東西線" },
+  { kanji: "竹橋", kana: "たけばし", line: "東西線" },
+  { kanji: "大手町", kana: "おおてまち", line: "東西線" },
+  { kanji: "日本橋", kana: "にほんばし", line: "東西線" },
+  { kanji: "茅場町", kana: "かやばちょう", line: "東西線" },
+  { kanji: "門前仲町", kana: "もんぜんなかちょう", line: "東西線" },
+  { kanji: "木場", kana: "きば", line: "東西線" },
+  { kanji: "東陽町", kana: "とうようちょう", line: "東西線" },
+  { kanji: "南砂町", kana: "みなみすなまち", line: "東西線" },
+  { kanji: "西葛西", kana: "にしかさい", line: "東西線" },
+  { kanji: "葛西", kana: "かさい", line: "東西線" },
+  { kanji: "浦安", kana: "うらやす", line: "東西線" },
+  { kanji: "南行徳", kana: "みなみぎょうとく", line: "東西線" },
+  { kanji: "行徳", kana: "ぎょうとく", line: "東西線" },
+  { kanji: "妙典", kana: "みょうでん", line: "東西線" },
+  { kanji: "原木中山", kana: "ばらきなかやま", line: "東西線" },
+  { kanji: "西船橋", kana: "にしふなばし", line: "東西線" },
 
-  { kanji: "秋田県", kana: "あきたけん", prefecture: "秋田県", region: "東北" },
-  { kanji: "秋田", kana: "あきた", prefecture: "秋田県", region: "東北" },
-  { kanji: "横手", kana: "よこて", prefecture: "秋田県", region: "東北" },
-  { kanji: "大館", kana: "おおだて", prefecture: "秋田県", region: "東北" },
-  { kanji: "男鹿", kana: "おが", prefecture: "秋田県", region: "東北" },
+  // === 東京メトロ 千代田線 ===
+  { kanji: "北綾瀬", kana: "きたあやせ", line: "千代田線" },
+  { kanji: "綾瀬", kana: "あやせ", line: "千代田線" },
+  { kanji: "亀有", kana: "かめあり", line: "千代田線" },
+  { kanji: "お花茶屋", kana: "おはなや", line: "千代田線" },
+  { kanji: "谷津", kana: "やつ", line: "千代田線" },
+  { kanji: "町屋", kana: "まちや", line: "千代田線" },
+  { kanji: "西日暮里", kana: "にしにっぽり", line: "千代田線" },
+  { kanji: "千駄木", kana: "せんだぎ", line: "千代田線" },
+  { kanji: "根津", kana: "ねづ", line: "千代田線" },
+  { kanji: "湯島", kana: "ゆしま", line: "千代田線" },
+  { kanji: "新御茶ノ水", kana: "しんおちゃのみず", line: "千代田線" },
+  { kanji: "大手町", kana: "おおてまち", line: "千代田線" },
+  { kanji: "二重橋前", kana: "にじゅうばしまえ", line: "千代田線" },
+  { kanji: "日比谷", kana: "ひびや", line: "千代田線" },
+  { kanji: "霞ケ関", kana: "かすみがせき", line: "千代田線" },
+  { kanji: "赤坂", kana: "あかさか", line: "千代田線" },
+  { kanji: "乃木坂", kana: "のぎざか", line: "千代田線" },
+  { kanji: "表参道", kana: "おもてさんどう", line: "千代田線" },
+  { kanji: "明治神宮前", kana: "めいじじんぐうまえ", line: "千代田線" },
+  { kanji: "代々木公園", kana: "よよぎこうえん", line: "千代田線" },
+  { kanji: "代々木上原", kana: "よよぎうえはら", line: "千代田線" },
 
-  { kanji: "山形県", kana: "やまがたけん", prefecture: "山形県", region: "東北" },
-  { kanji: "山形", kana: "やまがた", prefecture: "山形県", region: "東北" },
-  { kanji: "米沢", kana: "よねざわ", prefecture: "山形県", region: "東北" },
-  { kanji: "鶴岡", kana: "つるおか", prefecture: "山形県", region: "東北" },
-  { kanji: "酒田", kana: "さかた", prefecture: "山形県", region: "東北" },
-  { kanji: "天童", kana: "てんどう", prefecture: "山形県", region: "東北" },
+  // === 東京メトロ 有楽町線 ===
+  { kanji: "和光市", kana: "わこうし", line: "有楽町線" },
+  { kanji: "小竹向原", kana: "こたけむかいはら", line: "有楽町線" },
+  { kanji: "千川", kana: "せんかわ", line: "有楽町線" },
+  { kanji: "要町", kana: "かなめちょう", line: "有楽町線" },
+  { kanji: "池袋", kana: "いけぶくろ", line: "有楽町線" },
+  { kanji: "雑司が谷", kana: "ぞうしがや", line: "有楽町線" },
+  { kanji: "西早稲田", kana: "にしわせだ", line: "有楽町線" },
+  { kanji: "東新宿", kana: "ひがししんじゅく", line: "有楽町線" },
+  { kanji: "新宿三丁目", kana: "しんじゅくさんちょうめ", line: "有楽町線" },
+  { kanji: "北参道", kana: "きたさんどう", line: "有楽町線" },
+  { kanji: "明治神宮前", kana: "めいじじんぐうまえ", line: "有楽町線" },
+  { kanji: "渋谷", kana: "しぶや", line: "有楽町線" },
+  { kanji: "銀座一丁目", kana: "ぎんざいっちょうめ", line: "有楽町線" },
+  { kanji: "有楽町", kana: "ゆうらくちょう", line: "有楽町線" },
+  { kanji: "新富町", kana: "しんとみちょう", line: "有楽町線" },
+  { kanji: "月島", kana: "つきしま", line: "有楽町線" },
+  { kanji: "勝どき", kana: "かちどき", line: "有楽町線" },
+  { kanji: "辰巳", kana: "たつみ", line: "有楽町線" },
+  { kanji: "豊洲", kana: "とよす", line: "有楽町線" },
+  { kanji: "月島", kana: "つきしま", line: "有楽町線" },
+  { kanji: "新木場", kana: "しんきば", line: "有楽町線" },
 
-  { kanji: "福島県", kana: "ふくしまけん", prefecture: "福島県", region: "東北" },
-  { kanji: "福島", kana: "ふくしま", prefecture: "福島県", region: "東北" },
-  { kanji: "郡山", kana: "こおりやま", prefecture: "福島県", region: "東北" },
-  { kanji: "いわき", kana: "いわき", prefecture: "福島県", region: "東北" },
-  { kanji: "会津若松", kana: "あいづわかまつ", prefecture: "福島県", region: "東北" },
-  { kanji: "須賀川", kana: "すかがわ", prefecture: "福島県", region: "東北" },
+  // === 東京メトロ 半蔵門線 ===
+  { kanji: "渋谷", kana: "しぶや", line: "半蔵門線" },
+  { kanji: "表参道", kana: "おもてさんどう", line: "半蔵門線" },
+  { kanji: "青山一丁目", kana: "あおやまいっちょうめ", line: "半蔵門線" },
+  { kanji: "半蔵門", kana: "はんぞうもん", line: "半蔵門線" },
+  { kanji: "虎ノ門", kana: "とらのもん", line: "半蔵門線" },
+  { kanji: "霞ケ関", kana: "かすみがせき", line: "半蔵門線" },
+  { kanji: "神保町", kana: "じんぼうちょう", line: "半蔵門線" },
+  { kanji: "小川町", kana: "おがわまち", line: "半蔵門線" },
+  { kanji: "三越前", kana: "みつこしまえ", line: "半蔵門線" },
+  { kanji: "水天宮前", kana: "すいてんぐうまえ", line: "半蔵門線" },
+  { kanji: "清澄白河", kana: "きよすみしらかわ", line: "半蔵門線" },
+  { kanji: "住吉", kana: "すみよし", line: "半蔵門線" },
+  { kanji: "錦糸町", kana: "きんしちょう", line: "半蔵門線" },
+  { kanji: "押上", kana: "おしあげ", line: "半蔵門線" },
+  { kanji: "鬼怒川温泉", kana: "きぬがわおんせん", line: "半蔵門線" },
 
-  // === 関東地方 ===
-  { kanji: "茨城県", kana: "いばらきけん", prefecture: "茨城県", region: "関東" },
-  { kanji: "水戸", kana: "みと", prefecture: "茨城県", region: "関東" },
-  { kanji: "つくば", kana: "つくば", prefecture: "茨城県", region: "関東" },
-  { kanji: "日立", kana: "ひたち", prefecture: "茨城県", region: "関東" },
-  { kanji: "土浦", kana: "つちうら", prefecture: "茨城県", region: "関東" },
-  { kanji: "鹿嶋", kana: "かしま", prefecture: "茨城県", region: "関東" },
+  // === 東京メトロ 南北線 ===
+  { kanji: "赤羽岩淵", kana: "あかばねいわぶち", line: "南北線" },
+  { kanji: "志茂", kana: "しも", line: "南北線" },
+  { kanji: "新三河島", kana: "しんみかわじま", line: "南北線" },
+  { kanji: "西ヶ原", kana: "にしがはら", line: "南北線" },
+  { kanji: "王子神谷", kana: "おうじかみや", line: "南北線" },
+  { kanji: "王子", kana: "おうじ", line: "南北線" },
+  { kanji: "飛鳥山", kana: "あすかやま", line: "南北線" },
+  { kanji: "上池袋", kana: "かみいけぶくろ", line: "南北線" },
+  { kanji: "後楽園", kana: "こうらくえん", line: "南北線" },
+  { kanji: "飯田橋", kana: "いいだばし", line: "南北線" },
+  { kanji: "市ケ谷", kana: "いちがや", line: "南北線" },
+  { kanji: "四ツ谷", kana: "よつや", line: "南北線" },
+  { kanji: "永田町", kana: "ながたちょう", line: "南北線" },
+  { kanji: "溜池山王", kana: "ためいけさんのう", line: "南北線" },
+  { kanji: "六本木一丁目", kana: "ろっぽんぎいっちょうめ", line: "南北線" },
+  { kanji: "麻布十番", kana: "あざぶじゅうばん", line: "南北線" },
+  { kanji: "白金高輪", kana: "しろかねたかなわ", line: "南北線" },
+  { kanji: "白金台", kana: "しろかねだい", line: "南北線" },
+  { kanji: "目黒", kana: "めぐろ", line: "南北線" },
 
-  { kanji: "栃木県", kana: "とちぎけん", prefecture: "栃木県", region: "関東" },
-  { kanji: "宇都宮", kana: "うつのみや", prefecture: "栃木県", region: "関東" },
-  { kanji: "足利", kana: "あしかが", prefecture: "栃木県", region: "関東" },
-  { kanji: "栃木", kana: "とちぎ", prefecture: "栃木県", region: "関東" },
-  { kanji: "日光", kana: "にっこう", prefecture: "栃木県", region: "関東" },
-  { kanji: "那須塩原", kana: "なすしおばら", prefecture: "栃木県", region: "関東" },
+  // === 東京メトロ 副都心線 ===
+  { kanji: "和光市", kana: "わこうし", line: "副都心線" },
+  { kanji: "小竹向原", kana: "こたけむかいはら", line: "副都心線" },
+  { kanji: "千川", kana: "せんかわ", line: "副都心線" },
+  { kanji: "要町", kana: "かなめちょう", line: "副都心線" },
+  { kanji: "池袋", kana: "いけぶくろ", line: "副都心線" },
+  { kanji: "雑司が谷", kana: "ぞうしがや", line: "副都心線" },
+  { kanji: "西早稲田", kana: "にしわせだ", line: "副都心線" },
+  { kanji: "東新宿", kana: "ひがししんじゅく", line: "副都心線" },
+  { kanji: "新宿三丁目", kana: "しんじゅくさんちょうめ", line: "副都心線" },
+  { kanji: "北参道", kana: "きたさんどう", line: "副都心線" },
+  { kanji: "明治神宮前", kana: "めいじじんぐうまえ", line: "副都心線" },
+  { kanji: "渋谷", kana: "しぶや", line: "副都心線" },
 
-  { kanji: "群馬県", kana: "ぐんまけん", prefecture: "群馬県", region: "関東" },
-  { kanji: "前橋", kana: "まえばし", prefecture: "群馬県", region: "関東" },
-  { kanji: "高崎", kana: "たかさき", prefecture: "群馬県", region: "関東" },
-  { kanji: "桐生", kana: "きりゅう", prefecture: "群馬県", region: "関東" },
-  { kanji: "伊勢崎", kana: "いせさき", prefecture: "群馬県", region: "関東" },
-  { kanji: "渋川", kana: "しぶかわ", prefecture: "群馬県", region: "関東" },
+  // === 都営地下鉄 浅草線 ===
+  { kanji: "西馬込", kana: "にしまごめ", line: "都営浅草線" },
+  { kanji: "馬込", kana: "まごめ", line: "都営浅草線" },
+  { kanji: "中延", kana: "なかのぶ", line: "都営浅草線" },
+  { kanji: "戸越", kana: "とごし", line: "都営浅草線" },
+  { kanji: "五反田", kana: "ごたんだ", line: "都営浅草線" },
+  { kanji: "高輪台", kana: "たかなわだい", line: "都営浅草線" },
+  { kanji: "泉岳寺", kana: "せんがくじ", line: "都営浅草線" },
+  { kanji: "三田", kana: "みた", line: "都営浅草線" },
+  { kanji: "大門", kana: "だいもん", line: "都営浅草線" },
+  { kanji: "新橋", kana: "しんばし", line: "都営浅草線" },
+  { kanji: "東銀座", kana: "ひがしぎんざ", line: "都営浅草線" },
+  { kanji: "宝町", kana: "ほうちょう", line: "都営浅草線" },
+  { kanji: "日本橋", kana: "にほんばし", line: "都営浅草線" },
+  { kanji: "人形町", kana: "にんぎょうちょう", line: "都営浅草線" },
+  { kanji: "東日本橋", kana: "ひがしにほんばし", line: "都営浅草線" },
+  { kanji: "浅草橋", kana: "あさくさばし", line: "都営浅草線" },
+  { kanji: "蔵前", kana: "くらまえ", line: "都営浅草線" },
+  { kanji: "浅草", kana: "あさくさ", line: "都営浅草線" },
+  { kanji: "本所吾妻橋", kana: "ほんじょあづまばし", line: "都営浅草線" },
+  { kanji: "押上", kana: "おしあげ", line: "都営浅草線" },
 
-  { kanji: "埼玉県", kana: "さいたまけん", prefecture: "埼玉県", region: "関東" },
-  { kanji: "さいたま", kana: "さいたま", prefecture: "埼玉県", region: "関東" },
-  { kanji: "川口", kana: "かわぐち", prefecture: "埼玉県", region: "関東" },
-  { kanji: "川越", kana: "かわごえ", prefecture: "埼玉県", region: "関東" },
-  { kanji: "所沢", kana: "ところざわ", prefecture: "埼玉県", region: "関東" },
-  { kanji: "春日部", kana: "かすかべ", prefecture: "埼玉県", region: "関東" },
-  { kanji: "熊谷", kana: "くまがや", prefecture: "埼玉県", region: "関東" },
-  { kanji: "秩父", kana: "ちちぶ", prefecture: "埼玉県", region: "関東" },
+  // === 都営地下鉄 三田線 ===
+  { kanji: "目黒", kana: "めぐろ", line: "都営三田線" },
+  { kanji: "白金台", kana: "しろかねだい", line: "都営三田線" },
+  { kanji: "白金高輪", kana: "しろかねたかなわ", line: "都営三田線" },
+  { kanji: "三田", kana: "みた", line: "都営三田線" },
+  { kanji: "芝公園", kana: "しばこうえん", line: "都営三田線" },
+  { kanji: "御成門", kana: "おなりもん", line: "都営三田線" },
+  { kanji: "内幸町", kana: "うちさいわいちょう", line: "都営三田線" },
+  { kanji: "日比谷", kana: "ひびや", line: "都営三田線" },
+  { kanji: "大手町", kana: "おおてまち", line: "都営三田線" },
+  { kanji: "神保町", kana: "じんぼうちょう", line: "都営三田線" },
+  { kanji: "水道橋", kana: "すいどうばし", line: "都営三田線" },
+  { kanji: "春日", kana: "かすが", line: "都営三田線" },
+  { kanji: "白山", kana: "はくさん", line: "都営三田線" },
+  { kanji: "千石", kana: "せんごく", line: "都営三田線" },
+  { kanji: "巣鴨", kana: "すがも", line: "都営三田線" },
+  { kanji: "西巣鴨", kana: "にしすがも", line: "都営三田線" },
+  { kanji: "新板橋", kana: "しんいたばし", line: "都営三田線" },
+  { kanji: "板橋区役所前", kana: "いたばしくやくしょまえ", line: "都営三田線" },
+  { kanji: "板橋本町", kana: "いたばしほんまち", line: "都営三田線" },
+  { kanji: "本蓮沼", kana: "ほんれんぬま", line: "都営三田線" },
+  { kanji: "志村坂上", kana: "しむらさかうえ", line: "都営三田線" },
+  { kanji: "志村三丁目", kana: "しむらさんちょうめ", line: "都営三田線" },
+  { kanji: "蓮根", kana: "はすね", line: "都営三田線" },
+  { kanji: "西台", kana: "にしだい", line: "都営三田線" },
+  { kanji: "高島平", kana: "たかしまだいら", line: "都営三田線" },
+  { kanji: "新高円寺", kana: "しんこうえんじ", line: "都営三田線" },
+  { kanji: "目黒", kana: "めぐろ", line: "都営三田線" },
 
-  { kanji: "千葉県", kana: "ちばけん", prefecture: "千葉県", region: "関東" },
-  { kanji: "千葉", kana: "ちば", prefecture: "千葉県", region: "関東" },
-  { kanji: "船橋", kana: "ふなばし", prefecture: "千葉県", region: "関東" },
-  { kanji: "松戸", kana: "まつど", prefecture: "千葉県", region: "関東" },
-  { kanji: "市川", kana: "いちかわ", prefecture: "千葉県", region: "関東" },
-  { kanji: "柏", kana: "かしわ", prefecture: "千葉県", region: "関東" },
-  { kanji: "成田", kana: "なりた", prefecture: "千葉県", region: "関東" },
-  { kanji: "浦安", kana: "うらやす", prefecture: "千葉県", region: "関東" },
+  // === 都営地下鉄 新宿線 ===
+  { kanji: "新宿", kana: "しんじゅく", line: "都営新宿線" },
+  { kanji: "新宿三丁目", kana: "しんじゅくさんちょうめ", line: "都営新宿線" },
+  { kanji: "曙橋", kana: "あけぼのばし", line: "都営新宿線" },
+  { kanji: "市ケ谷", kana: "いちがや", line: "都営新宿線" },
+  { kanji: "九段下", kana: "くだんした", line: "都営新宿線" },
+  { kanji: "神保町", kana: "じんぼうちょう", line: "都営新宿線" },
+  { kanji: "小川町", kana: "おがわまち", line: "都営新宿線" },
+  { kanji: "岩本町", kana: "いわもとちょう", line: "都営新宿線" },
+  { kanji: "馬喰横山", kana: "ばくろよこやま", line: "都営新宿線" },
+  { kanji: "浜町", kana: "はまちょう", line: "都営新宿線" },
+  { kanji: "森下", kana: "もりした", line: "都営新宿線" },
+  { kanji: "菊川", kana: "きくかわ", line: "都営新宿線" },
+  { kanji: "住吉", kana: "すみよし", line: "都営新宿線" },
+  { kanji: "浜野町", kana: "はまのちょう", line: "都営新宿線" },
+  { kanji: "西大島", kana: "にしおおしま", line: "都営新宿線" },
+  { kanji: "大島", kana: "おおしま", line: "都営新宿線" },
+  { kanji: "東大島", kana: "ひがしおおしま", line: "都営新宿線" },
+  { kanji: "船堀", kana: "ふなぼり", line: "都営新宿線" },
+  { kanji: "一之江", kana: "いちのえ", line: "都営新宿線" },
+  { kanji: "瑞江", kana: "みずえ", line: "都営新宿線" },
+  { kanji: "篠崎", kana: "しのざき", line: "都営新宿線" },
+  { kanji: "本八幡", kana: "ほんやわた", line: "都営新宿線" },
 
-  { kanji: "東京都", kana: "とうきょうと", prefecture: "東京都", region: "関東" },
-  { kanji: "東京", kana: "とうきょう", prefecture: "東京都", region: "関東" },
-  { kanji: "新宿", kana: "しんじゅく", prefecture: "東京都", region: "関東" },
-  { kanji: "渋谷", kana: "しぶや", prefecture: "東京都", region: "関東" },
-  { kanji: "池袋", kana: "いけぶくろ", prefecture: "東京都", region: "関東" },
-  { kanji: "上野", kana: "うえの", prefecture: "東京都", region: "関東" },
-  { kanji: "銀座", kana: "ぎんざ", prefecture: "東京都", region: "関東" },
-  { kanji: "浅草", kana: "あさくさ", prefecture: "東京都", region: "関東" },
-  { kanji: "秋葉原", kana: "あきはばら", prefecture: "東京都", region: "関東" },
-  { kanji: "品川", kana: "しながわ", prefecture: "東京都", region: "関東" },
-  { kanji: "八王子", kana: "はちおうじ", prefecture: "東京都", region: "関東" },
-  { kanji: "立川", kana: "たちかわ", prefecture: "東京都", region: "関東" },
-  { kanji: "町田", kana: "まちだ", prefecture: "東京都", region: "関東" },
+  // === 都営地下鉄 大江戸線 ===
+  { kanji: "新宿西口", kana: "しんじゅくにしぐち", line: "都営大江戸線" },
+  { kanji: "東新宿", kana: "ひがししんじゅく", line: "都営大江戸線" },
+  { kanji: "若松河田", kana: "わかまつかわだ", line: "都営大江戸線" },
+  { kanji: "牛込柳町", kana: "うしごめやなぎちょう", line: "都営大江戸線" },
+  { kanji: "牛込神楽坂", kana: "うしごめかぐらざか", line: "都営大江戸線" },
+  { kanji: "飯田橋", kana: "いいだばし", line: "都営大江戸線" },
+  { kanji: "春日", kana: "かすが", line: "都営大江戸線" },
+  { kanji: "本郷三丁目", kana: "ほんごうさんちょうめ", line: "都営大江戸線" },
+  { kanji: "上野御徒町", kana: "うえのおかちまち", line: "都営大江戸線" },
+  { kanji: "新御徒町", kana: "しんおかちまち", line: "都営大江戸線" },
+  { kanji: "蔵前", kana: "くらまえ", line: "都営大江戸線" },
+  { kanji: "両国", kana: "りょうごく", line: "都営大江戸線" },
+  { kanji: "清澄白河", kana: "きよすみしらかわ", line: "都営大江戸線" },
+  { kanji: "月島", kana: "つきしま", line: "都営大江戸線" },
+  { kanji: "勝どき", kana: "かちどき", line: "都営大江戸線" },
+  { kanji: "汐留", kana: "しおどめ", line: "都営大江戸線" },
+  { kanji: "大門", kana: "だいもん", line: "都営大江戸線" },
+  { kanji: "赤羽橋", kana: "あかばねばし", line: "都営大江戸線" },
+  { kanji: "神谷町", kana: "かみやちょう", line: "都営大江戸線" },
+  { kanji: "六本木", kana: "ろっぽんぎ", line: "都営大江戸線" },
+  { kanji: "麻布十番", kana: "あざぶじゅうばん", line: "都営大江戸線" },
+  { kanji: "赤坂見附", kana: "あかさかみつけ", line: "都営大江戸線" },
+  { kanji: "青山一丁目", kana: "あおやまいっちょうめ", line: "都営大江戸線" },
+  { kanji: "外苑前", kana: "がいえんまえ", line: "都営大江戸線" },
+  { kanji: "国立競技場", kana: "こくりつきょうぎじょう", line: "都営大江戸線" },
+  { kanji: "代々木公園", kana: "よよぎこうえん", line: "都営大江戸線" },
+  { kanji: "新宿", kana: "しんじゅく", line: "都営大江戸線" },
+  { kanji: "都庁前", kana: "とちょうまえ", line: "都営大江戸線" },
+  { kanji: "西新宿五丁目", kana: "にししんじゅくごちょうめ", line: "都営大江戸線" },
+  { kanji: "中野坂上", kana: "なかのさかうえ", line: "都営大江戸線" },
+  { kanji: "東中野", kana: "ひがしなかの", line: "都営大江戸線" },
+  { kanji: "中井", kana: "なかい", line: "都営大江戸線" },
+  { kanji: "落合南長崎", kana: "おちあいみなみながさき", line: "都営大江戸線" },
+  { kanji: "江戸川橋", kana: "えどがわばし", line: "都営大江戸線" },
+  { kanji: "飯田橋", kana: "いいだばし", line: "都営大江戸線" },
+  { kanji: "光が丘", kana: "ひかりがおか", line: "都営大江戸線" },
 
-  { kanji: "神奈川県", kana: "かながわけん", prefecture: "神奈川県", region: "関東" },
-  { kanji: "横浜", kana: "よこはま", prefecture: "神奈川県", region: "関東" },
-  { kanji: "川崎", kana: "かわさき", prefecture: "神奈川県", region: "関東" },
-  { kanji: "相模原", kana: "さがみはら", prefecture: "神奈川県", region: "関東" },
-  { kanji: "鎌倉", kana: "かまくら", prefecture: "神奈川県", region: "関東" },
-  { kanji: "小田原", kana: "おだわら", prefecture: "神奈川県", region: "関東" },
-  { kanji: "茅ヶ崎", kana: "ちがさき", prefecture: "神奈川県", region: "関東" },
-  { kanji: "藤沢", kana: "ふじさわ", prefecture: "神奈川県", region: "関東" },
-  { kanji: "平塚", kana: "ひらつか", prefecture: "神奈川県", region: "関東" },
+  // === JR山手線 ===
+  { kanji: "東京", kana: "とうきょう", line: "JR山手線" },
+  { kanji: "神田", kana: "かんだ", line: "JR山手線" },
+  { kanji: "秋葉原", kana: "あきはばら", line: "JR山手線" },
+  { kanji: "上野", kana: "うえの", line: "JR山手線" },
+  { kanji: "日暮里", kana: "にっぽり", line: "JR山手線" },
+  { kanji: "西日暮里", kana: "にしにっぽり", line: "JR山手線" },
+  { kanji: "田端", kana: "たばた", line: "JR山手線" },
+  { kanji: "駒込", kana: "こまごめ", line: "JR山手線" },
+  { kanji: "巣鴨", kana: "すがも", line: "JR山手線" },
+  { kanji: "大塚", kana: "おおつか", line: "JR山手線" },
+  { kanji: "池袋", kana: "いけぶくろ", line: "JR山手線" },
+  { kanji: "目白", kana: "めじろ", line: "JR山手線" },
+  { kanji: "高田馬場", kana: "たかだのばば", line: "JR山手線" },
+  { kanji: "新大久保", kana: "しんおおくぼ", line: "JR山手線" },
+  { kanji: "新宿", kana: "しんじゅく", line: "JR山手線" },
+  { kanji: "代々木", kana: "よよぎ", line: "JR山手線" },
+  { kanji: "原宿", kana: "はらじゅく", line: "JR山手線" },
+  { kanji: "渋谷", kana: "しぶや", line: "JR山手線" },
+  { kanji: "恵比寿", kana: "えびす", line: "JR山手線" },
+  { kanji: "目黒", kana: "めぐろ", line: "JR山手線" },
+  { kanji: "五反田", kana: "ごたんだ", line: "JR山手線" },
+  { kanji: "大崎", kana: "おおさき", line: "JR山手線" },
+  { kanji: "品川", kana: "しながわ", line: "JR山手線" },
+  { kanji: "高輪ゲートウェイ", kana: "たかなわげーとうぇい", line: "JR山手線" },
+  { kanji: "田町", kana: "たまち", line: "JR山手線" },
+  { kanji: "浜松町", kana: "はままつちょう", line: "JR山手線" },
+  { kanji: "新橋", kana: "しんばし", line: "JR山手線" },
+  { kanji: "有楽町", kana: "ゆうらくちょう", line: "JR山手線" },
+  { kanji: "日比谷", kana: "ひびや", line: "JR山手線" },
+  { kanji: "霞ケ関", kana: "かすみがせき", line: "JR山手線" },
 
-  // === 中部地方 ===
-  { kanji: "新潟県", kana: "にいがたけん", prefecture: "新潟県", region: "中部" },
-  { kanji: "新潟", kana: "にいがた", prefecture: "新潟県", region: "中部" },
-  { kanji: "長岡", kana: "ながおか", prefecture: "新潟県", region: "中部" },
-  { kanji: "上越", kana: "じょうえつ", prefecture: "新潟県", region: "中部" },
-  { kanji: "三条", kana: "さんじょう", prefecture: "新潟県", region: "中部" },
+  // === JR京浜東北線 ===
+  { kanji: "大崎", kana: "おおさき", line: "JR京浜東北線" },
+  { kanji: "品川", kana: "しながわ", line: "JR京浜東北線" },
+  { kanji: "高輪ゲートウェイ", kana: "たかなわげーとうぇい", line: "JR京浜東北線" },
+  { kanji: "田町", kana: "たまち", line: "JR京浜東北線" },
+  { kanji: "浜松町", kana: "はままつちょう", line: "JR京浜東北線" },
+  { kanji: "新橋", kana: "しんばし", line: "JR京浜東北線" },
+  { kanji: "有楽町", kana: "ゆうらくちょう", line: "JR京浜東北線" },
+  { kanji: "東京", kana: "とうきょう", line: "JR京浜東北線" },
+  { kanji: "神田", kana: "かんだ", line: "JR京浜東北線" },
+  { kanji: "秋葉原", kana: "あきはばら", line: "JR京浜東北線" },
+  { kanji: "上野", kana: "うえの", line: "JR京浜東北線" },
+  { kanji: "日暮里", kana: "にっぽり", line: "JR京浜東北線" },
+  { kanji: "西日暮里", kana: "にしにっぽり", line: "JR京浜東北線" },
+  { kanji: "田端", kana: "たばた", line: "JR京浜東北線" },
+  { kanji: "東十条", kana: "ひがしじゅうじょう", line: "JR京浜東北線" },
+  { kanji: "王子", kana: "おうじ", line: "JR京浜東北線" },
+  { kanji: "赤羽", kana: "あかばね", line: "JR京浜東北線" },
+  { kanji: "武蔵浦和", kana: "むさしうらわ", line: "JR京浜東北線" },
+  { kanji: "南与野", kana: "みなみよの", line: "JR京浜東北線" },
+  { kanji: "与野本町", kana: "よのほんちょう", line: "JR京浜東北線" },
+  { kanji: "さいたま新都心", kana: "さいたましんとしん", line: "JR京浜東北線" },
+  { kanji: "大宮", kana: "おおみや", line: "JR京浜東北線" },
+  { kanji: "川口", kana: "かわぐち", line: "JR京浜東北線" },
+  { kanji: "蕨", kana: "わらび", line: "JR京浜東北線" },
+  { kanji: "駒込", kana: "こまごめ", line: "JR京浜東北線" },
+  { kanji: "巣鴨", kana: "すがも", line: "JR京浜東北線" },
+  { kanji: "大塚", kana: "おおつか", line: "JR京浜東北線" },
+  { kanji: "池袋", kana: "いけぶくろ", line: "JR京浜東北線" },
+  { kanji: "目白", kana: "めじろ", line: "JR京浜東北線" },
+  { kanji: "高田馬場", kana: "たかだのばば", line: "JR京浜東北線" },
+  { kanji: "新大久保", kana: "しんおおくぼ", line: "JR京浜東北線" },
+  { kanji: "新宿", kana: "しんじゅく", line: "JR京浜東北線" },
+  { kanji: "代々木", kana: "よよぎ", line: "JR京浜東北線" },
+  { kanji: "原宿", kana: "はらじゅく", line: "JR京浜東北線" },
+  { kanji: "渋谷", kana: "しぶや", line: "JR京浜東北線" },
+  { kanji: "恵比寿", kana: "えびす", line: "JR京浜東北線" },
+  { kanji: "目黒", kana: "めぐろ", line: "JR京浜東北線" },
+  { kanji: "五反田", kana: "ごたんだ", line: "JR京浜東北線" },
 
-  { kanji: "富山県", kana: "とやまけん", prefecture: "富山県", region: "中部" },
-  { kanji: "富山", kana: "とやま", prefecture: "富山県", region: "中部" },
-  { kanji: "高岡", kana: "たかおか", prefecture: "富山県", region: "中部" },
-  { kanji: "氷見", kana: "ひみ", prefecture: "富山県", region: "中部" },
-  { kanji: "砺波", kana: "となみ", prefecture: "富山県", region: "中部" },
+  // === JR根岸線 ===
+  { kanji: "横浜", kana: "よこはま", line: "JR根岸線" },
+  { kanji: "桜木町", kana: "さくらぎちょう", line: "JR根岸線" },
+  { kanji: "石川町", kana: "いしかわちょう", line: "JR根岸線" },
+  { kanji: "根岸", kana: "ねぎし", line: "JR根岸線" },
+  { kanji: "磯子", kana: "いそご", line: "JR根岸線" },
+  { kanji: "洋光台", kana: "ようこうだい", line: "JR根岸線" },
+  { kanji: "新杉田", kana: "しんすぎた", line: "JR根岸線" },
+  { kanji: "杉田", kana: "すぎた", line: "JR根岸線" },
+  { kanji: "鶴見", kana: "つるみ", line: "JR根岸線" },
+  { kanji: "新川崎", kana: "しんかわさき", line: "JR根岸線" },
+  { kanji: "川崎", kana: "かわさき", line: "JR根岸線" },
+  { kanji: "蒲田", kana: "かまた", line: "JR根岸線" },
+  { kanji: "大森", kana: "おおもり", line: "JR根岸線" },
+  { kanji: "大井町", kana: "おおいまち", line: "JR根岸線" },
+  { kanji: "品川", kana: "しながわ", line: "JR根岸線" },
+  { kanji: "高輪ゲートウェイ", kana: "たかなわげーとうぇい", line: "JR根岸線" },
+  { kanji: "田町", kana: "たまち", line: "JR根岸線" },
+  { kanji: "浜松町", kana: "はままつちょう", line: "JR根岸線" },
+  { kanji: "新橋", kana: "しんばし", line: "JR根岸線" },
+  { kanji: "大崎", kana: "おおさき", line: "JR根岸線" },
 
-  { kanji: "石川県", kana: "いしかわけん", prefecture: "石川県", region: "中部" },
-  { kanji: "金沢", kana: "かなざわ", prefecture: "石川県", region: "中部" },
-  { kanji: "小松", kana: "こまつ", prefecture: "石川県", region: "中部" },
-  { kanji: "加賀", kana: "かが", prefecture: "石川県", region: "中部" },
-  { kanji: "七尾", kana: "ななお", prefecture: "石川県", region: "中部" },
+  // === JR横須賀線 ===
+  { kanji: "東京", kana: "とうきょう", line: "JR横須賀線" },
+  { kanji: "新橋", kana: "しんばし", line: "JR横須賀線" },
+  { kanji: "品川", kana: "しながわ", line: "JR横須賀線" },
+  { kanji: "大森", kana: "おおもり", line: "JR横須賀線" },
+  { kanji: "蒲田", kana: "かまた", line: "JR横須賀線" },
+  { kanji: "川崎", kana: "かわさき", line: "JR横須賀線" },
+  { kanji: "横浜", kana: "よこはま", line: "JR横須賀線" },
+  { kanji: "戸塚", kana: "とつか", line: "JR横須賀線" },
+  { kanji: "東戸塚", kana: "ひがしとつか", line: "JR横須賀線" },
+  { kanji: "鎌倉", kana: "かまくら", line: "JR横須賀線" },
+  { kanji: "和田塚", kana: "わだづか", line: "JR横須賀線" },
+  { kanji: "逗子", kana: "ずし", line: "JR横須賀線" },
+  { kanji: "金沢文庫", kana: "かなざわぶんこ", line: "JR横須賀線" },
+  { kanji: "金沢八景", kana: "かなざわはっけい", line: "JR横須賀線" },
+  { kanji: "六浦", kana: "むつうら", line: "JR横須賀線" },
+  { kanji: "北鎌倉", kana: "きたかまくら", line: "JR横須賀線" },
+  { kanji: "横須賀", kana: "よこすか", line: "JR横須賀線" },
+  { kanji: "久里浜", kana: "くりはま", line: "JR横須賀線" },
+  { kanji: "葉山", kana: "はやま", line: "JR横須賀線" },
+  { kanji: "衣笠", kana: "きぬがさ", line: "JR横須賀線" },
 
-  { kanji: "福井県", kana: "ふくいけん", prefecture: "福井県", region: "中部" },
-  { kanji: "福井", kana: "ふくい", prefecture: "福井県", region: "中部" },
-  { kanji: "敦賀", kana: "つるが", prefecture: "福井県", region: "中部" },
-  { kanji: "小浜", kana: "おばま", prefecture: "福井県", region: "中部" },
-  { kanji: "越前", kana: "えちぜん", prefecture: "福井県", region: "中部" },
+  // === JR総武快速線 ===
+  { kanji: "東京", kana: "とうきょう", line: "JR総武快速線" },
+  { kanji: "新日本橋", kana: "しんにほんばし", line: "JR総武快速線" },
+  { kanji: "馬喰町", kana: "ばくろうちょう", line: "JR総武快速線" },
+  { kanji: "錦糸町", kana: "きんしちょう", line: "JR総武快速線" },
+  { kanji: "平井", kana: "ひらい", line: "JR総武快速線" },
+  { kanji: "新小岩", kana: "しんこいわ", line: "JR総武快速線" },
+  { kanji: "市川", kana: "いちかわ", line: "JR総武快速線" },
+  { kanji: "市川大門", kana: "いちかわだいもん", line: "JR総武快速線" },
+  { kanji: "船橋", kana: "ふなばし", line: "JR総武快速線" },
+  { kanji: "西船橋", kana: "にしふなばし", line: "JR総武快速線" },
+  { kanji: "津田沼", kana: "つだぬま", line: "JR総武快速線" },
+  { kanji: "千葉", kana: "ちば", line: "JR総武快速線" },
+  { kanji: "蘇我", kana: "そが", line: "JR総武快速線" },
+  { kanji: "八丁堀", kana: "はっちょうぼり", line: "JR総武快速線" },
+  { kanji: "小岩", kana: "こいわ", line: "JR総武快速線" },
+  { kanji: "鬼越", kana: "おにこし", line: "JR総武快速線" },
+  { kanji: "矢切", kana: "やぎり", line: "JR総武快速線" },
+  { kanji: "幕張本郷", kana: "まくはりほんごう", line: "JR総武快速線" },
+  { kanji: "幕張", kana: "まくはり", line: "JR総武快速線" },
+  { kanji: "検見川浜", kana: "けみがわはま", line: "JR総武快速線" },
 
-  { kanji: "山梨県", kana: "やまなしけん", prefecture: "山梨県", region: "中部" },
-  { kanji: "甲府", kana: "こうふ", prefecture: "山梨県", region: "中部" },
-  { kanji: "富士吉田", kana: "ふじよしだ", prefecture: "山梨県", region: "中部" },
-  { kanji: "甲斐", kana: "かい", prefecture: "山梨県", region: "中部" },
-  { kanji: "韮崎", kana: "にらさき", prefecture: "山梨県", region: "中部" },
+  // === JR京葉線 ===
+  { kanji: "東京", kana: "とうきょう", line: "JR京葉線" },
+  { kanji: "八丁堀", kana: "はっちょうぼり", line: "JR京葉線" },
+  { kanji: "月島", kana: "つきしま", line: "JR京葉線" },
+  { kanji: "潮見", kana: "しおみ", line: "JR京葉線" },
+  { kanji: "新木場", kana: "しんきば", line: "JR京葉線" },
+  { kanji: "葛西臨海公園", kana: "かさいりんかいこうえん", line: "JR京葉線" },
+  { kanji: "舞浜", kana: "まいはま", line: "JR京葉線" },
+  { kanji: "新浦安", kana: "しんうらやす", line: "JR京葉線" },
+  { kanji: "浦安", kana: "うらやす", line: "JR京葉線" },
+  { kanji: "市川塩浜", kana: "いちかわしおはま", line: "JR京葉線" },
+  { kanji: "船橋法典", kana: "ふなばしほうてん", line: "JR京葉線" },
+  { kanji: "西船橋", kana: "にしふなばし", line: "JR京葉線" },
+  { kanji: "南船橋", kana: "みなみふなばし", line: "JR京葉線" },
+  { kanji: "蘇我", kana: "そが", line: "JR京葉線" },
+  { kanji: "千葉みなと", kana: "ちばみなと", line: "JR京葉線" },
+  { kanji: "千葉", kana: "ちば", line: "JR京葉線" },
+  { kanji: "本八幡", kana: "ほんやわた", line: "JR京葉線" },
+  { kanji: "葛西", kana: "かさい", line: "JR京葉線" },
+  { kanji: "一之江", kana: "いちのえ", line: "JR京葉線" },
+  { kanji: "瑞江", kana: "みずえ", line: "JR京葉線" },
 
-  { kanji: "長野県", kana: "ながのけん", prefecture: "長野県", region: "中部" },
-  { kanji: "長野", kana: "ながの", prefecture: "長野県", region: "中部" },
-  { kanji: "松本", kana: "まつもと", prefecture: "長野県", region: "中部" },
-  { kanji: "上田", kana: "うえだ", prefecture: "長野県", region: "中部" },
-  { kanji: "佐久", kana: "さく", prefecture: "長野県", region: "中部" },
-  { kanji: "飯田", kana: "いいだ", prefecture: "長野県", region: "中部" },
-  { kanji: "軽井沢", kana: "かるいざわ", prefecture: "長野県", region: "中部" },
+  // === JR武蔵野線 ===
+  { kanji: "府中本町", kana: "ふちゅうほんちょう", line: "JR武蔵野線" },
+  { kanji: "南多摩", kana: "みなみたま", line: "JR武蔵野線" },
+  { kanji: "東府中", kana: "ひがしふちゅう", line: "JR武蔵野線" },
+  { kanji: "西国分寺", kana: "にしこくぶんじ", line: "JR武蔵野線" },
+  { kanji: "武蔵野", kana: "むさしの", line: "JR武蔵野線" },
+  { kanji: "新小平", kana: "しんこだいら", line: "JR武蔵野線" },
+  { kanji: "新秋津", kana: "しんあきつ", line: "JR武蔵野線" },
+  { kanji: "東所沢", kana: "ひがしところざわ", line: "JR武蔵野線" },
+  { kanji: "新座", kana: "にいざ", line: "JR武蔵野線" },
+  { kanji: "和光市", kana: "わこうし", line: "JR武蔵野線" },
+  { kanji: "志木", kana: "しき", line: "JR武蔵野線" },
+  { kanji: "西浦和", kana: "にしうらわ", line: "JR武蔵野線" },
+  { kanji: "武蔵浦和", kana: "むさしうらわ", line: "JR武蔵野線" },
+  { kanji: "南与野", kana: "みなみよの", line: "JR武蔵野線" },
+  { kanji: "与野本町", kana: "よのほんちょう", line: "JR武蔵野線" },
+  { kanji: "中央総合運動公園", kana: "ちゅうおうそうごううんどうこうえん", line: "JR武蔵野線" },
+  { kanji: "北戸田", kana: "きたとだ", line: "JR武蔵野線" },
+  { kanji: "戸田", kana: "とだ", line: "JR武蔵野線" },
+  { kanji: "東川口", kana: "ひがしかわぐち", line: "JR武蔵野線" },
+  { kanji: "川口", kana: "かわぐち", line: "JR武蔵野線" },
+  { kanji: "南浦和", kana: "みなみうらわ", line: "JR武蔵野線" },
+  { kanji: "東浦和", kana: "ひがしうらわ", line: "JR武蔵野線" },
+  { kanji: "東岩槻", kana: "ひがしいわつき", line: "JR武蔵野線" },
+  { kanji: "北朝霞", kana: "きたあさか", line: "JR武蔵野線" },
+  { kanji: "朝霞台", kana: "あさかだい", line: "JR武蔵野線" },
+  { kanji: "西船橋", kana: "にしふなばし", line: "JR武蔵野線" },
+  { kanji: "船橋法典", kana: "ふなばしほうてん", line: "JR武蔵野線" },
+  { kanji: "南船橋", kana: "みなみふなばし", line: "JR武蔵野線" },
+  { kanji: "新習志野", kana: "しんならしの", line: "JR武蔵野線" },
+  { kanji: "谷津", kana: "やつ", line: "JR武蔵野線" },
 
-  { kanji: "岐阜県", kana: "ぎふけん", prefecture: "岐阜県", region: "中部" },
-  { kanji: "岐阜", kana: "ぎふ", prefecture: "岐阜県", region: "中部" },
-  { kanji: "大垣", kana: "おおがき", prefecture: "岐阜県", region: "中部" },
-  { kanji: "高山", kana: "たかやま", prefecture: "岐阜県", region: "中部" },
-  { kanji: "多治見", kana: "たじみ", prefecture: "岐阜県", region: "中部" },
-  { kanji: "中津川", kana: "なかつがわ", prefecture: "岐阜県", region: "中部" },
+  // === JR南武線 ===
+  { kanji: "立川", kana: "たちかわ", line: "JR南武線" },
+  { kanji: "西国立", kana: "にしこくりつ", line: "JR南武線" },
+  { kanji: "矢川", kana: "やがわ", line: "JR南武線" },
+  { kanji: "分倍河原", kana: "ぶばいがわら", line: "JR南武線" },
+  { kanji: "中野島", kana: "なかのじま", line: "JR南武線" },
+  { kanji: "登戸", kana: "のぼりと", line: "JR南武線" },
+  { kanji: "宿河原", kana: "しゅくがわら", line: "JR南武線" },
+  { kanji: "稲田堤", kana: "いなだづつみ", line: "JR南武線" },
+  { kanji: "京王稲田堤", kana: "けいおういなだづつみ", line: "JR南武線" },
+  { kanji: "矢部", kana: "やべ", line: "JR南武線" },
+  { kanji: "尻手", kana: "しって", line: "JR南武線" },
+  { kanji: "矢向", kana: "やこう", line: "JR南武線" },
+  { kanji: "川崎新町", kana: "かわさきしんまち", line: "JR南武線" },
+  { kanji: "小田栄", kana: "おださかえ", line: "JR南武線" },
+  { kanji: "浜川崎", kana: "はまかわさき", line: "JR南武線" },
+  { kanji: "川崎", kana: "かわさき", line: "JR南武線" },
+  { kanji: "平間", kana: "ひらま", line: "JR南武線" },
+  { kanji: "鹿島田", kana: "かしまだ", line: "JR南武線" },
+  { kanji: "新川崎", kana: "しんかわさき", line: "JR南武線" },
+  { kanji: "武蔵小杉", kana: "むさしこすぎ", line: "JR南武線" },
 
-  { kanji: "静岡県", kana: "しずおかけん", prefecture: "静岡県", region: "中部" },
-  { kanji: "静岡", kana: "しずおか", prefecture: "静岡県", region: "中部" },
-  { kanji: "浜松", kana: "はままつ", prefecture: "静岡県", region: "中部" },
-  { kanji: "沼津", kana: "ぬまづ", prefecture: "静岡県", region: "中部" },
-  { kanji: "富士", kana: "ふじ", prefecture: "静岡県", region: "中部" },
-  { kanji: "伊豆", kana: "いず", prefecture: "静岡県", region: "中部" },
-  { kanji: "熱海", kana: "あたみ", prefecture: "静岡県", region: "中部" },
-  { kanji: "掛川", kana: "かけがわ", prefecture: "静岡県", region: "中部" },
+  // === JR埼京線 ===
+  { kanji: "新宿", kana: "しんじゅく", line: "JR埼京線" },
+  { kanji: "池袋", kana: "いけぶくろ", line: "JR埼京線" },
+  { kanji: "赤羽", kana: "あかばね", line: "JR埼京線" },
+  { kanji: "赤羽岩淵", kana: "あかねいわぶち", line: "JR埼京線" },
+  { kanji: "戸田", kana: "とだ", line: "JR埼京線" },
+  { kanji: "北戸田", kana: "きたとだ", line: "JR埼京線" },
+  { kanji: "武蔵浦和", kana: "むさしうらわ", line: "JR埼京線" },
+  { kanji: "南与野", kana: "みなみよの", line: "JR埼京線" },
+  { kanji: "与野本町", kana: "よのほんちょう", line: "JR埼京線" },
+  { kanji: "さいたま新都心", kana: "さいたましんとしん", line: "JR埼京線" },
+  { kanji: "大宮", kana: "おおみや", line: "JR埼京線" },
+  { kanji: "北与野", kana: "きたよの", line: "JR埼京線" },
+  { kanji: "東大宮", kana: "ひがしおおみや", line: "JR埼京線" },
+  { kanji: "見沼代親水公園", kana: "みぬまだいしんすいこうえん", line: "JR埼京線" },
+  { kanji: "川口", kana: "かわぐち", line: "JR埼京線" },
+  { kanji: "西川口", kana: "にしかわぐち", line: "JR埼京線" },
+  { kanji: "蕨", kana: "わらび", line: "JR埼京線" },
+  { kanji: "南越谷", kana: "みなみこしがや", line: "JR埼京線" },
+  { kanji: "新越谷", kana: "しんこしがや", line: "JR埼京線" },
+  { kanji: "蒲生", kana: "がもう", line: "JR埼京線" },
 
-  { kanji: "愛知県", kana: "あいちけん", prefecture: "愛知県", region: "中部" },
-  { kanji: "名古屋", kana: "なごや", prefecture: "愛知県", region: "中部" },
-  { kanji: "豊橋", kana: "とよはし", prefecture: "愛知県", region: "中部" },
-  { kanji: "岡崎", kana: "おかざき", prefecture: "愛知県", region: "中部" },
-  { kanji: "一宮", kana: "いちのみや", prefecture: "愛知県", region: "中部" },
-  { kanji: "春日井", kana: "かすがい", prefecture: "愛知県", region: "中部" },
-  { kanji: "豊田", kana: "とよた", prefecture: "愛知県", region: "中部" },
-  { kanji: "刈谷", kana: "かりや", prefecture: "愛知県", region: "中部" },
+  // === JR湘南新宿ライン ===
+  { kanji: "大宮", kana: "おおみや", line: "JR湘南新宿ライン" },
+  { kanji: "さいたま新都心", kana: "さいたましんとしん", line: "JR湘南新宿ライン" },
+  { kanji: "与野", kana: "よの", line: "JR湘南新宿ライン" },
+  { kanji: "北与野", kana: "きたよの", line: "JR湘南新宿ライン" },
+  { kanji: "赤羽", kana: "あかばね", line: "JR湘南新宿ライン" },
+  { kanji: "池袋", kana: "いけぶくろ", line: "JR湘南新宿ライン" },
+  { kanji: "新宿", kana: "しんじゅく", line: "JR湘南新宿ライン" },
+  { kanji: "渋谷", kana: "しぶや", line: "JR湘南新宿ライン" },
+  { kanji: "大崎", kana: "おおさき", line: "JR湘南新宿ライン" },
+  { kanji: "品川", kana: "しながわ", line: "JR湘南新宿ライン" },
+  { kanji: "横浜", kana: "よこはま", line: "JR湘南新宿ライン" },
+  { kanji: "戸塚", kana: "とつか", line: "JR湘南新宿ライン" },
+  { kanji: "藤沢", kana: "ふじさわ", line: "JR湘南新宿ライン" },
+  { kanji: "平塚", kana: "ひらつか", line: "JR湘南新宿ライン" },
+  { kanji: "大磯", kana: "おおいそ", line: "JR湘南新宿ライン" },
+  { kanji: "小田原", kana: "おだわら", line: "JR湘南新宿ライン" },
+  { kanji: "鎌倉", kana: "かまくら", line: "JR湘南新宿ライン" },
+  { kanji: "逗子", kana: "ずし", line: "JR湘南新宿ライン" },
+  { kanji: "横須賀", kana: "よこすか", line: "JR湘南新宿ライン" },
+  { kanji: "大船", kana: "おおふな", line: "JR湘南新宿ライン" },
+  { kanji: "北鎌倉", kana: "きたかまくら", line: "JR湘南新宿ライン" },
+  { kanji: "辻堂", kana: "つじどう", line: "JR湘南新宿ライン" },
+  { kanji: "茅ヶ崎", kana: "ちがさき", line: "JR湘南新宿ライン" },
+  { kanji: "鵠沼", kana: "くげぬま", line: "JR湘南新宿ライン" },
+  { kanji: "稲村ヶ崎", kana: "いなむらがさき", line: "JR湘南新宿ライン" },
 
-  // === 近畿地方 ===
-  { kanji: "三重県", kana: "みえけん", prefecture: "三重県", region: "近畿" },
-  { kanji: "津", kana: "つ", prefecture: "三重県", region: "近畿" },
-  { kanji: "四日市", kana: "よっかいち", prefecture: "三重県", region: "近畿" },
-  { kanji: "松阪", kana: "まつさか", prefecture: "三重県", region: "近畿" },
-  { kanji: "伊勢", kana: "いせ", prefecture: "三重県", region: "近畿" },
-  { kanji: "鳥羽", kana: "とば", prefecture: "三重県", region: "近畿" },
+  // === JR上野東京ライン ===
+  { kanji: "大宮", kana: "おおみや", line: "JR上野東京ライン" },
+  { kanji: "さいたま新都心", kana: "さいたましんとしん", line: "JR上野東京ライン" },
+  { kanji: "浦和", kana: "うらわ", line: "JR上野東京ライン" },
+  { kanji: "赤羽", kana: "あかばね", line: "JR上野東京ライン" },
+  { kanji: "上野", kana: "うえの", line: "JR上野東京ライン" },
+  { kanji: "東京", kana: "とうきょう", line: "JR上野東京ライン" },
+  { kanji: "新橋", kana: "しんばし", line: "JR上野東京ライン" },
+  { kanji: "品川", kana: "しながわ", line: "JR上野東京ライン" },
+  { kanji: "川崎", kana: "かわさき", line: "JR上野東京ライン" },
+  { kanji: "横浜", kana: "よこはま", line: "JR上野東京ライン" },
+  { kanji: "戸塚", kana: "とつか", line: "JR上野東京ライン" },
+  { kanji: "大船", kana: "おおふな", line: "JR上野東京ライン" },
+  { kanji: "小田原", kana: "おだわら", line: "JR上野東京ライン" },
+  { kanji: "熱海", kana: "あたみ", line: "JR上野東京ライン" },
+  { kanji: "宇都宮", kana: "うつのみや", line: "JR上野東京ライン" },
+  { kanji: "高崎", kana: "たかさき", line: "JR上野東京ライン" },
+  { kanji: "土呂", kana: "とろ", line: "JR上野東京ライン" },
+  { kanji: "久喜", kana: "くき", line: "JR上野東京ライン" },
+  { kanji: "蓮田", kana: "はすだ", line: "JR上野東京ライン" },
+  { kanji: "小山", kana: "おやま", line: "JR上野東京ライン" },
 
-  { kanji: "滋賀県", kana: "しがけん", prefecture: "滋賀県", region: "近畿" },
-  { kanji: "大津", kana: "おおつ", prefecture: "滋賀県", region: "近畿" },
-  { kanji: "彦根", kana: "ひこね", prefecture: "滋賀県", region: "近畿" },
-  { kanji: "草津", kana: "くさつ", prefecture: "滋賀県", region: "近畿" },
-  { kanji: "長浜", kana: "ながはま", prefecture: "滋賀県", region: "近畿" },
-  { kanji: "近江八幡", kana: "おうみはちまん", prefecture: "滋賀県", region: "近畿" },
+  // === JR常磐線各駅停車 ===
+  { kanji: "上野", kana: "うえの", line: "JR常磐線各駅停車" },
+  { kanji: "日暮里", kana: "にっぽり", line: "JR常磐線各駅停車" },
+  { kanji: "綾瀬", kana: "あやせ", line: "JR常磐線各駅停車" },
+  { kanji: "亀有", kana: "かめあり", line: "JR常磐線各駅停車" },
+  { kanji: "金町", kana: "かなまち", line: "JR常磐線各駅停車" },
+  { kanji: "松戸", kana: "まつど", line: "JR常磐線各駅停車" },
+  { kanji: "馬橋", kana: "まばし", line: "JR常磐線各駅停車" },
+  { kanji: "我孫子", kana: "あびこ", line: "JR常磐線各駅停車" },
+  { kanji: "取手", kana: "とりで", line: "JR常磐線各駅停車" },
+  { kanji: "北千住", kana: "きたせんじゅ", line: "JR常磐線各駅停車" },
+  { kanji: "青井", kana: "あおい", line: "JR常磐線各駅停車" },
+  { kanji: "六町", kana: "ろくちょう", line: "JR常磐線各駅停車" },
+  { kanji: "八潮", kana: "やしお", line: "JR常磐線各駅停車" },
+  { kanji: "三郷中央", kana: "みさとちゅうおう", line: "JR常磐線各駅停車" },
+  { kanji: "南流山", kana: "みなみながれやま", line: "JR常磐線各駅停車" },
+  { kanji: "流山セントラルパーク", kana: "ながれやませんとらるぱーく", line: "JR常磐線各駅停車" },
+  { kanji: "流山おおたかの森", kana: "ながれやまおおたかのもり", line: "JR常磐線各駅停車" },
+  { kanji: "柏の葉キャンパス", kana: "かしわのはきゃんぱす", line: "JR常磐線各駅停車" },
+  { kanji: "柏", kana: "かしわ", line: "JR常磐線各駅停車" },
+  { kanji: "新松戸", kana: "しんまつど", line: "JR常磐線各駅停車" },
 
-  { kanji: "京都府", kana: "きょうとふ", prefecture: "京都府", region: "近畿" },
-  { kanji: "京都", kana: "きょうと", prefecture: "京都府", region: "近畿" },
-  { kanji: "宇治", kana: "うじ", prefecture: "京都府", region: "近畿" },
-  { kanji: "舞鶴", kana: "まいづる", prefecture: "京都府", region: "近畿" },
-  { kanji: "亀岡", kana: "かめおか", prefecture: "京都府", region: "近畿" },
-  { kanji: "長岡京", kana: "ながおかきょう", prefecture: "京都府", region: "近畿" },
-  { kanji: "伏見", kana: "ふしみ", prefecture: "京都府", region: "近畿" },
+  // === JR中央線快速 ===
+  { kanji: "東京", kana: "とうきょう", line: "JR中央線快速" },
+  { kanji: "神田", kana: "かんだ", line: "JR中央線快速" },
+  { kanji: "御茶ノ水", kana: "おちゃのみず", line: "JR中央線快速" },
+  { kanji: "四ツ谷", kana: "よつや", line: "JR中央線快速" },
+  { kanji: "新宿", kana: "しんじゅく", line: "JR中央線快速" },
+  { kanji: "中野", kana: "なかの", line: "JR中央線快速" },
+  { kanji: "吉祥寺", kana: "きちじょうじ", line: "JR中央線快速" },
+  { kanji: "三鷹", kana: "みたか", line: "JR中央線快速" },
+  { kanji: "武蔵境", kana: "むさしさかい", line: "JR中央線快速" },
+  { kanji: "東小金井", kana: "ひがしこがねい", line: "JR中央線快速" },
+  { kanji: "武蔵小金井", kana: "むさしこがねい", line: "JR中央線快速" },
+  { kanji: "国分寺", kana: "こくぶんじ", line: "JR中央線快速" },
+  { kanji: "西国分寺", kana: "にしこくぶんじ", line: "JR中央線快速" },
+  { kanji: "国立", kana: "くにたち", line: "JR中央線快速" },
+  { kanji: "立川", kana: "たちかわ", line: "JR中央線快速" },
+  { kanji: "日野", kana: "ひの", line: "JR中央線快速" },
+  { kanji: "豊田", kana: "とよだ", line: "JR中央線快速" },
+  { kanji: "八王子", kana: "はちおうじ", line: "JR中央線快速" },
+  { kanji: "西八王子", kana: "にしはちおうじ", line: "JR中央線快速" },
+  { kanji: "高尾", kana: "たかお", line: "JR中央線快速" },
+  { kanji: "飯田橋", kana: "いいだばし", line: "JR中央線快速" },
+  { kanji: "水道橋", kana: "すいどうばし", line: "JR中央線快速" },
+  { kanji: "阿佐ケ谷", kana: "あさがや", line: "JR中央線快速" },
+  { kanji: "荻窪", kana: "おぎくぼ", line: "JR中央線快速" },
+  { kanji: "高円寺", kana: "こうえんじ", line: "JR中央線快速" },
 
-  { kanji: "大阪府", kana: "おおさかふ", prefecture: "大阪府", region: "近畿" },
-  { kanji: "大阪", kana: "おおさか", prefecture: "大阪府", region: "近畿" },
-  { kanji: "堺", kana: "さかい", prefecture: "大阪府", region: "近畿" },
-  { kanji: "吹田", kana: "すいた", prefecture: "大阪府", region: "近畿" },
-  { kanji: "枚方", kana: "ひらかた", prefecture: "大阪府", region: "近畿" },
-  { kanji: "豊中", kana: "とよなか", prefecture: "大阪府", region: "近畿" },
-  { kanji: "高槻", kana: "たかつき", prefecture: "大阪府", region: "近畿" },
-  { kanji: "岸和田", kana: "きしわだ", prefecture: "大阪府", region: "近畿" },
-  { kanji: "難波", kana: "なんば", prefecture: "大阪府", region: "近畿" },
+  // === JR総武線各駅停車 ===
+  { kanji: "三鷹", kana: "みたか", line: "JR総武線各駅停車" },
+  { kanji: "吉祥寺", kana: "きちじょうじ", line: "JR総武線各駅停車" },
+  { kanji: "西荻窪", kana: "にしおぎくぼ", line: "JR総武線各駅停車" },
+  { kanji: "荻窪", kana: "おぎくぼ", line: "JR総武線各駅停車" },
+  { kanji: "阿佐ケ谷", kana: "あさがや", line: "JR総武線各駅停車" },
+  { kanji: "高円寺", kana: "こうえんじ", line: "JR総武線各駅停車" },
+  { kanji: "中野", kana: "なかの", line: "JR総武線各駅停車" },
+  { kanji: "東中野", kana: "ひがしなかの", line: "JR総武線各駅停車" },
+  { kanji: "大久保", kana: "おおくぼ", line: "JR総武線各駅停車" },
+  { kanji: "新宿", kana: "しんじゅく", line: "JR総武線各駅停車" },
+  { kanji: "代々木", kana: "よよぎ", line: "JR総武線各駅停車" },
+  { kanji: "千駄ケ谷", kana: "せんだがや", line: "JR総武線各駅停車" },
+  { kanji: "四ツ谷", kana: "よつや", line: "JR総武線各駅停車" },
+  { kanji: "市ケ谷", kana: "いちがや", line: "JR総武線各駅停車" },
+  { kanji: "飯田橋", kana: "いいだばし", line: "JR総武線各駅停車" },
+  { kanji: "水道橋", kana: "すいどうばし", line: "JR総武線各駅停車" },
+  { kanji: "御茶ノ水", kana: "おちゃのみず", line: "JR総武線各駅停車" },
+  { kanji: "秋葉原", kana: "あきはばら", line: "JR総武線各駅停車" },
+  { kanji: "浅草橋", kana: "あさくさばし", line: "JR総武線各駅停車" },
+  { kanji: "馬喰町", kana: "ばくろうちょう", line: "JR総武線各駅停車" },
+  { kanji: "錦糸町", kana: "きんしちょう", line: "JR総武線各駅停車" },
+  { kanji: "亀戸", kana: "かめいど", line: "JR総武線各駅停車" },
+  { kanji: "平井", kana: "ひらい", line: "JR総武線各駅停車" },
+  { kanji: "新小岩", kana: "しんこいわ", line: "JR総武線各駅停車" },
+  { kanji: "小岩", kana: "こいわ", line: "JR総武線各駅停車" },
+  { kanji: "市川", kana: "いちかわ", line: "JR総武線各駅停車" },
+  { kanji: "市川大門", kana: "いちかわだいもん", line: "JR総武線各駅停車" },
+  { kanji: "船橋", kana: "ふなばし", line: "JR総武線各駅停車" },
+  { kanji: "西船橋", kana: "にしふなばし", line: "JR総武線各駅停車" },
+  { kanji: "東船橋", kana: "ひがしふなばし", line: "JR総武線各駅停車" },
+  { kanji: "津田沼", kana: "つだぬま", line: "JR総武線各駅停車" },
+  { kanji: "稲毛", kana: "いなげ", line: "JR総武線各駅停車" },
+  { kanji: "千葉", kana: "ちば", line: "JR総武線各駅停車" },
+  { kanji: "新日本橋", kana: "しんにほんばし", line: "JR総武線各駅停車" },
+  { kanji: "馬喰横山", kana: "ばくろうよこやま", line: "JR総武線各駅停車" },
+  { kanji: "両国", kana: "りょうごく", line: "JR総武線各駅停車" },
+  { kanji: "浅草", kana: "あさくさ", line: "JR総武線各駅停車" },
+  { kanji: "押上", kana: "おしあげ", line: "JR総武線各駅停車" },
+  { kanji: "八広", kana: "やひろ", line: "JR総武線各駅停車" },
+  { kanji: "東小金井", kana: "ひがしこがねい", line: "JR総武線各駅停車" },
 
-  { kanji: "兵庫県", kana: "ひょうごけん", prefecture: "兵庫県", region: "近畿" },
-  { kanji: "神戸", kana: "こうべ", prefecture: "兵庫県", region: "近畿" },
-  { kanji: "姫路", kana: "ひめじ", prefecture: "兵庫県", region: "近畿" },
-  { kanji: "尼崎", kana: "あまがさき", prefecture: "兵庫県", region: "近畿" },
-  { kanji: "西宮", kana: "にしのみや", prefecture: "兵庫県", region: "近畿" },
-  { kanji: "明石", kana: "あかし", prefecture: "兵庫県", region: "近畿" },
-  { kanji: "加古川", kana: "かこがわ", prefecture: "兵庫県", region: "近畿" },
-  { kanji: "淡路", kana: "あわじ", prefecture: "兵庫県", region: "近畿" },
+  // === JR東海道線 ===
+  { kanji: "東京", kana: "とうきょう", line: "JR東海道線" },
+  { kanji: "新橋", kana: "しんばし", line: "JR東海道線" },
+  { kanji: "品川", kana: "しながわ", line: "JR東海道線" },
+  { kanji: "大崎", kana: "おおさき", line: "JR東海道線" },
+  { kanji: "大井町", kana: "おおいまち", line: "JR東海道線" },
+  { kanji: "大森", kana: "おおもり", line: "JR東海道線" },
+  { kanji: "蒲田", kana: "かまた", line: "JR東海道線" },
+  { kanji: "川崎", kana: "かわさき", line: "JR東海道線" },
+  { kanji: "鶴見", kana: "つるみ", line: "JR東海道線" },
+  { kanji: "新子安", kana: "しんこやす", line: "JR東海道線" },
+  { kanji: "横浜", kana: "よこはま", line: "JR東海道線" },
+  { kanji: "戸塚", kana: "とつか", line: "JR東海道線" },
+  { kanji: "東戸塚", kana: "ひがしとつか", line: "JR東海道線" },
+  { kanji: "大船", kana: "おおふな", line: "JR東海道線" },
+  { kanji: "藤沢", kana: "ふじさわ", line: "JR東海道線" },
+  { kanji: "茅ヶ崎", kana: "ちがさき", line: "JR東海道線" },
+  { kanji: "平塚", kana: "ひらつか", line: "JR東海道線" },
+  { kanji: "大磯", kana: "おおいそ", line: "JR東海道線" },
+  { kanji: "二宮", kana: "にのみや", line: "JR東海道線" },
+  { kanji: "小田原", kana: "おだわら", line: "JR東海道線" },
+  { kanji: "早川", kana: "はやかわ", line: "JR東海道線" },
+  { kanji: "根府川", kana: "ねぶかわ", line: "JR東海道線" },
+  { kanji: "真鶴", kana: "まなづる", line: "JR東海道線" },
+  { kanji: "湯河原", kana: "ゆがわら", line: "JR東海道線" },
+  { kanji: "熱海", kana: "あたみ", line: "JR東海道線" },
+  { kanji: "神奈川", kana: "かながわ", line: "JR東海道線" },
+  { kanji: "戸部", kana: "とべ", line: "JR東海道線" },
+  { kanji: "桜木町", kana: "さくらぎちょう", line: "JR東海道線" },
+  { kanji: "石川町", kana: "いしかわちょう", line: "JR東海道線" },
+  { kanji: "山手", kana: "やまのて", line: "JR東海道線" },
 
-  { kanji: "奈良県", kana: "ならけん", prefecture: "奈良県", region: "近畿" },
-  { kanji: "奈良", kana: "なら", prefecture: "奈良県", region: "近畿" },
-  { kanji: "橿原", kana: "かしはら", prefecture: "奈良県", region: "近畿" },
-  { kanji: "生駒", kana: "いこま", prefecture: "奈良県", region: "近畿" },
-  { kanji: "大和高田", kana: "やまとたかだ", prefecture: "奈良県", region: "近畿" },
-  { kanji: "五条", kana: "ごじょう", prefecture: "奈良県", region: "近畿" },
+  // === 京王線 ===
+  { kanji: "新宿", kana: "しんじゅく", line: "京王線" },
+  { kanji: "新宿三丁目", kana: "しんじゅくさんちょうめ", line: "京王線" },
+  { kanji: "初台", kana: "はつだい", line: "京王線" },
+  { kanji: "代々木上原", kana: "よよぎうえはら", line: "京王線" },
+  { kanji: "明大前", kana: "めいだいまえ", line: "京王線" },
+  { kanji: "下高井戸", kana: "しもたかいど", line: "京王線" },
+  { kanji: "桜上水", kana: "さくらじょうすい", line: "京王線" },
+  { kanji: "千歳烏山", kana: "ちとせからすやま", line: "京王線" },
+  { kanji: "仙川", kana: "せんがわ", line: "京王線" },
+  { kanji: "つつじケ丘", kana: "つつじがおか", line: "京王線" },
+  { kanji: "分倍河原", kana: "ぶばいがわら", line: "京王線" },
+  { kanji: "府中", kana: "ふちゅう", line: "京王線" },
 
-  { kanji: "和歌山県", kana: "わかやまけん", prefecture: "和歌山県", region: "近畿" },
-  { kanji: "和歌山", kana: "わかやま", prefecture: "和歌山県", region: "近畿" },
-  { kanji: "田辺", kana: "たなべ", prefecture: "和歌山県", region: "近畿" },
-  { kanji: "海南", kana: "かいなん", prefecture: "和歌山県", region: "近畿" },
-  { kanji: "白浜", kana: "しらはま", prefecture: "和歌山県", region: "近畿" },
-  { kanji: "有田", kana: "ありだ", prefecture: "和歌山県", region: "近畿" },
+  // === 小田急線 ===
+  { kanji: "新宿", kana: "しんじゅく", line: "小田急線" },
+  { kanji: "南新宿", kana: "みなみしんじゅく", line: "小田急線" },
+  { kanji: "参宮橋", kana: "さんぐうばし", line: "小田急線" },
+  { kanji: "代々木八幡", kana: "よよぎはちまん", line: "小田急線" },
+  { kanji: "代々木上原", kana: "よよぎうえはら", line: "小田急線" },
+  { kanji: "東北沢", kana: "ひがしきたざわ", line: "小田急線" },
+  { kanji: "下北沢", kana: "しもきたざわ", line: "小田急線" },
+  { kanji: "世田谷代田", kana: "せたがやだいた", line: "小田急線" },
+  { kanji: "梅ケ丘", kana: "うめがおか", line: "小田急線" },
+  { kanji: "経堂", kana: "きょうどう", line: "小田急線" },
+  { kanji: "千歳船橋", kana: "ちとせふなばし", line: "小田急線" },
+  { kanji: "祖師ケ谷大蔵", kana: "そしがやおおくら", line: "小田急線" },
+  { kanji: "成城学園前", kana: "せいじょうがくえんまえ", line: "小田急線" },
+  { kanji: "喜多見", kana: "きたみ", line: "小田急線" },
+  { kanji: "狛江", kana: "こまえ", line: "小田急線" },
+  { kanji: "和泉多摩川", kana: "いずみたまがわ", line: "小田急線" },
+  { kanji: "登戸", kana: "のぼりと", line: "小田急線" },
+  { kanji: "向ケ丘遊園", kana: "むかいがおかゆうえん", line: "小田急線" },
+  { kanji: "新百合ケ丘", kana: "しんゆりがおか", line: "小田急線" },
 
-  // === 中国地方 ===
-  { kanji: "鳥取県", kana: "とっとりけん", prefecture: "鳥取県", region: "中国" },
-  { kanji: "鳥取", kana: "とっとり", prefecture: "鳥取県", region: "中国" },
-  { kanji: "米子", kana: "よなご", prefecture: "鳥取県", region: "中国" },
-  { kanji: "倉吉", kana: "くらよし", prefecture: "鳥取県", region: "中国" },
-  { kanji: "境港", kana: "さかいみなと", prefecture: "鳥取県", region: "中国" },
+  // === 東急東横線 ===
+  { kanji: "渋谷", kana: "しぶや", line: "東急東横線" },
+  { kanji: "代官山", kana: "だいかんやま", line: "東急東横線" },
+  { kanji: "中目黒", kana: "なかめぐろ", line: "東急東横線" },
+  { kanji: "祐天寺", kana: "ゆうてんじ", line: "東急東横線" },
+  { kanji: "学芸大学", kana: "がくげいだいがく", line: "東急東横線" },
+  { kanji: "都立大学", kana: "とりつだいがく", line: "東急東横線" },
+  { kanji: "自由が丘", kana: "じゆうがおか", line: "東急東横線" },
+  { kanji: "田園調布", kana: "でんえんちょうふ", line: "東急東横線" },
+  { kanji: "多摩川", kana: "たまがわ", line: "東急東横線" },
+  { kanji: "新丸子", kana: "しんまるこ", line: "東急東横線" },
+  { kanji: "武蔵小杉", kana: "むさしこすぎ", line: "東急東横線" },
+  { kanji: "元住吉", kana: "もとすみよし", line: "東急東横線" },
+  { kanji: "日吉", kana: "ひよし", line: "東急東横線" },
 
-  { kanji: "島根県", kana: "しまねけん", prefecture: "島根県", region: "中国" },
-  { kanji: "松江", kana: "まつえ", prefecture: "島根県", region: "中国" },
-  { kanji: "出雲", kana: "いずも", prefecture: "島根県", region: "中国" },
-  { kanji: "浜田", kana: "はまだ", prefecture: "島根県", region: "中国" },
-  { kanji: "益田", kana: "ますだ", prefecture: "島根県", region: "中国" },
-  { kanji: "隠岐", kana: "おき", prefecture: "島根県", region: "中国" },
+  // === 東急田園都市線 ===
+  { kanji: "渋谷", kana: "しぶや", line: "東急田園都市線" },
+  { kanji: "池尻大橋", kana: "いけじりおおはし", line: "東急田園都市線" },
+  { kanji: "三軒茶屋", kana: "さんげんぢゃや", line: "東急田園都市線" },
+  { kanji: "駒沢大学", kana: "こまざわだいがく", line: "東急田園都市線" },
+  { kanji: "桜新町", kana: "さくらしんまち", line: "東急田園都市線" },
+  { kanji: "用賀", kana: "ようが", line: "東急田園都市線" },
+  { kanji: "二子玉川", kana: "ふたこたまがわ", line: "東急田園都市線" },
+  { kanji: "高津", kana: "たかつ", line: "東急田園都市線" },
+  { kanji: "宮崎台", kana: "みやざきだい", line: "東急田園都市線" },
+  { kanji: "藤が丘", kana: "ふじがおか", line: "東急田園都市線" },
+  { kanji: "あざみ野", kana: "あざみの", line: "東急田園都市線" },
+  { kanji: "江田", kana: "えだ", line: "東急田園都市線" },
+  { kanji: "つくし野", kana: "つくしの", line: "東急田園都市線" },
+  { kanji: "すずかけ台", kana: "すずかけだい", line: "東急田園都市線" },
+  { kanji: "町田", kana: "まちだ", line: "東急田園都市線" },
 
-  { kanji: "岡山県", kana: "おかやまけん", prefecture: "岡山県", region: "中国" },
-  { kanji: "岡山", kana: "おかやま", prefecture: "岡山県", region: "中国" },
-  { kanji: "倉敷", kana: "くらしき", prefecture: "岡山県", region: "中国" },
-  { kanji: "津山", kana: "つやま", prefecture: "岡山県", region: "中国" },
-  { kanji: "玉野", kana: "たまの", prefecture: "岡山県", region: "中国" },
-  { kanji: "笠岡", kana: "かさおか", prefecture: "岡山県", region: "中国" },
+  // === 西武池袋線 ===
+  { kanji: "池袋", kana: "いけぶくろ", line: "西武池袋線" },
+  { kanji: "椎名町", kana: "しいなまち", line: "西武池袋線" },
+  { kanji: "東長崎", kana: "ひがしながさき", line: "西武池袋線" },
+  { kanji: "江古田", kana: "えこだ", line: "西武池袋線" },
+  { kanji: "桜台", kana: "さくらだい", line: "西武池袋線" },
+  { kanji: "練馬", kana: "ねりま", line: "西武池袋線" },
+  { kanji: "豊島園", kana: "としまえん", line: "西武池袋線" },
+  { kanji: "石神井公園", kana: "しゃくじいこうえん", line: "西武池袋線" },
+  { kanji: "大泉学園", kana: "おおいずみがくえん", line: "西武池袋線" },
+  { kanji: "所沢", kana: "ところざわ", line: "西武池袋線" },
 
-  { kanji: "広島県", kana: "ひろしまけん", prefecture: "広島県", region: "中国" },
-  { kanji: "広島", kana: "ひろしま", prefecture: "広島県", region: "中国" },
-  { kanji: "呉", kana: "くれ", prefecture: "広島県", region: "中国" },
-  { kanji: "福山", kana: "ふくやま", prefecture: "広島県", region: "中国" },
-  { kanji: "尾道", kana: "おのみち", prefecture: "広島県", region: "中国" },
-  { kanji: "三原", kana: "みはら", prefecture: "広島県", region: "中国" },
-  { kanji: "宮島", kana: "みやじま", prefecture: "広島県", region: "中国" },
+  // === 東武東上線 ===
+  { kanji: "池袋", kana: "いけぶくろ", line: "東武東上線" },
+  { kanji: "北池袋", kana: "きたいけぶくろ", line: "東武東上線" },
+  { kanji: "ときわ台", kana: "ときわだい", line: "東武東上線" },
+  { kanji: "下板橋", kana: "しもいたばし", line: "東武東上線" },
+  { kanji: "成増", kana: "なります", line: "東武東上線" },
+  { kanji: "和光市", kana: "わこうし", line: "東武東上線" },
+  { kanji: "朝霞台", kana: "あさかだい", line: "東武東上線" },
+  { kanji: "川越", kana: "かわごえ", line: "東武東上線" },
 
-  { kanji: "山口県", kana: "やまぐちけん", prefecture: "山口県", region: "中国" },
-  { kanji: "山口", kana: "やまぐち", prefecture: "山口県", region: "中国" },
-  { kanji: "下関", kana: "しものせき", prefecture: "山口県", region: "中国" },
-  { kanji: "宇部", kana: "うべ", prefecture: "山口県", region: "中国" },
-  { kanji: "萩", kana: "はぎ", prefecture: "山口県", region: "中国" },
-  { kanji: "防府", kana: "ほうふ", prefecture: "山口県", region: "中国" },
+  // === りんかい線 ===
+  { kanji: "新木場", kana: "しんきば", line: "りんかい線" },
+  { kanji: "東雲", kana: "しののめ", line: "りんかい線" },
+  { kanji: "国際展示場", kana: "こくさいてんじじょう", line: "りんかい線" },
+  { kanji: "東京テレポート", kana: "とうきょうてれぽーと", line: "りんかい線" },
+  { kanji: "テレコムセンター", kana: "てれこむせんたー", line: "りんかい線" },
+  { kanji: "青海", kana: "おおみ", line: "りんかい線" },
+  { kanji: "東京ビッグサイト", kana: "とうきょうびっぐさいと", line: "りんかい線" },
+  { kanji: "有明", kana: "ありあけ", line: "りんかい線" },
+  { kanji: "国際展示場正門", kana: "こくさいてんじじょうせいもん", line: "りんかい線" },
+  { kanji: "有明テニスの森", kana: "ありあけてにすのもり", line: "りんかい線" },
+  { kanji: "天王洲アイル", kana: "てんのうずアイル", line: "りんかい線" },
+  { kanji: "品川シーサイド", kana: "しながわしーさいど", line: "りんかい線" },
+  { kanji: "大井町", kana: "おおいまち", line: "りんかい線" },
+  { kanji: "大崎", kana: "おおさき", line: "りんかい線" },
+  { kanji: "旗の台", kana: "はたのだい", line: "東急大井町線" },
+  { kanji: "荏原町", kana: "えばらちょう", line: "東急大井町線" },
+  { kanji: "等々力", kana: "とどろき", line: "東急大井町線" },
+  { kanji: "尾山台", kana: "おやまだい", line: "東急大井町線" },
+  { kanji: "二子玉川", kana: "ふたこたまがわ", line: "東急大井町線" },
+  { kanji: "上野毛", kana: "かみのげ", line: "東急大井町線" },
+  { kanji: "駒沢大学", kana: "こまざわだいがく", line: "東急大井町線" },
+  { kanji: "三軒茶屋", kana: "さんげんぢゃや", line: "東急大井町線" },
+  { kanji: "池尻大橋", kana: "いけじりおおはし", line: "東急大井町線" },
+  { kanji: "渋谷", kana: "しぶや", line: "東急大井町線" },
 
-  // === 四国地方 ===
-  { kanji: "徳島県", kana: "とくしまけん", prefecture: "徳島県", region: "四国" },
-  { kanji: "徳島", kana: "とくしま", prefecture: "徳島県", region: "四国" },
-  { kanji: "鳴門", kana: "なると", prefecture: "徳島県", region: "四国" },
-  { kanji: "阿南", kana: "あなん", prefecture: "徳島県", region: "四国" },
-  { kanji: "吉野川", kana: "よしのがわ", prefecture: "徳島県", region: "四国" },
+  // === 京急線 ===
+  { kanji: "品川", kana: "しながわ", line: "京急線" },
+  { kanji: "北品川", kana: "きたしながわ", line: "京急線" },
+  { kanji: "新馬場", kana: "しんばんば", line: "京急線" },
+  { kanji: "立会川", kana: "たちあいがわ", line: "京急線" },
+  { kanji: "大森海岸", kana: "おおもりかいがん", line: "京急線" },
+  { kanji: "平和島", kana: "へいわじま", line: "京急線" },
+  { kanji: "大森町", kana: "おおもりまち", line: "京急線" },
+  { kanji: "梅屋敷", kana: "うめやしき", line: "京急線" },
+  { kanji: "京急蒲田", kana: "けいきゅうかまた", line: "京急線" },
+  { kanji: "雑色", kana: "ぞうしき", line: "京急線" },
+  { kanji: "六郷土手", kana: "ろくごうどて", line: "京急線" },
+  { kanji: "川崎", kana: "かわさき", line: "京急線" },
 
-  { kanji: "香川県", kana: "かがわけん", prefecture: "香川県", region: "四国" },
-  { kanji: "高松", kana: "たかまつ", prefecture: "香川県", region: "四国" },
-  { kanji: "丸亀", kana: "まるがめ", prefecture: "香川県", region: "四国" },
-  { kanji: "坂出", kana: "さかいで", prefecture: "香川県", region: "四国" },
-  { kanji: "観音寺", kana: "かんおんじ", prefecture: "香川県", region: "四国" },
-  { kanji: "善通寺", kana: "ぜんつうじ", prefecture: "香川県", region: "四国" },
-
-  { kanji: "愛媛県", kana: "えひめけん", prefecture: "愛媛県", region: "四国" },
-  { kanji: "松山", kana: "まつやま", prefecture: "愛媛県", region: "四国" },
-  { kanji: "今治", kana: "いまばり", prefecture: "愛媛県", region: "四国" },
-  { kanji: "新居浜", kana: "にいはま", prefecture: "愛媛県", region: "四国" },
-  { kanji: "西条", kana: "さいじょう", prefecture: "愛媛県", region: "四国" },
-  { kanji: "宇和島", kana: "うわじま", prefecture: "愛媛県", region: "四国" },
-  { kanji: "道後", kana: "どうご", prefecture: "愛媛県", region: "四国" },
-
-  { kanji: "高知県", kana: "こうちけん", prefecture: "高知県", region: "四国" },
-  { kanji: "高知", kana: "こうち", prefecture: "高知県", region: "四国" },
-  { kanji: "土佐清水", kana: "とさしみず", prefecture: "高知県", region: "四国" },
-  { kanji: "須崎", kana: "すさき", prefecture: "高知県", region: "四国" },
-  { kanji: "南国", kana: "なんこく", prefecture: "高知県", region: "四国" },
-  { kanji: "安芸", kana: "あき", prefecture: "高知県", region: "四国" },
-
-  // === 九州・沖縄地方 ===
-  { kanji: "福岡県", kana: "ふくおかけん", prefecture: "福岡県", region: "九州・沖縄" },
-  { kanji: "福岡", kana: "ふくおか", prefecture: "福岡県", region: "九州・沖縄" },
-  { kanji: "北九州", kana: "きたきゅうしゅう", prefecture: "福岡県", region: "九州・沖縄" },
-  { kanji: "久留米", kana: "くるめ", prefecture: "福岡県", region: "九州・沖縄" },
-  { kanji: "飯塚", kana: "いいづか", prefecture: "福岡県", region: "九州・沖縄" },
-  { kanji: "柳川", kana: "やながわ", prefecture: "福岡県", region: "九州・沖縄" },
-  { kanji: "太宰府", kana: "だざいふ", prefecture: "福岡県", region: "九州・沖縄" },
-  { kanji: "博多", kana: "はかた", prefecture: "福岡県", region: "九州・沖縄" },
-
-  { kanji: "佐賀県", kana: "さがけん", prefecture: "佐賀県", region: "九州・沖縄" },
-  { kanji: "佐賀", kana: "さが", prefecture: "佐賀県", region: "九州・沖縄" },
-  { kanji: "唐津", kana: "からつ", prefecture: "佐賀県", region: "九州・沖縄" },
-  { kanji: "伊万里", kana: "いまり", prefecture: "佐賀県", region: "九州・沖縄" },
-  { kanji: "鳥栖", kana: "とす", prefecture: "佐賀県", region: "九州・沖縄" },
-  { kanji: "有田", kana: "ありた", prefecture: "佐賀県", region: "九州・沖縄" },
-
-  { kanji: "長崎県", kana: "ながさきけん", prefecture: "長崎県", region: "九州・沖縄" },
-  { kanji: "長崎", kana: "ながさき", prefecture: "長崎県", region: "九州・沖縄" },
-  { kanji: "佐世保", kana: "させぼ", prefecture: "長崎県", region: "九州・沖縄" },
-  { kanji: "諫早", kana: "いさはや", prefecture: "長崎県", region: "九州・沖縄" },
-  { kanji: "大村", kana: "おおむら", prefecture: "長崎県", region: "九州・沖縄" },
-  { kanji: "対馬", kana: "つしま", prefecture: "長崎県", region: "九州・沖縄" },
-  { kanji: "壱岐", kana: "いき", prefecture: "長崎県", region: "九州・沖縄" },
-
-  { kanji: "熊本県", kana: "くまもとけん", prefecture: "熊本県", region: "九州・沖縄" },
-  { kanji: "熊本", kana: "くまもと", prefecture: "熊本県", region: "九州・沖縄" },
-  { kanji: "八代", kana: "やつしろ", prefecture: "熊本県", region: "九州・沖縄" },
-  { kanji: "天草", kana: "あまくさ", prefecture: "熊本県", region: "九州・沖縄" },
-  { kanji: "玉名", kana: "たまな", prefecture: "熊本県", region: "九州・沖縄" },
-  { kanji: "阿蘇", kana: "あそ", prefecture: "熊本県", region: "九州・沖縄" },
-  { kanji: "人吉", kana: "ひとよし", prefecture: "熊本県", region: "九州・沖縄" },
-
-  { kanji: "大分県", kana: "おおいたけん", prefecture: "大分県", region: "九州・沖縄" },
-  { kanji: "大分", kana: "おおいた", prefecture: "大分県", region: "九州・沖縄" },
-  { kanji: "別府", kana: "べっぷ", prefecture: "大分県", region: "九州・沖縄" },
-  { kanji: "中津", kana: "なかつ", prefecture: "大分県", region: "九州・沖縄" },
-  { kanji: "日田", kana: "ひた", prefecture: "大分県", region: "九州・沖縄" },
-  { kanji: "由布院", kana: "ゆふいん", prefecture: "大分県", region: "九州・沖縄" },
-
-  { kanji: "宮崎県", kana: "みやざきけん", prefecture: "宮崎県", region: "九州・沖縄" },
-  { kanji: "宮崎", kana: "みやざき", prefecture: "宮崎県", region: "九州・沖縄" },
-  { kanji: "都城市", kana: "みやこのじょう", prefecture: "宮崎県", region: "九州・沖縄" },
-  { kanji: "延岡", kana: "のべおか", prefecture: "宮崎県", region: "九州・沖縄" },
-  { kanji: "日向", kana: "ひゅうが", prefecture: "宮崎県", region: "九州・沖縄" },
-  { kanji: "高千穂", kana: "たかちほ", prefecture: "宮崎県", region: "九州・沖縄" },
-
-  { kanji: "鹿児島県", kana: "かごしまけん", prefecture: "鹿児島県", region: "九州・沖縄" },
-  { kanji: "鹿児島", kana: "かごしま", prefecture: "鹿児島県", region: "九州・沖縄" },
-  { kanji: "鹿屋", kana: "かのや", prefecture: "鹿児島県", region: "九州・沖縄" },
-  { kanji: "霧島", kana: "きりしま", prefecture: "鹿児島県", region: "九州・沖縄" },
-  { kanji: "指宿", kana: "いぶすき", prefecture: "鹿児島県", region: "九州・沖縄" },
-  { kanji: "奄美", kana: "あまみ", prefecture: "鹿児島県", region: "九州・沖縄" },
-  { kanji: "枕崎", kana: "まくらざき", prefecture: "鹿児島県", region: "九州・沖縄" },
-
-  { kanji: "沖縄県", kana: "おきなわけん", prefecture: "沖縄県", region: "九州・沖縄" },
-  { kanji: "那覇", kana: "なは", prefecture: "沖縄県", region: "九州・沖縄" },
-  { kanji: "宜野湾", kana: "ぎのわん", prefecture: "沖縄県", region: "九州・沖縄" },
-  { kanji: "沖縄", kana: "おきなわ", prefecture: "沖縄県", region: "九州・沖縄" },
-  { kanji: "石垣", kana: "いしがき", prefecture: "沖縄県", region: "九州・沖縄" },
-  { kanji: "宮古島", kana: "みやこじま", prefecture: "沖縄県", region: "九州・沖縄" },
-  { kanji: "名護", kana: "なご", prefecture: "沖縄県", region: "九州・沖縄" },
-  { kanji: "糸満", kana: "いとまん", prefecture: "沖縄県", region: "九州・沖縄" }
+  // === つくばエクスプレス ===
+  { kanji: "秋葉原", kana: "あきはばら", line: "つくばエクスプレス" },
+  { kanji: "新御徒町", kana: "しんおかちまち", line: "つくばエクスプレス" },
+  { kanji: "浅草", kana: "あさくさ", line: "つくばエクスプレス" },
+  { kanji: "蔵前", kana: "くらまえ", line: "つくばエクスプレス" },
+  { kanji: "南流山", kana: "みなみながれやま", line: "つくばエクスプレス" },
+  { kanji: "流山セントラルパーク", kana: "ながれやませんとらるぱーく", line: "つくばエクスプレス" },
+  { kanji: "柏の葉キャンパス", kana: "かしわのはキャンパス", line: "つくばエクスプレス" },
+  { kanji: "守谷", kana: "もりや", line: "つくばエクスプレス" },
+  { kanji: "つくば", kana: "つくば", line: "つくばエクスプレス" },
 ];
 
 // ===== ゲームロジック =====
 let currentMode = 'simple'; // simple or hint
-let wrongNoteMode = false;
-let selectedPrefs = new Set(); // empty = all prefectures
-let currentHeadTail = null; // { first: 'し', last: 'や', places: [...] }
+let wrongNoteMode = false; // wrong note mode toggle
+let selectedLines = new Set(); // empty = all lines
+let currentHeadTail = null; // { first: 'し', last: 'や', stations: [...] }
 let correctCount = 0;
 let wrongCount = 0;
 let streakCount = 0;
 let totalQuestions = 0;
 let answered = false;
-let usedHeadTails = new Set();
+let usedHeadTails = new Set(); // Track used head-tail combinations
 
 // Hint system
 let hintsUsed = 0;
 const maxHints = 3;
 let currentHints = [];
-let hintAnswerPlace = null;
+let hintAnswerStation = null; // The station used for generating hints
 
 // History
 let historyList = [];
 
-// Region groups definition
-const regionGroups = [
-  { name: '北海道', prefectures: ['北海道'] },
-  { name: '東北', prefectures: ['青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県'] },
-  { name: '関東', prefectures: ['茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県'] },
-  { name: '中部', prefectures: ['新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県'] },
-  { name: '近畿', prefectures: ['三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県'] },
-  { name: '中国', prefectures: ['鳥取県', '島根県', '岡山県', '広島県', '山口県'] },
-  { name: '四国', prefectures: ['徳島県', '香川県', '愛媛県', '高知県'] },
-  { name: '九州・沖縄', prefectures: ['福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'] }
+// Line groups definition
+const lineGroups = [
+  {
+    name: 'JR',
+    lines: ['JR山手線', 'JR京浜東北線', 'JR根岸線', 'JR横須賀線', 'JR総武快速線', 'JR京葉線', 'JR武蔵野線', 'JR南武線', 'JR埼京線', 'JR湘南新宿ライン', 'JR上野東京ライン', 'JR常磐線各駅停車', 'JR中央線快速', 'JR総武線各駅停車', 'JR東海道線']
+  },
+  {
+    name: '東京メトロ',
+    lines: ['銀座線', '丸ノ内線', '日比谷線', '東西線', '千代田線', '有楽町線', '半蔵門線', '南北線', '副都心線']
+  },
+  {
+    name: '都営地下鉄',
+    lines: ['都営浅草線', '都営三田線', '都営新宿線', '都営大江戸線']
+  },
+  {
+    name: '私鉄・その他',
+    lines: ['京王線', '小田急線', '東急東横線', '東急田園都市線', '東急大井町線', '西武池袋線', '東武東上線', '京急線', 'りんかい線', 'つくばエクスプレス']
+  }
 ];
 
-// Get unique places (deduplicate by kana+kanji)
-function getUniquePlaces() {
+// Get unique stations (deduplicate by kana+kanji)
+function getUniqueStations() {
   const seen = new Set();
-  return placeDB.filter(p => {
-    const key = p.kanji + p.kana;
+  return stationDB.filter(s => {
+    const key = s.kanji + s.kana;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
 }
 
-const uniquePlaces = getUniquePlaces();
-document.getElementById('totalPlaces').textContent = uniquePlaces.length;
+const uniqueStations = getUniqueStations();
+document.getElementById('totalStations').textContent = uniqueStations.length;
 
-// Initialize prefecture filter UI
-function initPrefFilter() {
-  const container = document.getElementById('prefFilterGroups');
+// Initialize line filter UI
+function initLineFilter() {
+  const container = document.getElementById('lineFilterGroups');
   let html = '';
-
+  
+  // "All lines" button
   html += `
-    <div class="pref-group">
-      <div class="pref-group-btns">
-        <button class="pref-btn all-btn active" data-pref="__all__">全都道府県</button>
+    <div class="line-group">
+      <div class="line-group-btns">
+        <button class="line-btn all-btn active" data-line="__all__">全路線</button>
       </div>
     </div>
   `;
-
-  regionGroups.forEach(group => {
+  
+  lineGroups.forEach(group => {
     html += `
-      <div class="pref-group">
-        <div class="pref-group-title">${group.name}</div>
-        <div class="pref-group-btns">
-          ${group.prefectures.map(pref =>
-            `<button class="pref-btn" data-pref="${pref}">${pref}</button>`
+      <div class="line-group">
+        <div class="line-group-title">${group.name}</div>
+        <div class="line-group-btns">
+          ${group.lines.map(line => 
+            `<button class="line-btn" data-line="${line}">${line}</button>`
           ).join('')}
         </div>
       </div>
     `;
   });
-
+  
   container.innerHTML = html;
-
-  function handlePrefBtnClick(e) {
-    const btn = e.target.closest('.pref-btn');
+  
+  // Use event delegation for more reliable click handling
+  function handleLineBtnClick(e) {
+    const btn = e.target.closest('.line-btn');
     if (!btn) return;
-
-    const pref = btn.dataset.pref;
-
-    if (pref === '__all__') {
-      selectedPrefs.clear();
-      container.querySelectorAll('.pref-btn').forEach(b => b.classList.remove('active'));
+    
+    const line = btn.dataset.line;
+    
+    if (line === '__all__') {
+      selectedLines.clear();
+      container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     } else {
-      const allBtn = container.querySelector('.pref-btn.all-btn');
+      const allBtn = container.querySelector('.line-btn.all-btn');
       allBtn.classList.remove('active');
-
-      if (selectedPrefs.has(pref)) {
-        selectedPrefs.delete(pref);
+      
+      if (selectedLines.has(line)) {
+        selectedLines.delete(line);
         btn.classList.remove('active');
-        if (selectedPrefs.size === 0) {
+        if (selectedLines.size === 0) {
           allBtn.classList.add('active');
         }
       } else {
-        selectedPrefs.add(pref);
+        selectedLines.add(line);
         btn.classList.add('active');
       }
     }
-
-    updateSelectedPrefCount();
+    
+    updateSelectedLineCount();
     usedHeadTails.clear();
     nextQuestion();
   }
-
-  container.addEventListener('click', handlePrefBtnClick);
+  
+  container.addEventListener('click', handleLineBtnClick);
 }
 
-function updateSelectedPrefCount() {
-  const countEl = document.getElementById('selectedPrefCount');
-  if (selectedPrefs.size === 0) {
-    countEl.textContent = '（全都道府県）';
+function updateSelectedLineCount() {
+  const countEl = document.getElementById('selectedLineCount');
+  if (selectedLines.size === 0) {
+    countEl.textContent = '（全路線）';
   } else {
-    countEl.textContent = `（${selectedPrefs.size}都道府県）`;
+    countEl.textContent = `（${selectedLines.size}路線）`;
   }
 }
 
-// Toggle pref filter panel
-function togglePrefFilter() {
-  document.getElementById('prefFilter').classList.toggle('open');
+// Toggle line filter panel
+function toggleLineFilter() {
+  document.getElementById('lineFilter').classList.toggle('open');
 }
-document.getElementById('prefFilterHeader').addEventListener('click', togglePrefFilter);
-document.getElementById('prefFilterHeader').addEventListener('keydown', (e) => {
+document.getElementById('lineFilterHeader').addEventListener('click', toggleLineFilter);
+document.getElementById('lineFilterHeader').addEventListener('keydown', (e) => {
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault();
-    togglePrefFilter();
+    toggleLineFilter();
   }
 });
 
-// Get filtered places based on selected prefectures and wrong note mode
-function getFilteredPlaces() {
-  let filtered = placeDB.slice();
-
-  // Wrong note mode: use places from history
+// Get filtered stations based on selected lines and wrong note mode
+function getFilteredStations() {
+  // 元のDBからフィルターして、その後で重複排除
+  // （uniqueStations を使うと路線情報が1つしか残らず、路線フィルターが漏れるため）
+  let filtered = stationDB.slice();
+  
+  // Wrong note mode: use stations from history (wrong answers + hint-used answers)
   if (wrongNoteMode) {
     const wrongKanjiSet = new Set();
     historyList.forEach(item => {
-      if (item.samplePlace) {
-        wrongKanjiSet.add(item.samplePlace.kanji);
+      if (item.sampleStation) {
+        wrongKanjiSet.add(item.sampleStation.kanji);
       }
     });
-    filtered = filtered.filter(p => wrongKanjiSet.has(p.kanji));
-  } else if (selectedPrefs.size > 0) {
-    filtered = filtered.filter(p => selectedPrefs.has(p.prefecture));
+    filtered = filtered.filter(s => wrongKanjiSet.has(s.kanji));
+  } else if (selectedLines.size > 0) {
+    // Filter by selected lines
+    filtered = filtered.filter(s => selectedLines.has(s.line));
   }
-
-  // Deduplicate
+  
+  // 重複排除（漢字ベースで最初の1件を採用）
   const seen = new Set();
-  filtered = filtered.filter(p => {
-    const key = p.kanji + p.kana;
+  filtered = filtered.filter(s => {
+    const key = s.kanji + s.kana;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
   });
-
+  
   return filtered;
 }
 
-// Build head-tail groups from filtered places
-function buildHeadTailGroups(places) {
+// Build head-tail groups from filtered stations
+function buildHeadTailGroups(stations) {
   const groups = {};
-  places.forEach(p => {
-    const first = p.kana[0];
-    const last = p.kana[p.kana.length - 1];
+  stations.forEach(s => {
+    const first = s.kana[0];
+    const last = s.kana[s.kana.length - 1];
     const key = first + '→' + last;
     if (!groups[key]) {
-      groups[key] = { first, last, places: [] };
+      groups[key] = { first, last, stations: [] };
     }
-    groups[key].places.push(p);
+    groups[key].stations.push(s);
   });
   return groups;
 }
 
-// Pick a random head-tail combination
+// Pick a random head-tail combination (cover all before repeating)
 function pickRandomHeadTail() {
-  const filtered = getFilteredPlaces();
+  const filtered = getFilteredStations();
   const groups = buildHeadTailGroups(filtered);
   const groupKeys = Object.keys(groups);
-
+  
   if (groupKeys.length === 0) return null;
-
+  
+  // Reset only when ALL used (100% coverage)
   if (usedHeadTails.size >= groupKeys.length) {
     usedHeadTails.clear();
   }
-
+  
+  // Pick from unused ones
   const unusedKeys = groupKeys.filter(k => !usedHeadTails.has(k));
   const key = unusedKeys[Math.floor(Math.random() * unusedKeys.length)];
-
+  
   usedHeadTails.add(key);
   return groups[key];
 }
 
-// Find all places matching head and tail kana
-function findMatchingPlaces(firstKana, lastKana) {
-  return getFilteredPlaces().filter(p =>
-    p.kana[0] === firstKana && p.kana[p.kana.length - 1] === lastKana
+// Find all stations matching head and tail kana
+function findMatchingStations(firstKana, lastKana) {
+  return getFilteredStations().filter(s => 
+    s.kana[0] === firstKana && s.kana[s.kana.length - 1] === lastKana
   );
 }
 
-// Check if user input matches any place with current head-tail
+// Check if user input matches any station with current head-tail
 function checkAnswer(userInput) {
   const normalized = userInput.trim().toLowerCase();
-  const places = currentHeadTail.places;
-
-  const matched = places.find(p =>
-    normalized === p.kana || normalized === p.kanji
+  const stations = currentHeadTail.stations;
+  
+  // Check if input matches any station (kana or kanji)
+  const matched = stations.find(s => 
+    normalized === s.kana || normalized === s.kanji
   );
-
+  
   return matched || null;
 }
 
 // Get hint content based on hint level
 function getNextHint() {
-  const place = hintAnswerPlace;
-  const kana = place.kana;
-  const prefecture = place.prefecture;
-
+  const station = hintAnswerStation;
+  const kana = station.kana;
+  const line = station.line;
+  
   let availableMiddleChars = [];
   if (kana.length > 2) {
     availableMiddleChars = kana.slice(1, -1).split('');
   }
-
+  
+  // Get hints used so far to avoid repeating middle chars
   const usedMiddleChars = currentHints
     .map(h => {
       const m = h.match(/途中に「(.)」/);
       return m ? m[1] : null;
     })
     .filter(c => c !== null);
-
+  
   const remainingMiddle = availableMiddleChars.filter(c => !usedMiddleChars.includes(c));
-
+  
   switch (hintsUsed) {
     case 0:
       return `文字数は ${kana.length} 文字です`;
@@ -1860,14 +2378,14 @@ function getNextHint() {
         const char = remainingMiddle[Math.floor(Math.random() * remainingMiddle.length)];
         return `途中に「${char}」が含まれます`;
       }
-      return `都道府県は「${prefecture}」です`;
+      return `路線の一つに「${line}」があります`;
     case 2:
       if (remainingMiddle.length > 1) {
         const others = remainingMiddle.filter(c => !usedMiddleChars.includes(c));
         const char = others[Math.floor(Math.random() * others.length)];
         return `途中に「${char}」も含まれます`;
       }
-      return `都道府県は「${prefecture}」です`;
+      return `路線の一つに「${line}」があります`;
     default:
       return null;
   }
@@ -1876,26 +2394,26 @@ function getNextHint() {
 // Use a hint
 function useHint() {
   if (answered) return;
-
+  
   if (hintsUsed >= maxHints) {
     showResult(false, null);
     return;
   }
-
+  
   const hintText = getNextHint();
   if (!hintText) return;
-
+  
   hintsUsed++;
   currentHints.push(hintText);
-
+  
   const hintDisplay = document.getElementById('hintDisplay');
   const hintItems = document.getElementById('hintItems');
-
+  
   hintDisplay.classList.add('show');
-  hintItems.innerHTML = currentHints.map(h =>
+  hintItems.innerHTML = currentHints.map(h => 
     `<div class="hint-item">${h}</div>`
   ).join('');
-
+  
   const hintBtn = document.getElementById('hintBtn');
   const remaining = maxHints - hintsUsed;
   if (remaining > 0) {
@@ -1909,21 +2427,21 @@ function useHint() {
 // Add to history
 function addToHistory(isCorrect, userAnswer) {
   if (isCorrect && hintsUsed === 0) return;
-
+  
   historyList.unshift({
     headTail: currentHeadTail.first + '→' + currentHeadTail.last,
-    answerCount: currentHeadTail.places.length,
+    answerCount: currentHeadTail.stations.length,
     userAnswer: userAnswer,
     isCorrect: isCorrect,
     hintsUsed: hintsUsed,
     hints: [...currentHints],
-    samplePlace: hintAnswerPlace
+    sampleStation: hintAnswerStation
   });
-
+  
   if (historyList.length > 30) {
     historyList = historyList.slice(0, 30);
   }
-
+  
   renderHistory();
   updateWrongNoteCount();
 }
@@ -1931,32 +2449,32 @@ function addToHistory(isCorrect, userAnswer) {
 // Render history list
 function renderHistory() {
   const historyEl = document.getElementById('historyList');
-
+  
   if (historyList.length === 0) {
     historyEl.innerHTML = '<div class="history-empty">まだ履歴はありません</div>';
     return;
   }
-
+  
   historyEl.innerHTML = historyList.map((item, idx) => {
     const statusClass = item.isCorrect ? '' : 'wrong';
     const hintClass = item.hintsUsed > 0 && item.isCorrect ? 'hint-used' : '';
     const icon = item.isCorrect ? (item.hintsUsed > 0 ? '💡' : '✅') : '❌';
-
+    
     let tags = `<span class="history-tag">${item.headTail}</span>`;
-    tags += `<span class="history-tag pref-tag">全${item.answerCount}都市</span>`;
+    tags += `<span class="history-tag line-tag">全${item.answerCount}駅</span>`;
     if (item.hintsUsed > 0) {
       tags += `<span class="history-tag hint-tag">ヒント×${item.hintsUsed}</span>`;
     }
-
-    const answerText = item.userAnswer
-      ? `あなたの答え: ${item.userAnswer}`
+    
+    const answerText = item.userAnswer 
+      ? `あなたの答え: ${item.userAnswer}` 
       : 'スキップ';
-
+    
     return `
       <div class="history-item ${statusClass} ${hintClass}">
         <div class="history-icon">${icon}</div>
         <div class="history-content">
-          <div class="history-place">${item.samplePlace.kanji}（${item.samplePlace.kana}）</div>
+          <div class="history-station">${item.sampleStation.kanji}（${item.sampleStation.kana}）</div>
           <div class="history-kana">${answerText}</div>
           <div class="history-meta">
             ${tags}
@@ -1977,7 +2495,7 @@ function renderKanaDisplay() {
   const display = document.getElementById('kanaDisplay');
   const firstKana = currentHeadTail.first;
   const lastKana = currentHeadTail.last;
-
+  
   let html = `
     <div class="kana-box kana-first">
       <span class="label">最初の文字</span>
@@ -1985,11 +2503,11 @@ function renderKanaDisplay() {
     </div>
     <div class="arrow">→</div>
   `;
-
+  
   if (currentMode === 'hint') {
-    const place = hintAnswerPlace;
-    if (place.kana.length > 2) {
-      const middle = place.kana.slice(1, -1).split('');
+    const station = hintAnswerStation;
+    if (station.kana.length > 2) {
+      const middle = station.kana.slice(1, -1).split('');
       const shuffled = middle.sort(() => Math.random() - 0.5).slice(0, 2);
       shuffled.forEach((kana, i) => {
         html += `
@@ -2002,16 +2520,16 @@ function renderKanaDisplay() {
       html += '<div class="arrow">→</div>';
     }
   }
-
+  
   html += `
     <div class="kana-box kana-last">
       <span class="label">最後の文字</span>
       ${lastKana}
     </div>
   `;
-
+  
   display.innerHTML = html;
-
+  
   document.querySelectorAll('.kana-box').forEach(box => {
     box.classList.add('pulse');
     setTimeout(() => box.classList.remove('pulse'), 500);
@@ -2027,16 +2545,17 @@ function showResult(isCorrect, userAnswer) {
   const answerList = document.getElementById('answerList');
   const answerCount = document.getElementById('answerCount');
   const userAnswerInfo = document.getElementById('userAnswerInfo');
-
-  const places = currentHeadTail.places;
-  const uniqueCount = new Set(places.map(p => p.kanji)).size;
+  
+  // List all matching stations
+  const stations = currentHeadTail.stations;
+  const uniqueCount = new Set(stations.map(s => s.kanji)).size;
 
   if (isCorrect) {
     correctCount++;
     streakCount++;
     resultArea.className = 'result-area show result-correct';
     resultIcon.textContent = '✅';
-    resultText.textContent = uniqueCount > 1 ? '正解！この首尾の都市は他にもあります👇' : '正解！';
+    resultText.textContent = uniqueCount > 1 ? '正解！この首尾の駅は他にもあります👇' : '正解！';
   } else {
     wrongCount++;
     streakCount = 0;
@@ -2044,43 +2563,44 @@ function showResult(isCorrect, userAnswer) {
     resultIcon.textContent = '❌';
     resultText.textContent = userAnswer ? '残念、不正解... 正解は👇' : '正解は👇';
   }
-
+  
   totalQuestions++;
-
+  
+  // Show user answer if provided and wrong
   if (userAnswer && !isCorrect) {
     userAnswerInfo.style.display = 'flex';
     document.getElementById('userKanji').textContent = userAnswer;
     document.getElementById('userKana').textContent = '';
-    document.getElementById('userPref').textContent = 'あなたの答え';
+    document.getElementById('userLine').textContent = 'あなたの答え';
   } else {
     userAnswerInfo.style.display = 'none';
   }
-
+  
   answerCount.textContent = uniqueCount;
-
-  // Group by kanji
+  
+  // Group by kanji (unique stations)
   const uniqueByKanji = {};
-  places.forEach(p => {
-    if (!uniqueByKanji[p.kanji]) {
-      uniqueByKanji[p.kanji] = { kanji: p.kanji, kana: p.kana, prefs: [] };
+  stations.forEach(s => {
+    if (!uniqueByKanji[s.kanji]) {
+      uniqueByKanji[s.kanji] = { kanji: s.kanji, kana: s.kana, lines: [] };
     }
-    if (!uniqueByKanji[p.kanji].prefs.includes(p.prefecture)) {
-      uniqueByKanji[p.kanji].prefs.push(p.prefecture);
+    if (!uniqueByKanji[s.kanji].lines.includes(s.line)) {
+      uniqueByKanji[s.kanji].lines.push(s.line);
     }
   });
-
-  answerList.innerHTML = Object.values(uniqueByKanji).map(p => `
+  
+  answerList.innerHTML = Object.values(uniqueByKanji).map(s => `
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 8px;">
       <div>
-        <span style="font-weight: bold; font-size: 0.95rem;">${p.kanji}</span>
-        <span style="color: #a0a0c0; font-size: 0.85rem; margin-left: 6px;">（${p.kana}）</span>
+        <span style="font-weight: bold; font-size: 0.95rem;">${s.kanji}</span>
+        <span style="color: #a0a0c0; font-size: 0.85rem; margin-left: 6px;">（${s.kana}）</span>
       </div>
       <div style="display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end;">
-        ${p.prefs.map(pr => `<span class="history-tag pref-tag clickable-pref" onclick="showPrefModal('${pr}')">${pr} ↗</span>`).join('')}
+        ${s.lines.map(l => `<span class="history-tag line-tag clickable-line" onclick="showLineModal('${l}')">${l} ↗</span>`).join('')}
       </div>
     </div>
   `).join('');
-
+  
   updateScore();
   updateProgress();
   addToHistory(isCorrect, userAnswer);
@@ -2095,13 +2615,13 @@ function updateScore() {
 
 // Update progress bar
 function updateProgress() {
-  const filtered = getFilteredPlaces();
+  const filtered = getFilteredStations();
   const groups = buildHeadTailGroups(filtered);
   const total = Object.keys(groups).length;
   const current = usedHeadTails.size;
   const progress = total > 0 ? Math.min((current / total) * 100, 100) : 0;
   document.getElementById('progressFill').style.width = progress + '%';
-
+  
   let label = `${current} / ${total}`;
   if (wrongNoteMode) {
     label = `📝 間違えノート: ${label}`;
@@ -2114,31 +2634,32 @@ function nextQuestion() {
   const ht = pickRandomHeadTail();
   if (!ht) {
     if (wrongNoteMode) {
-      alert('間違えノートが空です。まずは問題を解いて、間違えた都市を溜めましょう！');
+      alert('間違えノートが空です。まずは問題を解いて、間違えた駅を溜めましょう！');
     } else {
-      alert('該当する都市がありません。都道府県の選択を変更してください。');
+      alert('該当する駅がありません。路線の選択を変更してください。');
     }
     return;
   }
-
+  
   currentHeadTail = ht;
-  hintAnswerPlace = ht.places[Math.floor(Math.random() * ht.places.length)];
-
+  // Pick a representative station for hint generation
+  hintAnswerStation = ht.stations[Math.floor(Math.random() * ht.stations.length)];
+  
   answered = false;
   hintsUsed = 0;
   currentHints = [];
-
+  
   document.getElementById('answerInput').value = '';
   document.getElementById('resultArea').className = 'result-area';
   document.getElementById('hintSection').style.display = currentMode === 'hint' ? 'block' : 'none';
   document.getElementById('hintDisplay').classList.remove('show');
   document.getElementById('hintItems').innerHTML = '';
-
+  
   const hintBtn = document.getElementById('hintBtn');
   hintBtn.disabled = false;
   hintBtn.classList.remove('reveal-mode');
   hintBtn.innerHTML = `ヒント<span class="hint-count" id="hintCount">${maxHints}</span>`;
-
+  
   renderKanaDisplay();
   document.getElementById('answerInput').focus();
 }
@@ -2200,18 +2721,18 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
 document.getElementById('wrongNoteToggle').addEventListener('click', () => {
   wrongNoteMode = !wrongNoteMode;
   const btn = document.getElementById('wrongNoteToggle');
-  const prefFilter = document.getElementById('prefFilter');
-
+  const lineFilter = document.getElementById('lineFilter');
+  
   if (wrongNoteMode) {
     btn.classList.add('active');
-    prefFilter.style.opacity = '0.4';
-    prefFilter.style.pointerEvents = 'none';
+    lineFilter.style.opacity = '0.4';
+    lineFilter.style.pointerEvents = 'none';
   } else {
     btn.classList.remove('active');
-    prefFilter.style.opacity = '1';
-    prefFilter.style.pointerEvents = 'auto';
+    lineFilter.style.opacity = '1';
+    lineFilter.style.pointerEvents = 'auto';
   }
-
+  
   usedHeadTails.clear();
   nextQuestion();
 });
@@ -2220,14 +2741,14 @@ document.getElementById('wrongNoteToggle').addEventListener('click', () => {
 function updateWrongNoteCount() {
   const wrongKanjiSet = new Set();
   historyList.forEach(item => {
-    if (item.samplePlace) {
-      wrongKanjiSet.add(item.samplePlace.kanji);
+    if (item.sampleStation) {
+      wrongKanjiSet.add(item.sampleStation.kanji);
     }
   });
   document.getElementById('wrongNoteCount').textContent = wrongKanjiSet.size;
 }
 
-// ===== 都市一覧ビュー =====
+// ===== 駅一覧ビュー =====
 let currentView = 'game'; // game or list
 
 function switchView(view) {
@@ -2236,7 +2757,7 @@ function switchView(view) {
   const listView = document.getElementById('listView');
   const gameBtn = document.getElementById('viewGameBtn');
   const listBtn = document.getElementById('viewListBtn');
-
+  
   if (view === 'game') {
     gameView.classList.remove('hide');
     listView.classList.remove('show');
@@ -2247,47 +2768,48 @@ function switchView(view) {
     listView.classList.add('show');
     gameBtn.classList.remove('active');
     listBtn.classList.add('active');
-    renderPlaceList();
+    renderStationList();
   }
 }
 
 document.getElementById('viewGameBtn').addEventListener('click', () => switchView('game'));
 document.getElementById('viewListBtn').addEventListener('click', () => switchView('list'));
 
-// Build places grouped by prefecture for list view
-function buildPrefPlaceMap() {
+// Build stations grouped by line for list view
+function buildLineStationMap() {
   const map = {};
-  placeDB.forEach(p => {
-    if (!map[p.prefecture]) {
-      map[p.prefecture] = [];
+  stationDB.forEach(s => {
+    if (!map[s.line]) {
+      map[s.line] = [];
     }
-    if (!map[p.prefecture].find(x => x.kanji === p.kanji)) {
-      map[p.prefecture].push({ kanji: p.kanji, kana: p.kana });
+    // Avoid duplicates within same line
+    if (!map[s.line].find(x => x.kanji === s.kanji)) {
+      map[s.line].push({ kanji: s.kanji, kana: s.kana });
     }
   });
   return map;
 }
 
-// Render place list view - region > prefecture > cities with → connected
-function renderPlaceList(searchQuery = '') {
+// Render station list view - line list with → connected stations
+function renderStationList(searchQuery = '') {
   const container = document.getElementById('slGroups');
   const indexContainer = document.getElementById('slIndex');
-  const prefMap = buildPrefPlaceMap();
+  const lineMap = buildLineStationMap();
   const query = searchQuery.toLowerCase().trim();
-
+  
   // Filter groups that have content
-  const visibleGroups = regionGroups.filter(group => {
-    return group.prefectures.some(pref => {
+  const visibleGroups = lineGroups.filter(group => {
+    return group.lines.some(line => {
       if (!query) return true;
-      if (pref.toLowerCase().includes(query)) return true;
-      const places = prefMap[pref] || [];
-      return places.some(p =>
-        p.kanji.toLowerCase().includes(query) ||
-        p.kana.toLowerCase().includes(query)
+      if (line.toLowerCase().includes(query)) return true;
+      const stations = lineMap[line] || [];
+      return stations.some(s => 
+        s.kanji.toLowerCase().includes(query) || 
+        s.kana.toLowerCase().includes(query)
       );
     });
   });
-
+  
   // Render index (only when not searching)
   if (!query && visibleGroups.length > 0) {
     indexContainer.style.display = 'flex';
@@ -2299,200 +2821,205 @@ function renderPlaceList(searchQuery = '') {
   } else {
     indexContainer.style.display = 'none';
   }
-
+  
   let html = '';
-
+  
   visibleGroups.forEach((group, groupIdx) => {
-    const groupPrefs = group.prefectures.filter(pref => {
+    const groupLines = group.lines.filter(line => {
       if (!query) return true;
-      if (pref.toLowerCase().includes(query)) return true;
-      const places = prefMap[pref] || [];
-      return places.some(p =>
-        p.kanji.toLowerCase().includes(query) ||
-        p.kana.toLowerCase().includes(query)
+      if (line.toLowerCase().includes(query)) return true;
+      const stations = lineMap[line] || [];
+      return stations.some(s => 
+        s.kanji.toLowerCase().includes(query) || 
+        s.kana.toLowerCase().includes(query)
       );
     });
-
-    if (groupPrefs.length === 0) return;
-
+    
+    if (groupLines.length === 0) return;
+    
     html += `<div class="sl-category-title" id="sl-group-${groupIdx}">${group.name}</div>`;
-
-    groupPrefs.forEach(pref => {
-      const places = prefMap[pref] || [];
-      let filteredPlaces = places;
+    
+    groupLines.forEach(line => {
+      const stations = lineMap[line] || [];
+      let filteredStations = stations;
       if (query) {
-        filteredPlaces = places.filter(p =>
-          p.kanji.toLowerCase().includes(query) ||
-          p.kana.toLowerCase().includes(query)
+        filteredStations = stations.filter(s => 
+          s.kanji.toLowerCase().includes(query) || 
+          s.kana.toLowerCase().includes(query)
         );
       }
-      if (filteredPlaces.length === 0 && query) return;
-
-      const placeHtml = filteredPlaces.map((s, i) => `
-        <span class="sl-place-name">${s.kanji}<span class="sl-place-kana">${s.kana}</span></span>
-        ${i < filteredPlaces.length - 1 ? '<span class="sl-place-arrow">→</span>' : ''}
+      if (filteredStations.length === 0 && query) return;
+      
+      const stationHtml = filteredStations.map((s, i) => `
+        <span class="sl-station-name">${s.kanji}<span class="sl-station-kana">${s.kana}</span></span>
+        ${i < filteredStations.length - 1 ? '<span class="sl-station-arrow">→</span>' : ''}
       `).join('');
-
+      
       html += `
-        <div class="sl-pref">
-          <div class="sl-pref-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="sl-line">
+          <div class="sl-line-header" onclick="this.parentElement.classList.toggle('open')">
             <span>
-              <span class="sl-pref-name">${pref}</span>
-              <span class="sl-pref-count">${places.length}都市</span>
+              <span class="sl-line-name">${line}</span>
+              <span class="sl-line-count">${stations.length}駅</span>
             </span>
-            <span class="sl-pref-toggle">▼</span>
+            <span class="sl-line-toggle">▼</span>
           </div>
-          <div class="sl-pref-places">
-            <div class="sl-place-row">${placeHtml}</div>
+          <div class="sl-line-stations">
+            <div class="sl-station-row">${stationHtml}</div>
           </div>
         </div>
       `;
     });
   });
-
+  
   if (!html) {
-    html = '<div style="text-align: center; color: #8080a0; padding: 40px 0;">該当する都道府県・都市がありません</div>';
+    html = '<div style="text-align: center; color: #8080a0; padding: 40px 0;">該当する路線・駅がありません</div>';
   }
-
+  
   container.innerHTML = html;
 }
 
 // Search
 document.getElementById('slSearch').addEventListener('input', (e) => {
-  renderPlaceList(e.target.value);
+  renderStationList(e.target.value);
 });
 
-// ===== 都道府県選択モーダル =====
-function openPrefSelectModal() {
-  const modal = document.getElementById('prefSelectModal');
-  const container = document.getElementById('psModalGroups');
-  const allBtn = document.getElementById('psSelectAll');
-
+// ===== 路線選択モーダル =====
+function openLineSelectModal() {
+  const modal = document.getElementById('lineSelectModal');
+  const container = document.getElementById('lsModalGroups');
+  const allBtn = document.getElementById('lsSelectAll');
+  
+  // Build group HTML
   let html = '';
-  regionGroups.forEach((group, gi) => {
+  lineGroups.forEach((group, gi) => {
     html += `
-      <div class="ps-modal-group">
-        <div class="ps-modal-group-title">${group.name}</div>
-        <div class="ps-modal-group-btns">
-          ${group.prefectures.map(pref => {
-            const isActive = selectedPrefs.has(pref);
-            return `<button class="pref-btn ${isActive ? 'active' : ''}" type="button" data-pref="${pref}">${pref}</button>`;
+      <div class="ls-modal-group">
+        <div class="ls-modal-group-title">${group.name}</div>
+        <div class="ls-modal-group-btns">
+          ${group.lines.map(line => {
+            const isActive = selectedLines.has(line);
+            return `<button class="line-btn ${isActive ? 'active' : ''}" type="button" data-line="${line}">${line}</button>`;
           }).join('')}
         </div>
       </div>
     `;
   });
   container.innerHTML = html;
-
-  allBtn.classList.toggle('active', selectedPrefs.size === 0);
-
+  
+  // Update "all" button state
+  allBtn.classList.toggle('active', selectedLines.size === 0);
+  
+  // Event delegation
   function handleClick(e) {
-    const btn = e.target.closest('.pref-btn');
+    const btn = e.target.closest('.line-btn');
     if (!btn) return;
-
-    const pref = btn.dataset.pref;
-    if (pref === '__all__') {
-      selectedPrefs.clear();
-      container.querySelectorAll('.pref-btn').forEach(b => b.classList.remove('active'));
+    
+    const line = btn.dataset.line;
+    if (line === '__all__') {
+      // Select all
+      selectedLines.clear();
+      container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
       allBtn.classList.add('active');
     } else {
       allBtn.classList.remove('active');
-
-      if (selectedPrefs.has(pref)) {
-        selectedPrefs.delete(pref);
+      if (selectedLines.has(line)) {
+        selectedLines.delete(line);
         btn.classList.remove('active');
-        if (selectedPrefs.size === 0) {
+        if (selectedLines.size === 0) {
           allBtn.classList.add('active');
         }
       } else {
-        selectedPrefs.add(pref);
+        selectedLines.add(line);
         btn.classList.add('active');
       }
     }
   }
-
+  
   container.onclick = handleClick;
   allBtn.onclick = function() {
-    selectedPrefs.clear();
-    container.querySelectorAll('.pref-btn').forEach(b => b.classList.remove('active'));
+    selectedLines.clear();
+    container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
     allBtn.classList.add('active');
   };
-  const clearBtn = document.getElementById('psClearAll');
+  const clearBtn = document.getElementById('lsClearAll');
   clearBtn.onclick = function() {
-    selectedPrefs.clear();
-    container.querySelectorAll('.pref-btn').forEach(b => b.classList.remove('active'));
+    selectedLines.clear();
+    container.querySelectorAll('.line-btn').forEach(b => b.classList.remove('active'));
     allBtn.classList.add('active');
   };
-
+  
   modal.classList.add('show');
-
+  
+  // 背景点击关闭（在元素存在时绑定）
   modal.onclick = function(e) {
-    if (e.target === modal) closePrefSelectModal();
+    if (e.target === modal) closeLineSelectModal();
   };
 }
 
-// グローバル関数として登録（内联onclick用）
-window.closePrefSelectModal = closePrefSelectModal;
-window.openPrefSelectModal = openPrefSelectModal;
+// 确保全局可访问（内联onclick用）
+window.closeLineSelectModal = closeLineSelectModal;
+window.openLineSelectModal = openLineSelectModal;
 
-function closePrefSelectModal() {
-  const modal = document.getElementById('prefSelectModal');
+function closeLineSelectModal() {
+  // 先关闭弹窗，确保一定能关闭
+  const modal = document.getElementById('lineSelectModal');
   if (modal) modal.classList.remove('show');
-
+  
   try {
-    updateSelectedPrefCount();
+    updateSelectedLineCount();
     usedHeadTails.clear();
     nextQuestion();
   } catch (e) {
-    console.error('closePrefSelectModal error:', e);
+    console.error('closeLineSelectModal error:', e);
   }
 }
 
-document.getElementById('prefSelectClose').addEventListener('click', closePrefSelectModal);
-document.getElementById('psModalDone').addEventListener('click', closePrefSelectModal);
-document.getElementById('prefSelectModal').addEventListener('click', (e) => {
-  if (e.target.id === 'prefSelectModal') closePrefSelectModal();
+document.getElementById('lineSelectClose').addEventListener('click', closeLineSelectModal);
+document.getElementById('lsModalDone').addEventListener('click', closeLineSelectModal);
+document.getElementById('lineSelectModal').addEventListener('click', (e) => {
+  if (e.target.id === 'lineSelectModal') closeLineSelectModal();
 });
 
-// ===== 都道府県モーダル =====
-function showPrefModal(prefName) {
-  const modal = document.getElementById('prefModal');
-  const title = document.getElementById('prefModalTitle');
-  const content = document.getElementById('prefModalContent');
-
-  const prefMap = buildPrefPlaceMap();
-  const places = prefMap[prefName] || [];
-
-  title.textContent = `${prefName}（全${places.length}都市）`;
-
-  const placeHtml = places.map((s, i) => `
-    <span class="sl-place-name">${s.kanji}<span class="sl-place-kana">${s.kana}</span></span>
-    ${i < places.length - 1 ? '<span class="sl-place-arrow">→</span>' : ''}
+// ===== 路線モーダル =====
+function showLineModal(lineName) {
+  const modal = document.getElementById('lineModal');
+  const title = document.getElementById('modalTitle');
+  const content = document.getElementById('modalContent');
+  
+  const lineMap = buildLineStationMap();
+  const stations = lineMap[lineName] || [];
+  
+  title.textContent = `${lineName}（全${stations.length}駅）`;
+  
+  const stationHtml = stations.map((s, i) => `
+    <span class="sl-station-name">${s.kanji}<span class="sl-station-kana">${s.kana}</span></span>
+    ${i < stations.length - 1 ? '<span class="sl-station-arrow">→</span>' : ''}
   `).join('');
-
-  content.innerHTML = `<div class="sl-place-row">${placeHtml}</div>`;
-
+  
+  content.innerHTML = `<div class="sl-station-row">${stationHtml}</div>`;
+  
   modal.classList.add('show');
 }
 
-function closePrefModal() {
-  document.getElementById('prefModal').classList.remove('show');
+function closeModal() {
+  document.getElementById('lineModal').classList.remove('show');
 }
 
-document.getElementById('prefModalClose').addEventListener('click', closePrefModal);
-document.getElementById('prefModal').addEventListener('click', (e) => {
-  if (e.target.id === 'prefModal') closePrefModal();
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('lineModal').addEventListener('click', (e) => {
+  if (e.target.id === 'lineModal') closeModal();
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closePrefModal();
+  if (e.key === 'Escape') closeModal();
 });
 
 // グローバル関数として登録（内联onclick用）
-window.closePrefModal = closePrefModal;
-window.showPrefModal = showPrefModal;
+window.closeModal = closeModal;
+window.showLineModal = showLineModal;
 
 // ===== ゲーム開始 =====
-initPrefFilter();
+initLineFilter();
 updateWrongNoteCount();
 nextQuestion();
 
@@ -2505,31 +3032,31 @@ nextQuestion();
 })();
 </script>
 
-<!-- Prefecture Place Modal -->
-<div class="modal-overlay" id="prefModal" onclick="if(event.target===this)closePrefModal()">
+<!-- Line Station Modal -->
+<div class="modal-overlay" id="lineModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="prefModalTitle">都道府県の都市一覧</div>
-      <button class="modal-close" id="prefModalClose" onclick="closePrefModal()">&times;</button>
+      <div class="modal-title" id="modalTitle">路線の駅一覧</div>
+      <button class="modal-close" id="modalClose" onclick="closeModal()">&times;</button>
     </div>
-    <div id="prefModalContent"></div>
+    <div id="modalContent"></div>
   </div>
 </div>
 
-<!-- Prefecture Select Modal -->
-<div class="modal-overlay" id="prefSelectModal">
+<!-- Line Select Modal -->
+<div class="modal-overlay" id="lineSelectModal">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">🗾 都道府県を選択</div>
-      <button class="modal-close" id="prefSelectClose" onclick="closePrefSelectModal()">&times;</button>
+      <div class="modal-title">🚇 路線を選択</div>
+      <button class="modal-close" id="lineSelectClose" onclick="closeLineSelectModal()">&times;</button>
     </div>
-    <div class="ps-modal-all">
-      <button class="pref-btn all-btn active" type="button" id="psSelectAll">全都道府県</button>
-      <button class="pref-btn clear-btn" type="button" id="psClearAll">クリア</button>
+    <div class="ls-modal-all">
+      <button class="line-btn all-btn active" type="button" id="lsSelectAll">全路線</button>
+      <button class="line-btn clear-btn" type="button" id="lsClearAll">クリア</button>
     </div>
-    <div class="ps-modal-groups" id="psModalGroups"></div>
-    <div class="ps-modal-footer">
-      <button class="ps-modal-done" type="button" id="psModalDone" onclick="closePrefSelectModal()">完了</button>
+    <div class="ls-modal-groups" id="lsModalGroups"></div>
+    <div class="ls-modal-footer">
+      <button class="ls-modal-done" type="button" id="lsModalDone" onclick="closeLineSelectModal()">完了</button>
     </div>
   </div>
 </div>
