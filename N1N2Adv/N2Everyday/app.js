@@ -461,7 +461,27 @@
           '</div>';
         }).join('') + '</div>' +
       '</div>',
-      choiceCardHTML(item.qa, '応', 'N2 一问一答 · 选择最自然的回应', 'oralQA'),
+      '<div class="card"><div class="card-title"><span class="t-kanji">応</span>N2 一问一答 · 先听后选</div>' +
+        '<div class="qv-note">问句与选项以语音播放，文字默认隐藏。听完后点序号四选一，最后点「显示文字」查看并判对错。</div>' +
+        item.qa.map(function (q, qi) {
+          return '<div class="qv-block" data-qi="' + qi + '">' +
+            '<div class="qv-q">' +
+              '<button class="play small" id="qvQ' + qi + '" aria-label="播放问句">' + ICON_PLAY + '</button>' +
+              '<span class="qv-qhint">第 ' + (qi + 1) + ' 题 · 点击喇叭听问句</span>' +
+            '</div>' +
+            '<div class="qv-opts">' + q.opts.map(function (o, j) {
+              return '<div class="qv-opt-row" data-opt="' + j + '">' +
+                '<button class="qv-opt" data-opt="' + j + '">' + (j + 1) + '</button>' +
+                '<button class="qv-play" data-opt="' + j + '" aria-label="听选项">' + ICON_PLAY + '</button>' +
+                '<span class="qv-otext hidden">' + esc(o) + '</span>' +
+              '</div>';
+            }).join('') + '</div>' +
+            '<div class="qv-qtext hidden">' + esc(q.q) + '</div>' +
+            '<div class="qv-feedback"></div>' +
+          '</div>';
+        }).join('') +
+        '<button class="btn" id="showQAtext">显示问句与选项文字</button>' +
+      '</div>',
       '<div class="tip-box">小贴士：' + esc(item.tip) + '</div>'
     ].join(''));
     v.innerHTML = html;
@@ -471,8 +491,56 @@
     $('#readDialogue').addEventListener('click', function () {
       speak(item.dialogue.map(function (d) { return d.jp; }).join(' '));
     });
-    bindChoiceClick($('#oralQA'), item.qa);
+    bindOralQA(v, item);
     bindComplete('oral');
+  }
+
+  /* 口语 · N2 一问一答（先听后选，文字默认隐藏） */
+  function bindOralQA(v, item) {
+    var qa = item.qa;
+    /* 四选一：点序号选中 */
+    $$('.qv-opt', v).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var block = b.closest('.qv-block');
+        var row = b.closest('.qv-opt-row');
+        $$('.qv-opt-row', block).forEach(function (r) { r.classList.remove('selected'); });
+        row.classList.add('selected');
+      });
+    });
+    /* 听问句 */
+    qa.forEach(function (q, qi) {
+      var qb = $('#qvQ' + qi);
+      if (qb) qb.addEventListener('click', function () { speak(q.q); });
+    });
+    /* 听选项 */
+    $$('.qv-play', v).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var qi = +b.closest('.qv-block').getAttribute('data-qi');
+        var oi = +b.getAttribute('data-opt');
+        speak(qa[qi].opts[oi]);
+      });
+    });
+    /* 显示文字 + 判对错 */
+    $('#showQAtext').addEventListener('click', function () {
+      $$('.qv-block', v).forEach(function (block) {
+        var qi = +block.getAttribute('data-qi');
+        var q = qa[qi];
+        block.querySelector('.qv-qtext').classList.remove('hidden');
+        $$('.qv-otext', block).forEach(function (t) { t.classList.remove('hidden'); });
+        var sel = block.querySelector('.qv-opt-row.selected');
+        var fb = block.querySelector('.qv-feedback');
+        var oi = sel ? +sel.getAttribute('data-opt') : -1;
+        if (sel && oi === q.ans) { sel.classList.add('correct'); }
+        else if (sel) { sel.classList.add('wrong'); }
+        $$('.qv-opt-row', block).forEach(function (r) {
+          if (+r.getAttribute('data-opt') === q.ans) r.classList.add('correct');
+        });
+        var msg = sel && oi === q.ans ? '正解！'
+          : (sel ? '不正解。正解は「' + q.opts[q.ans] + '」です。' : '请先选择一项答案。正解は「' + q.opts[q.ans] + '」です。');
+        fb.textContent = msg;
+        fb.classList.add(sel && oi === q.ans ? 'ok' : 'no');
+      });
+    });
   }
 
   /* ---- 汉字 ---- */
