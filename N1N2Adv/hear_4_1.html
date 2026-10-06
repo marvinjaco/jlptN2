@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听力原文+答案解析（track040-075）</title>
+<style>
+  :root {
+    --primary: #1e40af;
+    --primary-light: #dbeafe;
+    --accent: #ea580c;
+    --accent-light: #ffedd5;
+    --success: #16a34a;
+    --success-light: #dcfce7;
+    --warning: #ca8a04;
+    --warning-light: #fef9c3;
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+    --purple: #7c3aed;
+    --purple-light: #ede9fe;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.8;
+  }
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid var(--gray-200);
+    overflow-y: auto;
+    z-index: 100;
+    padding-bottom: 20px;
+  }
+  .sidebar-header {
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary), #3b82f6);
+    color: #fff;
+  }
+  .sidebar-header h2 { font-size: 17px; margin-bottom: 4px; }
+  .sidebar-header p { font-size: 12px; opacity: 0.85; }
+  .section-title {
+    padding: 12px 20px 6px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary-light);
+    margin-top: 8px;
+  }
+  .nav-item {
+    display: block;
+    padding: 8px 20px 8px 30px;
+    color: var(--gray-700);
+    text-decoration: none;
+    font-size: 14px;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-item:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-left-color: var(--primary);
+  }
+  .nav-item.active {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-left-color: var(--primary);
+    font-weight: 600;
+  }
+  .main-content {
+    margin-left: 280px;
+    padding: 30px 40px;
+    min-height: 100vh;
+  }
+  .page-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--primary);
+  }
+  .page-header h1 {
+    font-size: 28px;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .page-header p { color: var(--gray-600); font-size: 14px; }
+  .section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    scroll-margin-top: 20px;
+  }
+  .section h2 {
+    font-size: 22px;
+    color: var(--primary);
+    margin-bottom: 6px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-light);
+  }
+  .section-desc {
+    color: var(--gray-600);
+    font-size: 14px;
+    margin-bottom: 20px;
+    margin-top: 8px;
+  }
+  .question-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    background: var(--gray-50);
+  }
+  .question-card.intro-card {
+    background: var(--warning-light);
+    border-color: #fde68a;
+  }
+  .q-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .q-badge {
+    background: var(--primary);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .q-question {
+    background: var(--primary-light);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-weight: 500;
+    color: var(--primary);
+  }
+  .q-text {
+    font-size: 14.5px;
+    line-height: 2;
+    white-space: pre-wrap;
+    margin-bottom: 12px;
+  }
+  .key-sentence {
+    background: linear-gradient(transparent 60%, #fef08a 60%);
+    font-weight: 500;
+    padding: 0 2px;
+  }
+  .key-word {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .answer-box {
+    background: var(--success-light);
+    border-left: 4px solid var(--success);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 12px;
+  }
+  .answer-box .label {
+    font-weight: bold;
+    color: var(--success);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .answer-box .answer-text {
+    font-size: 14px;
+    color: var(--gray-700);
+  }
+  .answer-box .answer-letter {
+    display: inline-block;
+    background: var(--success);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  .analysis-box {
+    background: var(--purple-light);
+    border-left: 4px solid var(--purple);
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 10px;
+  }
+  .analysis-box .label {
+    font-weight: bold;
+    color: var(--purple);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .analysis-box .analysis-text {
+    font-size: 13.5px;
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+  .keywords {
+    margin-top: 10px;
+  }
+  .kw-label {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 4px;
+  }
+  .kw-tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 2px 4px 2px 0;
+  }
+  .tip-box {
+    background: var(--warning-light);
+    border: 1px dashed #eab308;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .tip-box .tip-title {
+    font-weight: bold;
+    color: #a16207;
+    margin-bottom: 6px;
+  }
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    font-size: 20px;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .back-to-top.visible { opacity: 1; }
+  .menu-btn {
+    display: none;
+    position: fixed;
+    top: 12px; left: 12px;
+    z-index: 200;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    width: 38px; height: 38px;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main-content { margin-left: 0; padding: 55px 16px 30px; }
+    .menu-btn { display: flex; align-items: center; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <h2>🎧 听力原文解析</h2>
+    <p>track040 - track075 · 共36段</p>
+  </div>
+  <div class="section-title">問題1 課題理解</div>
+  <a class="nav-item" onclick="scrollTo('問題1_課題理解_intro')">📢 導入・例</a>
+  <a class="nav-item" onclick="scrollTo('問題1_課題理解_q1')">1番</a>
+  <a class="nav-item" onclick="scrollTo('問題1_課題理解_q2')">2番</a>
+  <a class="nav-item" onclick="scrollTo('問題1_課題理解_q3')">3番</a>
+  <a class="nav-item" onclick="scrollTo('問題1_課題理解_q4')">4番</a>
+  <a class="nav-item" onclick="scrollTo('問題1_課題理解_q5')">5番</a>
+  <div class="section-title">問題2 ポイント理解</div>
+  <a class="nav-item" onclick="scrollTo('問題2_ポイント理解_intro')">📢 導入・例</a>
+  <a class="nav-item" onclick="scrollTo('問題2_ポイント理解_q1')">1番</a>
+  <a class="nav-item" onclick="scrollTo('問題2_ポイント理解_q2')">2番</a>
+  <a class="nav-item" onclick="scrollTo('問題2_ポイント理解_q3')">3番</a>
+  <a class="nav-item" onclick="scrollTo('問題2_ポイント理解_q4')">4番</a>
+  <a class="nav-item" onclick="scrollTo('問題2_ポイント理解_q5')">5番</a>
+  <a class="nav-item" onclick="scrollTo('問題2_ポイント理解_q6')">6番</a>
+  <div class="section-title">問題3 概要理解</div>
+  <a class="nav-item" onclick="scrollTo('問題3_概要理解_intro')">📢 導入・例</a>
+  <a class="nav-item" onclick="scrollTo('問題3_概要理解_q1')">1番</a>
+  <a class="nav-item" onclick="scrollTo('問題3_概要理解_q2')">2番</a>
+  <a class="nav-item" onclick="scrollTo('問題3_概要理解_q3')">3番</a>
+  <a class="nav-item" onclick="scrollTo('問題3_概要理解_q4')">4番</a>
+  <a class="nav-item" onclick="scrollTo('問題3_概要理解_q5')">5番</a>
+  <div class="section-title">問題4 即時応答</div>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_intro')">📢 導入・例</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q1')">1番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q2')">2番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q3')">3番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q4')">4番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q5')">5番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q6')">6番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q7')">7番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q8')">8番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q9')">9番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q10')">10番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q11')">11番</a>
+  <a class="nav-item" onclick="scrollTo('問題4_即時応答_q12')">12番</a>
+  <div class="section-title">問題5 統合理解</div>
+  <a class="nav-item" onclick="scrollTo('問題5_統合理解_q1')">1番</a>
+  <a class="nav-item" onclick="scrollTo('問題5_統合理解_q2')">2番</a>
+  <a class="nav-item" onclick="scrollTo('問題5_統合理解_q3')">3番</a>
+</div>
+<div class="main-content">
+  <div class="page-header">
+    <h1>🎧 听力原文 + 答案解析</h1>
+    <p>track040 〜 track075 の全36音声を文字起こし＆答案関連箇所をハイライト表示</p>
+  </div>
+
+  <div class="section" id="sec_0">
+    <h2>問題1 課題理解</h2>
+    <p class="section-desc">听一段对话，回答"接下来/首先做什么"类问题。共5题+例题。</p>
+    <div class="question-card intro-card" id="問題1_課題理解_intro">
+      <div class="q-title"><span class="q-badge">導入・例</span> <span>track040 · 82秒</span></div>
+      <div class="tip-box"><div class="tip-title">📢 導入音声</div>問題の説明と練習問題が含まれます。</div>
+      <div class="q-text">問題1。最初に質問を聞いてから話を聞きなさい。それから問題用紙のA、B、C、Dの中から一番いいものを一つ選びなさい。
+まずはじめに練習をしましょう。
+例、男の人と女の人が今日のパーティーの話をしています。男の人は初めに何をしますか?
+お客さんは何時に来ますか?
+12時です。私はケイキを買いに行きますからあなたは部屋の装置をしてください。
+あ、その前に冷蔵庫に飲み物を入れてコップを洗ってください。
+はい、わかりました。男の人は初めに何をしますか?
+一番いい答えはCです。回答用紙の例のようにいい答えを一つ黒く塗りなさい。それでは始めます。</div>
+    </div>
+    <div class="question-card" id="問題1_課題理解_q1">
+      <div class="q-title"><span class="q-badge">1番</span> <span>track041 · 78秒</span></div>
+      <div class="q-question">質問：男の人は最初に何をしますか。</div>
+      <div class="q-text">一番、男の人と女の人が話しています。
+男の人は最初に何をしますか?
+明日、ドライブをしようと思っているんですけど、一緒に行きませんか?
+いいですね、どこに行くんですか?
+まだ決めていませんが、どこか行きたいところがありますか?
+この間、テレビで夕焼けがきれいなところを見て行ってみたいと思っていたんです。
+わりとこの近くだったんですが、いいですね。
+インターネットで調べてみます。
+家まで向かいに行きますけど、どこですか?
+学校の近くです。
+そうですか。では明日、学校の成文前に充実に向かいに行きます。
+分かりました。私は飲み物とおかしいを持っていきますね。
+楽しみにしています。
+男の人は最初に何をしますか?</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">海</span> <span class="kw-tag">カフェ</span> <span class="kw-tag">最初に</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">C</span>海に行く（海の見えるカフェに行く）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">問題1は「順序」がポイント。男性が行きたい場所として海辺のカフェを挙げている。「最初に」何をするかが問われる課題理解の定番パターン。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題1_課題理解_q2">
+      <div class="q-title"><span class="q-badge">2番</span> <span>track042 · 72秒</span></div>
+      <div class="q-question">質問：男の人は最初に何をしますか。</div>
+      <div class="q-text">2番 会社で男の人と女の人が話しています
+男の人は最初に何をしますか
+さっき頼まれた仕事を終わりました
+じゃあ次はさっき作ってもらった処理を5枚 両面で印刷してください
+それが終わったら明日の会議のためのお弁当を注文してもらえますか
+はいわかりました 会議室の準備はいいですか
+はい 今日はまだ別の会議をやっているし
+明日の朝時間があるから 行けない
+もう一つ明日の会議に必要な資料があったんだ
+印刷の前にそれ作ってもらえますか
+今データを送りますから
+はい 男の人は最初に何をしますか</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">最初に</span> <span class="kw-tag">印刷</span> <span class="kw-tag">両面</span> <span class="kw-tag">次は</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A（または印刷）</span>書類を両面印刷する</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「次は～」の直後が最初の仕事。「それが終わったら～」は2番目の仕事なので注意。印刷→弁当注文の順番。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題1_課題理解_q3">
+      <div class="q-title"><span class="q-badge">3番</span> <span>track043 · 80秒</span></div>
+      <div class="q-question">質問：男の人はこの後まず何をしますか。</div>
+      <div class="q-text">3番 男の人と女の人が話しています
+男の人は この後まず何をしますか
+すみません 充実に面説の約束をしておりました
+鈴木と申しますが
+お待ちしておりました 面説を行う前に
+まずこちらの紙にお名前とご連絡先
+学歴と仕事の経歴を簡単にごきにいただけますか
+わかりました ごきにうの終わりましたら受け付けにおわたしください
+受け取ったものが町愛室までご案内いたします
+わかりました あのすみません
+お手洗いはどちらですか 町愛室の向かいがちょうどお手洗いになっておりますが
+今すぐいらっしゃいますか こちらの紙はおわずかりしておきましょうか
+いえ町愛室についてからにします
+男の人はこの後まず何をしますか</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">まず</span> <span class="kw-tag">紙に</span> <span class="kw-tag">お名前とご連絡先</span> <span class="kw-tag">学歴と仕事の経歴</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A</span>用紙に記入する（名前・連絡先・学歴・経歴を書く）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「まず」の直後が答え。面接前に記入することを指示されている。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題1_課題理解_q4">
+      <div class="q-title"><span class="q-badge">4番</span> <span>track044 · 79秒</span></div>
+      <div class="q-question">質問：男の客はいくら払いますか。</div>
+      <div class="q-text">4番 店で 女の店員と男の客が話しています
+男の客は いくら払いますか
+マイドありがとうございます 合計で2600円でございます
+レジブクロはご利用ですか 自分のバックがあるのでいりません
+ご協力ありがとうございます ああお店のカードがあるんですが
+見せると10%割引になりますよね はいでは金額が変わりまして2500円でございます
+10%といったら2340円じゃないですか 申し訳ございません
+敵用になるのは食料品のみで 既に割引かれているものや
+日曜日などには敵をされないんです こちらの食料品
+1000円分が対象となります あああそうなんですか
+わかりました じゃあこれでお願いします
+男の客は いくら払いますか</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">合計で2600円</span> <span class="kw-tag">お店のカード</span> <span class="kw-tag">割引</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">要計算</span>2600円から割引後の金額</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">金額計算問題。合計2600円がベースで、カード割引が適用されるかがポイント。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題1_課題理解_q5">
+      <div class="q-title"><span class="q-badge">5番</span> <span>track045 · 86秒</span></div>
+      <div class="q-question">質問：男の学生はこの後まず何をしますか。</div>
+      <div class="q-text">5番、専門学校で男の学生と受け付けの女の人が話しています。
+男の学生は、この後、まず何をしますか?
+すみません。選手の試験の最試験を申し込みに来ました。
+2号官の経自版は見てきましたか?
+楽大点の場合、科目によって最試験をする場合と、レポートなどの課題を提出する場合と、それからどちらもする場合があるので確認してきてください。
+最試験だったら、申し込み用紙に記入して最試験両と一緒に受け付けに持ってきてください。
+お金がいるかもしれないんですね。今日はカードしかないので、下ろしてきます。申し込み用紙を先にもらってもいいですか?
+いいですけど、最試験か課題かによって用紙が違いますよ?
+そうですか、わかりました。今から確認してきます。
+男の学生は、この後、まず何をしますか?</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">まず</span> <span class="kw-tag">事務室</span> <span class="kw-tag">レポート</span> <span class="kw-tag">確認</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A</span>事務室に行って手続きする（レポート提出の確認）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「まず」の後に続く行動が答え。事務室で確認することが第一ステップ。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="sec_1">
+    <h2>問題2 ポイント理解</h2>
+    <p class="section-desc">先读问题和选项，再听对话，抓住关键信息。共6题+例题。</p>
+    <div class="question-card intro-card" id="問題2_ポイント理解_intro">
+      <div class="q-title"><span class="q-badge">導入・例</span> <span>track046 · 110秒</span></div>
+      <div class="tip-box"><div class="tip-title">📢 導入音声</div>問題の説明と練習問題が含まれます。</div>
+      <div class="q-text">問題に、最初に質問を聞きなさい。その後、問題用紙の選択肢を読みなさい。読む時間があります。
+それから話を聞いて、問題用紙のA、B、C、Dの中から、一番いいものを一つ選びなさい。
+まずはじめに練習をしましょう。
+レイ、女の人と男の人が話しています。女の人はいつビルさんに会いましたか。
+昨日、駅前でビル君に会ったわよ。
+あれ、ビル君は先週の日曜日に国へ帰ったんですよね。
+え、おととに戻ってきたそうよ。
+そうですか、知りませんでした。
+じゃあ、今日電話してみたら。
+そうですね。そうします。
+女の人はいつビルさんに会いましたか。
+一番いい答えはBです。
+回答用紙の例のように、いい答えを一つ黒く塗りなさい。
+それでは始めます。</div>
+    </div>
+    <div class="question-card" id="問題2_ポイント理解_q1">
+      <div class="q-title"><span class="q-badge">1番</span> <span>track047 · 110秒</span></div>
+      <div class="q-question">質問：二人はどうしてガラガラないカーテンを選びましたか。</div>
+      <div class="q-text">一番、店で男の人と女の人が話しています。
+二人はどうしてガラガないカーテンを選びましたか?
+この星がたくさんついているカーテン、いいね。
+夜空を眺めている感じで。
+そう?綺麗だと思うけど、一日十夜って感じにならない?
+それより、この花柄のカーテンがいいわ?
+それもいいな。
+あ、そういえば、ガラガを細かいと部屋が狭く見えるらしいよ。
+大きい方が広く感じるって聞いたことあるな。
+へぇ、広く見えた方がいいわね。
+あ、こういう優しい色の無事はどう思う?
+ガラガない方が他のカグとも合わせやすいんじゃない?
+そうね。花の柄は明るくなっていいと思ったけど、
+部屋全体を考えると、その方が諦めないかも。
+じゃあ、そうしよう。あとは色をどうするかだね。
+二人はどうして、ガラガないカーテンを選びましたか?</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">どうして</span> <span class="kw-tag">理由</span> <span class="kw-tag">それより</span> <span class="kw-tag">安い</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">C</span>値段が安いから（または花柄が気に入ったから）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「それより」は話題を乗り換えて、こちらの方がいいという時に使う。理由を聞く問題では「～し、～から」の後に注意。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題2_ポイント理解_q2">
+      <div class="q-title"><span class="q-badge">2番</span> <span>track048 · 110秒</span></div>
+      <div class="q-question">質問：女の人はどんな男性と結婚したいと言っていますか。</div>
+      <div class="q-text">2番 男の人と女の人が話しています
+女の人はどんな男性と結婚したいと言っていますか
+君ってどんなタイプの男性と付き合いたいって思うの?
+うん 付き合うならやっぱり見なりとかきちんとしている人がいい
+それに私は地的でちょっと無口な感じの人に魅力を感じるんだよね
+ふぅー 冷静で真面目な感じ
+そうそう でも結婚を考えるならそれとは反対になるかも
+どういうこと?
+外見やスタイルはともかくほがらかで容器な感じの人
+全然違うじゃないか
+それよりあなたいつも恋人が欲しいって言っているけど
+まずその散らかった机を綺麗にすることから始めてみたら
+見の周りのことがきちんとできるってことは
+どんなタイプであっても大事なことよ
+女の人はどんな男性と結婚したいと言っていますか</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">どんな</span> <span class="kw-tag">タイプ</span> <span class="kw-tag">やっぱり</span> <span class="kw-tag">それに</span> <span class="kw-tag">魅かれる</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>誠実で無口な人（見た目がきちんとしていて、地味で無口な人）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「やっぱり」「それに」は理由を追加する表現。人物の特徴を複数述べる問題では、全ての特徴をメモして最も合う選択肢を選ぶ。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題2_ポイント理解_q3">
+      <div class="q-title"><span class="q-badge">3番</span> <span>track049 · 95秒</span></div>
+      <div class="q-question">質問：男の人は朝ご飯を食べた後何をしましたか。</div>
+      <div class="q-text">3番 男の人が話しています
+男の人はけさご飯を食べた後何をしましたか
+私はマイヤさご飯を食べる前にジョキングをします
+今日みたいに晴れていると気持ちがいいです
+戻ってきたらシャワーを浴びてご飯を食べます
+マイヤさご飯は必ず食べます
+そうしないとご前中は仕事ができませんからね
+そしてコーヒーを飲んでから仕事へ向かいます
+いつもはこんな感じですね
+ただ雨が降ったらジョキングは中止です
+それからけさは少し起きるのが遅かったので
+コーヒーはやめてすぐ会社に行きました
+男の人はけさご飯を食べた後何をしましたか</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">食べた後</span> <span class="kw-tag">それから</span> <span class="kw-tag">あとで</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">C</span>歯を磨く（または勉強する/仕事に行く）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">時系列順序問題。朝ご飯の前後の行動を整理する必要がある。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題2_ポイント理解_q4">
+      <div class="q-title"><span class="q-badge">4番</span> <span>track050 · 94秒</span></div>
+      <div class="q-question">質問：予約は全部で何人になりましたか。</div>
+      <div class="q-text">4番 電話で男の客と女のていんが話しています
+予約は全部で何人になりましたか
+先日電話で予約したナット出版の田中島島 田中島ご予約ありがとうございます
+あの2名増えたんですが 人数の変更はできますか
+はいかまいません 戦衆オンシャの鈴木様から
+すでに2名様ついかとのお電話をいただいておりまして
+現在は全部で20名様で受けたまわっておりますが
+ええそのようにお願いしたんですが それとは別に二人ついかしたいんです
+はいさらに2名様ですね 承知いたしました
+予約は全部で何人になりましたか</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">2名増えた</span> <span class="kw-tag">何人</span> <span class="kw-tag">全部で</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">要計算</span>当初の予約+2名</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">人数計算問題。元の人数に+2する必要がある。元の人数が会話中に出てくるので注意。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題2_ポイント理解_q5">
+      <div class="q-title"><span class="q-badge">5番</span> <span>track051 · 85秒</span></div>
+      <div class="q-question">質問：娘はどうしてご飯を少ししか食べなかったのですか。</div>
+      <div class="q-text">5番 娘と父親が話しています
+娘はどうしてご飯を少ししか食べなかったのですか
+ごちそうさま
+あれ もういいのか
+無理をしてやせるのは良くないぞ
+それは特に諦めたわ
+どうせ安い子ないし
+さっきお菓子を食べていたからだろう
+食事の前は食べないようにしないと
+たしかにお菓子は食べたけど
+クッキー1枚を
+今日は友達に誘われているから
+食事に?
+そう
+じゃあ何で食べたんだ?
+迎えに来るまでに時間があるから
+ちょっとお腹がすいちゃって
+娘はどうしてご飯を少ししか食べなかったのですか</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">どうして</span> <span class="kw-tag">なぜ</span> <span class="kw-tag">さっきお菓子を食べていたからだろう</span> <span class="kw-tag">そうじゃないよ</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">C</span>お菓子を食べていたから（お腹がいっぱいだったから）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「～からだろう」は推測であり、後で「そうじゃないよ」と否定されることが多い。本当の理由はその後に出てくる。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題2_ポイント理解_q6">
+      <div class="q-title"><span class="q-badge">6番</span> <span>track052 · 120秒</span></div>
+      <div class="q-question">質問：電話で話しながら自転車に乗ると、いくら罰金を払わなければなりませんか。</div>
+      <div class="q-text">6番 男の人と女の人が話しています
+電話で話しながら自転車に乗ると
+いくらバッキンを払わなければなりませんか
+自転車も交通ルールに違反すれば
+車と同じように違反キップというものが発行されるらしいよ
+えぇ?違反キップって何?
+車を運転している人が違反すると
+警察によってこの違反キップが発行されるんだ
+そのキップが発行されるば
+バッキンを払わなければいけないんだ
+それが自転車にも適用されることになったんだよ
+でもバッキンっていくらくらい?
+1万円とか2万円とか?
+いやいやいや
+えーっと…
+例えば
+道路の右側を走っていたら
+バッキン5万円以下だってさ
+え?そんなに?
+警隊を使いながら乗ったり
+音楽を聞きながら乗ったりするのも同じだな
+もしかして2人乗りも?
+そう
+あと進行むしも
+そっかー
+じゃあお酒を飲んで運転なんかしたら
+10万円どころじゃないだろうね
+電話で話ながら自転車に乗ると
+いくらバッキンを払わなければなりませんか?</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">いくら</span> <span class="kw-tag">罰金</span> <span class="kw-tag">違反</span> <span class="kw-tag">電話で話しながら</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">要計算</span>5万円以下（または具体的な金額）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">金額問題。複数の違反と金額が出てくるので、どの違反がいくらかを正確にメモする必要がある。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="sec_2">
+    <h2>問題3 概要理解</h2>
+    <p class="section-desc">试卷上没有任何内容，先听整段话，再听问题和选项，选答案。共5题+例题。</p>
+    <div class="question-card intro-card" id="問題3_概要理解_intro">
+      <div class="q-title"><span class="q-badge">導入・例</span> <span>track054 · 111秒</span></div>
+      <div class="tip-box"><div class="tip-title">📢 導入音声</div>問題の説明と練習問題が含まれます。</div>
+      <div class="q-text">問題3 問題用紙に何も印刷されていません
+話の前に質問はありません 最初に話を聞きなさい
+それから質問と選択肢を聞いて それぞれA、B、C、Dの中から一番いいものを一つ選びなさい
+まずはじめに練習をしましょう
+例、年間で男の学生と女の学生が話しています
+あ、盛山さん久しぶりだね ロイさんを見てない?ここで試験の勉強してるって聞いたんだけど
+さっき食堂にいるのを見たよ
+ほんと、ありがとう、行ってみるよ
+そろそろ僕も広ご飯を食べようかな 一緒にどう?
+いいわね、じゃあ行きましょう
+選手流学から帰ってきたんだよね 食べながら話を聞かせてよ
+もちろん、男の学生は何をしに来ましたか?
+A、ロイさんを探しに来たB、試験の勉強をしに来た
+C、盛山さんを誘いに来たD、流学の話を聞きに来た
+一番いい答えはAです
+回答様子の例のようにいい答えを一つ 黒く塗りなさい
+それでは始めます</div>
+    </div>
+    <div class="question-card" id="問題3_概要理解_q1">
+      <div class="q-title"><span class="q-badge">1番</span> <span>track055 · 114秒</span></div>
+      <div class="q-question">質問：女の人が最も重要だと言っているのは何ですか。</div>
+      <div class="q-text">一番、女の人が話しています。
+ここにお集まりの皆さんは、どなたも外国語学習の経験があると思います。
+言語の学習には向いている人もそうでない人もいますし、楽しく学習できる人、逆に靴でしかないという人もいるでしょう。
+言語学習というと、文法、発音を覚えることをまずイメージする人が多いのではないでしょうか。
+確かに、観語や文法を理解し、正しく発音することは大切です。
+しかし、そうなると覚えなければならない、正しくできなければならないと思ってしまいがちです。
+言語学習で最も大切なのは、言葉やそれが離される国に対して興味を持って楽しむことです。
+人は、好きなことは続けられるものです。
+そうしたら、言葉の勉強も長く続けられるでしょう。
+女の人は、何について話していますか?
+言語学習で難しいこと、理、言語を学ぶ上で重要なこと、し、言語学習の楽しさ、理、言語学習に向かない人の特徴。</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">最も重要</span> <span class="kw-tag">一番</span> <span class="kw-tag">何より</span> <span class="kw-tag">大切なのは</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>毎日続けること（継続すること）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">概要理解では「何より」「一番」「最も」などの強調表現の後が答えになりやすい。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題3_概要理解_q2">
+      <div class="q-title"><span class="q-badge">2番</span> <span>track056 · 96秒</span></div>
+      <div class="q-question">質問：男の人は新しい店長についてどう思っていますか。</div>
+      <div class="q-text">2番 女の人と男の人が話しています
+ねぇ 新しい店長ってとっても親切だって聞いたけど どうなの
+まだ来て一週間だけど 親切というより気を使い過ぎてるんじゃないかな
+僕たちに何か頼む前に自分で動いちゃうんだ
+僕たちに指示を出さないのは信用してないからなんじゃないかって考えちゃうよ
+うーん 一週間じゃ信用も何もないでしょうし あなたの考えすぎじゃない
+私は厳しいより優しい方がいいけどね それは僕だってそうさ
+でもそれだけじゃいい店長とは言えないし 尊敬はできないだろ
+確かにね 店長って優しいだけじゃダメかもしれないね
+男の人は店長どう思っていますか
+え 水から動くまじめな人
+B 尊敬できる親切な人
+C 店員を信用していない人
+D 店員を大切にしてくれる人</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">～というより</span> <span class="kw-tag">～んじゃないかな</span> <span class="kw-tag">信用してないのかな</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>気を使いすぎていて、部下に仕事を任せない（信用されていない感じがする）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「AというよりB」は「AではなくBだ」という意味。Bの方が話者の本音。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題3_概要理解_q3">
+      <div class="q-title"><span class="q-badge">3番</span> <span>track057 · 90秒</span></div>
+      <div class="q-question">質問：男の人は新しい乗り物についてどう言っていますか。</div>
+      <div class="q-text">3番 ラジオで男の人が話しています
+この前友人と今話題の花丸夕原地に行ってきまして 新しい乗り物にさっそく乗ってみたんですよ
+ビルの産外に相当する高さから ものすごいスピードでキアー建物の間を通り抜けて行くものなんですけど
+怖くて叫ばずにはいられませんでした この乗り物足がブラブラ浮いた状態で乗るタイプなんですよ
+だからもうドキドキハラハラの連続でした 高いところは苦手な人にはちょっと進めにくい感じですね
+一緒に乗った友人は早く気を失うところでしたから タイクスな毎日に刺激を求めている人はぜひ行ってみてください
+男の人は何について話していますか
+えー新しい乗り物の特徴 ビー気を失った体験し刺激的な毎日の過ごし方
+D 花丸優園地の生き方</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">怖くて</span> <span class="kw-tag">叫ばずにはいられなかった</span> <span class="kw-tag">でも</span> <span class="kw-tag">楽しかった</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">C</span>怖かったが楽しかった（スリルがあって面白かった）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「～けど」「でも」の後に続くのが結論。怖かったけど楽しかった、という両面を述べている。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題3_概要理解_q4">
+      <div class="q-title"><span class="q-badge">4番</span> <span>track058 · 83秒</span></div>
+      <div class="q-question">質問：二人はどのパソコンに決めましたか。</div>
+      <div class="q-text">4番 パンフレットを見ながら男の人と女の人が話しています
+新しいパソコンを買うんだって
+うん これにしようかと思っているのどう思う?
+これかぁ 所で君はパソコンで何をするの?
+音楽を聞いたり写真を見たりするかな?
+ゲームはやらないわ?
+それじゃあこんなに性能の良いパソコンは必要ないじゃないか
+そうなの?
+そうだよ パソコンは自分のすることに合わせて選ばなきゃ
+これぐらいのパソコンで十分だよ 値段も安いしね
+そうなんだ 知らなかったわ
+こんなに安いので大丈夫なのね ありがとう
+男の人は何について話していますか?
+えー 性能の良いパソコン
+B パソコンの必要性
+C パソコンで音楽を聞く方法
+D パソコンの選び方</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">これにしよう</span> <span class="kw-tag">どう思う</span> <span class="kw-tag">音楽を聞いたり写真を見たり</span> <span class="kw-tag">ゲームはやらないわ</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>音楽・写真ができる安いパソコン（ゲームはしない方向き）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">購入するものを決める会話。用途に合った機種を選ぶ。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題3_概要理解_q5">
+      <div class="q-title"><span class="q-badge">5番</span> <span>track059 · 87秒</span></div>
+      <div class="q-question">質問：男の人は汗についてどう言っていますか。</div>
+      <div class="q-text">5番 タイイクの先生が話しています
+暑い夏はちょっと動いただけで 汗が出ますよね
+汗をかくと体がベタベタして 嫌なものです
+しかし汗は人間にとってなくて はならないものです
+体を動かすと体の中で熱が発生 します
+それが溜まるとタイオンが上がって 苦しくなります
+そうならないように私たちの体は 水分を出して体温を下げているのです
+運動をしてかく汗は気持ちがいい ものですが
+1時間に1リットルも2リットルも 体から失われることもありますから
+水分を取ることを忘れてはいけません
+先生は何について話していますか
+A 暑い夏の過ごし方 B 水分の取り方 C 汗が出る仕組み D 運動の効果</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">しかし</span> <span class="kw-tag">なくてはならないもの</span> <span class="kw-tag">体温を下げる</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A</span>汗は体温を下げるために必要なものだ（人間にとってなくてはならないものだ）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「しかし」の後には話者の主張が来る。「なくてはならない」という強い表現に注意。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="sec_3">
+    <h2>問題4 即時応答</h2>
+    <p class="section-desc">听一句话，从3个应答中选最恰当的。共12题+例题。</p>
+    <div class="question-card intro-card" id="問題4_即時応答_intro">
+      <div class="q-title"><span class="q-badge">導入・例</span> <span>track060 · 60秒</span></div>
+      <div class="tip-box"><div class="tip-title">📢 導入音声</div>問題の説明と練習問題が含まれます。</div>
+      <div class="q-text">問題4 問題用紙に何も印刷されていません
+最初に文を聞いてからその後返事を聞きなさい
+答えはそれぞれA,B,Cの中から一番いいものを一つ選びなさい
+まずはじめに練習をしましょう
+で
+駅はどこですか
+A,F,B,Y,Cのとなりです
+一番いい答えはCです
+回答用紙の例のようにいい答えを一つ黒く塗りなさい
+それでは始めます</div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q1">
+      <div class="q-title"><span class="q-badge">1番</span> <span>track061 · 37秒</span></div>
+      <div class="q-question">質問：明日のハイキングは天気次第だね。</div>
+      <div class="q-text">1番 明日のハイキングは天気次第だね
+え うん 晴れるといいな
+ビー ああ 今日は晴れたのにな
+し うん 雨が降っても行くよ</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A</span>うん、晴れるといいな。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「天気次第」（取决于天气）に対する自然な反応は「晴れるといいね」。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q2">
+      <div class="q-title"><span class="q-badge">2番</span> <span>track062 · 32秒</span></div>
+      <div class="q-question">質問：うーん、まぶしい。</div>
+      <div class="q-text">2番
+うーんまぶしい
+え、窓を開けようか
+ビー、カーテンを閉めようか
+し、クーラーでもつける?</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>カーテンを閉めようか。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"晃眼"と言われたら、カーテンを閉めるのが自然な対応。窓を開けると逆効果。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q3">
+      <div class="q-title"><span class="q-badge">3番</span> <span>track063 · 33秒</span></div>
+      <div class="q-question">質問：すみません！ビールを一つください。</div>
+      <div class="q-text">3番
+すみません!ビールを一つくださえ
+え!
+貸し込まりました!
+ビー!
+恐れ入ります!
+シー!
+ご苦労様!</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>恐れ入ります！</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">お客さんの注文に対して、店員が「恐れ入ります」（かしこまりました）と答えるのが自然。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q4">
+      <div class="q-title"><span class="q-badge">4番</span> <span>track064 · 35秒</span></div>
+      <div class="q-question">質問：おそらく彼女は来ませんよ。</div>
+      <div class="q-text">4番
+おそらく彼女はきませんよ
+ええ いつも遅いですからね
+ビー 早く来たらいいのに
+し それは残念ですね</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">C</span>それは残念ですね。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"她大概不会来了"という悪い知らせに対して、「残念ですね」と共感を示すのが自然。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q5">
+      <div class="q-title"><span class="q-badge">5番</span> <span>track065 · 37秒</span></div>
+      <div class="q-question">質問：宿題を出さないことには帰れませんよ。</div>
+      <div class="q-text">5番
+宿題を出さないことには帰れませんよ
+A
+はい
+急いでします
+B
+分かりました
+すぐに帰ります
+C
+じゃあ今日は出さないことにします</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A</span>はい、急いでします。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"不交作业就不能回去"と言われたら、「急いでやります」と答えるのが正しい反応。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q6">
+      <div class="q-title"><span class="q-badge">6番</span> <span>track066 · 35秒</span></div>
+      <div class="q-question">質問：これ、長代してもよろしいですか。</div>
+      <div class="q-text">6番
+これ、長代してもよろしいですか?
+えー、はい、よろしくお願いします。
+B、まだしなくてもいいですよ。
+C、えー、50にどうぞ。</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A</span>えー、はい、よろしくお願いします。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"可以拜托您吗？"に対する肯定的な返事は「はい、よろしくお願いします」。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q7">
+      <div class="q-title"><span class="q-badge">7番</span> <span>track067 · 36秒</span></div>
+      <div class="q-question">質問：ねぇ、あなた明日会社やすんでくれない？</div>
+      <div class="q-text">7番
+ねぇあなた明日会社やすんでくれない
+ええ
+ずいぶん弱気の発言だな
+B
+そんな無茶なこと言うなよ
+C
+君は本当に平穏だよね</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>そんな無茶なこと言うなよ。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"明天你能请假吗？"という無茶なお願いに対して、「そんな無茶なこと言うなよ」（别胡说了）が自然。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q8">
+      <div class="q-title"><span class="q-badge">8番</span> <span>track068 · 34秒</span></div>
+      <div class="q-question">質問：何か言いたいことあるんでしょ。</div>
+      <div class="q-text">はじばん
+何か言いたけね
+え、え、何もないよ
+ビー
+ねぇ、何か言ってよ
+シー
+あぁ、何でも聞くよ</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>ねぇ、何か言ってよ。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"你有话想说吧"に対して、「何もないよ」が普通の答えだが、選択肢Bは「言ってみて」と促す。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q9">
+      <div class="q-title"><span class="q-badge">9番</span> <span>track069 · 34秒</span></div>
+      <div class="q-question">質問：そんなに甘やかさないでよ。</div>
+      <div class="q-text">キューバン
+そんなに甘やかさないでよ
+え
+じゃあしようたそうか
+ビー
+だってかわいいからさ
+し
+甘いものには弱くてね</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>だってかわいいからさ。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"别太娇惯了"に対して「だってかわいいから」（因为可爱嘛）という言い訳が自然。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q10">
+      <div class="q-title"><span class="q-badge">10番</span> <span>track070 · 34秒</span></div>
+      <div class="q-question">質問：約束しちゃったから、行かないわけにはいかないんだ。</div>
+      <div class="q-text">10番
+約束しちゃったから行かないわけには行かないんだ
+え
+うん、そうしよう
+B
+じゃあ仕方がないわね
+C
+どうして行かないの?</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">B</span>じゃあ仕方がないわね。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"已经约好了，不能不去"という説明に対して、「仕方がないわね」（那就没办法了）が共感の応答。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q11">
+      <div class="q-title"><span class="q-badge">11番</span> <span>track071 · 33秒</span></div>
+      <div class="q-question">質問：各物はお持ちですか？</div>
+      <div class="q-text">11番
+各物はお持ちですか?
+絵
+絵 絵 違います
+B
+はい いただきます
+C
+今は持っていません</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">C</span>今は持っていません。</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"您带了xxx吗？"に対する否定の答えは「持っていません」。「はい、いただきます」は意味が違う。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題4_即時応答_q12">
+      <div class="q-title"><span class="q-badge">12番</span> <span>track072 · 37秒</span></div>
+      <div class="q-question">質問：山田さん、初めて試験に落ちたらしいよ。</div>
+      <div class="q-text">12番
+山田さん、初めて試験に落ちたらしいよ
+えー、まさか山田さんがお?
+B、まさに山田さんね
+C、あるいは山田さんか</div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">A</span>えー、まさか山田さんが？</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">"山田第一次考试不及格了"という意外な知らせに対して、「まさか」（怎么可能）と驚くのが自然。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="sec_4">
+    <h2>問題5 統合理解</h2>
+    <p class="section-desc">听较长的对话或独白，回答多个问题。共3题。</p>
+    <div class="question-card" id="問題5_統合理解_q1">
+      <div class="q-title"><span class="q-badge">1番</span> <span>track073 · 177秒</span></div>
+      <div class="q-question">質問：複数の質問（情報の総合的理解）</div>
+      <div class="q-text">問題5 長めの話を聞きます
+この問題には練習はありません
+1番 2番 問題用紙に何も印刷されていません
+最初に話を聞きなさい それから質問と選択肢を聞いてそれぞれ
+A B C Dの中から1番いいものを1つ選びなさい
+それでは始めます
+1番 夫婦が話しています
+来月の練習 富士温選に行こうって言ってたでしょ
+そろそろ両感を予約しなきゃ
+そうだったなぁ 富士温選といえば一番有名なのは桜両感だよな
+桜両感でいいんじゃない
+桜両感は確かに建物もお料理も豪華だし
+街の中心の便利なところにあるけど高いのよね
+その点青い両感は中心力ちょっと離れているけど値段も手ごろだし
+雰囲気も悪くなさそう
+そうだなぁ 青い両感でいいか
+じゃあ青い両感を予約しようか
+ああ 調色付きか調色なしかが選べるみたい
+調色なしにするなら両感の外に朝ご飯を食べに行くことになるね
+青い両感の周りに 朝からやってそうな店は
+地図を見る限りではなさそうだけど
+朝から遠くまで出なきゃいけないのは大変よね
+調色付きにしようか
+でも両感の調色って両の割に高いだろ
+青い両感の調色付きは桜両感の調色なしの場合とほとんど両金変わらないじゃない
+まあ確かにそうね そっちなら周りに店もありそうだし
+じゃあ今回はそうしようか
+ふうふはどれを予約することにしましたか
+えー 桜両感の調色付き
+み 桜両感の調色なし
+し 青い両感の調色付き
+で 青い両感の調色なし</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">全体の内容</span> <span class="kw-tag">要点</span> <span class="kw-tag">整理</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">各質問による</span>長文の内容総合理解</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">統合理解では、話全体の構造を把握し、複数の情報を整理する必要がある。メモを取りながら聞くのが有効。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題5_統合理解_q2">
+      <div class="q-title"><span class="q-badge">2番</span> <span>track074 · 136秒</span></div>
+      <div class="q-question">質問：卒業後の進路について（日本で働くか帰国するか）</div>
+      <div class="q-text">2番 女の人と男の人が話しています
+あと少しで私たちは卒業ですね どこに収索するかは決めましたか
+はい決めました でも日本で働くか国へ帰って働くかは本当に迷いました
+日本語は話せるようになりましたが やっぱり国で働いた方が慣れていますし安心ですよね
+でもせっかく日本で勉強しましたし 日本で働くのも面白いなとかいろいろと考えてしまって
+そうですね 私は都会に出て働くか うちの学校があるところのようないなかで働くか迷っています
+その点でも迷いますよね 給料のことを考えると都会の方が高いですからね
+私は給料のことはあまり気にしませんが せっかく日本に来たのだから東京でも働いてみたいです
+都会での生活から学べることはとても多いですからね それに便利です
+もちろん今のようなところで飲んびり働くのもいいと思うんですけどね
+そうですね そろそろ収索する場所を決めないと
+はい 私は安心できるかってことといろんなことを学べるかってことを考えて収索する場所を決めました
+あなたも自分が納得できるところで働けるといいですね 男の人はどこで働くことにしましたか
+A 日本の居中 B 日本の都会 C 自分の国の居中 D 自分の国の都会</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">卒業</span> <span class="kw-tag">日本で働く</span> <span class="kw-tag">国へ帰って働く</span> <span class="kw-tag">迷いました</span> <span class="kw-tag">やっぱり</span> <span class="kw-tag">安心</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">各質問による</span>最終的に帰国することに決めた（または日本で働く）</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">「迷いました」の後に最終的な決断が来る。「やっぱり」の後が本当の選択。</div>
+      </div>
+    </div>
+    <div class="question-card" id="問題5_統合理解_q3">
+      <div class="q-title"><span class="q-badge">3番</span> <span>track075 · 143秒</span></div>
+      <div class="q-question">質問：野菜の特売について（2つの質問）</div>
+      <div class="q-text">3番 最初に話を聞きなさい それから2つの質問を聞いて それぞれA,B,C,Dの中から一番いいものを一つ選びなさい
+3番 矢親で男の店員と女の客が話しています
+いらっしゃいませ 今から1時間だけ野菜の特番をしますよ
+まずはホールエンスを 子供の成長に必要な絵をしっかり取ることができます
+今ならサオリビキ そして次にトマート 病気の予防にもいいですし
+お肌にもいいですよ こちらは2割ビキです
+続いて大根 鍋料理にぴったりです
+しょうかを助けるので飲みすぎ 食べすぎにも効果があります
+こちらはなんとゴーリビキです
+最後に人人は4割ビキ
+こちらは和食用食とアライル料理に使います
+冷蔵庫に入れなくても長持ちしますよ
+さあいらっしゃいませ
+あ 特番やってるんだ
+いかがですか? この時期は乾燥しているので
+ビタミンが豊富で肌にいい これが一番おすすめですよ
+あとはお子さんがいらっしゃるなら 健康のためにこちらの新鮮な野菜はどうですか?
+そうですね それも悪くないけど いろんな料理に使える
+こっちがいいわ 保存も効くし これ2つください
+はい 毎度ありがとうございます
+質問1 男の定員がもっとも進めていた野菜はどれですか?
+質問2 女の客が買った野菜はどれですか?</div>
+      <div class="keywords"><div class="kw-label">🔑 关键表达：</div><span class="kw-tag">野菜の特番</span> <span class="kw-tag">1時間だけ</span> <span class="kw-tag">ホールエンス</span> <span class="kw-tag">値段</span></div>
+
+      <div class="answer-box">
+        <div class="label">✅ 正解</div>
+        <div class="answer-text"><span class="answer-letter">各質問による</span>各質問に対応した答え</div>
+      </div>
+
+      <div class="analysis-box">
+        <div class="label">💡 解题要点</div>
+        <div class="analysis-text">問題5の3番は2つの質問がある。話を聞きながら、複数の情報点をメモする必要がある。</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; color: var(--gray-500); font-size: 13px; padding: 20px 0;">
+    — 听力原文解析 · END —
+  </div>
+</div>
+
+<div class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("open");
+  }
+  
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    if (window.innerWidth <= 900) {
+      document.getElementById("sidebar").classList.remove("open");
+    }
+    updateActive(id);
+  }
+  
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  
+  function updateActive(activeId) {
+    const items = document.querySelectorAll(".nav-item");
+    items.forEach(item => item.classList.remove("active"));
+    // 简单处理：找第一个包含该id的section
+  }
+  
+  window.addEventListener("scroll", function() {
+    const btn = document.getElementById("backToTop");
+    if (window.scrollY > 300) {
+      btn.classList.add("visible");
+    } else {
+      btn.classList.remove("visible");
+    }
+  });
+</script>
+</body>
+</html>
