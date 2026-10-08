@@ -1,0 +1,1941 @@
+<!-- Reorganized in the style of japanese-gift-wrapping.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「即将、快要」4词专题 | JLPT N2 语法</title>
+<style>
+  :root {
+    --page-bg: #FFFFFF;
+    --page-surface: #FFFBF5;
+    --page-surface-muted: #FFEFD6;
+    --page-text: #2D2415;
+    --page-text-secondary: #5C4A30;
+    --page-text-muted: #8C7A5C;
+    --page-text-disabled: #C4B293;
+    --page-border: #F0DDB8;
+    --page-brand: #D48806;
+    --page-brand-hover: #B87706;
+    --page-brand-active: #996600;
+    --page-brand-soft: #FFF4E0;
+    --page-brand-soft-strong: #FFE4B8;
+    --page-brand-text: #8A6200;
+
+    --bg: #FFFFFF;
+    --bg2: #FFFBF5;
+    --rule: #F0DDB8;
+    --ink: #2D2415;
+    --muted: #8C7A5C;
+    --text-secondary: #5C4A30;
+    --text-disabled: #C4B293;
+    --accent: #D48806;
+    --accent-hover: #B87706;
+    --accent-active: #996600;
+    --accent-soft: #FFF4E0;
+    --accent2: #E8590C;
+
+    --success: #52C41A;
+    --info: #D48806;
+    --reminder: #FF7A45;
+    --warning: #FAAD14;
+    --danger: #FF4D4F;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB",
+      "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--page-text);
+    background: var(--page-surface);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Intro ===== */
+  .report-intro {
+    position: relative;
+    background: linear-gradient(135deg, var(--page-brand-soft) 0%, #fff 100%);
+    border-bottom: 1px solid var(--page-border);
+    overflow: hidden;
+  }
+  .report-intro__content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .report-intro__eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--page-brand);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    padding: 4px 12px;
+    background: #fff;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--page-brand-soft-strong);
+  }
+  .report-intro h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--page-text);
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  .report-intro h1 span.jp {
+    color: var(--page-brand);
+    font-weight: 600;
+  }
+  .report-intro__summary {
+    font-size: 15px;
+    color: var(--page-text-secondary);
+    line-height: 1.8;
+    max-width: 680px;
+  }
+  .report-intro__meta {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--page-text-muted);
+  }
+  .report-intro__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .report-intro__meta-item::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--page-brand);
+  }
+  .report-intro::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -30px;
+    width: 180px;
+    height: 180px;
+    background: var(--page-brand-soft-strong);
+    border-radius: 20px;
+    transform: rotate(15deg);
+    opacity: 0.5;
+  }
+  .report-intro::after {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    right: 140px;
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border-radius: 16px;
+    transform: rotate(-10deg);
+    opacity: 0.5;
+  }
+
+  /* ===== Main ===== */
+  main { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+  section { margin-bottom: 40px; }
+  section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--page-text);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--page-brand-soft-strong);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  section h2 .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--page-brand);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+  }
+  section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--page-text);
+    margin: 24px 0 12px;
+  }
+  p { margin-bottom: 12px; }
+
+  /* ===== Tabs ===== */
+  .tabs { margin-bottom: 24px; }
+  .tabs__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--page-border);
+  }
+  .tabs__btn {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--page-text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .tabs__btn:hover { color: var(--page-brand); }
+  .tabs__btn.active {
+    color: var(--page-brand);
+    border-bottom-color: var(--page-brand);
+    font-weight: 600;
+  }
+  .tabs__panel { display: none; }
+  .tabs__panel.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Word Cards ===== */
+  .word-grid { display: grid; gap: 12px; }
+  .word-card {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    transition: all 0.2s ease;
+  }
+  .word-card:hover {
+    border-color: var(--page-brand-soft-strong);
+    box-shadow: 0 2px 12px rgba(212, 136, 6, 0.06);
+  }
+  .word-card__header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .word-card__jp {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--page-text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  .word-card__kana {
+    font-size: 13px;
+    color: var(--page-text-muted);
+  }
+  .word-card__tag {
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+  }
+  .word-card__tag--objective { background: #DBEAFE; color: #1E40AF; }
+  .word-card__tag--formal { background: #EEF2FF; color: #3730A3; }
+  .word-card__tag--subjective { background: #FFF7ED; color: #C2410C; }
+  .word-card__tag--urgent { background: #FEF2F2; color: #B91C1C; }
+  .word-card__meaning {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 8px;
+  }
+  .word-card__detail {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: var(--page-surface);
+    border-radius: var(--radius-sm);
+  }
+  .word-card__examples {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .word-card__example {
+    font-size: 13px;
+    color: var(--page-text);
+    padding-left: 14px;
+    position: relative;
+  }
+  .word-card__example::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--page-brand);
+  }
+  .word-card__example .jp {
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    font-weight: 500;
+  }
+  .word-card__example .zh {
+    color: var(--page-text-muted);
+    margin-left: 4px;
+  }
+
+  /* ===== Phrase Cards ===== */
+  .phrase-grid { display: grid; gap: 12px; }
+  .phrase-card {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: all 0.2s ease;
+  }
+  .phrase-card:hover {
+    border-color: var(--page-brand-soft-strong);
+    box-shadow: 0 2px 12px rgba(212, 136, 6, 0.06);
+  }
+  .phrase-card__tag {
+    flex-shrink: 0;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    margin-top: 2px;
+    white-space: nowrap;
+  }
+  .phrase-card__tag--objective { background: #DBEAFE; color: #1E40AF; }
+  .phrase-card__tag--formal { background: #EEF2FF; color: #3730A3; }
+  .phrase-card__tag--subjective { background: #FFF7ED; color: #C2410C; }
+  .phrase-card__tag--urgent { background: #FEF2F2; color: #B91C1C; }
+  .phrase-card__body { flex: 1; }
+  .phrase-card__jp {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--page-text);
+    margin-bottom: 4px;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  .phrase-card__romaji {
+    font-size: 12px;
+    color: var(--page-text-muted);
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+  .phrase-card__zh {
+    font-size: 14px;
+    color: var(--page-text-secondary);
+  }
+  .phrase-card__note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--page-brand);
+    padding: 6px 10px;
+    background: var(--page-brand-soft);
+    border-radius: var(--radius-sm);
+  }
+
+  /* ===== Comparison Box ===== */
+  .compare-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .compare-box__col {
+    padding: 18px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--page-border);
+    background: #fff;
+  }
+  .compare-box__col--a { border-color: #FED7AA; background: #FFF7ED; }
+  .compare-box__col--b { border-color: #CDE8DD; background: #F0FDF4; }
+  .compare-box__label {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  .compare-box__col--a .compare-box__label { color: #C2410C; }
+  .compare-box__col--b .compare-box__label { color: #15803D; }
+  .compare-box__desc {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ===== Callout ===== */
+  .callout {
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout--warn { background: #FFF1F1; border: 1px solid #FECACA; }
+  .callout--tip { background: #F0FDF4; border: 1px solid #BBF7D0; }
+  .callout--info { background: var(--page-brand-soft); border: 1px solid var(--page-brand-soft-strong); }
+  .callout__icon { flex-shrink: 0; font-size: 18px; line-height: 1.4; }
+  .callout__body { flex: 1; }
+  .callout__title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .callout--warn .callout__title { color: #B91C1C; }
+  .callout--tip .callout__title { color: #15803D; }
+  .callout--info .callout__title { color: var(--page-brand); }
+  .callout__text {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ===== Grammar Rule Box (like clerk-box) ===== */
+  .rule-box {
+    background: #EEF2FF;
+    border: 1px solid #C7D2FE;
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+  }
+  .rule-box__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3730A3;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rule-box__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rule-box__item {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .rule-box__item .jp {
+    font-weight: 600;
+    color: #3730A3;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 14px;
+  }
+  .rule-box__item .zh {
+    color: var(--page-text-secondary);
+    margin-top: 2px;
+  }
+
+  /* ===== Accordion ===== */
+  .accordion { display: flex; flex-direction: column; gap: 10px; }
+  .accordion__item {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .accordion__header {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: background 0.2s ease;
+    user-select: none;
+  }
+  .accordion__header:hover { background: var(--page-brand-soft); }
+  .accordion__title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--page-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .accordion__scene-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    background: var(--page-brand-soft);
+    color: var(--page-brand);
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+  }
+  .accordion__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--page-text-muted);
+    transition: transform 0.3s ease;
+  }
+  .accordion__item.open .accordion__icon {
+    transform: rotate(180deg);
+    color: var(--page-brand);
+  }
+  .accordion__body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .accordion__item.open .accordion__body { max-height: 2000px; }
+  .accordion__content {
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--page-border);
+  }
+
+  /* ===== Dialogue ===== */
+  .dialogue { margin-top: 16px; }
+  .dialogue__line {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+  .dialogue__speaker {
+    flex-shrink: 0;
+    min-width: 50px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    margin-top: 2px;
+  }
+  .dialogue__speaker--a { background: #EEF2FF; color: #3730A3; }
+  .dialogue__speaker--b { background: var(--page-brand-soft); color: var(--page-brand); }
+  .dialogue__text { flex: 1; }
+  .dialogue__jp {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--page-text);
+    margin-bottom: 2px;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  .dialogue__zh {
+    font-size: 13px;
+    color: var(--page-text-muted);
+  }
+  .dialogue__note {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--page-surface);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: var(--page-text-secondary);
+  }
+  .dialogue__note strong { color: var(--page-brand); }
+
+  /* ===== Mnemonic ===== */
+  .mnemonic-box {
+    background: linear-gradient(135deg, var(--page-brand-soft) 0%, #fff 100%);
+    border: 1px solid var(--page-brand-soft-strong);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    text-align: center;
+  }
+  .mnemonic-box__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+  .mnemonic-box__poem {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--page-text);
+    line-height: 2.2;
+    margin-bottom: 16px;
+  }
+  .mnemonic-box__poem .jp {
+    color: var(--page-brand);
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  .mnemonic-box__desc {
+    font-size: 13px;
+    color: var(--page-text-muted);
+  }
+
+  /* ===== Flashcard ===== */
+  .flashcard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .flashcard {
+    width: 100%;
+    max-width: 500px;
+    height: 260px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+  .flashcard__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .flashcard.flipped .flashcard__inner { transform: rotateY(180deg); }
+  .flashcard__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border: 2px solid var(--page-brand-soft-strong);
+  }
+  .flashcard__face--front { background: #fff; }
+  .flashcard__face--back {
+    background: var(--page-brand-soft);
+    transform: rotateY(180deg);
+  }
+  .flashcard__label {
+    font-size: 12px;
+    color: var(--page-text-muted);
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .flashcard__word {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--page-text);
+    margin-bottom: 8px;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+  .flashcard__reading {
+    font-size: 14px;
+    color: var(--page-text-muted);
+  }
+  .flashcard__meaning {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 10px;
+  }
+  .flashcard__example {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    text-align: center;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    line-height: 1.6;
+  }
+  .flashcard__hint {
+    font-size: 12px;
+    color: var(--page-text-muted);
+    text-align: center;
+  }
+  .flashcard-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .flashcard-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--page-brand);
+    background: #fff;
+    border: 1px solid var(--page-brand-soft-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  .flashcard-btn:hover { background: var(--page-brand-soft); }
+  .flashcard-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .flashcard-btn--primary {
+    background: var(--page-brand);
+    color: #fff;
+    border-color: var(--page-brand);
+  }
+  .flashcard-btn--primary:hover { background: var(--page-brand-hover); }
+  .flashcard-progress {
+    font-size: 13px;
+    color: var(--page-text-muted);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* ===== Quiz ===== */
+  .quiz-container {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+  }
+  .quiz-question { margin-bottom: 16px; }
+  .quiz-question__num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 8px;
+  }
+  .quiz-question__text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--page-text);
+    margin-bottom: 4px;
+  }
+  .quiz-question__sub {
+    font-size: 13px;
+    color: var(--page-text-muted);
+    margin-bottom: 16px;
+  }
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .quiz-option {
+    padding: 12px 16px;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    color: var(--page-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .quiz-option:hover {
+    border-color: var(--page-brand-soft-strong);
+    background: var(--page-brand-soft);
+  }
+  .quiz-option.selected {
+    border-color: var(--page-brand);
+    background: var(--page-brand-soft);
+  }
+  .quiz-option.correct {
+    border-color: #15803D;
+    background: #F0FDF4;
+    color: #15803D;
+  }
+  .quiz-option.wrong {
+    border-color: #B91C1C;
+    background: #FEF2F2;
+    color: #B91C1C;
+  }
+  .quiz-option__marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--page-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .quiz-option.selected .quiz-option__marker {
+    border-color: var(--page-brand);
+    background: var(--page-brand);
+    color: #fff;
+  }
+  .quiz-option.correct .quiz-option__marker {
+    border-color: #15803D;
+    background: #15803D;
+    color: #fff;
+  }
+  .quiz-option.wrong .quiz-option__marker {
+    border-color: #B91C1C;
+    background: #B91C1C;
+    color: #fff;
+  }
+  .quiz-feedback {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback--correct {
+    background: #F0FDF4;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+  }
+  .quiz-feedback--wrong {
+    background: #FEF2F2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+  }
+  .quiz-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--page-border);
+  }
+  .quiz-score {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--page-brand);
+  }
+  .quiz-nav { display: flex; gap: 8px; }
+
+  /* ===== Summary Table ===== */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--page-border);
+  }
+  .summary-table th {
+    background: var(--page-surface);
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--page-text-secondary);
+    border-bottom: 1px solid var(--page-border);
+  }
+  .summary-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--page-border);
+    font-size: 13px;
+    vertical-align: top;
+  }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table .jp {
+    font-weight: 600;
+    color: var(--page-brand);
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 14px;
+  }
+  .summary-table .kana {
+    font-size: 11px;
+    color: var(--page-text-muted);
+    margin-top: 2px;
+  }
+  .summary-table .ok { color: #15803D; font-weight: 600; }
+  .summary-table .ng { color: #B91C1C; font-weight: 600; }
+
+  /* ===== Time Axis ===== */
+  .time-axis {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-md);
+    padding: 28px 24px;
+    margin: 16px 0;
+  }
+  .time-axis__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--page-text-secondary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .time-axis__track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .time-axis__node {
+    background: linear-gradient(135deg, var(--page-brand), var(--page-brand-hover));
+    color: #fff;
+    border-radius: var(--radius-md);
+    padding: 14px 22px;
+    text-align: center;
+    min-width: 110px;
+    box-shadow: 0 2px 8px rgba(212, 136, 6, 0.2);
+  }
+  .time-axis__node--short { background: linear-gradient(135deg, #B91C1C, #991B1B); box-shadow: 0 2px 8px rgba(185, 28, 28, 0.2); }
+  .time-axis__node--mid { background: linear-gradient(135deg, var(--page-brand), var(--page-brand-hover)); }
+  .time-axis__node--long { background: linear-gradient(135deg, #1E40AF, #1E3A8A); box-shadow: 0 2px 8px rgba(30, 64, 175, 0.2); }
+  .time-axis__word {
+    font-size: 17px;
+    font-weight: 700;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    margin-bottom: 4px;
+  }
+  .time-axis__time {
+    font-size: 12px;
+    opacity: 0.92;
+  }
+  .time-axis__arrow {
+    color: var(--page-text-muted);
+    font-size: 22px;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+  .time-axis__note {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--page-border);
+    text-align: center;
+    font-size: 13px;
+    color: var(--page-text-secondary);
+  }
+  .time-axis__note strong { color: var(--page-brand); }
+
+  /* ===== Footer ===== */
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+    border-top: 1px solid var(--page-border);
+    font-size: 12px;
+    color: var(--page-text-muted);
+    text-align: center;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .report-intro h1 { font-size: 24px; }
+    .report-intro__content { padding: 32px 16px 28px; }
+    main { padding: 20px 16px 48px; }
+    section h2 { font-size: 18px; }
+    .compare-box { grid-template-columns: 1fr; }
+    .flashcard { height: 280px; }
+    .flashcard__word { font-size: 24px; }
+    .tabs__btn { padding: 8px 12px; font-size: 13px; }
+    .mnemonic-box { padding: 20px; }
+    .mnemonic-box__poem { font-size: 14px; }
+    .quiz-container { padding: 16px; }
+    .word-card { padding: 14px 16px; }
+    .word-card__jp { font-size: 18px; }
+    .phrase-card { flex-direction: column; gap: 8px; }
+    .time-axis__node { min-width: 90px; padding: 12px 14px; }
+    .time-axis__word { font-size: 15px; }
+    .time-axis__arrow { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== INTRO ===== -->
+<header class="report-intro">
+  <div class="report-intro__content">
+    <span class="report-intro__eyebrow">📚 JLPT N2 语法</span>
+    <h1>「即将、快要」4词专题 <span class="jp">〜もうすぐ・まもなく・そろそろ・いまにも〜</span></h1>
+    <p class="report-intro__summary">
+      四个都表示"很快、即将"，但语感和接续截然不同。
+      掌握 <strong>もうすぐ</strong> 的客观、<strong>まもなく</strong> 的正式、
+      <strong>そろそろ</strong> 的主观提醒、<strong>いまにも</strong> 的紧迫爆发感，
+      N2 阅读与语法再也不混淆！
+    </p>
+    <div class="report-intro__meta">
+      <div class="report-intro__meta-item">核心词汇：4 个</div>
+      <div class="report-intro__meta-item">实用例句：16+</div>
+      <div class="report-intro__meta-item">易错辨析：3 组</div>
+      <div class="report-intro__meta-item">互动测验：6 题</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== SECTION 1: 核心词汇表 ===== -->
+  <section id="sec-words">
+    <h2><span class="section-num">1</span>核心词汇表</h2>
+    <p>四个表示"即将、快要"的高频词，按语感分类。点击标签切换。</p>
+
+    <div class="tabs" id="wordTabs">
+      <div class="tabs__nav">
+        <button class="tabs__btn active" data-tab="all">全部</button>
+        <button class="tabs__btn" data-tab="objective">客观时间</button>
+        <button class="tabs__btn" data-tab="formal">正式公告</button>
+        <button class="tabs__btn" data-tab="subjective">主观提醒</button>
+        <button class="tabs__btn" data-tab="urgent">紧迫状态</button>
+      </div>
+
+      <div class="tabs__panel active" data-panel="all">
+        <div class="word-grid" id="gridAll"></div>
+      </div>
+      <div class="tabs__panel" data-panel="objective">
+        <div class="word-grid" id="gridObjective"></div>
+      </div>
+      <div class="tabs__panel" data-panel="formal">
+        <div class="word-grid" id="gridFormal"></div>
+      </div>
+      <div class="tabs__panel" data-panel="subjective">
+        <div class="word-grid" id="gridSubjective"></div>
+      </div>
+      <div class="tabs__panel" data-panel="urgent">
+        <div class="word-grid" id="gridUrgent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2: 高频实用例句 ===== -->
+  <section id="sec-phrases">
+    <h2><span class="section-num">2</span>高频实用例句</h2>
+    <p>直接拿去就能用！按使用场景分类。</p>
+
+    <div class="tabs" id="phraseTabs">
+      <div class="tabs__nav">
+        <button class="tabs__btn active" data-tab="objective">日常客观</button>
+        <button class="tabs__btn" data-tab="formal">正式公告</button>
+        <button class="tabs__btn" data-tab="subjective">主观劝诱</button>
+        <button class="tabs__btn" data-tab="urgent">紧迫状态</button>
+      </div>
+
+      <!-- 日常客观 -->
+      <div class="tabs__panel active" data-panel="objective">
+        <div class="phrase-grid">
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--objective">最常用⭐</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">もうすぐ春になります。</div>
+              <div class="phrase-card__romaji">Mou sugu haru ni narimasu.</div>
+              <div class="phrase-card__zh">马上就要到春天了。</div>
+              <div class="phrase-card__note">客观描述季节变化，最自然的说法。</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--objective">常用</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">もうすぐ電車が来ます。</div>
+              <div class="phrase-card__romaji">Mou sugu densha ga kimasu.</div>
+              <div class="phrase-card__zh">电车马上就来。</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--objective">常用</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">もうすぐ会議が始まります。</div>
+              <div class="phrase-card__romaji">Mou sugu kaigi ga hajimarimasu.</div>
+              <div class="phrase-card__zh">会议马上开始。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 正式公告 -->
+      <div class="tabs__panel" data-panel="formal">
+        <div class="phrase-grid">
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--formal">广播</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">まもなく３番線に電車がまいります。</div>
+              <div class="phrase-card__romaji">Mamonaku sanbansen ni densha ga mairimasu.</div>
+              <div class="phrase-card__zh">3 号线电车即将进站。</div>
+              <div class="phrase-card__note">车站广播的标准说法，日常口语不常用。</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--formal">演出</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">まもなく開演いたします。</div>
+              <div class="phrase-card__romaji">Mamonaku kaien itashimasu.</div>
+              <div class="phrase-card__zh">即将开演。</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--formal">新闻</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">台風がまもなく上陸する見込みです。</div>
+              <div class="phrase-card__romaji">Taifuu ga mamonaku jouriku suru mikomi desu.</div>
+              <div class="phrase-card__zh">台风预计不久后登陆。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 主观劝诱 -->
+      <div class="tabs__panel" data-panel="subjective">
+        <div class="phrase-grid">
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--subjective">最常用⭐</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">そろそろ帰りましょう。</div>
+              <div class="phrase-card__romaji">Sorosoro kaerimashou.</div>
+              <div class="phrase-card__zh">差不多该回去了。</div>
+              <div class="phrase-card__note">「そろそろ」可接意志/劝诱，这是它的最大特点！</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--subjective">提醒</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">そろそろ出発しよう。</div>
+              <div class="phrase-card__romaji">Sorosoro shuppatsu shiyou.</div>
+              <div class="phrase-card__zh">差不多该出发了。</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--subjective">时间</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">そろそろご飯の時間ですね。</div>
+              <div class="phrase-card__romaji">Sorosoro gohan no jikan desu ne.</div>
+              <div class="phrase-card__zh">差不多到饭点了呢。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 紧迫状态 -->
+      <div class="tabs__panel" data-panel="urgent">
+        <div class="phrase-grid">
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--urgent">N2考点⭐</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">いまにも雨が降り出さんばかりだ。</div>
+              <div class="phrase-card__romaji">Ima ni mo ame ga furidasan bakari da.</div>
+              <div class="phrase-card__zh">眼看就要下雨了。</div>
+              <div class="phrase-card__note">「いまにも～んばかりだ」是固定句型，必背！</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--urgent">样态</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">いまにも倒れそうだ。</div>
+              <div class="phrase-card__romaji">Ima ni mo taore sou da.</div>
+              <div class="phrase-card__zh">眼看就要倒下了。</div>
+            </div>
+          </div>
+          <div class="phrase-card">
+            <span class="phrase-card__tag phrase-card__tag--urgent">紧迫</span>
+            <div class="phrase-card__body">
+              <div class="phrase-card__jp">いまにも泣き出さんばかりだ。</div>
+              <div class="phrase-card__romaji">Ima ni mo nakidasan bakari da.</div>
+              <div class="phrase-card__zh">眼看就要哭出来了。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: 重点辨析 ===== -->
+  <section id="sec-compare">
+    <h2><span class="section-num">3</span>重点辨析（非常容易搞错）</h2>
+
+    <h3>辨析 1：もうすぐ VS そろそろ</h3>
+    <div class="compare-box">
+      <div class="compare-box__col compare-box__col--a">
+        <div class="compare-box__label">もうすぐ</div>
+        <div class="compare-box__desc">
+          <strong>客观时间快到</strong>，不加入感情。<br>
+          ・单纯陈述"很快会发生"<br>
+          ・可用于自然现象、交通、事件<br>
+          ・<strong>不能接意志/劝诱</strong><br>
+          ・❌ もうすぐ帰りましょう（不自然）
+        </div>
+      </div>
+      <div class="compare-box__col compare-box__col--b">
+        <div class="compare-box__label">そろそろ</div>
+        <div class="compare-box__desc">
+          <strong>主观觉得该到点了</strong>，带提醒意味。<br>
+          ・说话人判断"差不多该…了"<br>
+          ・<strong>可接意志/劝诱</strong><br>
+          ・✅ そろそろ帰りましょう<br>
+          ・❌ 不能用于自然现象（そろそろ春が来る ✗）
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout--info">
+      <div class="callout__icon">💡</div>
+      <div class="callout__body">
+        <div class="callout__title">一句话区分</div>
+        <div class="callout__text">
+          「もうすぐ試合が始まる」= 比赛马上开始（客观事实）<br>
+          「そろそろ会場に行こう」= 咱们差不多该去会场了（主观提议）
+        </div>
+      </div>
+    </div>
+
+    <h3>辨析 2：もうすぐ VS まもなく</h3>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:20%">维度</th>
+          <th style="width:40%">もうすぐ</th>
+          <th>まもなく</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>文体</td>
+          <td>通用（口语+书面）</td>
+          <td>偏书面/正式</td>
+        </tr>
+        <tr>
+          <td>时间感</td>
+          <td>更短（几分钟内）</td>
+          <td>稍长（十几分钟～更久）</td>
+        </tr>
+        <tr>
+          <td>使用场景</td>
+          <td>日常对话</td>
+          <td>广播、公告、新闻</td>
+        </tr>
+        <tr>
+          <td>例</td>
+          <td><span class="jp">もうすぐ着きます</span></td>
+          <td><span class="jp">まもなく到着します</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>辨析 3：いまにも 的独特性</h3>
+    <div class="callout callout--warn">
+      <div class="callout__icon">⚠️</div>
+      <div class="callout__body">
+        <div class="callout__title">いまにも 不能表示"时间推移"！</div>
+        <div class="callout__text">
+          いまにも 只描述「事物即将爆发/发生」，<strong>不能用于时间推移</strong>。<br><br>
+          ❌ いまにも 6 時になる（错误）<br>
+          ✅ いまにも 雨が降り出さんばかりだ（眼看就要下雨 ✔）<br><br>
+          它必须搭配「～んばかりだ」「～そうだ」等句型，表达"下一秒就要发生"的紧张感。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: 接续与限制 ===== -->
+  <section id="sec-rules">
+    <h2><span class="section-num">4</span>接续与限制</h2>
+    <p>每个词后面能接什么、不能接什么，是 N2 语法的核心考点。</p>
+
+    <div class="rule-box">
+      <div class="rule-box__title">📘 もうすぐ 的接续</div>
+      <div class="rule-box__list">
+        <div class="rule-box__item">
+          <div class="jp">✅ 动词辞书形 / ます形 / 形容词</div>
+          <div class="zh">もうすぐ春になります。／もうすぐ終わります。</div>
+        </div>
+        <div class="rule-box__item">
+          <div class="jp">❌ 意志形・劝诱形・请求形</div>
+          <div class="zh">もうすぐ帰りましょう（不自然）→ 原因：只描述客观时间，不表达意图</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top: 16px; background:#FFF7ED; border-color:#FED7AA;">
+      <div class="rule-box__title" style="color:#C2410C;">📘 まもなく 的接续</div>
+      <div class="rule-box__list">
+        <div class="rule-box__item">
+          <div class="jp">✅ 动词辞书形・ます形（正式场合）</div>
+          <div class="zh">まもなく到着します。／まもなく開演いたします。</div>
+        </div>
+        <div class="rule-box__item">
+          <div class="jp">⚠️ 日常随意对话少用</div>
+          <div class="zh">日常说"马上到"用「もうすぐ」，不用「まもなく」（会显得生硬）</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top: 16px; background:#FFF7ED; border-color:#FED7AA;">
+      <div class="rule-box__title" style="color:#C2410C;">📘 そろそろ 的接续</div>
+      <div class="rule-box__list">
+        <div class="rule-box__item">
+          <div class="jp">✅ 意志形・劝诱形・请求形</div>
+          <div class="zh">そろそろ帰りましょう。／そろそろ出発しよう。</div>
+        </div>
+        <div class="rule-box__item">
+          <div class="jp">❌ 客观自然现象</div>
+          <div class="zh">そろそろ春が来ます ✗ → 自然现象不由人决定，用「もうすぐ」</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top: 16px; background:#FEF2F2; border-color:#FECACA;">
+      <div class="rule-box__title" style="color:#B91C1C;">📘 いまにも 的固定句型（必背）</div>
+      <div class="rule-box__list">
+        <div class="rule-box__item">
+          <div class="jp">① いまにも～んばかりだ（最常见）</div>
+          <div class="zh">いまにも倒れんばかりだ。（眼看就要倒下）</div>
+        </div>
+        <div class="rule-box__item">
+          <div class="jp">② いまにも～そうだ（样态）</div>
+          <div class="zh">いまにも壊れそうだ。（眼看就要坏了）</div>
+        </div>
+        <div class="rule-box__item">
+          <div class="jp">③ いまにも～かと思う</div>
+          <div class="zh">いまにも飛び出すかと思った。（差点以为要飞出去了）</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5: 场景对话 ===== -->
+  <section id="sec-dialogues">
+    <h2><span class="section-num">5</span>场景对话</h2>
+    <p>看四个词在真实对话中如何使用。点击展开不同场景。</p>
+
+    <div class="accordion">
+      <!-- 场景1 -->
+      <div class="accordion__item open">
+        <div class="accordion__header">
+          <div class="accordion__title">
+            <span class="accordion__scene-tag">场景 1</span>
+            电车即将到站（广播 + 日常）
+          </div>
+          <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="accordion__body">
+          <div class="accordion__content">
+            <div class="dialogue">
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--a">广播</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">まもなく、次の電車が到着します。ご注意ください。</div>
+                  <div class="dialogue__zh">下一班电车即将到站，请注意。</div>
+                </div>
+              </div>
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--b">A</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">もうすぐ電車が来るね。早く乗ろう。</div>
+                  <div class="dialogue__zh">电车马上就来了呢。快点上车吧。</div>
+                </div>
+              </div>
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--a">B</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">うん、そろそろドアが開くよ。</div>
+                  <div class="dialogue__zh">嗯，门差不多该开了。</div>
+                </div>
+              </div>
+            </div>
+            <div class="dialogue__note">
+              <strong>💡 要点：</strong>
+              广播用「まもなく」（正式），日常对话用「もうすぐ」（客观），
+              提醒该行动用「そろそろ」（主观）。一个场景三种说法各得其所！
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景2 -->
+      <div class="accordion__item">
+        <div class="accordion__header">
+          <div class="accordion__title">
+            <span class="accordion__scene-tag">场景 2</span>
+            眼看要下雨了（いまにも）
+          </div>
+          <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="accordion__body">
+          <div class="accordion__content">
+            <div class="dialogue">
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--a">A</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">空が真っ黒だね。いまにも雨が降り出さんばかりだよ。</div>
+                  <div class="dialogue__zh">天好黑啊。眼看就要下雨了。</div>
+                </div>
+              </div>
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--b">B</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">そうだね。そろそろ家に帰ろう。</div>
+                  <div class="dialogue__zh">是啊。差不多该回家了。</div>
+                </div>
+              </div>
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--a">A</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">うん、急ごう。もうすぐ大雨になるかも。</div>
+                  <div class="dialogue__zh">嗯，快点吧。马上可能下大雨。</div>
+                </div>
+              </div>
+            </div>
+            <div class="dialogue__note">
+              <strong>💡 要点：</strong>
+              「いまにも～んばかりだ」形容"下一秒就要发生"的紧迫感；
+              「そろそろ」提议该回家了；「もうすぐ」客观说大雨快来。
+              注意「いまにも」不能换成「もうすぐ」，因为它强调的是"爆发感"。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景3 -->
+      <div class="accordion__item">
+        <div class="accordion__header">
+          <div class="accordion__title">
+            <span class="accordion__scene-tag">场景 3</span>
+            会议即将开始（劝诱 vs 客观）
+          </div>
+          <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="accordion__body">
+          <div class="accordion__content">
+            <div class="dialogue">
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--a">A</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">もうすぐ会議が始まりますよ。急いで。</div>
+                  <div class="dialogue__zh">会议马上开始了哦。快点。</div>
+                </div>
+              </div>
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--b">B</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">わかった。そろそろ会議室に行こう。</div>
+                  <div class="dialogue__zh">知道了。差不多该去会议室了。</div>
+                </div>
+              </div>
+            </div>
+            <div class="dialogue__note">
+              <strong>💡 要点：</strong>
+              「もうすぐ会議が始まります」= 客观陈述时间快到；
+              「そろそろ会議室に行こう」= 主观提议该行动了。
+              这是「もうすぐ」和「そろそろ」最典型的对比场景！
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 场景4 -->
+      <div class="accordion__item">
+        <div class="accordion__header">
+          <div class="accordion__title">
+            <span class="accordion__scene-tag">场景 4</span>
+            台风即将登陆（新闻公告）
+          </div>
+          <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+        <div class="accordion__body">
+          <div class="accordion__content">
+            <div class="dialogue">
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--a">新闻</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">台風10号は、まもなく四国地方に上陸する見込みです。</div>
+                  <div class="dialogue__zh">10 号台风预计即将在四国地区登陆。</div>
+                </div>
+              </div>
+              <div class="dialogue__line">
+                <span class="dialogue__speaker dialogue__speaker--b">A</span>
+                <div class="dialogue__text">
+                  <div class="dialogue__jp">やばい、いまにも家が飛ばされんばかりの風だ。</div>
+                  <div class="dialogue__zh">糟了，风大得眼看要把房子吹飞了。</div>
+                </div>
+              </div>
+            </div>
+            <div class="dialogue__note">
+              <strong>💡 要点：</strong>
+              新闻公告用「まもなく」；形容眼前紧迫的状态用「いまにも～んばかりだ」。
+              「まもなく」是冷静的正式播报，「いまにも」是带情绪的紧迫感。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 6: 易错点提醒 ===== -->
+  <section id="sec-mistakes">
+    <h2><span class="section-num">6</span>易错点提醒</h2>
+
+    <div class="callout callout--warn">
+      <div class="callout__icon">❌</div>
+      <div class="callout__body">
+        <div class="callout__title">易错 1：もうすぐ 不能接劝诱</div>
+        <div class="callout__text">
+          ❌ もうすぐ帰りましょう（不自然）<br>
+          ✅ そろそろ帰りましょう（差不多该回去了）<br><br>
+          原因：「もうすぐ」只描述客观时间，不表达说话人的意图或建议。
+          想提议"该走了"必须用「そろそろ」。
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout--warn" style="margin-top: 12px;">
+      <div class="callout__icon">❌</div>
+      <div class="callout__body">
+        <div class="callout__title">易错 2：そろそろ 不能用于自然现象</div>
+        <div class="callout__text">
+          ❌ そろそろ春が来ます → ✅ もうすぐ春が来ます<br>
+          ❌ そろそろ雨が降ります → ✅ もうすぐ雨が降ります<br><br>
+          原因：「そろそろ」是"说话人主观觉得该到点了"，
+          而自然现象不由人决定，所以不能用。
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout--warn" style="margin-top: 12px;">
+      <div class="callout__icon">❌</div>
+      <div class="callout__body">
+        <div class="callout__title">易错 3：いまにも 不能表示时间推移</div>
+        <div class="callout__text">
+          ❌ いまにも 6 時になります → ✅ もうすぐ 6 時になります<br>
+          ❌ いまにも電車が来ます → ✅ もうすぐ電車が来ます<br><br>
+          「いまにも」只能描述"状态即将爆发/改变"，必须搭配「～んばかりだ」「～そうだ」。
+          单纯说"快到某个时间点"要用「もうすぐ」。
+        </div>
+      </div>
+    </div>
+
+    <div class="time-axis">
+      <div class="time-axis__title">⏱ 时间轴速记（从短到长）</div>
+      <div class="time-axis__track">
+        <div class="time-axis__node time-axis__node--short">
+          <div class="time-axis__word">いまにも</div>
+          <div class="time-axis__time">下一秒</div>
+        </div>
+        <div class="time-axis__arrow">→</div>
+        <div class="time-axis__node time-axis__node--mid">
+          <div class="time-axis__word">もうすぐ</div>
+          <div class="time-axis__time">几分钟</div>
+        </div>
+        <div class="time-axis__arrow">→</div>
+        <div class="time-axis__node time-axis__node--long">
+          <div class="time-axis__word">まもなく</div>
+          <div class="time-axis__time">十几分钟～更久</div>
+        </div>
+      </div>
+      <div class="time-axis__note">
+        <strong>そろそろ</strong> 不参与时间长短排序，它强调"主观觉得该到点了"。
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 7: 速记口诀 ===== -->
+  <section id="sec-mnemonic">
+    <h2><span class="section-num">7</span>速记口诀</h2>
+
+    <div class="mnemonic-box">
+      <div class="mnemonic-box__title">📝 「即将」四词口诀</div>
+      <div class="mnemonic-box__poem">
+        客观马上<span class="jp">もうすぐ</span>、公告不久<span class="jp">まもなく</span>。<br>
+        主观该走<span class="jp">そろそろ</span>、眼看就要<span class="jp">いまにも</span>。
+      </div>
+      <div class="mnemonic-box__desc">
+        四句口诀，N2「即将」四词全搞定 ⏰
+      </div>
+    </div>
+
+    <h3 style="margin-top: 24px;">口诀详解</h3>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:35%">口诀</th>
+          <th>含义 & 说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="jp">客观马上 もうすぐ</div></td>
+          <td>单纯客观陈述"很快发生"，最通用。可用于自然现象、交通、事件。不能接意志/劝诱。</td>
+        </tr>
+        <tr>
+          <td><div class="jp">公告不久 まもなく</div></td>
+          <td>正式场合（广播、公告、新闻）首选。时间感比「もうすぐ」稍长。日常口语少用。</td>
+        </tr>
+        <tr>
+          <td><div class="jp">主观该走 そろそろ</div></td>
+          <td>说话人觉得"差不多该…了"，可接意志/劝诱。不能用于自然现象。</td>
+        </tr>
+        <tr>
+          <td><div class="jp">眼看就要 いまにも</div></td>
+          <td>形容"下一秒就要发生"的紧迫感。固定搭配「～んばかりだ」「～そうだ」。不能表时间推移。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top: 24px;">场景速查表</h3>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:40%">场景</th>
+          <th>推荐用词</th>
+          <th>例句</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>电车/飞机即将到达（广播）</td>
+          <td><span class="jp">まもなく</span></td>
+          <td>まもなく到着します</td>
+        </tr>
+        <tr>
+          <td>日常说"马上到"</td>
+          <td><span class="jp">もうすぐ</span></td>
+          <td>もうすぐ着きます</td>
+        </tr>
+        <tr>
+          <td>提议"差不多该走了"</td>
+          <td><span class="jp">そろそろ</span></td>
+          <td>そろそろ帰ろう</td>
+        </tr>
+        <tr>
+          <td>眼看就要哭/倒/下雨</td>
+          <td><span class="jp">いまにも</span></td>
+          <td>いまにも泣き出さんばかり</td>
+        </tr>
+        <tr>
+          <td>春天马上来</td>
+          <td><span class="jp">もうすぐ</span></td>
+          <td>もうすぐ春です</td>
+        </tr>
+        <tr>
+          <td>演出即将开始（公告）</td>
+          <td><span class="jp">まもなく</span></td>
+          <td>まもなく開演</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== SECTION 8: 闪卡练习 ===== -->
+  <section id="sec-flashcards">
+    <h2><span class="section-num">8</span>单词闪卡练习</h2>
+    <p>点击卡片翻面，检验自己是否记住了。</p>
+
+    <div class="flashcard-container">
+      <div class="flashcard" id="flashcard">
+        <div class="flashcard__inner">
+          <div class="flashcard__face flashcard__face--front">
+            <div class="flashcard__label">日文</div>
+            <div class="flashcard__word" id="fcWord">もうすぐ</div>
+            <div class="flashcard__reading" id="fcReading">mou sugu</div>
+          </div>
+          <div class="flashcard__face flashcard__face--back">
+            <div class="flashcard__label">含义 & 例句</div>
+            <div class="flashcard__meaning" id="fcMeaning">客观马上（最通用）</div>
+            <div class="flashcard__example" id="fcExample">もうすぐ春になります。<br>（马上就要到春天了。）</div>
+          </div>
+        </div>
+      </div>
+      <div class="flashcard__hint">👆 点击卡片翻面</div>
+      <div class="flashcard-controls">
+        <button class="flashcard-btn" id="fcPrev">← 上一个</button>
+        <span class="flashcard-progress" id="fcProgress">1 / 4</span>
+        <button class="flashcard-btn flashcard-btn--primary" id="fcNext">下一个 →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 9: 小测验 ===== -->
+  <section id="sec-quiz">
+    <h2><span class="section-num">9</span>小测验</h2>
+    <p>来测试一下你掌握了多少！共 6 题。</p>
+
+    <div class="quiz-container" id="quizContainer">
+      <div class="quiz-question" id="quizQuestion">
+        <div class="quiz-question__num" id="quizNum">第 1 题 / 共 6 题</div>
+        <div class="quiz-question__text" id="quizText">駅のアナウンス：______次の電車が到着します。</div>
+        <div class="quiz-question__sub" id="quizSub">选择最合适的表达</div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+      </div>
+      <div class="quiz-actions">
+        <div class="quiz-score" id="quizScore">得分：0 / 6</div>
+        <div class="quiz-nav">
+          <button class="flashcard-btn" id="quizPrev" disabled>← 上一题</button>
+          <button class="flashcard-btn flashcard-btn--primary" id="quizNext">下一题 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  「即将、快要」4词专题 · JLPT N2 语法 · 交互式学习卡片 · もうすぐ・まもなく・そろそろ・いまにも
+</footer>
+
+<script>
+  // ===== Word Data =====
+  const words = [
+    {
+      jp: 'もうすぐ',
+      kana: 'もうすぐ',
+      cat: 'objective',
+      type: 'objective',
+      typeLabel: '客观时间',
+      meaning: '马上、快要（时间很近）',
+      detail: '核心：客观陈述事态很快到来，不加入说话人感情。最通用，可用于自然现象、交通、事件开始/结束。',
+      examples: [
+        { jp: 'もうすぐ春になります。', zh: '马上就要到春天了。' },
+        { jp: 'もうすぐ電車が来ます。', zh: '电车马上就来。' }
+      ]
+    },
+    {
+      jp: 'まもなく',
+      kana: 'まもなく',
+      cat: 'formal',
+      type: 'formal',
+      typeLabel: '正式公告',
+      meaning: '不久、即将',
+      detail: '核心：客观正式，车站广播、演出、公共通知首选。时间感比「もうすぐ」稍长。可写作「間もなく」。',
+      examples: [
+        { jp: 'まもなく開演いたします。', zh: '即将开演。' },
+        { jp: '台風がまもなく上陸します。', zh: '台风即将登陆。' }
+      ]
+    },
+    {
+      jp: 'そろそろ',
+      kana: 'そろそろ',
+      cat: 'subjective',
+      type: 'subjective',
+      typeLabel: '主观提醒',
+      meaning: '差不多该…、快要',
+      detail: '核心：说话人主观觉得"差不多该到时间了"。可接意志、劝诱、请求。不能用于客观自然现象。另有"慢慢地"之意。',
+      examples: [
+        { jp: 'そろそろ帰りましょう。', zh: '差不多该回去了。' },
+        { jp: 'そろそろ出発しよう。', zh: '差不多该出发了。' }
+      ]
+    },
+    {
+      jp: 'いまにも',
+      kana: 'いまにも',
+      cat: 'urgent',
+      type: 'urgent',
+      typeLabel: '紧迫状态',
+      meaning: '眼看就要、马上就要（差点发生）',
+      detail: '核心：形容"下一秒就要发生"的紧张感。固定搭配「～んばかりだ」「～そうだ」。不能表示时间推移。N2 必考点。',
+      examples: [
+        { jp: 'いまにも倒れんばかりだ。', zh: '眼看就要倒下。' },
+        { jp: 'いまにも雨が降り出さんばかりだ。', zh: '眼看就要下雨。' }
+      ]
+    }
+  ];
+
+  // ===== Render Word Cards =====
+  function renderWordCards(containerId, filter) {
+    const container = document.getElementById(containerId);
+    const filtered = filter === 'all' ? words : words.filter(w => w.cat === filter);
+    container.innerHTML = filtered.map(w => `
+      <div class="word-card">
+        <div class="word-card__header">
+          <span class="word-card__jp">${w.jp}</span>
+          <span class="word-card__kana">${w.kana}</span>
+          <span class="word-card__tag word-card__tag--${w.type}">${w.typeLabel}</span>
+        </div>
+        <div class="word-card__meaning">${w.meaning}</div>
+        <div class="word-card__detail">${w.detail}</div>
+        <div class="word-card__examples">
+          ${w.examples.map(e => `
+            <div class="word-card__example">
+              <span class="jp">${e.jp}</span>
+              <span class="zh">${e.zh}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderWordCards('gridAll', 'all');
+  renderWordCards('gridObjective', 'objective');
+  renderWordCards('gridFormal', 'formal');
+  renderWordCards('gridSubjective', 'subjective');
+  renderWordCards('gridUrgent', 'urgent');
+
+  // ===== Tabs =====
+  function initTabs(tabsId) {
+    const tabs = document.getElementById(tabsId);
+    const btns = tabs.querySelectorAll('.tabs__btn');
+    const panels = tabs.querySelectorAll('.tabs__panel');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        tabs.querySelector(`[data-panel="${btn.dataset.tab}"]`).classList.add('active');
+      });
+    });
+  }
+  initTabs('wordTabs');
+  initTabs('phraseTabs');
+
+  // ===== Accordion =====
+  document.querySelectorAll('.accordion__header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.parentElement.classList.toggle('open');
+    });
+  });
+
+  // ===== Flashcard =====
+  const fcData = [
+    { word: 'もうすぐ', reading: 'mou sugu', meaning: '客观马上（最通用）', example: 'もうすぐ春になります。<br>（马上就要到春天了。）' },
+    { word: 'まもなく', reading: 'mamonaku', meaning: '公告不久（正式）', example: 'まもなく開演いたします。<br>（即将开演。）' },
+    { word: 'そろそろ', reading: 'sorosoro', meaning: '主观该走（可劝诱）', example: 'そろそろ帰りましょう。<br>（差不多该回去了。）' },
+    { word: 'いまにも', reading: 'ima ni mo', meaning: '眼看就要（+んばかり）', example: 'いまにも倒れんばかりだ。<br>（眼看就要倒下。）' }
+  ];
+  let fcIndex = 0;
+  const flashcard = document.getElementById('flashcard');
+  const fcWord = document.getElementById('fcWord');
+  const fcReading = document.getElementById('fcReading');
+  const fcMeaning = document.getElementById('fcMeaning');
+  const fcExample = document.getElementById('fcExample');
+  const fcProgress = document.getElementById('fcProgress');
+
+  function updateFlashcard() {
+    const d = fcData[fcIndex];
+    fcWord.textContent = d.word;
+    fcReading.textContent = d.reading;
+    fcMeaning.textContent = d.meaning;
+    fcExample.innerHTML = d.example;
+    fcProgress.textContent = `${fcIndex + 1} / ${fcData.length}`;
+    flashcard.classList.remove('flipped');
+  }
+  flashcard.addEventListener('click', () => flashcard.classList.toggle('flipped'));
+  document.getElementById('fcPrev').addEventListener('click', () => {
+    if (fcIndex > 0) { fcIndex--; updateFlashcard(); }
+  });
+  document.getElementById('fcNext').addEventListener('click', () => {
+    if (fcIndex < fcData.length - 1) { fcIndex++; updateFlashcard(); }
+  });
+
+  // ===== Quiz =====
+  const quizData = [
+    {
+      text: '駅のアナウンス：______次の電車が到着します。',
+      sub: '车站广播，选择最合适的词',
+      options: ['いまにも', 'まもなく', 'そろそろ', 'もうすぐ'],
+      answer: 1,
+      explain: '广播通知用「まもなく」，正式客观。'
+    },
+    {
+      text: '空が真っ黒で、______雨が降り出さんばかりだ。',
+      sub: '眼看就要下雨了',
+      options: ['いまにも', 'まもなく', 'そろそろ', 'もうすぐ'],
+      answer: 0,
+      explain: '「～んばかりだ」固定搭配「いまにも」，表紧迫感。'
+    },
+    {
+      text: '「______寝よう」（差不多该睡觉了）',
+      sub: '劝诱，提议该行动了',
+      options: ['いまにも', 'まもなく', 'そろそろ', 'もうすぐ'],
+      answer: 2,
+      explain: '劝诱用「そろそろ」，可接意志形。'
+    },
+    {
+      text: '______授業が始まります、急いで。（马上就要上课了）',
+      sub: '客观陈述，日常口语',
+      options: ['いまにも', 'まもなく', 'そろそろ', 'もうすぐ'],
+      answer: 3,
+      explain: '客观陈述用「もうすぐ」，日常最通用。'
+    },
+    {
+      text: 'この橋は今にも______。',
+      sub: '眼看就要塌了，选择正确接续',
+      options: ['崩れそうだ', '崩れる', '崩れます', '崩れた'],
+      answer: 0,
+      explain: '「いまにも」常接「～そうだ」样态，表"眼看就要…"。'
+    },
+    {
+      text: '以下哪个用法是错误的？',
+      sub: '找出错误的句子',
+      options: ['もうすぐ春になります', 'そろそろ帰りましょう', 'いまにも6時になります', 'まもなく開演します'],
+      answer: 2,
+      explain: '「いまにも」不能表示时间推移，不能说"いまにも6時になる"。'
+    }
+  ];
+
+  let quizIndex = 0;
+  let quizScore = 0;
+  let quizAnswered = false;
+  const quizNum = document.getElementById('quizNum');
+  const quizText = document.getElementById('quizText');
+  const quizSub = document.getElementById('quizSub');
+  const quizOptions = document.getElementById('quizOptions');
+  const quizFeedback = document.getElementById('quizFeedback');
+  const quizScoreEl = document.getElementById('quizScore');
+  const quizPrev = document.getElementById('quizPrev');
+  const quizNext = document.getElementById('quizNext');
+
+  function renderQuiz() {
+    const q = quizData[quizIndex];
+    quizAnswered = false;
+    quizNum.textContent = `第 ${quizIndex + 1} 题 / 共 ${quizData.length} 题`;
+    quizText.textContent = q.text;
+    quizSub.textContent = q.sub;
+    quizFeedback.classList.remove('show');
+    quizOptions.innerHTML = q.options.map((opt, i) => `
+      <div class="quiz-option" data-idx="${i}">
+        <div class="quiz-option__marker">${String.fromCharCode(65 + i)}</div>
+        <span>${opt}</span>
+      </div>
+    `).join('');
+    quizOptions.querySelectorAll('.quiz-option').forEach(opt => {
+      opt.addEventListener('click', () => handleAnswer(opt));
+    });
+    quizPrev.disabled = quizIndex === 0;
+    quizNext.textContent = quizIndex === quizData.length - 1 ? '查看结果 🏆' : '下一题 →';
+    quizScoreEl.textContent = `得分：${quizScore} / ${quizData.length}`;
+  }
+
+  function handleAnswer(opt) {
+    if (quizAnswered) return;
+    quizAnswered = true;
+    const idx = parseInt(opt.dataset.idx);
+    const q = quizData[quizIndex];
+    const allOpts = quizOptions.querySelectorAll('.quiz-option');
+    allOpts.forEach((o, i) => {
+      o.style.pointerEvents = 'none';
+      if (i === q.answer) o.classList.add('correct');
+      else if (i === idx) o.classList.add('wrong');
+    });
+    const correct = idx === q.answer;
+    if (correct) {
+      quizScore++;
+      quizScoreEl.textContent = `得分：${quizScore} / ${quizData.length}`;
+    }
+    quizFeedback.className = `quiz-feedback show quiz-feedback--${correct ? 'correct' : 'wrong'}`;
+    quizFeedback.textContent = (correct ? '✅ 正确！' : '❌ 错误。') + q.explain;
+  }
+
+  quizNext.addEventListener('click', () => {
+    if (quizIndex < quizData.length - 1) {
+      quizIndex++;
+      renderQuiz();
+    } else {
+      quizFeedback.className = 'quiz-feedback show quiz-feedback--correct';
+      quizFeedback.innerHTML = `🎉 测验完成！最终得分：<strong>${quizScore} / ${quizData.length}</strong><br>${
+        quizScore === quizData.length ? '完美！你已经完全掌握了！' :
+        quizScore >= quizData.length * 0.6 ? '不错！再复习一下易错点吧。' :
+        '建议回到第3、6节重点复习辨析和易错点。'
+      }`;
+    }
+  });
+  quizPrev.addEventListener('click', () => {
+    if (quizIndex > 0) { quizIndex--; renderQuiz(); }
+  });
+
+  renderQuiz();
+</script>
+
+</body>
+</html>
