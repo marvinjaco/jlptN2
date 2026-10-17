@@ -354,7 +354,7 @@
       this.querySelector('.qa-arrow').textContent = qaOpen ? '▲' : '▼';
     });
 
-    bindComplete('listen');
+    bindComplete('listen', v);
   }
 
   /* ---- 单词·语法 ---- */
@@ -380,7 +380,7 @@
       '</div>'
     ].join(''));
     v.innerHTML = html;
-    bindComplete('vocab');
+    bindComplete('vocab', v);
   }
 
   /* ---- 阅读·写作 ---- */
@@ -425,7 +425,7 @@
       $('#qaBody').style.display = qaOpen ? '' : 'none';
       this.querySelector('.qa-arrow').textContent = qaOpen ? '▲' : '▼';
     });
-    bindComplete('reading');
+    bindComplete('reading', v);
   }
 
   /* ---- 口语 ---- */
@@ -492,7 +492,7 @@
       speak(item.dialogue.map(function (d) { return d.jp; }).join(' '));
     });
     bindOralQA(v, item);
-    bindComplete('oral');
+    bindComplete('oral', v);
   }
 
   /* 口语 · N2 一问一答（先听后选，文字默认隐藏） */
@@ -564,7 +564,7 @@
       '<div class="tip-box">记忆要点：' + esc(item.tip) + '</div>'
     ].join(''));
     v.innerHTML = html;
-    bindComplete('kanji');
+    bindComplete('kanji', v);
   }
 
   /* ---- 闯关 ---- */
@@ -576,7 +576,7 @@
     $$('[data-play]', v).forEach(function (el) {
       el.addEventListener('click', function () { startQuiz(+el.getAttribute('data-play')); });
     });
-    bindComplete('game');
+    bindComplete('game', v);
   }
 
   function renderLevelList() {
@@ -690,12 +690,12 @@
       '<div class="tip-box">试着把这段文化介绍用日语念出来，作为今天的口语延伸练习吧。</div>'
     ].join(''));
     v.innerHTML = html;
-    bindComplete('culture');
+    bindComplete('culture', v);
   }
 
-  /* ---- 完成按钮绑定 ---- */
-  function bindComplete(key) {
-    var btn = $('#completeBtn');
+  /* ---- 完成按钮绑定（container 为当前视图根元素，避免多 view 中重复 id 导致 querySelector 取到旧按钮） ---- */
+  function bindComplete(key, container) {
+    var btn = $('#completeBtn', container);
     if (btn && !isDone(key)) {
       btn.addEventListener('click', function () { complete(key); });
     }
