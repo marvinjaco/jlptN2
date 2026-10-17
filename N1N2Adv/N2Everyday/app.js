@@ -234,14 +234,17 @@
     return '<div class="stat"><div class="num">' + esc(num) + '</div><div class="lbl">' + esc(lbl) + ' · ' + esc(sub) + '</div></div>';
   }
 
-  /* ---- 通用模块页头 + 完成按钮 ---- */
-  function moduleShell(key, title, desc, inner) {
+  /* ---- 通用模块页头 + 完成按钮 + 出处 ---- */
+  function moduleShell(key, title, desc, inner, source) {
     var m = MODULE_BY_KEY[key];
     var done = isDone(key);
+    var srcHtml = source
+      ? '<div style="margin-top:10px;font-size:12px;color:#999;border-top:1px dashed #ddd;padding-top:8px;">📚 出处：' + esc(source) + '</div>'
+      : '';
     return '<div class="view-head">' +
         '<div class="kicker">' + esc(m.en) + '</div>' +
         '<div class="view-title">' + esc(title) + '</div>' +
-        '<div class="view-desc">' + esc(desc) + '</div>' +
+        '<div class="view-desc">' + esc(desc) + srcHtml + '</div>' +
       '</div>' +
       inner +
       '<div style="margin-top:26px;display:flex;gap:12px;align-items:center;">' +
@@ -317,7 +320,7 @@
           }).join('') +
         '</div>' +
       '</div>'
-    ].join(''));
+    ].join(''), item.source);
 
     v.innerHTML = html;
 
@@ -378,7 +381,7 @@
           '</div>';
         }).join('') +
       '</div>'
-    ].join(''));
+    ].join(''), item.source);
     v.innerHTML = html;
     bindComplete('vocab', v);
   }
@@ -416,7 +419,7 @@
         '<div class="writing-prompt"><div class="wp-title">WRITING PROMPT</div><p>' + esc(item.writing.prompt) + '</p></div>' +
         '<div class="writing-model">参考例文<br>' + esc(item.writing.model) + '</div>' +
       '</div>'
-    ].join(''));
+    ].join(''), item.source);
     v.innerHTML = html;
     bindChoiceClick($('#shortChoice'), [item.choice]);
     bindChoiceClick($('#mediumChoice'), item.medium.choices);
@@ -483,7 +486,7 @@
         '<button class="btn" id="showQAtext">显示问句与选项文字</button>' +
       '</div>',
       '<div class="tip-box">小贴士：' + esc(item.tip) + '</div>'
-    ].join(''));
+    ].join(''), item.source);
     v.innerHTML = html;
     $$('[data-spk]', v).forEach(function (row) {
       row.addEventListener('click', function () { speak(item.keys[+row.getAttribute('data-spk')].jp, 1.0); });
@@ -562,27 +565,322 @@
         }).join('') + '</div>' +
       '</div>',
       '<div class="tip-box">记忆要点：' + esc(item.tip) + '</div>'
-    ].join(''));
+    ].join(''), item.source);
     v.innerHTML = html;
     bindComplete('kanji', v);
   }
 
-  /* ---- 闯关 ---- */
+  /* ============================================================
+   * 闯关引擎 —— 从当天各模块(VOCAB/KANJI/ORAL/LISTENING/READING/CULTURE)
+   * 动态生成 5 关考题，不同天题目不同，完全贴合当日学习内容。
+   * ============================================================ */
   var quiz = { lv: 0, idx: 0, correct: 0, answered: false };
+
+  /* 带种子的 Fisher-Yates 洗牌（确定性） */
+  function shuffleWithSeed(arr, seed) {
+    var a = arr.slice();
+    var s = (seed >>> 0) || 1;
+    function rnd() { s = (s * 1664525 + 1013904223) >>> 0; return (s >>> 8) / 0xFFFFFF; }
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rnd() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  /* ---------- 全局干扰项池（初始化时从全部 14 天素材收集） ---------- */
+  var POOL = (function () {
+    var wordsZh = [], kanjiOn = [], kanjiKun = [], kanjiZh = [], grammarKeys = [];
+    // wordsZh: 所有 VOCAB.words 的中文释义
+    D.VOCAB.forEach(function (day) {
+      day.words.forEach(function (w) { wordsZh.push(w.zh); });
+    });
+    // kanjiOn / kanjiKun / kanjiZh: 所有 KANJI.chars 的读音和释义
+    D.KANJI.forEach(function (day) {
+      day.chars.forEach(function (c) {
+        if (c.on && c.on !== '—') kanjiOn.push(c.on);
+        if (c.kun && c.kun !== '—') kanjiKun.push(c.kun);
+        if (c.zh) kanjiZh.push(c.zh);
+      });
+    });
+    // grammarKeys: 从所有 grammar.title 中提取核心助词短语
+    var rawKeys = [];
+    D.VOCAB.forEach(function (day) {
+      day.grammar.forEach(function (g) {
+        // 从 title 里去掉括号注释，提取出关键短语
+        var title = g.title || '';
+        // 提取 "～xxx" 或 "xxx / yyy" 里的每个短语
+        var parts = title.split('/').map(function (p) {
+          return p.replace(/（[^）]*）/g, '').replace(/～/g, '').trim();
+        });
+        parts.forEach(function (p) {
+          if (p && p.length >= 2 && p.length <= 12) rawKeys.push(p);
+        });
+      });
+    });
+    // 去重
+    grammarKeys = rawKeys.filter(function (v, i) { return rawKeys.indexOf(v) === i; });
+    return { wordsZh: wordsZh, kanjiOn: kanjiOn, kanjiKun: kanjiKun, kanjiZh: kanjiZh, grammarKeys: grammarKeys };
+  })();
+
+  /* 从 pool 里挑 n 个不等于任何 exclude 的元素；seed 用于确定性选择；结果保证互不重复 */
+  function pickDistractors(pool, n, exclude, seed) {
+    var ex = {};
+    (exclude || []).forEach(function (e) { ex[e] = true; });
+    // 先去重再排除，确保不会有重复选项
+    var seen = {};
+    var cand = pool.filter(function (p) {
+      if (ex[p] || seen[p]) return false;
+      seen[p] = true;
+      return true;
+    });
+    // 如果候选不够，放宽排除条件（但仍然去重）
+    if (cand.length < n) {
+      seen = {};
+      cand = pool.filter(function (p) {
+        if (seen[p]) return false;
+        seen[p] = true;
+        return true;
+      });
+    }
+    return shuffleWithSeed(cand, seed).slice(0, n);
+  }
+
+  /* ---------- 各关卡类型的出题函数 ---------- */
+
+  /* L1 词汇：从当天 VOCAB.words 生成「词(kana)」的意思是？ */
+  function genVocabQ(day, count, seedBase) {
+    var out = [];
+    var dayWords = D.VOCAB[day].words;
+    // 打乱当天词序，取前 count 个
+    var picked = shuffleWithSeed(dayWords, seedBase).slice(0, Math.min(count, dayWords.length));
+    for (var i = 0; i < picked.length; i++) {
+      var w = picked[i];
+      var correct = w.zh;
+      var distractors = pickDistractors(POOL.wordsZh, 3, [correct], seedBase + i * 31 + 7);
+      var optsRaw = distractors.concat([correct]);
+      var optsShuffled = shuffleWithSeed(optsRaw, seedBase + i * 13 + 3);
+      var ansIdx = optsShuffled.indexOf(correct);
+      out.push({
+        type: '词汇',
+        q: '「' + w.jp + '」（' + w.kana + '）的意思是？',
+        opts: optsShuffled,
+        ans: ansIdx
+      });
+    }
+    return out;
+  }
+
+  /* L2 汉字：从当天 KANJI.chars 生成 —— 音读题 + 意思题 */
+  function genKanjiQ(day, count, seedBase) {
+    var out = [];
+    var dayChars = D.KANJI[day].chars;
+    // 每天 5 字，可生成 10 题（音读+训读各半），取 count 题
+    var allQ = [];
+    dayChars.forEach(function (c) {
+      // 音读题
+      if (c.on && c.on !== '—') {
+        var onCorrect = c.on;
+        var onDist = pickDistractors(POOL.kanjiOn, 3, [onCorrect], seedBase + c.on.charCodeAt(0));
+        var onOpts = shuffleWithSeed(onDist.concat([onCorrect]), seedBase + c.on.length);
+        allQ.push({
+          type: '汉字',
+          q: '「' + c.ch + '」的音读是？',
+          opts: onOpts,
+          ans: onOpts.indexOf(onCorrect)
+        });
+      }
+      // 训读题（如果有）
+      if (c.kun && c.kun !== '—' && c.kun !== c.on) {
+        var kunCorrect = c.kun;
+        var kunDist = pickDistractors(POOL.kanjiKun, 3, [kunCorrect], seedBase + c.ch.charCodeAt(0));
+        var kunOpts = shuffleWithSeed(kunDist.concat([kunCorrect]), seedBase + c.kun.length);
+        allQ.push({
+          type: '汉字',
+          q: '「' + c.ch + '」的训读是？',
+          opts: kunOpts,
+          ans: kunOpts.indexOf(kunCorrect)
+        });
+      }
+      // 词义题
+      if (c.zh) {
+        var zhCorrect = c.zh;
+        var zhDist = pickDistractors(POOL.kanjiZh, 3, [zhCorrect], seedBase + c.ch.charCodeAt(0) + 1);
+        var zhOpts = shuffleWithSeed(zhDist.concat([zhCorrect]), seedBase + 99);
+        allQ.push({
+          type: '汉字',
+          q: '「' + c.ch + '」的意思是？',
+          opts: zhOpts,
+          ans: zhOpts.indexOf(zhCorrect)
+        });
+      }
+    });
+    // 打乱，取前 count 个
+    out = shuffleWithSeed(allQ, seedBase + 5).slice(0, Math.min(count, allQ.length));
+    return out;
+  }
+
+  /* L3 语法：从当天 VOCAB.grammar 生成 —— 挖空 + 语法意思题 */
+  function genGrammarQ(day, count, seedBase) {
+    var out = [];
+    var dayGrammar = D.VOCAB[day].grammar;
+    var usedCorrects = [];
+    // 从每个语法点生成题目
+    dayGrammar.forEach(function (g, gi) {
+      if (out.length >= count) return;
+      // 方法一：从 title 提取关键短语，问"（　）に入るのは？"
+      var title = g.title || '';
+      // 取第一个 "～xxx" 片段
+      var m = title.match(/～([^（\/]+)/);
+      var keyPhrase = m ? m[1].trim() : '';
+      if (keyPhrase && keyPhrase.length >= 2) {
+        // 从 jp 例句中找 keyPhrase 位置替换成（　）
+        var sent = g.jp;
+        if (sent && sent.indexOf(keyPhrase) >= 0) {
+          var blankSent = sent.replace(keyPhrase, '（　）');
+          var distractors = pickDistractors(POOL.grammarKeys, 3, [keyPhrase], seedBase + gi * 17 + 1);
+          var optsRaw = distractors.concat([keyPhrase]);
+          var optsShuffled = shuffleWithSeed(optsRaw, seedBase + gi * 7 + 3);
+          out.push({
+            type: '语法',
+            q: blankSent + ' に入るのは？',
+            opts: optsShuffled,
+            ans: optsShuffled.indexOf(keyPhrase)
+          });
+          usedCorrects.push(keyPhrase);
+        }
+      }
+      // 方法二：问这个语法是什么意思（从 zh 翻译生成）
+      if (out.length < count) {
+        var zhMeaning = g.zh ? g.zh.substring(0, Math.min(40, g.zh.length)) : '';
+        if (zhMeaning) {
+          // 简化一下，直接问"「{keyPhrase}」表示什么？"
+          var askPhrase = keyPhrase || title.replace(/（[^）]*）/g, '').replace(/～/g, '').trim();
+          if (askPhrase.length >= 2) {
+            // 干扰项用其他 grammar 的 zh 翻译片段
+            var allZhFrags = [];
+            D.VOCAB.forEach(function (d) {
+              d.grammar.forEach(function (gg) {
+                if (gg.zh) allZhFrags.push(gg.zh.substring(0, 15));
+              });
+            });
+            var distZh = pickDistractors(allZhFrags, 3, [zhMeaning.substring(0, 15)], seedBase + gi * 11 + 5);
+            var optsZh = shuffleWithSeed(distZh.concat([zhMeaning]), seedBase + gi * 5 + 2);
+            out.push({
+              type: '语法',
+              q: '「' + askPhrase + '」例句翻译的是哪个？',
+              opts: optsZh,
+              ans: optsZh.indexOf(zhMeaning)
+            });
+          }
+        }
+      }
+    });
+    // 如果当天 grammar 不够 count 题，补充从邻近天的 grammar 取
+    if (out.length < count) {
+      for (var d = 1; d <= 3 && out.length < count; d++) {
+        var nDay = (day + d) % D.DAY_COUNT;
+        dayGrammar = D.VOCAB[nDay].grammar;
+        dayGrammar.forEach(function (g2) {
+          if (out.length >= count) return;
+          var t = g2.title || '';
+          var m2 = t.match(/～([^（\/]+)/);
+          var k2 = m2 ? m2[1].trim() : '';
+          if (k2 && k2.length >= 2 && usedCorrects.indexOf(k2) < 0) {
+            usedCorrects.push(k2);
+            var s2 = g2.jp;
+            if (s2 && s2.indexOf(k2) >= 0) {
+              var blank = s2.replace(k2, '（　）');
+              var d2 = pickDistractors(POOL.grammarKeys, 3, [k2], seedBase + d * 101 + out.length);
+              var o2 = shuffleWithSeed(d2.concat([k2]), seedBase + d * 53 + out.length);
+              out.push({ type: '语法', q: blank + ' に入るのは？', opts: o2, ans: o2.indexOf(k2) });
+            }
+          }
+        });
+      }
+    }
+    return out.slice(0, count);
+  }
+
+  /* L4 听说理解：直接复用当天 LISTENING.choices + ORAL.qa + READING 选择题 */
+  function genListenOralQ(day, count, seedBase) {
+    var out = [];
+    // 收集当天所有现成选择题
+    var pool = [];
+    // LISTENING.choices
+    D.LISTENING[day].choices.forEach(function (c) {
+      pool.push({ type: '听力', q: c.q, opts: c.opts.slice(), ans: c.ans });
+    });
+    // READING.choice
+    var rd = D.READING[day];
+    if (rd.choice) pool.push({ type: '阅读', q: rd.choice.q, opts: rd.choice.opts.slice(), ans: rd.choice.ans });
+    if (rd.medium && rd.medium.choices) {
+      rd.medium.choices.forEach(function (c) {
+        pool.push({ type: '阅读', q: c.q, opts: c.opts.slice(), ans: c.ans });
+      });
+    }
+    // ORAL.qa
+    D.ORAL[day].qa.forEach(function (c) {
+      pool.push({ type: '口语', q: c.q, opts: c.opts.slice(), ans: c.ans });
+    });
+    // 打乱后取前 count 个
+    out = shuffleWithSeed(pool, seedBase + 9).slice(0, Math.min(count, pool.length));
+    return out;
+  }
+
+  /* L5 综合：从当天所有模块混合抽取 */
+  function genMixQ(day, count, seedBase) {
+    var out = [];
+    // 收集所有当天可选题类型
+    var vqs = genVocabQ(day, 3, seedBase + 100);
+    var kqs = genKanjiQ(day, 3, seedBase + 200);
+    var lqs = genListenOralQ(day, 3, seedBase + 300);
+    var all = vqs.concat(kqs).concat(lqs);
+    // 打乱取 count 个
+    out = shuffleWithSeed(all, seedBase + 500).slice(0, Math.min(count, all.length));
+    return out;
+  }
+
+  /* ---------- 主入口：生成当天全部 5 关 ---------- */
+  function generateDayLevels() {
+    var day = curDay();
+    var cfg = D.GAME.config;
+    var levels = [];
+    for (var i = 0; i < cfg.length; i++) {
+      var c = cfg[i];
+      var seed = day * 31 + i * 7 + 1;
+      var qs;
+      switch (c.type) {
+        case 'vocab':        qs = genVocabQ(day, c.count, seed); break;
+        case 'kanji':        qs = genKanjiQ(day, c.count, seed); break;
+        case 'grammar':      qs = genGrammarQ(day, c.count, seed); break;
+        case 'listen_oral':  qs = genListenOralQ(day, c.count, seed); break;
+        default:             qs = genMixQ(day, c.count, seed);
+      }
+      levels.push({ name: c.name, need: c.need, qs: qs });
+    }
+    return levels;
+  }
+
+  /* ---------- 渲染函数（接口不变，内部改为调用 generateDayLevels） ---------- */
   function renderGame() {
     var v = $('#view-game');
-    v.innerHTML = moduleShell('game', '互动闯关', '用问答一路通关，答对指定题数即可解锁下一关。闯关成功即盖今日朱印。',
-      renderLevelList());
+    var levels = generateDayLevels();
+    var day = curDay();
+    var vocabTheme = D.VOCAB[day].theme;
+    var kanjiTheme = D.KANJI[day].theme;
+    v.innerHTML = moduleShell('game', '互动闯关', '题目选自你今天学过的词汇、汉字、语法和听说内容。答对指定题数即可解锁下一关。',
+      renderLevelList(levels), '当日词汇主题「' + vocabTheme + '」· 汉字主题「' + kanjiTheme + '」');
     $$('[data-play]', v).forEach(function (el) {
       el.addEventListener('click', function () { startQuiz(+el.getAttribute('data-play')); });
     });
     bindComplete('game', v);
   }
 
-  function renderLevelList() {
-    var needTotal = 0, cleared = state.gameClear;
+  function renderLevelList(levels) {
+    var cleared = state.gameClear;
     return '<div class="card"><div class="card-title"><span class="t-kanji">遊</span>关卡选择</div>' +
-      '<div class="level-list">' + D.GAME.levels.map(function (lv, i) {
+      '<div class="level-list">' + levels.map(function (lv, i) {
         var locked = i > cleared + 1;
         var clear = i <= cleared;
         var badge = locked ? '未解锁' : (clear ? '已通关' : (i === cleared + 1 ? '可挑战' : ''));
@@ -597,13 +895,14 @@
   }
 
   function startQuiz(lv) {
-    var level = D.GAME.levels[lv];
+    var levels = generateDayLevels();
+    var level = levels[lv];
     quiz = { lv: lv, idx: 0, correct: 0, answered: false };
-    renderQuizQuestion();
+    renderQuizQuestion(levels);
   }
 
-  function renderQuizQuestion() {
-    var level = D.GAME.levels[quiz.lv];
+  function renderQuizQuestion(levels) {
+    var level = levels[quiz.lv];
     var q = level.qs[quiz.idx];
     var v = $('#view-game');
     var prog = Math.round((quiz.idx) / level.qs.length * 100);
@@ -622,15 +921,15 @@
       '</div>';
 
     $$('[data-opt]', v).forEach(function (b) {
-      b.addEventListener('click', function () { answer(+b.getAttribute('data-opt')); });
+      b.addEventListener('click', function () { answer(+b.getAttribute('data-opt'), levels); });
     });
     $('#quitQuiz').addEventListener('click', function () { renderGame(); });
   }
 
-  function answer(opt) {
+  function answer(opt, levels) {
     if (quiz.answered) return;
     quiz.answered = true;
-    var level = D.GAME.levels[quiz.lv];
+    var level = levels[quiz.lv];
     var q = level.qs[quiz.idx];
     var opts = $$('[data-opt]', $('#view-game'));
     opts[q.ans].classList.add('correct');
@@ -650,7 +949,7 @@
         action = 'fail';
       }
     } else {
-      setTimeout(function () { quiz.idx += 1; quiz.answered = false; renderQuizQuestion(); }, 900);
+      setTimeout(function () { quiz.idx += 1; quiz.answered = false; renderQuizQuestion(levels); }, 900);
       return;
     }
 
@@ -688,7 +987,7 @@
         '<div class="zh">' + esc(item.zh) + '</div>' +
       '</div>',
       '<div class="tip-box">试着把这段文化介绍用日语念出来，作为今天的口语延伸练习吧。</div>'
-    ].join(''));
+    ].join(''), item.source);
     v.innerHTML = html;
     bindComplete('culture', v);
   }
