@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日语「気」之辨析大全 | N2 高频文法</title>
+<style>
+  :root {
+    /* Page tokens — Fresh Teal (Study theme) */
+    --page-bg: #FFFFFF;
+    --page-surface: #F4FBF9;
+    --page-surface-muted: #E6F5F0;
+    --page-text: #1A2B26;
+    --page-text-secondary: #3D5A52;
+    --page-text-muted: #7A938C;
+    --page-text-disabled: #B8CDC7;
+    --page-border: #C7E4DA;
+    --page-brand: #0D9488;
+    --page-brand-hover: #0F766E;
+    --page-brand-active: #0E5B55;
+    --page-brand-soft: #F0FDFA;
+    --page-brand-soft-strong: #CCFBF1;
+    --page-brand-text: #115E59;
+
+    /* Backward-compatible */
+    --bg: #FFFFFF;
+    --bg2: #F4FBF9;
+    --rule: #C7E4DA;
+    --ink: #1A2B26;
+    --muted: #7A938C;
+    --text-secondary: #3D5A52;
+    --text-disabled: #B8CDC7;
+    --accent: #0D9488;
+    --accent-hover: #0F766E;
+    --accent-active: #0E5B55;
+    --accent-soft: #F0FDFA;
+    --accent2: #0891B2;
+
+    /* Chart / data */
+    --chart-series-1: #0D9488;
+    --chart-series-2: #0891B2;
+    --chart-series-3: #7C3AED;
+    --chart-series-4: #D97706;
+    --chart-other: #C7E4DA;
+    --chart-accent: #0891B2;
+    --chart-accent-2: #7C3AED;
+    --chart-positive: #10B981;
+    --chart-warning: #F59E0B;
+    --chart-negative: #EF4444;
+    --chart-grid: rgba(26, 43, 38, 0.12);
+    --chart-axis: #7A938C;
+    --chart-label: #7A938C;
+    --chart-tooltip-bg: #FFFFFF;
+
+    /* Semantic */
+    --success: #10B981;
+    --info: #0D9488;
+    --reminder: #F97316;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --positive: #10B981;
+    --negative: #EF4444;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB",
+      "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--page-text);
+    background: var(--page-surface);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Intro ===== */
+  .report-intro {
+    position: relative;
+    background: linear-gradient(135deg, var(--page-brand-soft) 0%, #fff 100%);
+    border-bottom: 1px solid var(--page-border);
+    overflow: hidden;
+  }
+
+  .report-intro__content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .report-intro__eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--page-brand);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    padding: 4px 12px;
+    background: #fff;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--page-brand-soft-strong);
+  }
+
+  .report-intro h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--page-text);
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .report-intro h1 span.jp {
+    color: var(--page-brand);
+    font-weight: 600;
+  }
+
+  .report-intro__summary {
+    font-size: 15px;
+    color: var(--page-text-secondary);
+    line-height: 1.8;
+    max-width: 640px;
+  }
+
+  .report-intro__meta {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--page-text-muted);
+  }
+
+  .report-intro__meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .report-intro__meta-item::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--page-brand);
+  }
+
+  /* Decorative shapes */
+  .report-intro::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -30px;
+    width: 180px;
+    height: 180px;
+    background: var(--page-brand-soft-strong);
+    border-radius: 20px;
+    transform: rotate(15deg);
+    opacity: 0.45;
+  }
+
+  .report-intro::after {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    right: 140px;
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border-radius: 16px;
+    transform: rotate(-10deg);
+    opacity: 0.55;
+  }
+
+  /* ===== Main ===== */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  section { margin-bottom: 40px; }
+
+  section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--page-text);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--page-brand-soft-strong);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  section h2 .section-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--page-brand);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+  }
+
+  section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--page-text);
+    margin: 24px 0 12px;
+  }
+
+  p { margin-bottom: 12px; }
+
+  /* ===== Tabs ===== */
+  .tabs { margin-bottom: 24px; }
+
+  .tabs__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--page-border);
+  }
+
+  .tabs__btn {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--page-text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .tabs__btn:hover { color: var(--page-brand); }
+
+  .tabs__btn.active {
+    color: var(--page-brand);
+    border-bottom-color: var(--page-brand);
+    font-weight: 600;
+  }
+
+  .tabs__panel { display: none; }
+  .tabs__panel.active { display: block; animation: fadeIn 0.3s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Expression Cards (reuse word-card pattern) ===== */
+  .word-grid { display: grid; gap: 12px; }
+
+  .word-card {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    transition: all 0.2s ease;
+  }
+
+  .word-card:hover {
+    border-color: var(--page-brand-soft-strong);
+    box-shadow: 0 2px 12px rgba(13, 148, 136, 0.08);
+  }
+
+  .word-card__header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+
+  .word-card__jp {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--page-text);
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+
+  .word-card__kana {
+    font-size: 13px;
+    color: var(--page-text-muted);
+  }
+
+  .word-card__tag {
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+  }
+
+  .word-card__tag--auto { background: #FEF3C7; color: #92400E; }
+  .word-card__tag--trans { background: #DBEAFE; color: #1E40AF; }
+  .word-card__tag--phrase { background: var(--page-brand-soft); color: var(--page-brand); }
+  .word-card__tag--noun { background: #F0FDF4; color: #15803D; }
+
+  .word-card__meaning {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 8px;
+  }
+
+  .word-card__detail {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: var(--page-surface);
+    border-radius: var(--radius-sm);
+  }
+
+  .word-card__examples {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .word-card__example {
+    font-size: 13px;
+    color: var(--page-text);
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .word-card__example::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--page-brand);
+  }
+
+  .word-card__example .jp {
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    font-weight: 500;
+  }
+
+  .word-card__example .zh {
+    color: var(--page-text-muted);
+    margin-left: 4px;
+  }
+
+  /* ===== Comparison Box ===== */
+  .compare-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  .compare-box__col {
+    padding: 18px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--page-border);
+    background: #fff;
+  }
+
+  .compare-box__col--a { border-color: #FED7AA; background: #FFF7ED; }
+  .compare-box__col--b { border-color: #CDE8DD; background: #F0FDF4; }
+
+  .compare-box__label {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+
+  .compare-box__col--a .compare-box__label { color: #C2410C; }
+  .compare-box__col--b .compare-box__label { color: #15803D; }
+
+  .compare-box__desc {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ===== Callout ===== */
+  .callout {
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .callout--warn { background: #FFF1F1; border: 1px solid #FECACA; }
+  .callout--tip { background: #F0FDF4; border: 1px solid #BBF7D0; }
+  .callout--info { background: var(--page-brand-soft); border: 1px solid var(--page-brand-soft-strong); }
+
+  .callout__icon { flex-shrink: 0; font-size: 18px; line-height: 1.4; }
+  .callout__body { flex: 1; }
+
+  .callout__title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .callout--warn .callout__title { color: #B91C1C; }
+  .callout--tip .callout__title { color: #15803D; }
+  .callout--info .callout__title { color: var(--page-brand); }
+
+  .callout__text {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ===== Summary Table ===== */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--page-border);
+  }
+
+  .summary-table th {
+    background: var(--page-surface);
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--page-text-secondary);
+    border-bottom: 1px solid var(--page-border);
+  }
+
+  .summary-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--page-border);
+    font-size: 13px;
+    vertical-align: top;
+  }
+
+  .summary-table tr:last-child td { border-bottom: none; }
+
+  .summary-table .jp {
+    font-weight: 600;
+    color: var(--page-brand);
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    font-size: 14px;
+  }
+
+  .summary-table .kana {
+    font-size: 11px;
+    color: var(--page-text-muted);
+    margin-top: 2px;
+  }
+
+  /* ===== Mnemonic ===== */
+  .mnemonic-box {
+    background: linear-gradient(135deg, var(--page-brand-soft) 0%, #fff 100%);
+    border: 1px solid var(--page-brand-soft-strong);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    text-align: center;
+  }
+
+  .mnemonic-box__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .mnemonic-box__poem {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--page-text);
+    line-height: 2.2;
+    margin-bottom: 16px;
+  }
+
+  .mnemonic-box__poem .jp {
+    color: var(--page-brand);
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+
+  .mnemonic-box__desc {
+    font-size: 13px;
+    color: var(--page-text-muted);
+  }
+
+  /* ===== Flashcard ===== */
+  .flashcard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .flashcard {
+    width: 100%;
+    max-width: 500px;
+    height: 240px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+
+  .flashcard__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .flashcard.flipped .flashcard__inner { transform: rotateY(180deg); }
+
+  .flashcard__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border: 2px solid var(--page-brand-soft-strong);
+  }
+
+  .flashcard__face--front { background: #fff; }
+  .flashcard__face--back {
+    background: var(--page-brand-soft);
+    transform: rotateY(180deg);
+  }
+
+  .flashcard__label {
+    font-size: 12px;
+    color: var(--page-text-muted);
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .flashcard__word {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--page-text);
+    margin-bottom: 8px;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+
+  .flashcard__reading {
+    font-size: 14px;
+    color: var(--page-text-muted);
+  }
+
+  .flashcard__meaning {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .flashcard__example {
+    font-size: 13px;
+    color: var(--page-text-secondary);
+    text-align: center;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    line-height: 1.6;
+  }
+
+  .flashcard__hint {
+    font-size: 12px;
+    color: var(--page-text-muted);
+    text-align: center;
+  }
+
+  .flashcard-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .flashcard-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--page-brand);
+    background: #fff;
+    border: 1px solid var(--page-brand-soft-strong);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .flashcard-btn:hover { background: var(--page-brand-soft); }
+
+  .flashcard-btn--primary {
+    background: var(--page-brand);
+    color: #fff;
+    border-color: var(--page-brand);
+  }
+
+  .flashcard-btn--primary:hover { background: var(--page-brand-hover); }
+
+  .flashcard-progress {
+    font-size: 13px;
+    color: var(--page-text-muted);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* ===== Quiz ===== */
+  .quiz-container {
+    background: #fff;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+  }
+
+  .quiz-question { margin-bottom: 16px; }
+
+  .quiz-question__num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--page-brand);
+    margin-bottom: 8px;
+  }
+
+  .quiz-question__text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--page-text);
+    margin-bottom: 4px;
+  }
+
+  .quiz-question__sub {
+    font-size: 13px;
+    color: var(--page-text-muted);
+    margin-bottom: 16px;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .quiz-option {
+    padding: 12px 16px;
+    border: 1px solid var(--page-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    color: var(--page-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--page-brand-soft-strong);
+    background: var(--page-brand-soft);
+  }
+
+  .quiz-option.selected {
+    border-color: var(--page-brand);
+    background: var(--page-brand-soft);
+  }
+
+  .quiz-option.correct {
+    border-color: #15803D;
+    background: #F0FDF4;
+    color: #15803D;
+  }
+
+  .quiz-option.wrong {
+    border-color: #B91C1C;
+    background: #FEF2F2;
+    color: #B91C1C;
+  }
+
+  .quiz-option__marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--page-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .quiz-option.selected .quiz-option__marker {
+    border-color: var(--page-brand);
+    background: var(--page-brand);
+    color: #fff;
+  }
+
+  .quiz-option.correct .quiz-option__marker {
+    border-color: #15803D;
+    background: #15803D;
+    color: #fff;
+  }
+
+  .quiz-option.wrong .quiz-option__marker {
+    border-color: #B91C1C;
+    background: #B91C1C;
+    color: #fff;
+  }
+
+  .quiz-feedback {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+
+  .quiz-feedback--correct {
+    background: #F0FDF4;
+    color: #15803D;
+    border: 1px solid #BBF7D0;
+  }
+
+  .quiz-feedback--wrong {
+    background: #FEF2F2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+  }
+
+  .quiz-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--page-border);
+  }
+
+  .quiz-score {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--page-brand);
+  }
+
+  .quiz-nav { display: flex; gap: 8px; }
+
+  /* ===== Footer ===== */
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+    border-top: 1px solid var(--page-border);
+    font-size: 12px;
+    color: var(--page-text-muted);
+    text-align: center;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .report-intro h1 { font-size: 24px; }
+    .report-intro__content { padding: 32px 16px 28px; }
+    main { padding: 20px 16px 48px; }
+    section h2 { font-size: 18px; }
+    .compare-box { grid-template-columns: 1fr; }
+    .flashcard { height: 260px; }
+    .flashcard__word { font-size: 24px; }
+    .tabs__btn { padding: 8px 12px; font-size: 13px; }
+    .mnemonic-box { padding: 20px; }
+    .mnemonic-box__poem { font-size: 14px; }
+    .quiz-container { padding: 16px; }
+    .word-card { padding: 14px 16px; }
+    .word-card__jp { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== INTRO ===== -->
+<header class="report-intro">
+  <div class="report-intro__content">
+    <span class="report-intro__eyebrow">📘 N2 高频文法</span>
+    <h1>「気」之四重辨析 <span class="jp">〜気がする・気になる・気にする・気がつく〜</span></h1>
+    <p class="report-intro__summary">
+      同样带「気」，含义完全不同！<strong>気がする</strong> 是模糊感觉、
+      <strong>気になる</strong> 是不由自主挂心、<strong>気にする</strong> 是主动介意、
+      <strong>気がつく</strong> 是发现察觉。一张表全搞定！
+    </p>
+    <div class="report-intro__meta">
+      <div class="report-intro__meta-item">核心表达：4 个</div>
+      <div class="report-intro__meta-item">例句：12+</div>
+      <div class="report-intro__meta-item">测验：8 题</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== SECTION 1: 一句话核心区分 ===== -->
+  <section id="sec-core">
+    <h2><span class="section-num">1</span>一句话核心区分</h2>
+
+    <div class="callout callout--info">
+      <div class="callout__icon">💡</div>
+      <div class="callout__body">
+        <div class="callout__title">先记住这四句话，从此不再混淆！</div>
+        <div class="callout__text">
+          <strong>気がする</strong> = 模糊主观印象，"好像、总觉得"（不确定）<br>
+          <strong>気になる</strong> = 不由自主地在意、挂心（自动、被动）<br>
+          <strong>気にする</strong> = 主动去介意、放在心上（人为、主动）<br>
+          <strong>気がつく</strong> = 发现、察觉到（原本没注意，之后意识到）
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2: 四个表达详解卡片 ===== -->
+  <section id="sec-expressions">
+    <h2><span class="section-num">2</span>四个表达详解</h2>
+    <p>点击下方标签切换学习，每个表达都有核心、搭配和例句。</p>
+
+    <div class="tabs" id="exprTabs">
+      <div class="tabs__nav">
+        <button class="tabs__btn active" data-tab="all">全部</button>
+        <button class="tabs__btn" data-tab="kigasuru">気がする</button>
+        <button class="tabs__btn" data-tab="kininaru">気になる</button>
+        <button class="tabs__btn" data-tab="kinisuru">気にする</button>
+        <button class="tabs__btn" data-tab="kigatsuku">気がつく</button>
+      </div>
+
+      <div class="tabs__panel active" data-panel="all">
+        <div class="word-grid" id="gridAll"></div>
+      </div>
+      <div class="tabs__panel" data-panel="kigasuru">
+        <div class="word-grid" id="gridKGS"></div>
+      </div>
+      <div class="tabs__panel" data-panel="kininaru">
+        <div class="word-grid" id="gridKN"></div>
+      </div>
+      <div class="tabs__panel" data-panel="kinisuru">
+        <div class="word-grid" id="gridKS"></div>
+      </div>
+      <div class="tabs__panel" data-panel="kigatsuku">
+        <div class="word-grid" id="gridKG"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: 重点辨析 ===== -->
+  <section id="sec-compare">
+    <h2><span class="section-num">3</span>重点辨析（最容易搞错！）</h2>
+
+    <h3>辨析 1：気になる VS 気にする</h3>
+    <div class="compare-box">
+      <div class="compare-box__col compare-box__col--a">
+        <div class="compare-box__label">気になる（きになる）</div>
+        <div class="compare-box__desc">
+          <strong>自动、被动</strong> —— 事情<strong>让我</strong>挂心，不受自己控制。<br>
+          ・搭配：<strong>～が</strong>気になる<br>
+          ・自然涌上的挂念、好奇、担心<br>
+          ・"考试结果让我放心不下"<br><br>
+          例：<br>
+          <strong>傷口が気になる</strong><br>
+          伤口隐隐让人惦记、不舒服（忍不住在意）
+        </div>
+      </div>
+      <div class="compare-box__col compare-box__col--b">
+        <div class="compare-box__label">気にする（きにする）</div>
+        <div class="compare-box__desc">
+          <strong>他动、主动</strong> —— 我<strong>主动去</strong>介意某事，自己选择。<br>
+          ・搭配：<strong>～を</strong>気にする<br>
+          ・人为地放在心上、计较、在意<br>
+          ・"主动选择去纠结"<br><br>
+          例：<br>
+          <strong>傷口を気にする</strong><br>
+          自己刻意去纠结伤口这件事
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout--warn">
+      <div class="callout__icon">⚠️</div>
+      <div class="callout__body">
+        <div class="callout__title">助词是关键！が VS を</div>
+        <div class="callout__text">
+          <strong>～が気になる</strong>：某事让我挂心（被动、自动产生）<br>
+          <strong>～を気にする</strong>：我主动去在意某事（人为选择）<br><br>
+          做题时看助词就能先排除一半选项！
+        </div>
+      </div>
+    </div>
+
+    <h3>辨析 2：気がする 的固定搭配 —— ような気がする</h3>
+    <div class="callout callout--tip">
+      <div class="callout__icon">📌</div>
+      <div class="callout__body">
+        <div class="callout__title">N2 考题高频句型</div>
+        <div class="callout__text">
+          <strong>～ような気がする</strong> = 总觉得好像……（说话人模糊的主观判断）<br><br>
+          ✅ どこかで会った<strong>ような気がする</strong>。（总觉得好像在哪见过）<br>
+          ✅ 雨が降りそうな<strong>気がする</strong>。（感觉好像要下雨了）<br>
+          ✅ 読んだ<strong>ような気がする</strong>が、覚えていない。（总觉得好像读过，但记不清）
+        </div>
+      </div>
+    </div>
+
+    <h3>辨析 3：気がつく —— 从 "没发现" 到 "发现了"</h3>
+    <div class="callout callout--info">
+      <div class="callout__icon">🔍</div>
+      <div class="callout__body">
+        <div class="callout__title">核心转折感</div>
+        <div class="callout__text">
+          <strong>気がつく</strong> 强调从"没注意到"到"突然意识到"的转折点。<br><br>
+          ✅ 財布を忘れたことに<strong>気がついた</strong>。（我察觉到自己忘带钱包了）<br>
+          ✅ 間違いに<strong>気がつかなかった</strong>。（没有发现错误）<br><br>
+          搭配：<strong>～に気がつく</strong>（对……察觉到）
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4: 汇总对比表 ===== -->
+  <section id="sec-summary">
+    <h2><span class="section-num">4</span>汇总对比表</h2>
+
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:18%">日语</th>
+          <th style="width:18%">助词搭配</th>
+          <th style="width:32%">核心语感</th>
+          <th>中文</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="jp">気がする</div><div class="kana">きがする</div></td>
+          <td>～ような気がする</td>
+          <td>模糊主观印象、好像，<strong>不确定</strong>是不是真的</td>
+          <td>总觉得、仿佛感觉</td>
+        </tr>
+        <tr>
+          <td><div class="jp">気になる</div><div class="kana">きになる</div></td>
+          <td>～が気になる</td>
+          <td>不由自主挂念、放不下、好奇、烦心（<strong>被动自动</strong>）</td>
+          <td>让人在意、惦记、担心</td>
+        </tr>
+        <tr>
+          <td><div class="jp">気にする</div><div class="kana">きにする</div></td>
+          <td>～を気にする</td>
+          <td>主动选择介意、计较（<strong>人为主动</strong>）</td>
+          <td>把……放在心上、介意</td>
+        </tr>
+        <tr>
+          <td><div class="jp">気がつく</div><div class="kana">きがつく</div></td>
+          <td>～に気がつく</td>
+          <td>察觉到、发现（<strong>原本不知道</strong>，之后意识到）</td>
+          <td>发觉、注意到</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== SECTION 5: 速记口诀 ===== -->
+  <section id="sec-mnemonic">
+    <h2><span class="section-num">5</span>速记口诀</h2>
+
+    <div class="mnemonic-box">
+      <div class="mnemonic-box__title">📝 「気」字口诀</div>
+      <div class="mnemonic-box__poem">
+        ぼんやり感じるは<span class="jp">気がする</span>、<br>
+        放っておけないのは<span class="jp">気になる</span>。<br>
+        わざと気にするは<span class="jp">気にする</span>、<br>
+        ふと見つけるは<span class="jp">気がつく</span>。
+      </div>
+      <div class="mnemonic-box__desc">
+        四句口诀，「気」之辨析一次搞定 ✨
+      </div>
+    </div>
+
+    <h3 style="margin-top: 24px;">口诀详解</h3>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:30%">口诀</th>
+          <th>含义 & 说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="jp">ぼんやり感じるは気がする</div></td>
+          <td>模糊地感觉 = 気がする。"ぼんやり"（模糊、朦胧）是关键修饰词。</td>
+        </tr>
+        <tr>
+          <td><div class="jp">放っておけないのは気になる</div></td>
+          <td>放不下、丢不开 = 気になる。"放っておけない"（不能置之不理）形容那种不由自主的挂念感。</td>
+        </tr>
+        <tr>
+          <td><div class="jp">わざと気にするは気にする</div></td>
+          <td>刻意去在意 = 気にする。"わざと"（故意、特意）点出主动人为的语感。</td>
+        </tr>
+        <tr>
+          <td><div class="jp">ふと見つけるは気がつく</div></td>
+          <td>突然发现 = 気がつく。"ふと"（忽然、蓦地）体现了从"没发现"到"发现了"的转折感。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== SECTION 6: 闪卡练习 ===== -->
+  <section id="sec-flashcards">
+    <h2><span class="section-num">6</span>闪卡练习</h2>
+    <p>点击卡片翻面，检验自己是否记住了。</p>
+
+    <div class="flashcard-container">
+      <div class="flashcard" id="flashcard">
+        <div class="flashcard__inner">
+          <div class="flashcard__face flashcard__face--front">
+            <div class="flashcard__label">日文表达</div>
+            <div class="flashcard__word" id="fcWord">気がする</div>
+            <div class="flashcard__reading" id="fcReading">きがする</div>
+          </div>
+          <div class="flashcard__face flashcard__face--back">
+            <div class="flashcard__label">核心语感 & 例句</div>
+            <div class="flashcard__meaning" id="fcMeaning">模糊主观印象</div>
+            <div class="flashcard__example" id="fcExample">どこかで会ったような気がする。<br>（总觉得好像在哪见过。）</div>
+          </div>
+        </div>
+      </div>
+      <div class="flashcard__hint">👆 点击卡片翻面</div>
+      <div class="flashcard-controls">
+        <button class="flashcard-btn" id="fcPrev">← 上一个</button>
+        <span class="flashcard-progress" id="fcProgress">1 / 4</span>
+        <button class="flashcard-btn flashcard-btn--primary" id="fcNext">下一个 →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 7: 小测验 ===== -->
+  <section id="sec-quiz">
+    <h2><span class="section-num">7</span>小测验</h2>
+    <p>来测试一下你掌握了多少！共 8 题，都是 N2 高频考法。</p>
+
+    <div class="quiz-container" id="quizContainer">
+      <div class="quiz-question" id="quizQuestion">
+        <div class="quiz-question__num" id="quizNum">第 1 题 / 共 8 题</div>
+        <div class="quiz-question__text" id="quizText"></div>
+        <div class="quiz-question__sub" id="quizSub"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+      </div>
+      <div class="quiz-actions">
+        <div class="quiz-score" id="quizScore">得分：0 / 8</div>
+        <div class="quiz-nav">
+          <button class="flashcard-btn" id="quizPrev" disabled>← 上一题</button>
+          <button class="flashcard-btn flashcard-btn--primary" id="quizNext">下一题 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  日语「気」之四重辨析 · N2 高频文法专项 · 看完这页，不再混淆 ✨
+</footer>
+
+<script>
+  // ===== Expression Data =====
+  const expressions = [
+    {
+      id: 'kigasuru',
+      jp: '気がする',
+      kana: 'きがする',
+      cat: 'kigasuru',
+      type: 'phrase',
+      typeLabel: '慣用句',
+      meaning: '模糊主观印象、好像、仿佛',
+      detail: '核心：说话人模糊的主观感受，"好像、总觉得、感觉仿佛"。强调不确定，没有担心或挂念的意思。常搭配「～ような気がする」（总觉得好像……）。',
+      examples: [
+        { jp: 'どこかで会ったような気がする。', zh: '我总觉得好像在哪见过（但记不清）。' },
+        { jp: '雨が降りそうな気がする。', zh: '感觉好像要下雨了。' },
+        { jp: '読んだような気がするが、覚えていない。', zh: '总觉得好像读过，但是记不清。' }
+      ]
+    },
+    {
+      id: 'kininaru',
+      jp: '気になる',
+      kana: 'きになる',
+      cat: 'kininaru',
+      type: 'auto',
+      typeLabel: '自動詞',
+      meaning: '不由自主地在意、挂心、惦记',
+      detail: '核心：自动词，事情让我不由自主地挂心、放不下。不受自己控制，自然涌上的挂念、好奇、担心。搭配：～が気になる。',
+      examples: [
+        { jp: '試験の結果が気になる。', zh: '考试结果让我很放心不下（一直惦记）。' },
+        { jp: '隣の部屋の音が気になる。', zh: '隔壁的声音很扰人、让人不自觉地在意。' },
+        { jp: '明日の面接のことが気になって、眠れない。', zh: '明天的面试让我很担心，睡不着。' }
+      ]
+    },
+    {
+      id: 'kinisuru',
+      jp: '気にする',
+      kana: 'きにする',
+      cat: 'kinisuru',
+      type: 'trans',
+      typeLabel: '他動詞',
+      meaning: '主动去介意、放在心上、计较',
+      detail: '核心：他动词，主动、刻意去介意某事。是自己主观选择要不要在意。搭配：～を気にする。常以否定形「気にしない」出现。',
+      examples: [
+        { jp: '他人の評判を気にしない。', zh: '不去在意别人的评价（主动选择不放在心上）。' },
+        { jp: '失敗を気にするな。', zh: '别把失败放在心上（别去计较）。' },
+        { jp: '悪いコメントを気にする必要はない。', zh: '没必要去介意不好的评论。' }
+      ]
+    },
+    {
+      id: 'kigatsuku',
+      jp: '気がつく',
+      kana: 'きがつく',
+      cat: 'kigatsuku',
+      type: 'phrase',
+      typeLabel: '慣用句',
+      meaning: '发现、察觉到、注意到',
+      detail: '核心：从"没注意"到"注意到"的转折，强调发现某个原本没察觉的事实。搭配：～に気がつく。',
+      examples: [
+        { jp: '財布を忘れたことに気がついた。', zh: '我察觉到自己忘带钱包了。' },
+        { jp: '間違いに気がつかなかった。', zh: '没有发现错误。' },
+        { jp: '先生が部屋に入ってきたのに気がついた。', zh: '我注意到老师进了房间。' }
+      ]
+    }
+  ];
+
+  // ===== Render Expression Cards =====
+  function renderCards(containerId, filter) {
+    const container = document.getElementById(containerId);
+    const filtered = filter === 'all' ? expressions : expressions.filter(e => e.cat === filter);
+    container.innerHTML = filtered.map(e => `
+      <div class="word-card">
+        <div class="word-card__header">
+          <span class="word-card__jp">${e.jp}</span>
+          <span class="word-card__kana">${e.kana}</span>
+          <span class="word-card__tag word-card__tag--${e.type}">${e.typeLabel}</span>
+        </div>
+        <div class="word-card__meaning">${e.meaning}</div>
+        <div class="word-card__detail">${e.detail}</div>
+        <div class="word-card__examples">
+          ${e.examples.map(ex => `
+            <div class="word-card__example">
+              <span class="jp">${ex.jp}</span><span class="zh">${ex.zh}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderCards('gridAll', 'all');
+  renderCards('gridKGS', 'kigasuru');
+  renderCards('gridKN', 'kininaru');
+  renderCards('gridKS', 'kinisuru');
+  renderCards('gridKG', 'kigatsuku');
+
+  // ===== Tabs =====
+  document.querySelectorAll('.tabs').forEach(tabsGroup => {
+    const buttons = tabsGroup.querySelectorAll('.tabs__btn');
+    const panels = tabsGroup.querySelectorAll('.tabs__panel');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        buttons.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        tabsGroup.querySelector(`[data-panel="${target}"]`).classList.add('active');
+      });
+    });
+  });
+
+  // ===== Flashcards =====
+  const flashcardsData = expressions.map(e => ({
+    word: e.jp,
+    reading: e.kana,
+    meaning: e.meaning,
+    example: e.examples[0].jp + '\n（' + e.examples[0].zh + '）'
+  }));
+
+  let currentCard = 0;
+  const flashcardEl = document.getElementById('flashcard');
+  const fcWord = document.getElementById('fcWord');
+  const fcReading = document.getElementById('fcReading');
+  const fcMeaning = document.getElementById('fcMeaning');
+  const fcExample = document.getElementById('fcExample');
+  const fcProgress = document.getElementById('fcProgress');
+
+  function updateCard() {
+    const card = flashcardsData[currentCard];
+    fcWord.textContent = card.word;
+    fcReading.textContent = card.reading;
+    fcMeaning.textContent = card.meaning;
+    fcExample.textContent = card.example;
+    fcProgress.textContent = `${currentCard + 1} / ${flashcardsData.length}`;
+    flashcardEl.classList.remove('flipped');
+  }
+
+  flashcardEl.addEventListener('click', () => {
+    flashcardEl.classList.toggle('flipped');
+  });
+
+  document.getElementById('fcPrev').addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentCard = (currentCard - 1 + flashcardsData.length) % flashcardsData.length;
+    updateCard();
+  });
+
+  document.getElementById('fcNext').addEventListener('click', (e) => {
+    e.stopPropagation();
+    currentCard = (currentCard + 1) % flashcardsData.length;
+    updateCard();
+  });
+
+  // ===== Quiz =====
+  const quizData = [
+    {
+      question: 'どこかで聞いた（　）が、誰の話か思い出せない。',
+      sub: '选择合适的表达',
+      options: [
+        '気がする',
+        '気になる',
+        '気にする',
+        '気がつく'
+      ],
+      correct: 0,
+      explain: '「気がする」表示模糊的主观感觉。整句意思是"总觉得好像在哪听过，但想不起是谁说的"。关键是不确定的模糊感。'
+    },
+    {
+      question: '明日の面接のことが（　）、眠れない。',
+      sub: '选择合适的表达',
+      options: [
+        '気がする',
+        '気になる',
+        '気にする',
+        '気がつく'
+      ],
+      correct: 1,
+      explain: '「気になる」表示不由自主地挂心、担心。面试的事让我放不下，睡不着。自动词，搭配「が」。'
+    },
+    {
+      question: '悪いコメントを（　）必要はない。',
+      sub: '选择合适的表达',
+      options: [
+        '気がする',
+        '気になる',
+        '気にする',
+        '気がつく'
+      ],
+      correct: 2,
+      explain: '「気にする」表示主动去介意。"没必要去在意不好的评论"。他动词，搭配「を」。'
+    },
+    {
+      question: '先生が入ってきたのに（　）。',
+      sub: '选择合适的表达',
+      options: [
+        '気がしなかった',
+        '気にならなかった',
+        '気にしなかった',
+        '気がつかなかった'
+      ],
+      correct: 3,
+      explain: '「気がつく」表示发现、察觉到。"没注意到老师进来了"。强调从"没发现"到"发现了"的转折。'
+    },
+    {
+      question: '「傷口が気になる」と「傷口を気にする」の違いは？',
+      sub: '选择正确的描述',
+      options: [
+        '完全一样，都是伤口让人在意',
+        '前者是伤口自然让人惦记（被动），后者是自己刻意去纠结（主动）',
+        '前者是主动介意，后者是被动挂念',
+        '前者用を、后者用が'
+      ],
+      correct: 1,
+      explain: '这是最核心的辨析！「が気になる」是自动词，事情让我不由自主挂心；「を気にする」是他动词，主动选择去介意。'
+    },
+    {
+      question: '読んだ（　）が、覚えていない。',
+      sub: '选择合适的表达（N2 真题高频句型）',
+      options: [
+        '気がする',
+        'ような気がする',
+        '気になる',
+        '気がつく'
+      ],
+      correct: 1,
+      explain: '「～ような気がする」是固定句型，表示"总觉得好像……"。整句"总觉得好像读过，但记不清"。这是 N2 考题的经典句型！'
+    },
+    {
+      question: '財布を家に忘れてきたことに（　）時、とても焦った。',
+      sub: '选择合适的表达',
+      options: [
+        '気がする',
+        '気になる',
+        '気にする',
+        '気がついた'
+      ],
+      correct: 3,
+      explain: '「気がつく」的过去式。"察觉到忘带钱包的时候，非常着急"。强调突然意识到的瞬间。搭配「～に気がつく」。'
+    },
+    {
+      question: '他人の目を（　）、好きなように生きたい。',
+      sub: '选择合适的表达',
+      options: [
+        '気がしないで',
+        '気にならないで',
+        '気にしないで',
+        '気がつかないで'
+      ],
+      correct: 2,
+      explain: '「気にしないで」表示"不要在意、别放在心上"。这里是"不想去在意别人的眼光，想按自己喜欢的方式生活"。'
+    }
+  ];
+
+  let currentQuiz = 0;
+  let score = 0;
+  let answered = [];
+
+  const quizNum = document.getElementById('quizNum');
+  const quizText = document.getElementById('quizText');
+  const quizSub = document.getElementById('quizSub');
+  const quizOptions = document.getElementById('quizOptions');
+  const quizFeedback = document.getElementById('quizFeedback');
+  const quizScore = document.getElementById('quizScore');
+  const quizPrev = document.getElementById('quizPrev');
+  const quizNext = document.getElementById('quizNext');
+
+  function renderQuiz() {
+    const q = quizData[currentQuiz];
+    quizNum.textContent = `第 ${currentQuiz + 1} 题 / 共 ${quizData.length} 题`;
+    quizText.textContent = q.question;
+    quizSub.textContent = q.sub;
+
+    quizOptions.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'quiz-option';
+      if (answered[currentQuiz] !== undefined) {
+        if (i === q.correct) div.classList.add('correct');
+        if (i === answered[currentQuiz] && i !== q.correct) div.classList.add('wrong');
+      }
+      div.innerHTML = `<span class="quiz-option__marker">${String.fromCharCode(65 + i)}</span><span>${opt}</span>`;
+      div.addEventListener('click', () => selectAnswer(i));
+      quizOptions.appendChild(div);
+    });
+
+    if (answered[currentQuiz] !== undefined) {
+      showFeedback(answered[currentQuiz] === quizData[currentQuiz].correct);
+    } else {
+      quizFeedback.className = 'quiz-feedback';
+      quizFeedback.textContent = '';
+    }
+
+    quizPrev.disabled = currentQuiz === 0;
+    if (currentQuiz === quizData.length - 1 && answered[currentQuiz] !== undefined) {
+      quizNext.textContent = '查看结果';
+    } else {
+      quizNext.textContent = currentQuiz === quizData.length - 1 ? '提交答案' : '下一题 →';
+    }
+  }
+
+  function selectAnswer(index) {
+    if (answered[currentQuiz] !== undefined) return;
+    answered[currentQuiz] = index;
+    if (index === quizData[currentQuiz].correct) score++;
+    quizScore.textContent = `得分：${score} / ${quizData.length}`;
+    renderQuiz();
+  }
+
+  function showFeedback(isCorrect) {
+    const q = quizData[currentQuiz];
+    quizFeedback.className = `quiz-feedback show ${isCorrect ? 'quiz-feedback--correct' : 'quiz-feedback--wrong'}`;
+    quizFeedback.innerHTML = `<strong>${isCorrect ? '✅ 回答正确！' : '❌ 回答错误'}</strong><br>${q.explain}`;
+  }
+
+  quizPrev.addEventListener('click', () => {
+    if (currentQuiz > 0) {
+      currentQuiz--;
+      renderQuiz();
+    }
+  });
+
+  quizNext.addEventListener('click', () => {
+    if (currentQuiz < quizData.length - 1) {
+      currentQuiz++;
+      renderQuiz();
+    } else {
+      if (answered[currentQuiz] === undefined) return;
+      showFinalResult();
+    }
+  });
+
+  function showFinalResult() {
+    const percentage = Math.round((score / quizData.length) * 100);
+    let message = '';
+    if (percentage === 100) message = '🎉 完美！N2 文法这部分已经吃透了！';
+    else if (percentage >= 80) message = '👏 很棒！只差一点点就满分了！';
+    else if (percentage >= 60) message = '💪 不错，再复习一下对比辨析部分吧！';
+    else message = '📚 还需要多练习哦，回到第 2、3 节再看看！';
+
+    quizText.textContent = `测验完成！`;
+    quizSub.textContent = `你的得分：${score} / ${quizData.length}（${percentage}%）`;
+    quizOptions.innerHTML = `
+      <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 48px; margin-bottom: 12px;">${percentage >= 80 ? '🎊' : percentage >= 60 ? '👍' : '📖'}</div>
+        <div style="font-size: 18px; font-weight: 600; color: var(--page-brand); margin-bottom: 8px;">${message}</div>
+        <button class="flashcard-btn flashcard-btn--primary" onclick="resetQuiz()" style="margin-top: 12px;">重新测试</button>
+      </div>
+    `;
+    quizFeedback.className = 'quiz-feedback';
+    quizNum.textContent = '🎉 完成！';
+    quizNext.style.display = 'none';
+    quizPrev.style.display = 'none';
+  }
+
+  function resetQuiz() {
+    currentQuiz = 0;
+    score = 0;
+    answered = [];
+    quizScore.textContent = `得分：0 / ${quizData.length}`;
+    quizNext.style.display = '';
+    quizPrev.style.display = '';
+    renderQuiz();
+  }
+
+  // Initialize
+  renderQuiz();
+</script>
+
+</body>
+</html>
