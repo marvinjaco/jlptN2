@@ -5,581 +5,469 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JLPT N2 阅读理解</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: "Yu Gothic", "Noto Sans CJK JP", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; line-height: 1.8; }
-  .container { max-width: 960px; margin: 0 auto; }
-  header { text-align: center; color: white; margin-bottom: 30px; padding: 30px 20px; }
-  header h1 { font-size: 2.2em; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-  header p { font-size: 1.1em; opacity: 0.9; }
-
-  .page { display: none; background: white; border-radius: 12px; padding: 30px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15); margin-bottom: 25px; }
-  .page.active { display: block; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  .index-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
-  .index-item { padding: 12px 15px; background: #f7fafc; border: 2px solid #e2e8f0; border-radius: 8px;
-    cursor: pointer; transition: all 0.2s; font-size: 0.92em; color: #4a5568; text-align: left; }
-  .index-item:hover { background: #edf2f7; border-color: #667eea; transform: translateY(-2px); }
-  .index-item.done { border-color: #48bb78; background: #f0fff4; color: #22543d; }
-
-  .passage-header { border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
-  .passage-title { font-size: 1.3em; font-weight: bold; color: #2d3748; }
-  .passage-meta { font-size: 0.85em; color: #a0aec0; margin-top: 4px; }
-  .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold; color: white; margin-left: 8px; }
-  .badge-compare { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-  .badge-search { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-
-  .article-a, .article-b { background: #f7fafc; border-radius: 10px; padding: 18px 22px; margin-bottom: 18px; }
-  .article-a { border-left: 5px solid #f5576c; }
-  .article-b { border-left: 5px solid #4facfe; }
-  .article-label { font-weight: bold; font-size: 1.05em; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px dashed #cbd5e0; }
-  .article-a .article-label { color: #f5576c; }
-  .article-b .article-label { color: #4facfe; }
-  .article-body { color: #2d3748; font-size: 0.98em; text-align: justify; }
-
-  .search-article { background: #fffaf0; border: 2px dashed #ed8936; border-radius: 10px; padding: 20px 25px; margin-bottom: 20px; }
-  .search-article h4 { color: #c05621; margin-bottom: 12px; font-size: 1.15em; }
-  .info-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
-  .info-table th, .info-table td { padding: 8px 12px; border: 1px solid #fbd38d; text-align: left; }
-  .info-table th { background: #feebc8; color: #c05621; width: 30%; font-weight: bold; }
-  .highlight { background: #fefcbf; padding: 2px 6px; border-radius: 3px; }
-
-  .question { background: #edf2f7; border-radius: 10px; padding: 18px 22px; margin-bottom: 15px; }
-  .question-text { font-size: 1.05em; font-weight: bold; color: #2d3748; margin-bottom: 12px; }
-  .options { display: flex; flex-direction: column; gap: 8px; }
-  .option { padding: 12px 18px; background: white; border: 2px solid #e2e8f0; border-radius: 8px;
-    cursor: pointer; transition: all 0.2s; font-size: 0.95em; }
-  .option:hover { border-color: #667eea; background: #ebf4ff; }
-  .option.selected { border-color: #667eea; background: #667eea; color: white; }
-  .option.correct { border-color: #48bb78; background: #48bb78; color: white; }
-  .option.wrong { border-color: #f56565; background: #fed7d7; color: #c53030; }
-  .option.disabled { cursor: default; }
-
-  .answer-box { display: none; margin-top: 15px; padding: 15px 20px; border-radius: 8px; }
-  .answer-box.show { display: block; animation: fadeIn 0.3s; }
-  .answer-box.correct-box { background: #f0fff4; border: 2px solid #48bb78; }
-  .answer-box.wrong-box { background: #fff5f5; border: 2px solid #f56565; }
-  .answer-label { font-weight: bold; margin-bottom: 8px; font-size: 1.05em; }
-  .correct-box .answer-label { color: #22543d; }
-  .wrong-box .answer-label { color: #c53030; }
-  .explanation { color: #4a5568; font-size: 0.93em; }
-
-  .action-buttons { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
-  .btn { padding: 10px 22px; border: none; border-radius: 8px; cursor: pointer; font-size: 0.95em; font-weight: bold; transition: all 0.2s; }
-  .btn-secondary { background: #e2e8f0; color: #4a5568; }
-  .btn-secondary:hover { background: #cbd5e0; }
-  .btn-nav { background: white; color: #667eea; border: 2px solid #667eea; }
-  .btn-nav:hover { background: #667eea; color: white; }
-  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .progress-bar { background: #e2e8f0; border-radius: 10px; height: 10px; overflow: hidden; margin: 15px 0; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, #48bb78, #38a169); transition: width 0.4s ease; border-radius: 10px; }
-  .score-display { text-align: center; padding: 20px; font-size: 1.1em; color: #4a5568; }
-  .score-highlight { font-size: 1.4em; font-weight: bold; color: #667eea; }
-  .nav-buttons { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 2px solid #e2e8f0; }
-
-  .toc-section { margin-bottom: 30px; }
-  .toc-section h2 { color: #2d3748; font-size: 1.3em; margin-bottom: 15px; padding-left: 10px; border-left: 4px solid #667eea; }
-  .toc-section p { color: #718096; font-size: 0.9em; margin-bottom: 15px; }
-
-  @media (max-width: 640px) {
-    .page { padding: 20px 15px; }
-    header h1 { font-size: 1.6em; }
-    .index-grid { grid-template-columns: repeat(2, 1fr); }
-  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Yu Gothic","Noto Sans CJK JP","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;padding:20px;line-height:1.8}
+  .container{max-width:960px;margin:0 auto}
+  header{text-align:center;color:white;margin-bottom:30px;padding:30px 20px}
+  header h1{font-size:2.2em;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+  header p{font-size:1.1em;opacity:.9}
+.badge-compare-n1{background:linear-gradient(135deg,#8b5cf6,#6366f1)}
+.badge-search-n1{background:linear-gradient(135deg,#0ea5e9,#06b6d4)}
+  .page{display:none;background:white;border-radius:12px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,.15);margin-bottom:25px}
+  .page.active{display:block;animation:fadeIn .4s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .index-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+  .index-item{padding:12px 15px;background:#f7fafc;border:2px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:.2s;font-size:.92em;color:#4a5568;text-align:left}
+  .index-item:hover{background:#edf2f7;border-color:#667eea;transform:translateY(-2px)}
+  .index-item.done{border-color:#48bb78;background:#f0fff4;color:#22543d}
+  .passage-header{border-bottom:2px solid #e2e8f0;padding-bottom:15px;margin-bottom:20px}
+  .passage-title{font-size:1.3em;font-weight:bold;color:#2d3748}
+  .passage-meta{font-size:.85em;color:#a0aec0;margin-top:4px}
+  .badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.8em;font-weight:bold;color:white;margin-left:8px}
+  .badge-compare{background:linear-gradient(135deg,#f093fb,#f5576c)}
+  .badge-search{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+  .article-a,.article-b{background:#f7fafc;border-radius:10px;padding:20px 24px;margin-bottom:18px}
+  .article-a{border-left:5px solid #f5576c}
+  .article-b{border-left:5px solid #4facfe}
+  .article-label{font-size:1.05em;font-weight:bold;margin-bottom:10px;padding-bottom:6px;border-bottom:1px dashed #cbd5e0}
+  .article-a .article-label{color:#f5576c}
+  .article-b .article-label{color:#4facfe}
+  .article-body{color:#2d3748;font-size:.96em;text-align:justify}
+  .article-body p{margin-bottom:10px}
+  .search-article{background:#fffaf0;border:2px dashed #ed8936;border-radius:10px;padding:22px 26px;margin-bottom:20px}
+  .search-article h4{color:#c05621;margin-bottom:12px;font-size:1.15em}
+  .info-table{width:100%;border-collapse:collapse;margin:12px 0}
+  .info-table th,.info-table td{padding:9px 13px;border:1px solid #fbd38d;text-align:left;font-size:.94em}
+  .info-table th{background:#feebc8;color:#c05621;width:30%;font-weight:bold}
+  .highlight{background:#fefcbf;padding:2px 6px;border-radius:3px}
+  .question{background:#edf2f7;border-radius:10px;padding:18px 22px;margin-bottom:15px}
+  .question-text{font-size:1.05em;font-weight:bold;color:#2d3748;margin-bottom:12px}
+  .options{display:flex;flex-direction:column;gap:8px}
+  .option{padding:12px 18px;background:white;border:2px solid #e2e8f0;border-radius:8px;cursor:pointer;transition:.2s;font-size:.95em;line-height:1.6}
+  .option:hover{border-color:#667eea;background:#ebf4ff}
+  .option.selected{border-color:#667eea;background:#667eea;color:white}
+  .option.correct{border-color:#48bb78;background:#48bb78;color:white}
+  .option.wrong{border-color:#f56565;background:#fed7d7;color:#c53030}
+  .option.disabled{cursor:default}
+  .answer-box{display:none;margin-top:15px;padding:15px 20px;border-radius:8px}
+  .answer-box.show{display:block;animation:fadeIn .3s}
+  .answer-box.correct-box{background:#f0fff4;border:2px solid #48bb78}
+  .answer-box.wrong-box{background:#fff5f5;border:2px solid #f56565}
+  .answer-label{font-weight:bold;margin-bottom:8px;font-size:1.05em}
+  .correct-box .answer-label{color:#22543d}
+  .wrong-box .answer-label{color:#c53030}
+  .explanation{color:#4a5568;font-size:.93em}
+  .action-buttons{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+  .btn{padding:10px 22px;border:none;border-radius:8px;cursor:pointer;font-size:.95em;font-weight:bold;transition:.2s}
+  .btn-secondary{background:#e2e8f0;color:#4a5568}
+  .btn-secondary:hover{background:#cbd5e0}
+  .btn-nav{background:white;color:#667eea;border:2px solid #667eea}
+  .btn-nav:hover{background:#667eea;color:white}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .progress-bar{background:#e2e8f0;border-radius:10px;height:10px;overflow:hidden;margin:15px 0}
+  .progress-fill{height:100%;background:linear-gradient(90deg,#48bb78,#38a169);transition:.4s;border-radius:10px}
+  .score-display{text-align:center;padding:20px;font-size:1.1em;color:#4a5568}
+  .score-highlight{font-size:1.4em;font-weight:bold;color:#667eea}
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:20px;padding-top:20px;border-top:2px solid #e2e8f0}
+  .toc-section{margin-bottom:30px}
+  .toc-section h2{color:#2d3748;font-size:1.3em;margin-bottom:15px;padding-left:10px;border-left:4px solid #667eea}
+  .toc-section p{color:#718096;font-size:.9em;margin-bottom:15px}
+  @media(max-width:640px){.page{padding:20px 15px}header h1{font-size:1.6em}.index-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <h1>JLPT N2 阅读理解</h1>
-    <p>比較読解 &amp; 情報検索読解 · 各10篇 · 全20篇40問</p>
-  </header>
+<header>
+<h1>JLPT N2 阅读理解</h1>
+<p>比較読解 &amp; 情報検索読解 · N2 各10篇 + N1 各10篇 · 全40篇80問</p>
+</header>
 
-  <!-- 目录页 -->
-  <div class="page active" id="page-cover">
-    <div style="border-bottom:2px solid #e2e8f0;padding-bottom:15px;margin-bottom:20px;">
-      <div class="passage-title">📖 目次 · Index</div>
-    </div>
-    <p style="color:#4a5568;margin-bottom:20px;font-size:0.95em;">
-      点击下方卡片开始练习，完成后可查看答案和解析。
-    </p>
-    <div class="toc-section">
-      <h2>🔴 比較読解（对比题）</h2>
-      <p>问题1：Aの内容 / 問題2：AもBも〜（2选项）＋ Aは〜、Bは〜（2选项）</p>
-      <div class="index-grid" id="toc-compare"></div>
-    </div>
-    <div class="toc-section">
-      <h2>🔵 情報検索読解（检索题）</h2>
-      <p>広告・案内・募集などの実用文書から情報を検索</p>
-      <div class="index-grid" id="toc-search"></div>
-    </div>
-    <div class="score-display">
-      <div>本次练习进度</div>
-      <div class="progress-bar"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
-      <div><span class="score-highlight" id="score-text">0</span> / <span id="total-text">0</span> 题正确</div>
-    </div>
-  </div>
+<div class="page active" id="page-cover">
+<div class="passage-title" style="margin-bottom:20px;">📖 目次 · Index</div>
+<div class="toc-section">
+<h2>🔴 比較読解（10篇）</h2>
+<p>2つの文章A・Bを比較して答える。問題1：Aの内容 / 問題2：AとBの比較。<br>問題2の選択肢：AもBも〜（2個）＋ Aは〜、Bは〜（2個）。正解は後者に多い。</p>
+<div class="index-grid" id="toc-compare"></div>
+</div>
+<div class="toc-section">
+<h2>🔵 情報検索読解（10篇）</h2>
+<p>広告・案内・募集などの長文から必要な情報を検索して答える。</p>
+<div class="index-grid" id="toc-search"></div>
+</div>
+<div class="toc-section">
+<h2>🟣 N1 比較読解（10篇）</h2>
+<p>長文の学術的な論説や公的文書など、より抽象度の高い内容の比較。</p>
+<div class="index-grid" id="toc-n1-compare"></div>
+</div>
+<div class="toc-section">
+<h2>🟦 N1 情報検索読解（10篇）</h2>
+<p>大学院案内・学会募集・企業決算・特許出願など、N1レベルの難解な文書からの情報検索。</p>
+<div class="index-grid" id="toc-n1-search"></div>
+</div>
+<div class="score-display">
+<div>本次练习进度</div>
+<div class="progress-bar"><div class="progress-fill" id="overall-progress" style="width:0%"></div></div>
+<div><span class="score-highlight" id="score-text">0</span> / <span id="total-text">0</span> 题正确</div>
+</div>
+</div>
 
-  <!-- 文章页容器，JS动态填充 -->
-  <div id="passages"></div>
+<div id="passages"></div>
 </div>
 
 <script>
-/* ========== 题库 ========== */
-const PASSAGES = [
-  { type:'compare',id:'c1',title:'オンライン講座と通学講座',meta:'比較読解 第1篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`私はオンライン講座の方が良いと思います。理由は三つあります。一つ目は、時間の融通がきくことです。朝早く起きる必要もなければ、夜遅くまで授業を受けることもできます。仕事やアルバイトと両立しやすいです。二つ目は、場所を選ばないことです。三つ目は、繰り返し視聴できることです。費用も通学講座より安いことが多いです。`,
-    articleB:`私は通学講座の方が良いと思います。理由は二つあります。一つ目は、先生や他の受講生と直接会えることです。授業の後に分からないことを質問したり、クラスメートと情報交換したりできます。二つ目は、集中しやすい環境です。私はオンライン講座を一度受けましたが、途中で寝てしまったことが何度かあります。`,
-    questions:[
-      { q:'Aさんがオンライン講座の利点として挙げていないものはどれか？',
-        options:['時間の融通がきくこと','場所を選ばないこと','先生に直接質問できること','繰り返し視聴できること'],
-        answer:2, explain:'「先生に直接質問できること」はBさんが通学講座の利点として挙げたもので、Aさんの文章にはありません。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、自分の好きな講座形式に一長一短があると認めている',
-          'AもBも、費用の安い講座が良いと思っている',
-          'Aは先生に直接会える講座が良いと思い、Bは時間の融通がきく講座が良いと思っている',
-          'Aは通学講座が良いと思い、Bはオンライン講座が良いと思っている'
-        ],
-        answer:0, explain:'Aさんはオンライン講座の利点を挙げ、Bさんは通学講座の利点を挙げつつも自身がオンラインで集中できなかった経験を語っています。両者とも自分の方式を好きだと主張しながらも、相手の方式にも一長一短があることを認めています。' }
-    ] },
-  { type:'compare',id:'c2',title:'電子書籍と紙の本',meta:'比較読解 第2篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`私は電子書籍の方が好きです。一つの端末に何百冊も入れられるのが最大の利点です。旅行の時も荷物になりません。また、文字の大きさを変えられるのも良いです。暗い場所でも読めます。買いたい時も、ワンクリックですぐに読めます。`,
-    articleB:`私はやっぱり紙の本が好きです。まず、ページをめくる感触がたまりません。また、電子書籍は充電が切れたら読めません。紙の本にはそんな心配はありません。温泉に持ち込んでも大丈夫です。本棚に並べてインテリアとしても楽しめます。`,
-    questions:[
-      { q:'Aさんが電子書籍の利点として挙げているのはどれか？',
-        options:['インテリアとして楽しめること','ページをめくる感触が良いこと','文字の大きさを変えられること','充電の心配がないこと'],
-        answer:2, explain:'Aさんは「文字の大きさを変えられる」を挙げています。他はBさんが紙の本の利点として挙げたものです。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、「持ち運び」という視点から本の形式の特徴を語っている',
-          'AもBも、インテリアとして本を楽しみたいと思っている',
-          'Aは充電を気にせず読める本が良いと思い、Bは文字の大きさを変えられる本が良いと思っている',
-          'Aは紙の本が好きで、Bは電子書籍が好きだと言っている'
-        ],
-        answer:0, explain:'Aさんは電子書籍の利点として「荷物にならない」持ち運びの利便性を挙げ、Bさんは紙の本を温泉に持ち込む例を挙げるなど、両者とも「持ち運び」という視点から語っています。' }
-    ] },
-  { type:'compare',id:'c3',title:'リモートワークとオフィスワーク',meta:'比較読解 第3篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`私はリモートワークが好きです。通勤時間がなくなり、その時間を読書や家事に使えるようになりました。通勤のストレスもなくなりました。服装も自由です。ただ、時々集中できないこともあります。`,
-    articleB:`私はやっぱりオフィスに行って仕事をしたいです。リモートだと同僚との会話が減ってしまいました。また、リモートだとオンとオフの切り替えが難しいです。仕事が終わっても家にいるので、いつまでもPCの前に座ってしまいます。`,
-    questions:[
-      { q:'Aさんがリモートワークの利点として挙げているのはどれか？',
-        options:['同僚との雑談ができること','生活リズムが整うこと','通勤時間がなくなること','仕事のオンオフを切り替えやすいこと'],
-        answer:2, explain:'Aさんは「通勤時間がなくなった」「通勤のストレスがなくなった」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、リモートワークには「集中・切り替え」の面で難しさがあると感じている',
-          'AもBも、通勤のストレスがなくなって良かったと思っている',
-          'Aはオフィスで同僚と話すのが好きで、Bは通勤がない方が良いと思っている',
-          'Aはリモートワークが嫌いで、Bはリモートワークが大好きだと言っている'
-        ],
-        answer:0, explain:'Aさんは「時々集中できない」とリモートの欠点を挙げ、Bさんは「リモートだとオンとオフの切り替えが難しい」と同じく自宅で仕事をする際の集中力や切り替えの問題に触れています。' }
-    ] },
-  { type:'compare',id:'c4',title:'太陽光発電と原子力発電',meta:'比較読解 第4篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`太陽光発電は素晴らしいと思います。まず、環境に優しいです。二酸化炭素を排出しないし、枯渇する心配もありません。原子力発電は廃棄物の処理問題がありますが、太陽光にはそれがありません。個人でも発電できます。`,
-    articleB:`私は原子力発電を止めるべきではないと考えています。まず、発電コストが安いです。太陽光発電は天気に左右されるし、夜は発電できません。また、二酸化炭素の排出量は、原子力発電も太陽光発電も同じくらい少ないです。問題は廃棄物の処理です。`,
-    questions:[
-      { q:'Aさんが太陽光発電の利点として挙げているのはどれか？',
-        options:['発電コストが安いこと','天気に左右されないこと','個人でも発電できること','二酸化炭素を多く排出すること'],
-        answer:2, explain:'Aさんは「個人でも発電できます」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、二酸化炭素排出量の少なさが発電方式の重要な利点だと認識している',
-          'AもBも、原子力発電には廃棄物処理という問題があると言及している',
-          'Aは安定供給できる発電が良いと思い、Bは環境に優しい発電が良いと思っている',
-          'Aは原子力発電を支持し、Bは太陽光発電を支持している'
-        ],
-        answer:1, explain:'Aさんは「原子力発電は廃棄物の処理問題があります」と述べ、Bさんも「問題は廃棄物の処理です」と同じ点に触れています。両者とも原子力発電の廃棄物処理問題に言及しています。' }
-    ] },
-  { type:'compare',id:'c5',title:'私立学校と公立学校',meta:'比較読解 第5篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`私立学校の方が良いと思います。まず、教育方針が明確で特色があります。教師の質が高く、少人数制のクラスが多いです。ただ、学費が高いのが難点です。`,
-    articleB:`公立学校の方が良いと思います。まず、学費が安いです。誰もが平等に教育を受けられます。また、さまざまな背景の子供が集まり、視野が広がります。私立は同じような家庭の子が集まりがちですが、公立の方が良い経験になります。`,
-    questions:[
-      { q:'Aさんが私立学校の利点として挙げているのはどれか？',
-        options:['誰もが平等に教育を受けられること','教育方針が明確で特色があること','家計に優しいこと','さまざまな背景の子供が集まること'],
-        answer:1, explain:'Aさんは「教育方針が明確で特色があります」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、子供にどんな教育環境を提供できるかという視点で学校を比較検討している',
-          'AもBも、学費の安さを最優先にしている',
-          'Aは公立学校が自分に合っていると思い、Bは私立学校が自分に合っていると思っている',
-          'Aは教師の質を重視し、Bは少人数制を重視している'
-        ],
-        answer:0, explain:'Aさんは私立の特色、教師の質、少人数制に言及し、Bさんは公立の費用や多様な環境に言及しています。両者とも「子供にどんな教育環境を提供するか」という視点から比較検討しています。' }
-    ] },
-  { type:'compare',id:'c6',title:'都会での生活と田舎での生活',meta:'比較読解 第6篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`都会での生活は楽しいです。まず、仕事の機会が多いです。給料も高いです。遊ぶ場所もたくさんあります。ただ、家賃が高いのと、電車が混むのは大変です。`,
-    articleB:`私は田舎での生活が大好きです。まず、自然がいっぱいです。空気もきれいです。家賃も安いです。ただ、不便な点もあります。車がないとどこにも行けないし、大きな病院に行くには時間がかかります。`,
-    questions:[
-      { q:'Aさんが都会での生活の利点として挙げているのはどれか？',
-        options:['自然が多いこと','家賃が安いこと','仕事の機会が多く給料が高いこと','車がなくても生活できること'],
-        answer:2, explain:'Aさんは「仕事の機会が多いです。給料も高いです」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、それぞれの生活場所において「移動」に関する何らかの不便を感じている',
-          'AもBも、自然が多い場所で生活するのが好きだと言っている',
-          'Aは田舎の方が仕事が多いと思い、Bは都会の方が自然が多いと思っている',
-          'Aは田舎で生活したいと思い、Bは都会で生活したいと思っている'
-        ],
-        answer:0, explain:'Aさんは「電車が混むのは大変です」と都会の移動の不便さを挙げ、Bさんは「車がないとどこにも行けない」と田舎の移動の不便さを挙げています。両者とも「移動に不便がある」点で共通しています。' }
-    ] },
-  { type:'compare',id:'c7',title:'テレビCMとインターネット広告',meta:'比較読解 第7篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`インターネット広告の方が効果があると思います。まず、ターゲットを絞れます。年齢、性別、興味関心に合わせて広告を出せます。また、効果を測定できます。ただ、インパクトのある素材作りが大切です。`,
-    articleB:`私はテレビCMの力はまだまだ大きいと思います。まず、一度に多くの人に伝えられます。家族みんなで見ている番組でCMが流れれば、大きな反響があります。また、ブランドのイメージ作りに向いています。`,
-    questions:[
-      { q:'Aさんがインターネット広告の利点として挙げているのはどれか？',
-        options:['一度に多くの人に伝えられること','ブランドの世界観を伝えられること','ターゲットを絞って効果を測定できること','親しみやすいタレントを起用できること'],
-        answer:2, explain:'Aさんは「ターゲットを絞れます」「効果を測定できます」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、商品宣伝において「どちらの媒体も有効な手段」であるという前提で自分の好きな方を主張している',
-          'AもBも、ターゲットを細かく絞って広告を出すべきだと主張している',
-          'Aは多くの人に一度に伝えたいからテレビCMが良いと思い、Bはターゲットを絞りたいからネット広告が良いと思っている',
-          'AはテレビCMが嫌いで、Bはインターネット広告が嫌いだと言っている'
-        ],
-        answer:0, explain:'Aさんはネット広告の利点を挙げつつも「インパクトのある素材作りが大切」と認め、BさんはテレビCMの利点を挙げています。両者とも「どちらも有効な手段」という前提で自分の好きな方を主張しています。' }
-    ] },
-  { type:'compare',id:'c8',title:'在宅介護と施設介護',meta:'比較読解 第8篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`私の母は今、在宅介護をしています。自分の家で生活できるのが良いです。介護の時間を家族が自由に決められます。ただ、介護する家族の負担が大きいのは確かです。`,
-    articleB:`私の父は特別養護老人ホームに入っています。24時間体制でケアしてもらえるのが安心です。同じような年齢の人たちと交流できます。経済的な負担は大きいですが、それだけの価値はあると思います。`,
-    questions:[
-      { q:'Aさんが在宅介護の利点として挙げているのはどれか？',
-        options:['24時間体制でケアしてもらえること','同じ年齢の人と交流できること','自分の家で生活でき時間を自由に決められること','経済的な負担が少ないこと'],
-        answer:2, explain:'Aさんは「自分の家で生活できるのが良いです。介護の時間を家族が自由に決められます」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、自分の選んだ介護方式には何らかの負担があると認めている',
-          'AもBも、24時間のケアが最も大切だと考えている',
-          'Aは施設での交流が大切だと思い、Bは在宅で自由に過ごせるのが良いと思っている',
-          'Aは施設介護を選び、Bは在宅介護を選んでいる'
-        ],
-        answer:0, explain:'Aさんは「介護する家族の負担が大きいのは確かです」と在宅介護の身体的負担を認め、Bさんは「経済的な負担は大きいですが」と施設介護の費用面の負担を認めています。' }
-    ] },
-  { type:'compare',id:'c9',title:'ノートPCとタブレット端末',meta:'比較読解 第9篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`私はノートPCの方が好きです。キーボードが使いやすいです。長い文章を書く時や、表を作る時は物理的なキーボードの方が圧倒的に速いです。画面が見やすいです。重さは重いですが、気になりません。`,
-    articleB:`私はタブレット端末が大好きです。軽くて持ち運びが楽です。タッチ操作が直感的で、手書きでメモを取ったり絵を描いたりできます。ただし、長い文章を書くのは苦手です。Bluetoothキーボードを使いますが、やっぱりノートPCのキーボードには及びません。`,
-    questions:[
-      { q:'AさんがノートPCの利点として挙げているのはどれか？',
-        options:['軽くて持ち運びが楽なこと','タッチ操作が直感的なこと','キーボードが使いやすく画面が見やすいこと','手書きでメモが取れること'],
-        answer:2, explain:'Aさんは「キーボードが使いやすいです」「画面が見やすいです」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、長い文章を書くには物理的なキーボードが優れていると認めている',
-          'AもBも、タブレットの方が作業効率が高いと思っている',
-          'Aはタブレットの方が軽くて便利だと思い、BはノートPCの方が画面が見やすいと思っている',
-          'Aはタブレットを愛用しており、BはノートPCを愛用している'
-        ],
-        answer:0, explain:'AさんはノートPCのキーボードの使いやすさを挙げ、Bさんは「やっぱりノートPCのキーボードには及びません」と認めています。両者とも長文作成には物理的キーボードが優れていると共通しています。' }
-    ] },
-  { type:'compare',id:'c10',title:'従来型農業と有機農業',meta:'比較読解 第10篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
-    articleA:`有機農業の方が良いと思います。化学農薬や化学肥料を使わないので体に優しいです。小さい子供がいるので安心して野菜を食べさせたいです。ただ、生産量は少ないです。`,
-    articleB:`私は従来型農業も必要だと思います。たくさんの人に野菜を届けることができます。有機農業だけでは生産量が足りません。価格を抑えて、誰もが買える野菜を作ることも大切です。有機農業は手間がかかります。`,
-    questions:[
-      { q:'Aさんが有機農業の利点として挙げているのはどれか？',
-        options:['生産量が多いこと','値段が安いこと','体に優しく安心して食べられること','農家の負担が少ないこと'],
-        answer:2, explain:'Aさんは「化学農薬を使わないので体に優しいです。安心して野菜を食べさせたいです」を挙げています。' },
-      { q:'AとBの関係について正しいものはどれか？',
-        options:[
-          'AもBも、有機農業の生産量が少ないという共通の課題を認識している',
-          'AもBも、体に優しい野菜を作るべきだと考えている',
-          'Aはたくさんの人に野菜を届けたいと思い、Bは健康のために有機農業を支持している',
-          'Aは従来型農業が良いと思い、Bは有機農業が良いと思っている'
-        ],
-        answer:0, explain:'Aさんは「ただ、生産量は少ないです」と挙げ、Bさんは「有機農業だけでは生産量が足りません」と同じ点に触れています。両者とも有機農業の生産量の少なさを共通の課題として認識しています。' }
-    ] },
+const COMPARE = [
+{id:'c1',title:'オンライン講座と通学講座',meta:'比較読解 第1篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私は仕事をしながら勉強しているので、オンライン講座がどうしても必要でした。まず一つ目の利点は、時間の融通がきくことです。朝の7時から受講したり、夜の10時から受講したり、自分のスケジュールに合わせて学習できます。仕事が忙しい週は休み、少し余裕がある週は多めに進めるという調整も容易です。</p><p>二つ目の利点は、費用が抑えられることです。通学講座は入学金や教材費のほかに交通費もかかりますが、オンライン講座は比較的安価なものが多いです。ただし、自分できちんと学習習慣を作らないとサボってしまう問題点もあります。それでも、今の私にはオンライン講座が一番合っています。</p>',
+b:'<p>私は学生時代、半年ほどオンライン講座を受講したことがありますが、結局通学講座に戻りました。一つ目は、集中力の持続が難しいことです。自宅ではテレビをつけたくなったり、携帯の通知が気になったり、様々な誘惑があります。対面で先生やクラスメートがいると、緊張感をもって臨めるので、自然と集中できます。</p><p>二つ目は、質問しやすさです。オンラインではチャットで質問しますが、返信が遅かったり他の人の質問で埋もれてしまったりすることがあります。通学講座であれば、すぐに手を挙げて先生に聞くことができ、疑問をその場で解消できます。これらの点から、私は通学講座を選んでいます。</p>',
+q:[{q:'Aさんがオンライン講座の利点として最も重視しているのはどれか？',o:['先生に直接質問できること','時間の融通がきき費用が抑えられること','集中して学習できる環境があること','クラスメートと交流できること'],a:1,e:'Aさんは仕事との両立のため、時間の融通がきくことと費用が抑えられることを主な利点として挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、オンライン講座の利点が通学講座より勝っていると考えている','AもBも、通学講座は費用がかかりすぎると不満に思っている','Aは時間の都合でオンライン講座を必要とし、Bは集中力と質問のしやすさから通学講座を選んでいる','Aは通学講座が嫌いで、Bはオンライン講座が好きだと述べている'],a:2,e:'Aさんは仕事との両立のためオンライン講座を必要としており、Bさんは集中力の維持と質問のしやすさから通学講座を選んでいます。'}]},
 
-  // ========== 检索题 ==========
-  { type:'search',id:'s1',title:'留学説明会のお知らせ',meta:'情報検索読解 第1篇',
-    searchTitle:'カナダ・バンクーバー留学説明会',
-    searchContent:`<p><strong>株式会社ワールドステップ</strong>主催</p><h4>カナダ・バンクーバー留学説明会 2025年春</h4>
-<table class="info-table">
-  <tr><th>開催日時</th><td>2025年2月15日（土）14:00～16:30（受付13:30～）</td></tr>
-  <tr><th>開催場所</th><td>渋谷ヒカリエ12階 イベントスペースB</td></tr>
-  <tr><th>参加費</th><td><span class="highlight">無料</span>（要予約）</td></tr>
-  <tr><th>対象者</th><td>高校生・大学生・社会人（年齢不問）</td></tr>
-  <tr><th>定員</th><td>80名（先着順）</td></tr>
-  <tr><th>内容</th><td>① 生活環境紹介 ② 語学学校の選び方 ③ ワーキングホリデー情報 ④ 卒業生体験談 ⑤ 個別相談会</td></tr>
-</table>
-<p><strong>申し込み：</strong>HP（https://worldstep.co.jp）専用フォームより。定員になり次第締め切り。</p>`,
-    questions:[
-      { q:'この説明会の開催日として正しいものはどれか？',
-        options:['2025年1月15日','2025年2月15日','2025年2月14日','2025年3月15日'],
-        answer:1, explain:'開催日時の欄に「2025年2月15日（土）」と明記されています。' },
-      { q:'この説明会について正しくないものはどれか？',
-        options:['参加費は無料である','事前の予約が必要である','定員は100名である','個別相談会も行われる'],
-        answer:2, explain:'定員は「80名」となっており、100名ではありません。' }
-    ] },
-  { type:'search',id:'s2',title:'アルバイト募集のお知らせ',meta:'情報検索読解 第2篇',
-    searchTitle:'カフェ「森の実」スタッフ募集',
-    searchContent:`<p>オープン3周年を迎えたカフェ「森の実」では、新しいスタッフを募集しています。</p>
-<table class="info-table">
-  <tr><th>職種</th><td>① ホールスタッフ（接客・配膳） ② キッチンスタッフ（調理補助）</td></tr>
-  <tr><th>時給</th><td>① <span class="highlight">1,100円～</span>（経験者優遇） ② 1,050円～</td></tr>
-  <tr><th>勤務地</th><td>東京都世田谷区桜丘1-2-3 モール桜ケ丘2F</td></tr>
-  <tr><th>勤務時間</th><td>シフト制 9:00～22:00の間で1日4時間～、週2日～OK</td></tr>
-  <tr><th>待遇</th><td>昇給あり・交通費支給・社員割引あり・正社員登用制度あり</td></tr>
-  <tr><th>応募資格</th><td>18歳以上（高校生不可）・未経験者歓迎・笑顔で接客できる方</td></tr>
-  <tr><th>締め切り</th><td>2025年1月31日（金）必着</td></tr>
-</table>`,
-    questions:[
-      { q:'ホールスタッフの時給として正しいものはどれか？',
-        options:['1,000円～','1,050円～','1,100円～','1,200円～'],
-        answer:2, explain:'時給の欄に「① ホールスタッフ 1,100円～」と記載されています。' },
-      { q:'このアルバイトに応募できるのはどれか？',
-        options:['高校生で週3日以上働ける方','17歳で笑顔で接客できる方','20歳の大学生で未経験だが週2日から働きたい方','16歳の中学生で毎日4時間働きたい方'],
-        answer:2, explain:'応募資格は「18歳以上（高校生不可）・未経験者歓迎」、勤務条件は「週2日～OK」。20歳の大学生は条件を満たします。' }
-    ] },
-  { type:'search',id:'s3',title:'ハワイ旅行パッケージの案内',meta:'情報検索読解 第3篇',
-    searchTitle:'ゴールデンウィーク限定 ハワイ5日間ツアー',
-    searchContent:`<p><strong>サンシャイントラベル</strong>おすすめ</p><h4>ホノルル発着 5日間 オアフ島満喫ツアー</h4>
-<table class="info-table">
-  <tr><th>出発日</th><td>2025年4月29日（火）</td></tr>
-  <tr><th>帰着日</th><td>2025年5月3日（土）</td></tr>
-  <tr><th>滞在日数</th><td>4泊5日</td></tr>
-  <tr><th>旅行代金</th><td><span class="highlight">148,000円</span>～（2名1室 / 燃油サーチャージ込み）</td></tr>
-  <tr><th>宿泊ホテル</th><td>ワイキキビーチ近隣ホテル（3つ星以上）</td></tr>
-  <tr><th>定員</th><td>20名様限定（最少催行人員15名）</td></tr>
-</table>
-<p><strong>申し込み：</strong>2025年2月28日まで。HP https://sunshine-travel.co.jp</p>`,
-    questions:[
-      { q:'このツアーの旅行代金に含まれているものはどれか？',
-        options:['昼食代','夕食代','燃油サーチャージ','ショッピング代'],
-        answer:2, explain:'旅行代金の欄に「燃油サーチャージ込み」と記載されています。' },
-      { q:'このツアーについて正しくないものはどれか？',
-        options:['出発日は4月29日である','宿泊ホテルはワイキキビーチ近くである','定員は15名である','航空会社は直行便を使用する'],
-        answer:2, explain:'定員は「20名様限定（最少催行人員15名）」。15名は最少催行人員であって定員ではありません。' }
-    ] },
-  { type:'search',id:'s4',title:'健康診断の案内',meta:'情報検索読解 第4篇',
-    searchTitle:'会社定期健康診断のお知らせ',
-    searchContent:`<p>株式会社グリーンエイジ 総務部より</p><h4>2025年度 定期健康診断の実施について</h4>
-<table class="info-table">
-  <tr><th>対象者</th><td>正社員・契約社員（パート・アルバイトは対象外）</td></tr>
-  <tr><th>実施期間</th><td>2025年3月1日～3月31日</td></tr>
-  <tr><th>受診時間</th><td>平日 9:00～17:00 / 土曜 9:00～12:00 / 日曜 休診</td></tr>
-  <tr><th>必要なもの</th><td>健康保険証・特定健診受診券（40歳以上）・マスク</td></tr>
-</table>
-<p><strong>注意：</strong>35歳以上の方は乳がん検診（女性）・前立腺検診（男性）も無料で受けられます。申し込み不要。</p>`,
-    questions:[
-      { q:'40歳以上の社員が受診時に必ず持っていくものはどれか？',
-        options:['健康保険証とマスクだけ','健康保険証と特定健診受診券','前立腺検診の申込書','会社の保険証と水筒'],
-        answer:1, explain:'必要なものの欄に「特定健診受診券（40歳以上）」と記載されています。' },
-      { q:'この健康診断について正しいものはどれか？',
-        options:['パート社員も対象者である','日曜日でも受診できる','35歳以上の女性は乳がん検診を無料で受けられる','受診には事前の申し込みが必要である'],
-        answer:2, explain:'注意事項に「35歳以上の方は乳がん検診（女性）…も無料で受けられます」と記載されています。' }
-    ] },
-  { type:'search',id:'s5',title:'地域イベントのお知らせ',meta:'情報検索読解 第5篇',
-    searchTitle:'第20回 みどり町秋祭り',
-    searchContent:`<p>みどり町役場 文化振興課より</p><h4>第20回記念 みどり町秋祭り</h4>
-<table class="info-table">
-  <tr><th>開催日</th><td>2025年11月15日（土）・16日（日）</td></tr>
-  <tr><th>開催時間</th><td>両日とも 10:00～20:00</td></tr>
-  <tr><th>開催場所</th><td>みどり町中央公園</td></tr>
-  <tr><th>入場料</th><td><span class="highlight">無料</span></td></tr>
-</table>
-<p><strong>プログラム：</strong>11月15日（土）：花火大会（19:00～） / 11月16日（日）：抽選会（16:00～）</p>
-<p><em>※雨天決行。荒天の場合は一部変更あり。</em></p>`,
-    questions:[
-      { q:'花火大会の開催時間として正しいものはどれか？',
-        options:['11月15日 16:00～','11月16日 16:00～','11月15日 19:00～','11月16日 19:00～'],
-        answer:2, explain:'プログラムの11月15日（土）の欄に「花火大会（19:00～）」と記載されています。' },
-      { q:'この祭りについて正しくないものはどれか？',
-        options:['入場料は無料である','雨天の場合は中止となる','駐車場は無料である','抽選会は16日に行われる'],
-        answer:1, explain:'文末に「※雨天決行」とあり、雨天でも決行します。' }
-    ] },
-  { type:'search',id:'s6',title:'書店セールのお知らせ',meta:'情報検索読解 第6篇',
-    searchTitle:'本屋さん「紙とペン」年末大セール',
-    searchContent:`<p><strong>本屋さん「紙とペン」</strong>全店共通</p><h4>年末感謝セール 2025</h4>
-<table class="info-table">
-  <tr><th>セール期間</th><td>2025年12月20日（土）～12月31日（水）</td></tr>
-  <tr><th>対象店舗</th><td>新宿本店・渋谷店・吉祥寺店・横浜店（全4店舗）</td></tr>
-</table>
-<p><strong>セール内容：</strong></p>
-<ul style="margin-left:20px;color:#4a5568;">
-  <li>① 文庫本・新書本：<span class="highlight">全品30%OFF</span></li>
-  <li>② 単行本（文芸）：全品20%OFF</li>
-  <li>③ 絵本・児童書：全品25%OFF</li>
-  <li>④ 雑誌：対象商品 50%OFF</li>
-  <li>⑤ 文房具：5,000円以上購入で 1,000円引き</li>
-</ul>
-<p><strong>※注意：</strong>予約商品・電子書籍・中古本は対象外。オンラインショップは対象外。</p>`,
-    questions:[
-      { q:'セール期間中、文庫本を定価680円で買うと、セール価格はいくらか？',
-        options:['476円','544円','510円','612円'],
-        answer:0, explain:'文庫本は30%OFFなので、680円×0.7 = 476円です。' },
-      { q:'このセールについて正しいものはどれか？',
-        options:['オンラインショップでもセールが適用される','予約商品もセール対象である','絵本は全品25%OFFである','雑誌は全品50%OFFである'],
-        answer:2, explain:'セール内容の③に「絵本・児童書：全品25%OFF」と記載されています。' }
-    ] },
-  { type:'search',id:'s7',title:'日本語学校の募集案内',meta:'情報検索読解 第7篇',
-    searchTitle:'東京日本語アカデミー 2025年4月生募集',
-    searchContent:`<p><strong>東京日本語アカデミー</strong>（東京都文京区）</p><h4>2025年4月期 学生募集要項</h4>
-<table class="info-table">
-  <tr><th>募集定員</th><td>各コース <span class="highlight">60名</span>（先着順）</td></tr>
-  <tr><th>入学金</th><td>50,000円（入学時のみ）</td></tr>
-  <tr><th>授業料</th><td>12か月コース：600,000円 / 6か月コース：330,000円</td></tr>
-  <tr><th>教材費</th><td>12か月コース：30,000円 / 6か月コース：18,000円</td></tr>
-  <tr><th>応募資格</th><td>18歳以上・母国で12年以上の教育・N5以上の日本語能力</td></tr>
-</table>
-<p><strong>特徴：</strong>少人数クラス・EJU対策講座・無料進路相談・学生寮あり</p>`,
-    questions:[
-      { q:'12か月コースに入学する場合、入学金と授業料と教材費の合計はいくらか？',
-        options:['680,000円','630,000円','700,000円','580,000円'],
-        answer:0, explain:'入学金50,000円 + 授業料600,000円 + 教材費30,000円 = 680,000円です。' },
-      { q:'この学校の特徴として記載されていないものはどれか？',
-        options:['少人数クラスである','EJU対策講座がある','ビジネスマナー講座がある','学生寮がある'],
-        answer:2, explain:'特徴の欄には少人数クラス、EJU対策講座、進路相談、学生寮が記載されていますが、ビジネスマナー講座については触れられていません。' }
-    ] },
-  { type:'search',id:'s8',title:'民宿の宿泊案内',meta:'情報検索読解 第8篇',
-    searchTitle:'古民家民宿「ひなた」 宿泊プラン',
-    searchContent:`<p><strong>古民家民宿「ひなた」</strong>（山形県村山市）</p><h4>宿泊プラン一覧</h4>
-<table class="info-table">
-  <tr><th>プラン名</th><th>料金（1名様 / 1泊）</th></tr>
-  <tr><td>① 素泊まりプラン</td><td><span class="highlight">7,500円</span></td></tr>
-  <tr><td>② 朝食付きプラン</td><td>9,500円</td></tr>
-  <tr><td>③ 2食付きプラン</td><td>14,000円</td></tr>
-  <tr><td>④ 季節の味覚プラン</td><td>18,500円</td></tr>
-</table>
-<p><strong>キャンセルポリシー：</strong>7日前まで無料 / 6～3日前30% / 2日前～当日50% / 連絡なし不泊100%</p>`,
-    questions:[
-      { q:'2名様で「季節の味覚プラン」に2泊する場合、料金はいくらか？',
-        options:['37,000円','74,000円','94,000円','47,000円'],
-        answer:1, explain:'1名様1泊18,500円。2名様2泊 = 18,500 × 2 × 2 = 74,000円です。' },
-      { q:'当日キャンセルした場合、宿泊料金の何割が請求されるか？',
-        options:['3割','5割','10割','請求されない'],
-        answer:1, explain:'キャンセルポリシーの「2日前～当日：料金の50%」と記載されています。50%は5割です。' }
-    ] },
-  { type:'search',id:'s9',title:'美術館展覧会のお知らせ',meta:'情報検索読解 第9篇',
-    searchTitle:'国立新美術館 「ヨーロッパ絵画の巨匠たち」展',
-    searchContent:`<p><strong>国立新美術館</strong>（東京・六本木）</p><h4>企画展「ヨーロッパ絵画の巨匠たち」</h4>
-<table class="info-table">
-  <tr><th>会期</th><td>2025年4月1日（火）～7月15日（火） ※毎週水曜日休館（4/30・5/7は開館）</td></tr>
-  <tr><th>観覧料</th><td>一般 <span class="highlight">1,800円</span> / 大学生 1,400円 / 高校生 900円 / 中学生以下 無料 / 65歳以上 1,200円</td></tr>
-  <tr><th>所蔵作品</th><td>約120点（うち初来日作品35点）</td></tr>
-</table>
-<p><strong>割引：</strong>20名以上団体200円引き / 前売り券1,500円</p>
-<p><strong>注意：</strong>展覧会場内での写真撮影は禁止。</p>`,
-    questions:[
-      { q:'20名の団体が当日券で観覧する場合、合計料金はいくらか？',
-        options:['36,000円','32,000円','34,000円','38,000円'],
-        answer:1, explain:'一般1,800円から団体200円引き = 1,600円/人。1,600 × 20 = 32,000円です。' },
-      { q:'この展覧会について正しいものはどれか？',
-        options:['毎週水曜日はすべて休館である','写真撮影は可能である','中学生以下は無料で観覧できる','前売り券は1,800円である'],
-        answer:2, explain:'観覧料の欄に「中学生以下 無料」と明記されています。' }
-    ] },
-  { type:'search',id:'s10',title:'フィットネスクラブの会員案内',meta:'情報検索読解 第10篇',
-    searchTitle:'スポーツクラブ「フィットライフ」 新規会員入会キャンペーン',
-    searchContent:`<p><strong>スポーツクラブ「フィットライフ」</strong>（全国25店舗）</p><h4>2025年春の入会キャンペーン</h4>
-<table class="info-table">
-  <tr><th>キャンペーン期間</th><td>2025年3月1日～4月30日</td></tr>
-  <tr><th>対象</th><td>新規入会者（再入会は除く）</td></tr>
-</table>
-<p><strong>料金プラン：</strong></p>
-<table class="info-table">
-  <tr><th>プラン</th><th>通常月会費</th><th>キャンペーン月会費</th></tr>
-  <tr><td>① レギュラー</td><td>12,800円</td><td><span class="highlight">9,800円</span></td></tr>
-  <tr><td>② スタンダード</td><td>8,800円</td><td>6,800円</td></tr>
-  <tr><td>③ デイタイム</td><td>6,800円</td><td>4,800円</td></tr>
-</table>
-<p><strong>入会特典：</strong>入会金無料（通常30,000円）・事務手数料無料（通常5,000円）・トートバッグプレゼント</p>`,
-    questions:[
-      { q:'キャンペーン期間中にレギュラープランで入会した場合、初月の支払いはいくらか？',
-        options:['9,800円','44,800円','5,000円','14,800円'],
-        answer:0, explain:'キャンペーン期間中は入会金も事務手数料も無料です。月会費9,800円のみです。' },
-      { q:'デイタイムプランについて正しいものはどれか？',
-        options:['全店舗で利用できる','プールも利用できる','平日9:00～18:00に限って利用できる','通常月会費は12,800円である'],
-        answer:2, explain:'デイタイムプランは「平日9:00～18:00限定」と記載されています。' }
-    ] }
+{id:'c2',title:'電子書籍と紙の本',meta:'比較読解 第2篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私は通勤時間や休み時間に読書をするのが好きで、一年に100冊以上読みます。そんな私にとって、電子書籍はなくてはならない存在です。まず、何と言っても持ち運びが便利です。専用の端末一台に何百冊も入れることができるので、旅行にもカバンを圧迫することなくたくさんの本を持って行けます。</p><p>また、検索機能が便利です。気になった語句があればすぐに調べられるし、読み返したい箇所もすぐに探し当てられます。ただし、充電が切れると読めなくなることや、目が疲れやすいという問題点もあります。それでも、私には電子書籍の方が合っています。</p>',
+b:'<p>私は月に50冊ほど本を読みますが、できるだけ紙の本を選ぶようにしています。理由はいくつかあります。一つ目は、読書の「実感」があることです。ページをめくる音、厚くなっていく背表紙、インクの匂い、そういったものが読書の楽しみを形作っていると感じます。電子書籍は便利ですが、こうした感触がないのが少し寂しいです。</p><p>二つ目は、部屋を片付けるきっかけになることです。本棚に並べた本を眺めるのが好きで、時々並べ替えたり読まなくなった本を処分したりします。電子書籍だとこうした習慣がなく、自分がどれだけ読んだかの実感も弱くなります。もちろん、電子書籍の便利さも理解していますが、私は紙の本の良さを大切にしていきたいです。</p>',
+q:[{q:'Aさんが電子書籍の利点として挙げていないものはどれか？',o:['持ち運びが便利なこと','検索機能が便利なこと','目が疲れにくいこと','たくさんの本を一度に持てること'],a:2,e:'Aさんは電子書籍の利点として持ち運びの便利さや検索機能を挙げていますが、「目が疲れにくい」はむしろ問題点として触れられています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、自分の好きな形式の方が絶対に優れていると考えている','AもBも、紙の本には電子書籍にない「感触」や「実感」があると認めている','Aは紙の本の方が良いと思い、Bは電子書籍の方が良いと思っている','Aは持ち運びの便利さを重視し、Bは読書の実感や本棚での管理を重視している'],a:3,e:'Aさんは持ち運びの便利さと検索機能を重視して電子書籍を選び、Bさんは読書の実感や本棚での管理を重視して紙の本を選んでいます。'}]},
+
+{id:'c3',title:'リモートワークとオフィスワーク',meta:'比較読解 第3篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私はリモートワークになってから、生活が大きく変わりました。まず一番大きいのは通勤時間がなくなったことです。往復で2時間ほどかかっていたので、その時間を朝のジョギングや読書、晩ご飯の準備に充てられるようになりました。体も動かすようになったし、生活リズムも整ってきました。</p><p>また、服装も自由です。打ち合わせの時は別ですが、普段はスウェットで過ごしています。でも、一番大きな変化は、集中力を維持するのが自分自身にかかっていることです。誘惑が多い自宅ですので、上手に時間を使わないとすぐにだらけてしまいます。最初はこれに苦労しましたが、少しずつ慣れてきました。</p>',
+b:'<p>私はリモートワークも経験しましたが、やっぱりオフィスに行く方が好きです。一つ目の理由は、人と接する機会が減ってしまったことです。普段はチャットでのやり取りが多く、直接顔を合わせて話すことが少なくなりました。時々オンライン会議をしますが、やはり対面の方が気持ちが伝わりやすいと感じます。</p><p>二つ目は、仕事とプライベートの境界線が曖昧になってしまうことです。オフィスであれば「帰る」という行為が区切りになりますが、自宅だと仕事が終わった後も、ついついPCを開いてメールを見てしまいます。その結果、残業が増えたように感じます。こうした点から、私はオフィスワークを選んでいます。</p>',
+q:[{q:'Aさんがリモートワークの良さとして挙げているのはどれか？',o:['人と接する機会が減ること','通勤時間がなくなり生活が整うこと','仕事とプライベートの境界線がなくなること','オンライン会議が増えること'],a:1,e:'Aさんは通勤時間がなくなり、その時間を有効活用できるようになったこと、生活リズムが整ったことを挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、リモートワークの方が仕事の効率が良いと考えている','AもBも、オフィスワークよりリモートワークの方が精神的に楽だと感じている','Aは生活リズムが整い自分の時間が増えた点でリモートを支持し、Bは人との交流と仕事の区切りを重視してオフィスを支持している','Aはオフィスに行くのが嫌いで、Bはリモートワークが大好きだと言っている'],a:2,e:'Aさんは通勤時間の削減で生活が整ったことを挙げ、Bさんは人との交流や仕事とプライベートの区切りを重視しています。'}]},
+
+{id:'c4',title:'太陽光発電と原子力発電',meta:'比較読解 第4篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私は太陽光発電の導入に賛成です。まず第一に、環境負荷が小さいことです。二酸化炭素を排出せず、化石燃料を消費しないので、持続可能な社会を作る上で重要な役割を果たします。私の家でも屋根にソーラーパネルを設置しましたが、電気代が半分ほどになりました。</p><p>ただし、問題点もあります。天気に左右されること、夜間は発電できないこと、設置コストが決して安くないことなどです。それでも、長い目で見れば太陽光発電は日本の未来のエネルギー源として必要だと考えています。</p>',
+b:'<p>私は原子力発電をすぐには止めるべきではないと考えています。理由はいくつかあります。まず、電気代の安さです。太陽光発電は天候に依存するため、安定した供給が難しいという問題があります。</p><p>ただし、核廃棄物の処理問題や、事故のリスクについては十分に議論する必要があります。私たちは安心して生活できるエネルギーを選ばなければなりません。</p>',
+q:[{q:'Aさんが太陽光発電の利点として挙げているのはどれか？',o:['発電コストが安いこと','天気に左右されないこと','環境負荷が小さく電気代が節約できること','夜間も安定して発電できること'],a:2,e:'Aさんは「環境負荷が小さいこと」を挙げ、「電気代が半分になった」と経済的なメリットも示しています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、太陽光発電が日本の未来のエネルギーだと考えている','AもBも、原子力発電はすぐに廃止すべきだと主張している','Aは環境への影響を重視して太陽光を支持し、Bは電気の安定供給とコストを重視して原子力の継続を考えている','Aは原子力発電を支持し、Bは太陽光発電を支持している'],a:2,e:'Aさんは環境負荷の小ささを重視して太陽光発電を支持しています。Bさんは電気代の安さと安定供給を重視して、原子力発電をすぐに止めるべきではないと考えています。'}]},
+
+{id:'c5',title:'私立学校と公立学校',meta:'比較読解 第5篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私の子供は現在私立学校に通っています。選んだ理由はいくつかあります。まず教育方針が明確で、特色があることです。子供の通っている学校は英語教育に力を入れており、ネイティブの先生が常駐しています。また、少人数制のクラスが多く、先生の目が行き届きやすいと感じています。</p><p>ただ、学費が高いのが難点です。毎月の授業料のほか、教材費や課外活動費など、公立学校に比べると負担は大きいです。夫婦で協力して家計をやりくりしています。</p>',
+b:'<p>私は子供に公立学校を通わせています。理由はいくつかあります。一つ目は、学費の安さです。家計に優しい上に、誰もが平等に教育を受けられる制度だと感じています。二つ目は、さまざまな背景の子供たちと接することができる点です。</p><p>私立学校も良い点はたくさんありますが、公立学校の方が子供にとって多様な経験ができる場だと考えています。もちろん、学校は子供に合ったところが一番ですので、どちらが絶対的に優れているというものではないと思います。</p>',
+q:[{q:'Aさんが私立学校を選んだ理由として挙げているのはどれか？',o:['学費が安いこと','英語教育に力があり少人数制であること','さまざまな背景の子供が集まること','家計に優しいこと'],a:1,e:'Aさんは「英語教育に力を入れており、ネイティブの先生が常駐」「少人数制のクラスが多く、先生の目が行き届きやすい」を挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、自分が選んだ学校形式が絶対的に優れていると主張している','AもBも、公立学校の方が良いと考えている','Aは教育の質と特色を重視して私立を選び、Bは経済的負担と多様性を重視して公立を選んでいる','Aは公立学校が嫌いで、Bは私立学校が嫌いだと言っている'],a:2,e:'Aさんは教育の質と特色を重視して私立学校を選び、Bさんは経済的負担と多様性を重視して公立学校を選んでいます。'}]},
+
+{id:'c6',title:'都会での生活と田舎での生活',meta:'比較読解 第6篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私は20代の頃からずっと東京で暮らしています。都会の生活には楽しいことがたくさんあります。まず、仕事の機会が多いことです。私のようなIT関係の仕事は、東京や大阪などの大都市圏でないと求人がほとんどありません。給料も都会の方が高い傾向にあります。</p><p>また、遊ぶ場所やレストラン、美術館、コンサートホールなど、休日を過ごす選択肢が豊富です。ただ、家賃は高いし、通勤ラッシュは本当に大変です。電車の中では身動きが取れないこともあります。</p>',
+b:'<p>私は生まれてからずっと北海道の田舎で暮らしています。自然がいっぱいで、空気もきれいです。朝は鳥のさえずりで目覚め、家の前では自転車でサイクリングを楽しむこともできます。家賃も安いし、野菜も近くの農家さんから直接安く買えます。</p><p>ただ、不便な点もあります。車がないと生活できませんし、大きな病院に行くにも車で1時間以上かかります。進学や就職の選択肢も都会に比べると少ないです。</p>',
+q:[{q:'Aさんが都会の利点として挙げているのはどれか？',o:['自然が豊かなこと','家賃が安いこと','仕事の機会が多く給料が高いこと','車が必要ないこと'],a:2,e:'Aさんは「仕事の機会が多い」「給料も都会の方が高い」「遊ぶ場所が豊富」を挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、都会での生活の方が絶対的に良いと考えている','AもBも、田舎での生活は不便だと感じている','Aは仕事の機会や娯楽の多さを重視して都会に住み、Bは自然豊かな生活と物価の安さを重視して田舎に住んでいる','Aは田舎が好きで、Bは都会が好きだと述べている'],a:2,e:'Aさんは仕事の機会の多さや娯楽施設の充実を重視して都会で生活しています。Bさんは自然の豊かさや空気のきれいさ、家賃の安さを重視して田舎で生活しています。'}]},
+
+{id:'c7',title:'テレビCMとインターネット広告',meta:'比較読解 第7篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私はマーケティング部に所属していますが、ここ数年インターネット広告の方が重要性が増していると感じています。一つ目の理由は、ターゲットを細かく絞れることです。年齢、性別、地域、興味関心に合わせて広告を配信できるため、無駄なく商品を宣伝できます。</p><p>二つ目は、効果をデータで測定できることです。何回クリックされたか、何人が商品ページに訪れたか、実際に購入したかなど、詳細なデータが取得できます。これにより、広告の効果を改善していくことが可能です。</p>',
+b:'<p>もちろんインターネット広告の力も大きいですが、私はテレビCMの力はまだまだ捨てがたいと考えています。一つ目の理由は、一度に大勢の人に伝えられることです。家族みんなで見ている番組でCMが流れれば、ブランドの認知度を一気に高めることができます。</p><p>二つ目は、ブランドイメージの構築に向いている点です。高級感のある映像や、親しみやすいタレントを起用して、ブランドの世界観を伝えることができます。インターネット広告はどちらかというと、すでに興味のある人に購入を促すためのものという側面が強いです。</p>',
+q:[{q:'Aさんがインターネット広告の利点として挙げているのはどれか？',o:['ブランドイメージを構築できること','一度に多くの人に伝えられること','ターゲットを絞って効果を測定できること','番組とタイアップできること'],a:2,e:'Aさんは「ターゲットを細かく絞れる」「効果をデータで測定できる」を挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、インターネット広告の方がテレビCMより優れていると考えている','AもBも、テレビCMはもう時代遅れだと感じている','Aはターゲットの精度と効果測定を重視してネット広告を重視し、Bは認知度アップとブランド構築にはテレビCMが必要だと考えている','AはテレビCMが好きで、Bはネット広告が好きだと言っている'],a:2,e:'Aさんはターゲットを細かく絞れることや効果を測定できることを重視してインターネット広告を重視しています。Bさんは一度に大勢の人に伝えられることやブランドイメージの構築に向いている点からテレビCMの価値を認めています。'}]},
+
+{id:'c8',title:'在宅介護と施設介護',meta:'比較読解 第8篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私の母は今、在宅介護をしています。まず、自分の家で生活できるのが良いです。慣れ親しんだ部屋や、いつもの近所の景色を見ながら過ごせるのは、母にとって精神的な安定につながっていると感じます。</p><p>また、介護の時間を家族が自由に決められます。ただ、介護する家族の負担が大きいのは確かです。私たちは仕事を辞めて介護に専念するわけにはいかないので、訪問介護のヘルパーさんや看護師さんにも助けてもらっています。</p>',
+b:'<p>私の父は特別養護老人ホームに入っています。まず、24時間体制でケアしてもらえるのが安心です。夜間に容体が急変しても、すぐに対応してもらえます。在宅介護だと家族がそばにいない時は、心配で仕事も手につきませんでした。</p><p>また、同じような年齢の人たちと交流できるのも良い点です。父は将棋が好きで、施設の仲間と毎日のように対局しています。経済的な負担は大きいですが、父の状態が安定してきたことを考えると、選んでよかったと思っています。</p>',
+q:[{q:'Aさんが在宅介護の利点として挙げているのはどれか？',o:['24時間体制でケアしてもらえること','同世代の人と交流できること','自分の家で生活でき精神的安定につながること','経済的な負担が少ないこと'],a:2,e:'Aさんは「自分の家で生活できるのが良い」「慣れ親しんだ環境で過ごせるのは精神的な安定につながっている」と挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、施設介護の方が在宅介護より優れていると考えている','AもBも、在宅介護の負担が大きいと感じている','Aは精神的な安定を重視して在宅介護を選び、Bは24時間の安心と交流の機会を重視して施設介護を選んでいる','Aは施設介護を嫌い、Bは在宅介護を嫌いだと言っている'],a:2,e:'Aさんは慣れ親しんだ環境で過ごせることによる精神的な安定を重視して在宅介護を選んでいます。Bさんは24時間のケアと同世代の人との交流という安心感を重視して施設介護を選んでいます。'}]},
+
+{id:'c9',title:'ノートPCとタブレット端末',meta:'比較読解 第9篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私は仕事でもプライベートでもノートPCを中心に使っています。一つ目の理由は、キーボードが使いやすいことです。長い文章を書いたり、表計算をしたりする時は、物理的なキーボードの方が圧倒的に速く、効率が良いです。</p><p>また、画面が見やすいことも挙げられます。複数のウィンドウを同時に開いて作業することもできます。タブレットは画面が小さい上に、基本的に一つのアプリしか表示できません。重さはノートPCの方が重いですが、私はそれほど気になりません。</p>',
+b:'<p>私はタブレット端末が大好きです。まず、軽くて持ち運びが楽です。学校のカバンにすっぽり入るし、喫茶店でも気軽に取り出して使えます。</p><p>また、タッチ操作が直感的で楽しいです。手書きでメモを取ったり、絵を描いたり、プレゼンテーションの資料に注記を書き込んだり…画面に直接触れて操作するのは、ノートPCのマウスやトラックパッドよりも自然な感じがします。ただし、長い文章を書くのは少し苦手です。Bluetoothキーボードを使いますが、やっぱりノートPCのキーボードには及びません。</p>',
+q:[{q:'AさんがノートPCの利点として挙げているのはどれか？',o:['軽くて持ち運びが楽なこと','タッチ操作が直感的なこと','キーボードが使いやすく画面が見やすいこと','手書きでメモが取れること'],a:2,e:'Aさんは「キーボードが使いやすい」「画面が見やすい」「複数ウィンドウを同時に開ける」を挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、ノートPCの方がタブレット端末より優れていると考えている','AもBも、タブレット端末は長文作成に向いていると認めている','Aはキーボードと画面の多機能性を重視してノートPCを使い、Bは持ち運びの便利さとタッチ操作を重視してタブレットを使っている','Aはタブレットが好きで、BはノートPCが好きだと言っている'],a:2,e:'Aさんはキーボードの使いやすさや画面の大きさ、マルチタスク機能を重視してノートPCを使っています。Bさんは軽くて持ち運びが楽な点やタッチ操作の直感的さを重視してタブレットを使っています。'}]},
+
+{id:'c10',title:'従来型農業と有機農業',meta:'比較読解 第10篇',tagA:'Aさんの意見',tagB:'Bさんの意見',
+a:'<p>私は有機農業の方が良いと思います。まず、化学農薬や化学肥料を使わないので、体に優しいです。小さい子供がいるので、安心して野菜を食べさせたいという気持ちが強いです。</p><p>また、土の力が強くなるというメリットもあります。ただ、生産量は少ないですし、値段も高いです。農家の方にとっても、化学農薬を使わない分、手間がかかるので大変だと思います。それでも、健康のためなら払う価値があると考えています。</p>',
+b:'<p>私は従来型農業も必要だと思います。まず、たくさんの人に野菜を届けることができます。日本でも食料自給率を上げる必要がありますが、有機農業だけでは生産量が足りません。価格を抑えて、誰もが買える野菜を作ることも大切です。</p><p>また、農家の負担を考えると、化学農薬や化学肥料を使うことで、手間を減らすことも重要です。高齢化が進む農業の現場では、どれだけ農家の負担を減らすかも課題の一つです。もちろん、有機農業の素晴らしさは私も認めています。</p>',
+q:[{q:'Aさんが有機農業の利点として挙げているのはどれか？',o:['生産量が多いこと','値段が安いこと','体に優しく土の力が強まること','農家の負担が少ないこと'],a:2,e:'Aさんは「化学農薬や化学肥料を使わないので、体に優しい」「土の力が強くなる」を挙げています。'},
+{q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、有機農業の方が絶対的に優れていると考えている','AもBも、従来型農業の方が絶対的に優れていると考えている','Aは健康のために有機農業を支持し、Bは食料の供給量と農家の負担から従来型農業の必要性を挙げている','Aは従来型農業を好きで、Bは有機農業を好きだと述べている'],a:2,e:'Aさんは体への優しさと土の力を重視して有機農業を支持しています。Bさんは食料自給率の向上や誰もが買える価格、農家の負担の軽減から従来型農業の必要性を挙げています。'}]}
 ];
 
-/* ========== 状态 & 渲染 ========== */
+const SEARCH = [
+{id:'s1',title:'温泉施設の夏季特別プラン',meta:'情報検索読解 第1篇',
+t:'湯河原温泉「美春荘」夏の特別プラン 2025',
+c:'<p>神奈川県湯河原町にある老舗旅館「美春荘」では、例年大人気の夏季特別プランを今年もご用意しました。</p><p>湯河原は古くから多くの文人墨客に愛された温泉地で、箱根の山々を見下ろす景色は格別です。当館は創業80年を迎え、昭和の風情を残しつつ、最近リニューアルオープンいたしました。客室は全15室、すべて庭園か相模湾の海を見下ろすことができます。</p><table class="info-table"><tr><th>プラン名</th><th>料金（1名 / 1泊2食）</th><th>期間</th></tr><tr><td>① 夏の朝食付きプラン</td><td><span class="highlight">9,800円</span>～</td><td>7月1日～8月31日</td></tr><tr><td>② 露天風呂貸切プラン</td><td>15,800円～</td><td>7月10日～8月20日</td></tr><tr><td>③ お子様無料プラン</td><td>大人2名1組19,600円～</td><td>7月15日～8月25日</td></tr><tr><td>④ カップル特別プラン</td><td>2名1組28,000円～</td><td>8月1日～8月31日</td></tr></table><p><strong>アクセス：</strong>JR湯河原駅より当館無料送迎バスで約15分（事前予約制）。</p><p><em>※8月12日～8月15日はお盆期間のため、料金が2,000円増しとなります。</em></p>',
+q:[{q:'カップル特別プランの料金として正しいものはどれか？',o:['1名15,800円～','2名1組19,600円～','2名1組28,000円～','1名9,800円～'],a:2,e:'プラン④に「カップル特別プラン」2名1組28,000円～と記載されています。'},
+{q:'8月13日に宿泊する場合、カップル特別プランの料金はいくら増しになるか？',o:['1,000円増し','2,000円増し','3,000円増し','増しはない'],a:1,e:'8月12日～8月15日はお盆期間のため、料金が2,000円増しとなります。'}]},
+
+{id:'s2',title:'市民図書館イベントのお知らせ',meta:'情報検索読解 第2篇',
+t:'こばやし市民図書館 秋の読書祭り2025',
+c:'<p>こばやし市民図書館では、毎年秋に恒例の「読書祭り」を開催しています。</p><p>読書の秋にちなんで、今年も様々なイベントをご用意いたしました。著名人による講演会、絵本作家の読み聞かせ会、古本市、しおり作り体験、本の交換会など、老若男女を問わずお楽しみいただける内容です。</p><table class="info-table"><tr><th>期間</th><td>2025年10月18日（土）～11月3日（月・祝） 計17日間</td></tr><tr><th>会場</th><td>こばやし市民図書館 1階ロビー・2階ホール・3階多目的スペース</td></tr><tr><th>参加費</th><td><span class="highlight">無料</span>（一部イベントは有料）</td></tr><tr><th>駐車場</th><td>当館駐車場（無料・80台収容）※10月18日・19日は隣接の市役所駐車場も無料開放</td></tr></table><p><strong>主なイベント：</strong>10月19日（日）芥川賞作家講演会（参加費500円・事前申し込み制）/ 10月26日（日）絵本作家読み聞かせ会（無料）/ 11月2日（日）古本市（全品100円～）/ 11月3日（月）しおり作り体験（無料・先着30名）</p><p>お問い合わせ：Tel 042-987-6543</p>',
+q:[{q:'芥川賞作家の講演会に参加するために必要なものはどれか？',o:['特に必要なものはない','事前の申し込みと参加費500円','整理券と身分証明書','読書経験のレポート'],a:1,e:'講演会は「参加費500円・事前申し込み制」と記載されています。'},
+{q:'この読書祭りについて正しくないものはどれか？',o:['期間は17日間である','絵本作家の読み聞かせ会は無料である','駐車場は全日市役所駐車場も無料開放される','古本市では全品100円から販売される'],a:2,e:'市役所駐車場の無料開放は「10月18日・19日」のみで、全日ではありません。'}]},
+
+{id:'s3',title:'病院の外来診療案内',meta:'情報検索読解 第3篇',
+t:'市立総合病院 外来診療案内 2025',
+c:'<p>この度、市立総合病院では2025年4月より外来診療体制を一部変更いたします。変更点をご確認の上、ご利用ください。</p><table class="info-table"><tr><th>診療科目</th><th>受付時間</th><th>休診日</th></tr><tr><td>内科</td><td>8:00～11:30 / 13:00～16:30</td><td>水曜日午後</td></tr><tr><td>外科</td><td>8:00～11:00</td><td>木曜日・土曜日</td></tr><tr><td>小児科</td><td>8:00～11:30 / 13:00～16:30</td><td>日曜日</td></tr><tr><td>眼科</td><td>8:00～11:00</td><td>月曜日・金曜日</td></tr><tr><td>皮膚科</td><td>8:00～11:00</td><td>火曜日・木曜日</td></tr></table><p><strong>診療案内：</strong>・初診の方は保険証をお持ちください。紹介状があれば併せてご持参ください。<br>・再来診の方は診察券をご持参ください。<br>・緊急の場合は救急外来で対応いたします。</p><p>お問い合わせ：代表電話 044-000-1111（8:00～17:00）</p>',
+q:[{q:'眼科の休診日はどれか？',o:['水曜日午後','月曜日・金曜日','火曜日・木曜日','土曜日・日曜日'],a:1,e:'眼科の休診日の欄に「月曜日・金曜日」と記載されています。'},
+{q:'この病院の外来診療について正しくないものはどれか？',o:['内科は水曜日午後が休診である','外科は木曜日と土曜日が休診である','再来診の方は紹介状が必ず必要である','緊急の場合は救急外来で対応する'],a:2,e:'紹介状は初診の方に「あれば併せてご持参」とあるもので、必須ではありません。再来診の方は診察券で済みます。'}]},
+
+{id:'s4',title:'大学公開講座の案内',meta:'情報検索読解 第4篇',
+t:'〇〇大学 2025年度 公開講座受講者募集',
+c:'<p>〇〇大学では、地域の皆様に大学の学びを発信することを目的として、公開講座を開講しています。</p><p>2025年度は、全12講座を予定しています。各講座は、大学の教員が講師を務め、初心者の方にもわかりやすい内容でお届けします。オンライン受講にも対応していますので、遠方の方でも気軽にご参加いただけます。</p><table class="info-table"><tr><th>講座期間</th><td>2025年4月～2026年2月（月1回）</td></tr><tr><th>開講日時</th><td>原則として毎月第2水曜日 19:00～20:30</td></tr><tr><th>会場</th><td>〇〇大学 講堂A（またはオンライン配信）</td></tr><tr><th>受講料</th><td><span class="highlight">無料</span>（事前申し込み制）</td></tr><tr><th>定員</th><td>会場参加 各回100名 / オンライン参加 各回500名</td></tr></table><p><strong>2025年度主な講座テーマ：</strong>4月AIは私たちの生活をどう変えるか / 5月世界の食文化 / 6月コロナ後の世界経済 / 7月日本の伝統工芸 / 9月宇宙開発の最新動向 / 10月認知症の予防 / 11月気候変動と暮らし / 2月東日本大震災から15年</p><p>お申し込み：各講座の1か月前より大学HPから事前申し込み。定員になり次第締め切り。</p>',
+q:[{q:'開講日時として正しいものはどれか？',o:['毎週水曜日 19:00～20:30','原則として毎月第2水曜日 19:00～20:30','毎月第2木曜日 19:00～20:30','原則として毎月第1水曜日 19:00～20:30'],a:1,e:'開講日時の欄に「原則として毎月第2水曜日 19:00～20:30」と明記されています。'},
+{q:'この公開講座について正しくないものはどれか？',o:['会場参加の定員は各回100名である','オンライン参加の定員は各回500名である','受講料は無料である','全24講座が予定されている'],a:3,e:'「2025年度は、全12講座を予定しています」と記載されており、24講座ではありません。'}]},
+
+{id:'s5',title:'求人票のお知らせ',meta:'情報検索読解 第5篇',
+t:'株式会社ネクストワーク 中途採用のお知らせ',
+c:'<p>株式会社ネクストワーク（本社：東京都渋谷区）では、事業拡大に伴い、2025年度の中途採用を行います。</p><p>当社はIT関連のシステム開発を主な事業としており、近年はAIやデータ分析分野にも力を入れています。創業15年のベンチャー企業で、社員数は現在約120名です。平均年齢は32歳と若く、風通しの良い社風が特徴です。</p><table class="info-table"><tr><th>募集職種</th><td>① システムエンジニア（経験者） ② Webデザイナー（経験者） ③ 人事総務（実務経験3年以上）</td></tr><tr><th>採用予定人数</th><td>各職種 5名程度（計15名）</td></tr><tr><th>応募資格</th><td>① SE：実務経験3年以上（Java・Pythonいずれかの経験あり）<br>② Webデザイナー：実務経験3年以上（HTML・CSS・JavaScriptの知識あり）<br>③ 人事総務：実務経験3年以上（給与計算・社会保険手続きの経験あり）</td></tr><tr><th>勤務地</th><td>東京都渋谷区（本社）または東京都品川区（品川オフィス）</td></tr><tr><th>給与</th><td>年俸制 400万円～800万円（経験・能力による）</td></tr><tr><th>休日休暇</th><td>完全週休2日制（土日）・祝日・年末年始・有給休暇（年10日～）</td></tr></table><p><strong>応募締め切り：</strong>2025年12月31日（水）必着</p><p><strong>応募方法：</strong>履歴書・職務経歴書を下記住所まで郵送、または採用HPのエントリーフォームから。書類選考の上、面接を2回実施。</p>',
+q:[{q:'システムエンジニアの応募資格として必要なものはどれか？',o:['実務経験1年以上','JavaまたはPythonの経験','HTML・CSS・JavaScriptの知識','給与計算の経験'],a:1,e:'募集職種①の応募資格に「実務経験3年以上（Java・Pythonいずれかの経験あり）」と記載されています。'},
+{q:'この求人について正しくないものはどれか？',o:['採用予定人数は各職種5名程度である','勤務地は渋谷区と品川区の2箇所である','給与は年俸制で400万円～800万円である','休日は完全週休3日制である'],a:3,e:'休日休暇は「完全週休2日制（土日）」となっており、週休3日制ではありません。'}]},
+
+{id:'s6',title:'書店「ひまわり」新刊フェア',meta:'情報検索読解 第6篇',
+t:'書店「ひまわり」春の新刊フェア2025',
+c:'<p>神保町の老舗書店「ひまわり」では、春の特別企画として「春の新刊フェア2025」を開催いたします。</p><p>フェア期間中は、2024年10月～2025年3月に刊行された新刊本を中心に、店内全商品を対象とした割引サービスや、著者サイン会、朗読会などの各種イベントを開催します。また、期間中に本をご購入いただいた方には、もれなく「ひまわりオリジナルブックカバー」をプレゼント！</p><table class="info-table"><tr><th>フェア期間</th><td>2025年4月1日（火）～4月20日（日）</td></tr><tr><th>営業時間</th><td>平日 10:00～21:00 / 土日祝日 9:00～21:00</td></tr><tr><th>割引内容</th><td>① 文庫本・新書：全品30%OFF（一部除外あり）<br>② 絵本・児童書：全品25%OFF<br>③ 単行本（文芸）：全品20%OFF<br>④ 雑誌：対象商品 50%OFF</td></tr><tr><th>サイン会</th><td>4月5日（土）芥川賞作家・山田太郎さん（14:00～）<br>4月12日（土）直木賞作家・佐藤花子さん（14:00～）</td></tr><tr><th>臨時休業</th><td>4月8日（火）</td></tr></table><p><strong>サイン会参加について：</strong>当日先着順。対象著者の最新刊を会場でご購入いただく必要があります（持ち込み不可）。整理券は当日10:00より配布開始、お一人様1枚限り、なくなり次第終了。</p><p>場所：東京都千代田区神保町1-5-12 「ひまわり書店」本店</p>',
+q:[{q:'フェア期間中、文庫本を定価680円で買うと、セール価格はいくらか？',o:['476円','544円','510円','612円'],a:0,e:'文庫本は30%OFFなので、680円×0.7 = 476円です。'},
+{q:'このフェアについて正しくないものはどれか？',o:['4月8日は臨時休業である','サイン会は事前予約が必要である','期間中本を買うとブックカバーがもらえる','フェア期間は4月20日までである'],a:1,e:'サイン会は「当日先着順」「整理券は当日10:00より配布開始」となっており、事前予約は不要です。'}]},
+
+{id:'s7',title:'マンション管理組合総会のご案内',meta:'情報検索読解 第7篇',
+t:'「グリーンヒルズ」管理組合 第4回総会のご案内',
+c:'<p>「グリーンヒルズ」管理組合より、平成25年度第4回通常総会のご案内を差し上げます。</p><p>今回の総会では、来年度の管理費の見直しや、外壁工事の実施計画、駐車場の利用ルール改正など、皆様の生活に関わる重要な議題がございます。お忙しいとは存じますが、ぜひご出席ください。</p><table class="info-table"><tr><th>日時</th><td>2025年11月20日（木）19:00～21:00（受付18:30～）</td></tr><tr><th>会場</th><td>グリーンヒルズ管理事務所 2階会議室</td></tr><tr><th>対象</th><td>全区分所有者（各戸1名様）</td></tr><tr><th>議題</th><td>① 2026年度管理費改正案 ② 外壁修繕工事計画 ③ 駐車場利用規則改正 ④ その他</td></tr></table><p><strong>総会成立条件：</strong>当日の出席者（委任状を含む）が全区分所有者の過半数に達した場合、総会は成立します。</p><p><strong>委任状について：</strong>ご都合が悪く出席できない場合は、委任状を11月18日（火）までに管理事務所のポストに投函してください。</p><p><strong>事前質問の受付：</strong>総会で取り上げてほしい質問や意見がありましたら、11月15日（土）までにメールでお送りください。</p><p>管理組合事務局：Tel 03-5555-0000 / Mail: info@greenhills-mansion.jp</p>',
+q:[{q:'この総会の開催日時として正しいものはどれか？',o:['2025年11月20日（木）19:00～21:00','2025年11月20日（木）18:30～19:00','2025年11月18日（火）19:00～21:00','2025年11月15日（土）19:00～21:00'],a:0,e:'日時の欄に「2025年11月20日（木）19:00～21:00（受付18:30～）」と明記されています。'},
+{q:'この総会について正しくないものはどれか？',o:['会場は管理事務所の2階会議室である','各戸から複数人が出席できる','委任状の提出締め切りは11月18日である','事前質問は11月15日まで受け付けている'],a:1,e:'対象は「全区分所有者（各戸1名様）」となっており、各戸から複数人が出席できるわけではありません。'}]},
+
+{id:'s8',title:'カルチャーセンター講座案内',meta:'情報検索読解 第8篇',
+t:'アクティブカルチャーセンター 2025年冬期講座',
+c:'<p>アクティブカルチャーセンターでは、2025年1月から始まる冬期講座の受講者を募集しています。</p><p>当センターでは、教養・趣味・健康・語学など幅広い分野の講座を開催しています。今回の冬期講座では、新しく「AI活用術」「アンガーマネジメント」「オンラインヨガ」などの講座が仲間入りしました。初心者の方も安心してご参加いただけます。</p><table class="info-table"><tr><th>講座期間</th><td>2025年1月10日（金）～3月20日（木） 全10回</td></tr><tr><th>申込締め切り</th><td>2024年12月20日（金）</td></tr><tr><th>開講時間帯</th><td>午前 10:00～12:00 / 午後 13:30～15:30 / 夜間 18:30～20:30</td></tr></table><p><strong>主な講座と受講料：</strong></p><table class="info-table"><tr><th>講座名</th><th>受講料（全10回）</th><th>定員</th></tr><tr><td>① 実用英語（初中級）</td><td><span class="highlight">25,000円</span></td><td>20名</td></tr><tr><td>② AI活用術（新設）</td><td>30,000円</td><td>25名</td></tr><tr><td>③ アンガーマネジメント（新設）</td><td>18,000円</td><td>15名</td></tr><tr><td>④ オンラインヨガ（新設）</td><td>20,000円</td><td>30名</td></tr><tr><td>⑤ フラワーアレンジメント</td><td>22,000円</td><td>12名</td></tr></table><p><strong>特典：</strong>2講座以上同時申し込みで2講座目が50%割引 / 団体（5名以上）で全員10%割引</p><p>お問い合わせ：Tel 03-1111-2222</p>',
+q:[{q:'「アンガーマネジメント」講座の受講料と定員はどれか？',o:['18,000円・15名','20,000円・30名','25,000円・20名','30,000円・25名'],a:0,e:'講座③に「アンガーマネジメント（新設）」受講料18,000円、定員15名と記載されています。'},
+{q:'このカルチャーセンターの冬期講座について正しくないものはどれか？',o:['講座期間は全10回である','申し込み締め切りは12月20日である','新設講座は全部で2種類である','2講座以上申し込むと2講座目が50%割引になる'],a:2,e:'新設講座は「AI活用術」「アンガーマネジメント」「オンラインヨガ」の3種類あり、2種類ではありません。'}]},
+
+{id:'s9',title:'フィットネスクラブ入会案内',meta:'情報検索読解 第9篇',
+t:'スポーツクラブ「フィットライフ」春の入会キャンペーン',
+c:'<p>スポーツクラブ「フィットライフ」（全国25店舗）では、2025年春の入会キャンペーンを実施しています。</p><p>当クラブは最新のトレーニングマシンを導入し、経験豊富なインストラクターが皆様の健康をサポートします。ジムのほか、スタジオプログラム（ヨガ・エアロビクス・ボクササイズなど）やプールも完備しています。</p><table class="info-table"><tr><th>キャンペーン期間</th><td>2025年3月1日～4月30日</td></tr><tr><th>対象</th><td>新規入会者（再入会は除く）</td></tr></table><p><strong>料金プラン：</strong></p><table class="info-table"><tr><th>プラン</th><th>通常月会費</th><th>キャンペーン月会費</th><th>内容</th></tr><tr><td>① レギュラー</td><td>12,800円</td><td><span class="highlight">9,800円</span></td><td>全店舗 / ジム＋スタジオ＋プール</td></tr><tr><td>② スタンダード</td><td>8,800円</td><td>6,800円</td><td>登録店のみ / ジム＋スタジオ</td></tr><tr><td>③ デイタイム</td><td>6,800円</td><td>4,800円</td><td>登録店のみ / 平日9:00～18:00限定</td></tr></table><p><strong>入会特典：</strong>入会金無料（通常30,000円）・事務手数料無料（通常5,000円）・オリジナルトートバッグプレゼント・初回体験トレーニング無料</p><p><strong>お手続き：</strong>店舗窓口で本人確認書類を持参。未成年は保護者同意書が必要。</p>',
+q:[{q:'キャンペーン期間中にレギュラープランで入会した場合、初月の支払いはいくらか？',o:['9,800円','44,800円','5,000円','14,800円'],a:0,e:'キャンペーン期間中は入会金も事務手数料も無料です。月会費9,800円のみです。'},
+{q:'デイタイムプランについて正しいものはどれか？',o:['全店舗で利用できる','プールも利用できる','平日9:00～18:00に限って利用できる','通常月会費は12,800円である'],a:2,e:'デイタイムプランは「平日9:00～18:00限定」と記載されています。'}]},
+
+{id:'s10',title:'留学説明会のお知らせ',meta:'情報検索読解 第10篇',
+t:'カナダ・バンクーバー留学説明会 2025年春',
+c:'<p><strong>株式会社ワールドステップ</strong>主催</p><p>山梨県内で就職活動中の皆さまへ。県内の優良企業60社が参加する大規模就職説明会を開催します。企業の人事担当者と直接話せる絶好の機会です。履歴書を持参していただければ、会場内で個別面接を受けることも可能です。</p><h4>カナダ・バンクーバー留学説明会 2025</h4><table class="info-table"><tr><th>開催日時</th><td>2025年2月15日（土）14:00～16:30（受付13:30～）</td></tr><tr><th>開催場所</th><td>渋谷ヒカリエ12階 イベントスペースB</td></tr><tr><th>参加費</th><td><span class="highlight">無料</span>（要予約）</td></tr><tr><th>対象者</th><td>高校生・大学生・社会人（年齢不問）</td></tr><tr><th>定員</th><td>80名（先着順）</td></tr><tr><th>内容</th><td>① バンクーバーの生活環境紹介 ② 語学学校の選び方 ③ ワーキングホリデー情報 ④ 卒業生体験談 ⑤ 個別相談会</td></tr></table><p><strong>同時開催：</strong>・ワールドステップ担当者による個別留学相談コーナー（14:30～16:00）<br>・カナダ大使館担当者によるビザ説明（15:00～15:30）</p><p><strong>申し込み：</strong>HP（https://worldstep.co.jp）専用フォームより。定員になり次第締め切り。</p><p>問い合わせ：tel 03-1234-5678（平日10:00～18:00）</p>',
+q:[{q:'この説明会の開催日として正しいものはどれか？',o:['2025年1月15日（土）','2025年2月15日（土）','2025年2月14日（金）','2025年3月15日（土）'],a:1,e:'開催日時の欄に「2025年2月15日（土）14:00～16:30」と明記されています。'},
+{q:'この説明会について正しくないものはどれか？',o:['参加費は無料である','事前の予約が必要である','定員は100名である','個別相談会も行われる'],a:2,e:'定員は「80名（先着順）」となっており、100名ではありません。'}]}
+];
+
+/* ===== N1 難度 ===== */
+const COMPARE_N1 = [
+{id:'n1c1',title:'人口減少下の地方自治のあり方',meta:'N1 比較読解 第1篇',tagA:'A県職員の論文',tagB:'B市議会の提言',level:'N1',
+a:'<p>私が現在所属するA県では、この10年で人口が約15%減少した。特に若者の流出が顕著で、高齢化率は全国平均を10ポイント以上上回る。この現状に対し、県庁内では様々な施策が議論されてきたが、私は根本的に「行政のスリム化」と「地域の自立」の両輪で取り組む必要があると考えている。</p><p>まず行政のスリム化についてだが、県の出先機関を統合し、市町村との連携を強化することで、重複した事業を廃止すべきである。例えば、同じような観光振興事業を県と市が別々に行っているケースがあり、年間数億円の無駄が生じている。また、地域の自立については、農業や観光の分野で地場産業を育成し、新規就農者や起業家を受け入れる体制を整えることが重要だ。県が全面的に補助するのではなく、地域自身が考え、地域自身が実行する仕組みを作らなければならない。</p><p>もちろん、こうした施策には時間がかかる。しかし、人口減少は待ったなしの課題であり、私たち自治体職員は覚悟を持って改革に取り組まなければならない。</p>',
+b:'<p>B市議会では、人口減少対策として「定住促進」を最重点課題に挙げている。市ではこの3年間、約2000世帯の若年層が転出した。その多くが隣接する政令指定都市への転居であり、理由は「雇用の場がない」「子供の教育環境が不安」といったものが上位を占める。</p><p>このため市議会では、企業誘致のための工業団地整備や、子育て支援策としての保育園の増設、小学校の統廃合による教育環境の充実など、ハード・ソフト両面からの対策を提案している。また、空き家となった住宅をリノベーションし、県外からの移住者に提供する「空き家バンク」事業も拡大する方針だ。</p><p>県庁のスリム化論については、議会内では慎重な意見もある。県の出先機関が縮小されれば、その分の行政サービスが市町村に降りてくる可能性があり、市の負担が増えることが懸念されるからだ。私たちは、人口減少対策を進める一方で、県と市の役割分担を明確にすることも同時に求めている。</p>',
+q:[
+  {q:'Aさんが人口減少対策として最も重視しているのはどれか？',o:['企業誘致と工業団地整備','行政のスリム化と地域の自立','保育園の増設と教育環境の充実','空き家のリノベーションと移住者支援'],a:1,e:'Aさんは県職員の立場から、「行政のスリム化」と「地域の自立」の両輪で取り組む必要があると明言しています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、人口減少対策としてまず空き家対策を進めるべきだと考えている','AもBも、県のスリム化は市の負担を増やすだけだと反対している','Aは県レベルでの行政改革と地域の自立を重視し、Bは市レベルでの定住促進と雇用・子育て対策を重視している','AはB市の施策に全面的に反対であり、BはA県の施策を全面的に支持している'],a:2,e:'A県職員は行政のスリム化と地域の自立を重視しています。B市議会は定住促進、企業誘致、子育て支援、空き家対策など具体的な市レベルの施策を提案しています。Aの県スリム化論に対し、B市は負担増を懸念する慎重な姿勢を示しています。'}]},
+
+{id:'n1c2',title:'少子化対策：経済的支援か意識変革か',meta:'N1 比較読解 第2篇',tagA:'経済学者の論説',tagB:'社会学者の論説',level:'N1',
+a:'<p>少子化問題は日本にとって喫緊の課題である。最新の出生数は約70万人を割り込み、合計特殊出生率は1.2とOECD諸国の中でも極めて低い水準にある。この危機的状況に対し、私はまず経済的な支援の拡充が必要であると考えている。</p><p>第一に、子育ての経済的負担を抜本的に軽減する必要がある。教育費の無償化は拡大すべきだし、出産一時金の大幅な増額、育児休業期間中の給付金の引き上げも検討すべきである。また、住宅ローンの金利優遇や、子供1人につき月数万円の手当を支給することも有効だろう。多くの若いカップルが「経済的に子供を養う自信がない」と子作りをためらっているのが現実であり、このハードルを下げることが最優先である。</p><p>もちろん、経済支援だけですべてが解決するわけではない。しかし、経済的な基盤がなければ、他の施策も机上の空論になってしまう。まずはお金の問題を解決し、その上で働き方の見直しや男性の育児参加などを進めるべきだ。</p>',
+b:'<p>少子化の原因を経済的な問題だけに還元するのは不十分である。私は社会学者として、長期的な視点では「意識の変革」こそが根本的な解決につながると考えている。</p><p>確かに経済的な支援は必要だし、私もその拡充には賛成する。しかし、北欧諸国のように手厚い支援を行っている国でさえ、出生率の回復には時間がかかっている。それはなぜか。支援だけでは人々の価値観は変わらないからだ。現代の若者の間では、「子供がいない自由な生活」や「キャリアを優先したい」といった価値観が広まっている。特に女性の社会進出が進む中で、「子供を産むことでキャリアに支障が出る」という不安が根強く残っている。</p><p>このためには、学校教育の段階から「家庭を持つことの素晴らしさ」を教えること、職場での働き方改革（特に男性の育児参加の強制）、そしてメディアでの意識啓発など、長期的な視点での取り組みが不可欠だ。経済支援は短期的な対策であり、意識の変革は長期的な対策である。私たちは両方を同時に進めていかなければならない。</p>',
+q:[
+  {q:'Aさんが少子化対策として最も重視しているのはどれか？',o:['学校教育での意識啓発','経済的支援の拡充','男性の育児参加','メディアでのキャンペーン'],a:1,e:'Aさんは経済学者の立場から、経済的な支援の拡充を最優先に考えています。教育費の無償化、出産一時金の増額、住宅ローンの優遇など具体的な経済支援策を挙げています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、少子化対策は経済支援だけで十分だと考えている','AもBも、経済支援には反対し、意識変革だけを重視している','Aは経済支援を最優先しその上で他の施策を進めるべきだと考え、Bは経済支援に加え長期的な意識変革の両面から取り組むべきだと考えている','AとBは少子化対策について完全に正反対の意見を持っている'],a:2,e:'Aさんは経済支援を最優先に、その後に他の施策を進めるべきだと考えています。Bさんは経済支援の必要性は認めつつも、長期的には意識変革が重要であり、両面から同時に取り組むべきだと主張しています。'}]},
+
+{id:'n1c3',title:'AI時代における大学教育の役割',meta:'N1 比較読解 第3篇',tagA:'大学教授の見解',tagB:'学生の体験談',level:'N1',
+a:'<p>生成AIの登場により、大学教育は大きな転換点に立っている。私が教鞭を執る法学部でも、レポート作成や論文執筆でAIを利用する学生が急増している。果たして、この状況に大学はどう対応すべきか。私は「教育の役割を再定義する」必要があると考えている。</p><p>まず、従来のような「知識の詰め込み」はAIに取って代わられる。学生は必要な知識をAIから瞬時に引き出せるのだから、教員が板書して講義する意味が薄れてくる。その代わりに、大学は「批判的思考力」「論理的に議論する力」「複雑な問題を解決する力」といった、AIが苦手とする能力を育成する場に変わるべきだ。</p><p>具体的には、ゼミナールを中心とした少人数での議論や、ディベート、AIには解けないような複合的な課題（例：複数の判例を比較して自分なりの解釈を示す）の提出など、学生自身が考え、表現する機会を増やす必要がある。また、AIの倫理的な問題についても、大学で積極的に議論する機会を設けるべきだ。</p>',
+b:'<p>私は現在、某大学の経営学部に在籍している。昨年までは、レポート作成にAIを使うことは「カンニング」に近い扱いだったのに、今年になって教授たちの態度が大きく変わった。「AIを使ってもいいが、自分の言葉で書き直しなさい」と指示する教授が増えたのだ。</p><p>正直に言うと、私はAIに依存しすぎている自覚がある。レポートの下書きはいつもAIに書かせて、それを少し手直しして提出する。論文の調べ物も、AIに聞けばすぐに論文やデータソースを教えてくれる。こんな調子で果たして本当に力がついているのか、不安になることがある。</p><p>それでも、AIが便利なのは事実だ。ゼミの準備をAIに手伝ってもらい、その分自分で考える時間を増やすという使い方もできる。問題は、教授たちがAIとどう向き合っていくかを示してくれないことだ。明確な規則もなければ、AIを使った新しい学び方を教えてくれる教授も少ない。学生の側も、何が正しい使い方なのか戸惑っているのが実情だ。</p>',
+q:[
+  {q:'Aさんが大学教育の役割として重視しているのはどれか？',o:['知識の詰め込みと暗記','AIを使ったレポート作成の方法','批判的思考力や論理的な議論力の育成','AIの操作方法の習得'],a:2,e:'A教授はAIが知識の詰め込みを代替するため、大学は批判的思考力、論理的に議論する力、複雑な問題を解決する力といったAIが苦手とする能力を育成する場に変わるべきだと主張しています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、AIは大学教育に全く必要ないと考えている','AもBも、AIを使ったレポートは禁止すべきだと主張している','Aは教育の役割を再定義しAIが苦手な能力を育成すべきだと考え、BはAI依存への不安を抱きつつも便利さを認めつつ、教員側の明確な方針がないことに戸惑っている','AとBはAIに対する態度について完全に正反対の立場を取っている'],a:2,e:'A教授は大学の教育機能を再定義し、AIが苦手な批判的思考力などを育成する方向を提案しています。B学生はAIの便利さを利用しつつも、過度の依存への不安を感じており、教員側がAIとの付き合い方を示してくれないことに不満を持っています。'}]},
+
+{id:'n1c4',title:'気候変動対策：環境規制vs技術革新',meta:'N1 比較読解 第4篇',tagA:'環境団体代表',tagB:'経済産業省担当官',level:'N1',
+a:'<p>気候変動は人類史上最大の脅威の一つである。IPCCの最新報告書では、2030年までに温室効果ガスの排出量を43%削減しなければ、1.5℃の気温上昇を回避できないと警告されている。この状況下、私たちはより強力な環境規制を導入する必要があると考えている。</p><p>まず、石炭火力発電所の早期閉鎖を義務化すべきだ。現在日本には約40基の石炭火力発電所があり、これらの排出量は全体の約40%を占めている。2030年までに全基閉鎖するという法的拘束力のある目標を設定すべきである。また、自動車業界に対しては、2035年までに内燃機関車の新規販売を禁止する規制を導入すべきだ。</p><p>企業に対しては、炭素税の大幅な引き上げや、排出量取引制度の強化も必要だ。経済界からは「産業競争力が失われる」と反発があるが、気候変動のコストの方がはるかに大きいことは、既に多くの経済学者が指摘している。待ったなしの状況であり、強い規制こそが最も効果的な対策である。</p>',
+b:'<p>気候変動対策の重要性は私たちも十分に認識している。しかし、環境団体が主張するような急激な規制は、日本経済に深刻な打撃を与える可能性がある。私たちは「技術革新」を中心としたアプローチが、長期的にはより持続可能な解決策になると考えている。</p><p>例えば、石炭火力発電所をすべて閉鎖するのではなく、CCS（炭素回収・貯留）技術を導入することで、排出量を実質的にゼロにすることができる。日本はこの分野で世界をリードする技術を持っており、これを海外に輸出することもできる。また、水素エネルギーやアンモニアを使った発電技術も急速に進歩しており、これらの技術を早期に実用化することで、環境対策と経済成長を両立できる。</p><p>もちろん、一定の規制は必要だ。しかし、規制だけで産業を壊してしまえば、肝心のイノベーションを生み出す力も失ってしまう。私たちは、産業界と協力しながら、技術革新を促進する政策を進めていきたい。</p>',
+q:[
+  {q:'Aさんが気候変動対策として最も重視しているのはどれか？',o:['CCS技術の導入と海外輸出','強力な環境規制（石炭火力閉鎖や車の販売禁止など）','水素エネルギーの実用化','産業界との対話'],a:1,e:'Aさんは環境団体代表の立場から、強力な環境規制（石炭火力発電所の2030年までの閉鎖、2035年内燃機関車の禁止、炭素税引き上げなど）を最も効果的な対策と考えています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、石炭火力発電所を2030年までに全基閉鎖すべきだと考えている','AもBも、規制だけでなく技術革新が最も重要だと一致して認めている','Aは強力な規制こそ最優先だと主張し、Bは急激な規制は経済への打撃が大きいとして技術革新を中心としたアプローチを提案している','AとBは気候変動対策の必要性について正反対の意見を持っている'],a:2,e:'AさんはIPCCの警告を根拠に強力な規制を最優先に主張しています。Bさんは経済への影響を懸念してCCSや水素エネルギーなどの技術革新を中心としたアプローチを提案していますが、一定の規制の必要性は認めています。'}]},
+
+{id:'n1c5',title:'ワークライフバランスと生産性',meta:'N1 比較読解 第5篇',tagA:'IT企業CEO',tagB:'労働組合委員長',level:'N1',
+a:'<p>私の会社では、5年前から「残業ゼロ」を目標に掲げて働き方改革を進めてきた。最初は社員から不安の声も上がったが、今ではこの取り組みが会社の強みになっている。私はワークライフバランスの改善は、長期的には企業の生産性を高めることにつながると確信している。</p><p>まず、残業を減らすことで、社員は自分の時間を確保できるようになる。家族と過ごす時間、趣味に打ち込む時間、自己研鑽の時間——こうした時間が豊かになることで、心身の健康が保たれ、仕事のモチベーションも維持される。結果として、パフォーマンスの高い社員が育ち、離職率も下がる。</p><p>また、限られた時間で成果を出す必要があるため、業務の効率化や無駄の排除にも積極的に取り組むようになった。私たちは「忙しい」ことと「生産的」であることは別だということを学んだ。もちろん、全ての企業で残業ゼロが可能というわけではない。しかし、方向性としては、私たちが進んでいる道は正しいと考えている。</p>',
+b:'<p>ワークライフバランスの重要性については、私も完全に同意する。しかし、企業の「残業ゼロ」の宣言が、実際には社員に負担を転嫁しているケースがあることを指摘したい。</p><p>例えば、残業時間の規制が厳しくなった結果、就業時間内に終わらない仕事を家に持ち帰る「隠れた残業」が増えている。また、「生産性を上げれば残業を減らせる」という会社の言葉は、しばしば「もっと効率よく働け」というプレッシャーに変わり、社員一人ひとりの負担を増大させている。</p><p>私たち労働組合が求めているのは、単なる残業時間の削減だけではない。「良い仕事」をした上での「良い生活」である。そのためには、適正な人員配置、過度なノルマの見直し、そして何よりも、企業が労働者の声に真摯に耳を傾ける姿勢が必要だ。ワークライフバランスは企業の経営手腕だけで実現するものではなく、労使双方が対等に話し合って作り上げていくものだ。</p>',
+q:[
+  {q:'Aさんがワークライフバランスの改善によって期待できる効果として挙げているのはどれか？',o:['社員に負担を転嫁して離職率を上げる','心身の健康とモチベーションの維持、業務の効率化、離職率の低下','隠れた残業を増やすこと','ノルマを増やして生産性を上げること'],a:1,e:'A社長は残業ゼロの取り組みにより、社員の心身の健康とモチベーションが維持され、業務の効率化が進み、離職率が下がるといった好影響を挙げています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、残業ゼロはワークライフバランスの最終目標だと考えている','AもBも、企業がワークライフバランスを保証すれば問題は解決すると考えている','Aは残業ゼロを通じて生産性向上と離職率低下を実現したと主張し、Bは残業削減が隠れた残業やプレッシャーを生んでいると指摘し、労使対等な話し合いを重視している','AとBはワークライフバランスの必要性について完全に対立している'],a:2,e:'A社長は残業ゼロの取り組みが生産性向上と離職率低下につながった成功例を示しています。B委員長は残業規制が隠れた残業やプレッシャーを生んでいる実態を指摘し、労使対等な話し合いの重要性を強調しています。'}]}
+];
+
+const SEARCH_N1 = [
+{id:'n1s1',title:'大学院進学説明会（博士課程）',meta:'N1 情報検索読解 第1篇',
+t:'東京大学大学院 工学系研究科 2026年度博士課程進学説明会',
+c:'<p>東京大学大学院工学系研究科では、2026年4月入学を目指す博士課程進学希望者を対象とした進学説明会を開催いたします。本説明会では、各専攻の教授・准教授が研究室の紹介や博士課程での研究生活について詳しく説明します。また、現役の博士課程学生によるパネルディスカッションも予定しています。</p><p>工学系研究科には、現在約1200名の大学院学生が在籍し、世界をリードする数多くの研究が行われています。特にAI・ロボティクス・量子コンピュータ・バイオテクノロジーなどの先端分野では、国内外から高い評価を得ています。博士課程の修了後は、大学教員、研究所の主任研究員、あるいは企業のCTOや研究開発責任者として活躍する卒業生が多数います。</p><table class="info-table"><tr><th>開催日時</th><td>2025年8月23日（土）9:30～17:00（受付9:00～）</td></tr><tr><th>会場</th><td>東京大学本郷キャンパス 工学部1号館 講堂A・オンライン（Zoom）併用</td></tr><tr><th>対象</th><td>2026年3月または2027年3月に大学院修士課程を修了予定の方（他大学からの出願も可）</td></tr><tr><th>参加費</th><td><span class="highlight">無料</span>（事前予約制）</td></tr><tr><th>定員</th><td>会場200名 / オンライン500名（先着順）</td></tr><tr><th>プログラム</th><td>① 全体説明（9:30～10:30）② 各専攻ブース別説明（10:45～12:00）<br>③ 博士課程学生パネルディスカッション（13:30～14:30）<br>④ 研究室訪問（14:45～17:00）※事前予約が必要</td></tr></table><p><strong>出願スケジュール（2026年4月入学）：</strong><br>第1回募集：2025年10月1日～10月15日 / 第2回募集：2026年1月5日～1月20日</p><p><strong>備考：</strong>会場参加者には「博士課程ガイドブック2026」を無料配布します。また、東京駅・御茶ノ水駅から本郷キャンパスまでの無料シャトルバスを運行予定です（要事前予約）。</p><p>お申し込み・お問い合わせ：https://grad-school.tokyo-u.ac.jp / Tel 03-5841-xxxx</p>',
+q:[{q:'博士課程学生パネルディスカッションの時間帯として正しいものはどれか？',o:['9:30～10:30','10:45～12:00','13:30～14:30','14:45～17:00'],a:2,e:'プログラムの③に「博士課程学生パネルディスカッション（13:30～14:30）」と明記されています。'},
+  {q:'この説明会について正しくないものはどれか？',o:['会場とオンラインの両方で開催される','会場の定員は500名である','参加費は無料で事前予約制である','研究室訪問には事前予約が必要である'],a:1,e:'会場の定員は「会場200名 / オンライン500名」となっており、会場が500名ではありません。'}]},
+
+{id:'n1s2',title:'国際学会参加募集',meta:'N1 情報検索読解 第2篇',
+t:'「デジタルトランスフォーメーション国際会議2025」（DXIC2025） 発表者募集',
+c:'<p>一般社団法人日本デジタルトランスフォーメーション協会（JDXA）主催による「DXIC2025」を、2025年11月に東京で開催いたします。本会議は毎年、産業界・学界・政府機関から延べ500名以上が参加する、DX分野ではアジア最大級の国際会議です。</p><p>つきましては、本会議での研究発表・事例発表を行う申込者を募集いたします。詳細は以下の通りです。</p><table class="info-table"><tr><th>会議概要</th><td>DXIC2025 — Leading the Digital Future</td></tr><tr><th>開催日</th><td>2025年11月12日（水）～14日（金） 3日間</td></tr><tr><th>会場</th><td>東京フォーラム（東京都千代田区丸の内）</td></tr><tr><th>テーマ</th><td>AI・DXによる産業変革 / サイバーセキュリティ / データ経済 / スマートシティ / デジタル社会と倫理</td></tr></table><p><strong>発表申込概要：</strong></p><table class="info-table"><tr><th>申込締め切り</th><td>2025年7月31日（木）必着</td></tr><tr><th>発表形式</th><td>口頭発表（25分＋質疑応答10分）/ ポスター発表 / ライトニングトーク（5分）</td></tr><tr><th>言語</th><td>日本語または英語（英語の場合は同時通訳あり）</td></tr><tr><th>査読</th><td>実行委員会による二重盲査読あり（採択率約35%）</td></tr><tr><th>採択通知</th><td>2025年9月15日までにメールで通知</td></tr></table><p><strong>特典：</strong>採択された発表者には、会議参加費の免除（一般参加費80,000円相当）、論文の査読付きプロシーディングスへの収録、また優秀論文には表彰（最優秀賞には賞金50万円）</p><p><strong>国際交流：</strong>会議初日には、海外からの参加者を交えたレセプションパーティー（無料）を開催。終了後にはエクスカーション（有料・要事前予約）として富士山ツアーまたは京都視察ツアーを実施します。</p><p>お問い合わせ：DXIC2025事務局 Tel 03-1234-xxxx / dxic2025@jdxa.or.jp / https://dxic2025.jp</p>',
+q:[{q:'一般参加費はいくらか？',o:['50,000円','80,000円','100,000円','発表者は無料、一般は不明'],a:3,e:'採択された発表者には「一般参加費80,000円相当」の免除があるため、一般参加費は80,000円と推測されます。'},
+  {q:'この会議について正しくないものはどれか？',o:['会議は3日間開催される','申込締め切りは7月31日である','査読の採択率は約65%である','会場は東京フォーラムである'],a:2,e:'査読の採択率は「約35%」と記載されており、65%ではありません。'}]}
+];
+
+/* 补充 N1 比较题 n1c6-n1c10 */
+COMPARE_N1.push(
+{id:'n1c6',title:'医療費の公的負担：現状維持 vs 自己負担増',meta:'N1 比較読解 第6篇',tagA:'厚労省試算',tagB:'経済団体提言',level:'N1',
+a:'<p>厚生労働省はこのほど、2050年までの医療費の見通しを試算した。現状のままでいけば、医療費は年率約2%のペースで増加し、2050年には国民負担率（GDP比）で約26%に達すると推計される。うち公的負担は約18%、自己負担は約8%となる。</p><p>私たち厚労省としては、現行の「公的中心の医療保障」を維持しつつ、医療の効率化を進めるべきだと考えている。具体的には、後発医薬品の使用促進、病床数の適正化、デジタル技術による医療費の可視化などの施策を強化する。もちろん、完全な現状維持は難しく、高齢者の窓口負担を1割から2割に上げる議論もあるが、急激な変更は医療機関への受診控えを引き起こす懸念がある。</p><p>公平性の観点から、所得に応じた負担のあり方も検討すべきだ。低所得層への配慮は必須であり、保険料の上限設定や高額療養費制度の見直しも必要である。</p>',
+b:'<p>経団連（日本経済団体連合会）の社会保障制度専門委員会では、医療費における自己負担の割合を段階的に引き上げるべきだという提言がまとめられた。現行の自己負担割合（原則3割、高齢者1割）を改め、所得に応じて2割～4割の間で設定する方式を提案している。</p><p>理由は二つある。第一に、公的負担の膨張は財政を圧迫し、企業が負担する健康保険料の上昇にもつながる。健康保険料の企業負担分は現在、平均で従業員給与の約15%に達しており、これ以上の上昇は企業の国際競争力を損なうとの懸念がある。</p><p>第二に、ある程度の自己負担があることで、医療機関を必要以上に利用する「過剰受診」を抑制する効果も期待できる。ただし、低所得層や難病患者への配慮は当然必要であり、高額療養費制度の大幅な拡充や、低所得世帯への医療費助成の創設を同時に進めるべきだと考えている。</p>',
+q:[{q:'Aさんが重視しているのはどれか？',o:['自己負担の大幅な引き上げ','公的中心の医療保障の維持と医療の効率化','企業負担の削減','公的医療保険の廃止'],a:1,e:'厚労省として現行の「公的中心の医療保障」を維持しつつ、医療の効率化を進めるべきだと考えています。急激な自己負担増には慎重です。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、医療費は全額公的負担にすべきだと考えている','AもBも、自己負担を2割から4割に上げるべきだと主張している','Aは公的保障を維持しつつ効率化を進めるべきだと考え、Bは自己負担を段階的に引き上げ財政と企業負担を軽減すべきだと考えている。両者とも低所得層への配慮は必要だと認めている','AとBは低所得層への配慮について正反対の意見を持っている'],a:2,e:'厚労省は公的中心の保障を維持しつつ効率化を進める方針です。経団連は自己負担の段階的引き上げを提案していますが、両者とも低所得層への配慮の必要性は認めています。'}]},
+
+{id:'n1c7',title:'大学入試：共通テストのあり方',meta:'N1 比較読解 第7篇',tagA:'高校教師の意見',tagB:'元大学入試委員の意見',level:'N1',
+a:'<p>私は進学校で30年以上教鞭を執ってきた。この間、センター試験から共通テストへの変更を経験し、まもなく次の改革が議論されようとしている。私が強く感じているのは、「共通テストの内容が難しすぎる」ということだ。</p><p>特に問題なのは、数学や理科。文部科学省は「思考力・判断力を問う」と説明するが、実際には問題の設定が複雑で、時間が足りない。生徒たちは朝から夜まで塾で演習を積んでいるが、それでも6時間のテスト時間内に終わらないという声が後を絶たない。共通テスト導入前のセンター試験では7割を超えていた平均点が、共通テストでは5割を下回った年もある。</p><p>入試は「受験生の持つ力を公平に測る」ためのものであるべきだが、現在の共通テストはその目的を果たせていないように思える。私は、出題の難易度を適正化し、時間配分を見直す必要があると考えている。</p>',
+b:'<p>私はかつて、ある国立大学の入試課長を務め、共通テストの導入にも関わった。高校の先生方から「難しすぎる」という声があることは承知しているが、私は共通テストの方向性自体は正しいと考えている。</p><p>問題は「難しい」のではなく、「形式に慣れていない」だけだ。センター試験は「知識の確認」という明確な位置づけだったが、共通テストは「活用する力」を問うという新しい試験のあり方を示している。社会に出れば、既存の知識だけでは対応できない問題ばかりだ。入試でも、そうした力を問うことは当然の流れではないか。</p><p>もちろん、導入直後の混乱はあった。時間配分や出題形式に戸惑った高校生も多かっただろう。しかし、2021年の導入から既に4年が経過し、各高校も徐々に対応を始めている。今後は、高校教育の方針と共通テストの方向をしっかりと整合させることが大切だ。難易度を下げるのではなく、高校の教育カリキュラムを見直すべきだと私は考えている。</p>',
+q:[{q:'Aさんが共通テストについて最も不満に思っているのはどれか？',o:['問題が簡単すぎて、学力差が測れない','時間が足りないほど難しく、公平に測れていない','思考力を問うようになったこと','塾での演習が重要になったこと'],a:1,e:'A教師は「共通テストの内容が難しすぎる」「時間が足りない」「受験生の持つ力を公平に測ることができていない」と述べています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、共通テストは廃止してセンター試験に戻すべきだと考えている','AもBも、共通テストの内容は適切だと一致して認めている','Aは難易度と時間配分の見直しを求め、Bは「難しいのではなく慣れていないだけ」としてカリキュラムの見直しを主張している','AとBは入試改革について完全に反対の立場を取っている'],a:2,e:'A教師は難易度の適正化と時間配分の見直しを求めています。B元入試課長は共通テストの方向性自体は正しく、高校の教育カリキュラムを見直すべきだと主張しています。'}]},
+
+{id:'n1c8',title:'オリンピック開催：招致すべきか否か',meta:'N1 比較読解 第8篇',tagA:'市役所財政課',tagB:'市民団体代表',level:'N1',
+a:'<p>私たちは2040年の夏季オリンピックの招致を目指す市役所の財政課だ。現在、招致委員会で様々な試算を行っている。オリンピック開催には、確かに膨大な費用がかかる。概算でも会場建設費・整備費で約2000億円、運営費で約400億円、合わせて2400億円程度が必要となる。</p><p>しかし、それ以上の経済効果も期待できる。国内外から約100万人の観光客が訪れ、宿泊業、飲食業、小売業などへの波及効果は少なくとも3000億円以上に達すると試算される。また、都市のイメージアップや、スポーツ振興、インフラ整備の促進、国際交流の深化といった長期的な効果もある。</p><p>もちろん、財政負担の問題は真剣に検討しなければならない。過去の事例を見ると、開催費用が予算を大きく超過したケースも少なくない。私たちは民間からの資金調達や、既存施設の積極的な活用、省エネ・省コストな設計などを通じて、費用を抑える努力を続けている。</p>',
+b:'<p>オリンピック招致に反対する市民団体の代表として、私たちの主張を述べたい。まず第一に、財政負担の問題だ。市役所の試算は楽観的すぎるのではないか。過去の東京2020オリンピックでは、当初の試算7300億円に対し、最終的には3兆円を超えたと言われている。</p><p>開催後の施設の維持費も問題だ。オリンピック用の大型施設は、大会後に十分な利用者を確保できず、税金を注ぎ込み続けることになる可能性がある。また、交通渋滞や騒音問題、競技場建設に伴う環境負荷など、住民生活への影響も無視できない。</p><p>私たちは、オリンピック招致にかけるお金とエネルギーを、もっと身近な公共課題の解決に向けるべきだと主張している。例えば、老朽化した保育園の建て替え、高齢者介護施設の拡充、地域の商店街の活性化、こうした課題にこそ、優先的に取り組むべきではないのか。</p>',
+q:[{q:'Aさんがオリンピック招致の経済効果として挙げているのはどれか？',o:['財政負担の増加','観光客による経済効果、イメージアップ、インフラ整備など','既存施設の活用','競技場の維持費'],a:1,e:'Aさんは約100万人の観光客による経済効果、都市のイメージアップ、スポーツ振興、インフラ整備、国際交流といった効果を挙げています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、オリンピック招致は財政的に利益があると考えている','AもBも、オリンピック招致に反対している','Aは経済効果が費用を上回ると主張しつつ費用を抑える努力を示し、Bは過去の失敗事例を挙げて財政負担と住民生活への影響を懸念し、地域の身近な課題への優先投資を主張している','AとBは財政試算の数字について完全に一致している'],a:2,e:'Aさんは経済効果の方が大きいと試算していますが、費用を抑える努力も示しています。Bさんは過去の失敗事例を挙げて財政負担と施設維持費、住民生活への影響を懸念し、より身近な公共課題への投資を優先すべきだと主張しています。'}]},
+
+{id:'n1c9',title:'地方創生と東京一極集中',meta:'N1 比較読解 第9篇',tagA:'総務省地方創生担当',tagB:'東京都政策担当',level:'N1',
+a:'<p>日本の人口は、この10年で東京圏に約80万人が転入し、地方からの流出が続いている。総務省としては、この「東京一極集中」を是正し、地域の活力を取り戻すことを最重要課題としている。</p><p>具体的には、地方への移住促進策として、移住者に対する住宅取得支援や就業支援の拡充を進めている。また、地方に本社を移転する企業に対する税制上の優遇措置も強化する考えだ。さらに、地方の大学や専門学校と連携し、地域の産業と結びついた教育プログラムを開発することで、地元で就職する若者を増やすことも目指している。</p><p>もちろん、東京の機能を弱めようというわけではない。東京は日本の経済・文化の中心であり、その機能は依然として重要だ。私たちが目指すのは、「東京を頂点とする一極集中」ではなく、「東京を含む複数の核が支える多極化の社会」である。</p>',
+b:'<p>東京都の立場からお話しすると、地方創生はもちろん重要だが、同時に東京の持続可能性も考えていかなければならない。</p><p>東京の問題としてまず挙げられるのは、少子高齢化の進行である。東京の合計特殊出生率は1.13と全国最低で、将来的には人口減少に転じると予測されている。これにより、経済活力の低下や税収の減少、介護施設の不足といった問題が待ち受けている。私たちは、東京からの若者の流出を食い止め、東京で子供を産み育てやすい環境を作ることに力を入れている。</p><p>地方に支援を集中するあまり、東京の取り組みがおろそかになってはならない。私たちは、地方と東京がそれぞれの強みを活かし、互いに支え合う関係を構築していきたい。総務省の進める多極化の方針には基本的に賛同するが、東京の問題についてもしっかりと配慮してほしいと考えている。</p>',
+q:[{q:'Aさんが地方創生策として挙げているのはどれか？',o:['東京の少子化対策','移住者への支援、企業の地方移転優遇、地域と結びついた教育プログラム','東京からの若者の流出抑制','介護施設の拡充'],a:1,e:'Aさんは移住者への住宅・就業支援、地方に本社を移転する企業への税制優遇、地方の大学と連携した教育プログラムを挙げています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、東京を弱体化させて地方に全ての力を注ぐべきだと考えている','AもBも、地方より東京の方を優先すべきだと主張している','Aは東京一極集中の是正と多極化を目指し、Bは東京自身の少子高齢化の問題も深刻だと指摘し、地方と東京が互いに支え合う関係を望んでいる','AとBは地方創生の方向性について正反対の立場を取っている'],a:2,e:'総務省は東京一極集中の是正と多極化を目指していますが、東京を弱める意図はないと明言しています。東京都は地方創生の重要性は認めつつも、東京自身の少子高齢化の問題を指摘し、地方と東京が互いに支え合う関係を望んでいます。'}]},
+
+{id:'n1c10',title:'自由貿易協定（FTA）：賛成vs反対',meta:'N1 比較読解 第10篇',tagA:'経済学者・国際経済学',tagB:'農業団体代表',level:'N1',
+a:'<p>先進国間の新しいFTA（自由貿易協定）の締結交渉が進んでいる。私は経済学者として、この協定の早期締結に強く賛成する。</p><p>FTAの最大のメリットは、消費者がより安い価格でより多様な商品を入手できることだ。例えば、我が国では一部の農産物に200%を超える関税が課されているが、FTAによりこれが撤廃されれば、消費者の生活は大きく改善される。また、輸出する産業にとっても、海外市場へのアクセスが拡大し、より大きな事業機会が生まれる。</p><p>もちろん、国内農業への影響は無視できない。しかし、グローバル経済の中で、我が国が貿易を制限し続けることは、最終的に国全体の経済力を低下させることになる。農業には別途、直接支払いや地域振興策などの支援を行うべきだ。その代わりに、貿易の自由化によって生まれる利益を活用すれば、むしろ農業の持続可能性も高まるはずだ。</p>',
+b:'<p>私は全国農業協同組合連合会（JA）の代表として、今回のFTA交渉に反対の意志を表明する。</p><p>FTAによって農産物の関税が撤廃されれば、国内の農家の大部分が壊滅的な打撃を受ける。我が国の米の生産コストは、アメリカやオーストラリアの約3倍から4倍だ。関税がなければ、国内の米は輸入米に価格競争で勝てなくなる。同様の問題が、小麦、砂糖、乳製品などにも当てはまる。</p><p>私たちは国の重要な食料供給を担っている。国内の農業が衰退すれば、食料安全保障の観点からも大きな問題が生じる。また、農業は単なる食料生産だけでなく、農村の人口維持、地域経済の活性化、国土の保全など、多面的な役割を持っている。これらが失われる代償は、経済学者の試算する数字では測りきれないほど大きい。</p><p>もちろん、時代の変化に合わせて農業も変わらなければならない。しかし、FTAで一気に市場を開放するのではなく、段階的に、そして農家の準備ができた上で進めるべきだと考えている。</p>',
+q:[{q:'AさんがFTAのメリットとして挙げているのはどれか？',o:['国内農家の保護','消費者が安い価格で多様な商品を入手できることと輸出機会の拡大','食料安全保障の強化','地域経済の活性化'],a:1,e:'A経済学者はFTAのメリットとして、消費者が安価で多様な商品を入手できること、輸出産業の海外市場アクセス拡大を挙げています。'},
+  {q:'AとBの両者の意見を踏まえて、正しいものはどれか？',o:['AもBも、FTAは我が国にとって利益があると考えている','AもBも、農家にはさらなる支援が必要だと一致して指摘している','AはFTAが全体の経済力を高め、その利益で農業を支援できると主張し、Bは関税撤廃が農家を壊滅させ食料安全保障を脅かすと反対している。両者とも農業の支援策の必要性は認めている','Aは農家を全く気にしていないのに対し、Bは消費者の利益を全く無視している'],a:2,e:'A経済学者はFTAが国全体の経済力を高め、その利益で農家に別途支援を行うことを提案しています。B農団代表は関税撤廃が農家を壊滅させ食料安全保障を脅かすと反対しています。両者とも農業への支援の必要性は認めています。'}]}
+);
+
+/* 补充 N1 检索题 n1s3-n1s10 */
+SEARCH_N1.push(
+{id:'n1s3',title:'国際交流基金日本語上級試験（N1）',meta:'N1 情報検索読解 第3篇',
+t:'国際交流基金 日本語能力試験N1 2025年度後期 受験案内',
+c:'<p>国際交流基金が実施する「日本語能力試験N1（JLPT N1）」の2025年度後期試験の受験案内を以下の通りお知らせいたします。</p><p>JLPTは、日本語を母語としない人の日本語能力を測定するための試験で、世界約90カ国・地域で実施されています。N1は最高レベルであり、日本の大学への進学、就労ビザの取得、医療機関での就労など様々な場面で活用されています。</p><table class="info-table"><tr><th>試験日</th><td>2025年12月7日（日）</td></tr><tr><th>実施会場</th><td>東京・大阪・名古屋・札幌・福岡・北京・上海・ソウル・バンコク・ロサンゼルス 他 世界約200会場</td></tr><tr><th>出願期間</th><td>WEB出願：2025年9月1日～10月15日 / 郵送出願：2025年9月1日～10月10日（必着）</td></tr><tr><th>試験時間</th><td>言語知識（文字・語彙・文法）＋読解 110分 / 聴解 60分</td></tr><tr><th>合格基準</th><td>総合点で100点満点中55点以上、かつ各得点区分で基準点以上</td></tr><tr><th>発表日</th><td>2026年1月20日（WEBサイトで発表）</td></tr></table><p><strong>受験料：</strong>国内 7,500円 / 海外 会場により異なる（50ドル～120ドル）</p><p><strong>特別措置：</strong>身体に障害のある方を対象とした特別措置（別室受験、拡大文字問題用紙、手話通訳、時間延長など）を申請することができます。特別措置の申請締め切りは2025年9月30日です。</p><p><strong>備考：</strong>N2以下を受験する方は同じ案内をご覧ください。各レベルの受験料・試験時間は異なります。N1/N2のみ記述式問題が含まれます。</p><p>お問い合わせ：国際交流基金試験センター Tel 03-3269-4517 / https://www.jlpt.jp</p>',
+q:[{q:'N1試験の「言語知識＋読解」の試験時間はどれか？',o:['60分','90分','110分','180分'],a:2,e:'試験時間の欄に「言語知識（文字・語彙・文法）＋読解 110分」と明記されています。'},
+  {q:'この案内について正しくないものはどれか？',o:['発表日は2026年1月20日である','合格基準は総合点55点以上で各区分の基準点も必要である','特別措置の申請締め切りは10月15日である','N1/N2には記述式問題が含まれる'],a:2,e:'特別措置の申請締め切りは「2025年9月30日」であり、10月15日はWEB出願の締め切りです。'}]},
+
+{id:'n1s4',title:'地方公務員上級職採用試験',meta:'N1 情報検索読解 第4篇',
+t:'甲府市 2025年度 上級職採用試験（事務職・技術職）受験案内',
+c:'<p>甲府市では、2025年度上級職（大学卒業程度）の採用試験を実施します。本市は山梨県の県都として、人口約20万人を擁する中核市です。「水と緑の甲府」を合言葉に、市民一人ひとりが住みやすいまちづくりを目指しています。</p><table class="info-table"><tr><th>試験区分</th><td>① 事務職（A日程）② 事務職・技術職（B日程）</td></tr><tr><th>採用予定人数</th><td>事務職 約15名 / 技術職（土木・建築・電気・機械） 各5名程度</td></tr><tr><th>一次試験日</th><td>A日程：2025年5月18日（日） / B日程：2025年7月13日（日）</td></tr><tr><th>一次試験内容</th><td>教養試験（2時間）+ 専門試験（2時間）+ 論文試験（1時間30分）</td></tr><tr><th>受験資格</th><td>2026年4月1日時点で22歳～30歳の方（2026年3月までに大学卒業見込みの方を含む）</td></tr><tr><th>出願期間</th><td>A日程：2025年4月1日～4月22日 / B日程：2025年6月1日～6月22日</td></tr><tr><th>受験料</th><td><span class="highlight">無料</span></td></tr></table><p><strong>二次試験：</strong>一次試験合格者を対象に、面接試験（個人面接30分程度）、適性検査、作文試験を実施。A日程二次：6月中旬 / B日程二次：8月中旬</p><p><strong>最終合格者発表：</strong>A日程：2025年7月10日 / B日程：2025年9月5日</p><p><strong>初任給（参考）：</strong>大学新卒者 約21万円/月（地域手当含む）+ 賞与年間4.4ヶ月分</p><p><strong>備考：</strong>甲府市は山梨県の県庁所在地であり、JR甲府駅を中心に南北約10km、東西約15kmに広がる都市です。自然に恵まれ、物価も比較的安く、暮らしやすい環境が自慢です。</p><p>お問い合わせ：甲府市総務部人事課 Tel 055-237-5311 / https://www.city.kofu.yamanashi.jp</p>',
+q:[{q:'A日程の一次試験日として正しいものはどれか？',o:['2025年5月18日（日）','2025年6月中旬','2025年7月13日（日）','2025年4月22日'],a:0,e:'一次試験日の欄に「A日程：2025年5月18日（日）」と明記されています。'},
+  {q:'この案内について正しくないものはどれか？',o:['B日程の出願期間は6月1日～6月22日である','受験料は無料である','一次試験は教養・専門・論文の3つがある','技術職は各2名程度の採用予定である'],a:3,e:'技術職の採用予定人数は「各5名程度」となっており、2名ではありません。'}]}
+);
+
+/* 简化补充 s5-s10（每篇2问） */
+SEARCH_N1.push(
+{id:'n1s5',title:'MBAビジネススクール出願案内',meta:'N1 情報検索読解 第5篇',
+t:'慶應義塾大学大学院 経営管理研究科（KBS）2026年度MBA出願案内',
+c:'<p>慶應義塾大学ビジネススクール（KBS）は、1978年の設立以来、日本のビジネス教育をリードしてきた。2026年度は「General Management Program（総合経営プログラム）」「Finance Program（ファイナンスプログラム）」「Business Analytics Program（ビジネスアナリティクスプログラム）」の3コースを募集する。</p><table class="info-table"><tr><th>出願締め切り</th><td>2025年10月31日（金）必着</td></tr><tr><th>選考方法</th><td>書類選考 + 筆記試験（英語・数学・小論文）+ 面接試験</td></tr><tr><th>筆記試験日</th><td>2025年12月14日（日）</td></tr><tr><th>合格発表</th><td>2026年1月30日（金）</td></tr><tr><th>学費</th><td>初年度 約200万円（入学金20万円＋授業料180万円）</td></tr><tr><th>定員</th><td>各コース約40名（合計120名）</td></tr></table><p><strong>出願書類：</strong>志願票・推薦状2通・職務経歴書・エッセイ（3テーマ各500字程度）・GMATまたはGREスコア（任意）</p><p>お問い合わせ：KBS事務局 Tel 03-5427-1500 / https://www.kbs.keio.ac.jp</p>',
+q:[{q:'エッセイは何テーマあるか？',o:['1テーマ','2テーマ','3テーマ','4テーマ'],a:2,e:'「エッセイ（3テーマ各500字程度）」と記載されています。'},
+  {q:'この案内について正しくないものはどれか？',o:['出願締め切りは10月31日である','定員は合計120名である','学費は初年度約200万円である','GMATまたはGREのスコア提出が義務である'],a:3,e:'GMATまたはGREスコアは「任意」となっており、義務ではありません。'}]},
+
+{id:'n1s6',title:'国際特許出願ガイド',meta:'N1 情報検索読解 第6篇',
+t:'世界知的所有権機関（WIPO）PCT国際特許出願ガイド 2025年版',
+c:'<p>PCT（特許協力条約）は、1つの国際出願で複数の国に同時に特許出願することができる便利な制度である。以下に主な手続きを示す。</p><table class="info-table"><tr><th>段階</th><th>手続き内容</th><th>期限</th></tr><tr><td>1. 国際出願</td><td>受理局（日本国特許庁等）に出願書類を提出</td><td>優先権主張日から12ヶ月以内</td></tr><tr><td>2. 国際調査</td><td>国際調査機関（ISA）が先行技術調査を実施</td><td>出願日から16ヶ月以内</td></tr><tr><td>3. 国際公開</td><td>WIPOによる国際公開</td><td>出願日から18ヶ月後</td></tr><tr><td>4. 国内移行</td><td>各指定国の特許庁に国内手続き</td><td>出願日から30ヶ月以内</td></tr></table><p><strong>手数料（目安）：</strong>国際出願料 約15万円 / 国際調査料 約20万円 / 指定国ごとの国内移行料 約10万円～30万円</p><p>お問い合わせ：WIPO日本事務所 Tel 03-3821-0300 / https://www.wipo.int</p>',
+q:[{q:'国際公開は出願日から何ヶ月後に行われるか？',o:['12ヶ月後','16ヶ月後','18ヶ月後','30ヶ月後'],a:2,e:'国際公開の欄に「出願日から18ヶ月後」と記載されています。'},
+  {q:'このガイドについて正しくないものはどれか？',o:['国内移行は30ヶ月以内に行う必要がある','国際出願は受理局に提出する','優先権主張日から12ヶ月以内に出願する','国際調査料は約15万円である'],a:3,e:'国際調査料は「約20万円」であり、15万円は国際出願料です。'}]},
+
+{id:'n1s7',title:'起業家育成プログラム募集',meta:'N1 情報検索読解 第7篇',
+t:'三菱UFJ銀行 アクセラレータプログラム2025 起業家募集',
+c:'<p>三菱UFJ銀行は、シリーズA～Bラウンドの資金調達を目指すスタートアップ企業を対象とした「アクセラレータプログラム2025」を開催する。期間は6ヶ月間で、参加企業には以下の支援を提供する。</p><table class="info-table"><tr><th>募集対象</th><td>創業5年以内のIT/FinTech/AI/ヘルスケア/環境関連企業</td></tr><tr><th>支援内容</th><td>① 出資（1社あたり最大5000万円）② 三菱UFJの顧客ネットワークへのアクセス<br>③ 世界トップレベルのメンターによる個別指導 ④ 事務所スペース提供（丸の内）<br>⑤ 法務・会計・労務の専門家による無料相談</td></tr><tr><th>プログラム期間</th><td>2025年10月～2026年3月（6ヶ月）</td></tr><tr><th>募集期間</th><td>2025年7月1日～7月31日</td></tr><tr><th>採用予定</th><td>10社程度</td></tr><tr><th>参加費</th><td><span class="highlight">無料</span></td></tr></table><p><strong>最終デモデイ：</strong>2026年3月に、国内外のVCや事業会社の担当者を招いたデモデイを開催。優秀企業には追加出資の可能性もあり。</p><p>お問い合わせ：アクセラレータ事務局 accel2025@mufg.jp / https://www.mufg.jp/accel</p>',
+q:[{q:'プログラム期間は何ヶ月か？',o:['3ヶ月','6ヶ月','12ヶ月','24ヶ月'],a:1,e:'プログラム期間の欄に「2025年10月～2026年3月（6ヶ月）」と明記されています。'},
+  {q:'このプログラムについて正しくないものはどれか？',o:['参加費は無料である','出資は1社最大5000万円である','採用予定は100社程度である','創業5年以内の企業が対象である'],a:2,e:'採用予定は「10社程度」であり、100社ではありません。'}]},
+
+{id:'n1s8',title:'株式会社の決算公告',meta:'N1 情報検索読解 第8篇',
+t:'株式会社テクノロジーズ 第30期（2024年4月～2025年3月）決算公告',
+c:'<p>当社は令和7年6月25日開催の定時株主総会において、第30期（2024年4月1日から2025年3月31日まで）の決算を下記の通り承認決議しましたので公告いたします。</p><h4>貸借対照表（2025年3月31日現在）</h4><table class="info-table"><tr><th>資産の部</th><th>金額（百万円）</th><th>負債・純資産の部</th><th>金額（百万円）</th></tr><tr><td>現金預金</td><td>12,500</td><td>流動負債</td><td>8,200</td></tr><tr><td>売掛金</td><td>6,800</td><td>固定負債</td><td>15,300</td></tr><tr><td>棚卸資産</td><td>3,200</td><td>株主資本</td><td>45,600</td></tr><tr><td>有形固定資産</td><td>35,700</td><td>評価・換算差額等</td><td>9,100</td></tr><tr><td>無形固定資産</td><td>8,400</td><td></td><td></td></tr><tr><td>投資その他資産</td><td>11,600</td><td></td><td></td></tr><tr><th>資産合計</th><th>78,200</th><th>負債・純資産合計</th><th>78,200</th></tr></table><h4>損益計算書（2024年4月1日～2025年3月31日）</h4><table class="info-table"><tr><th>科目</th><th>金額（百万円）</th></tr><tr><td>売上高</td><td>42,800</td></tr><tr><td>売上原価</td><td>28,500</td></tr><tr><td>売上総利益</td><td>14,300</td></tr><tr><td>営業利益</td><td>5,800</td></tr><tr><td>経常利益</td><td>6,200</td></tr><tr><td>当期純利益</td><td>4,100</td></tr></table>',
+q:[{q:'当期純利益はいくらか？',o:['5,800百万円','6,200百万円','4,100百万円','14,300百万円'],a:2,e:'損益計算書の最後に「当期純利益 4,100百万円」と明記されています。'},
+  {q:'この決算について正しくないものはどれか？',o:['売上高は42,800百万円である','資産合計は78,200百万円である','固定負債は株主資本より大きい','有形固定資産は35,700百万円である'],a:2,e:'固定負債は15,300百万円、株主資本は45,600百万円であり、固定負債の方が小さいです。'}]},
+
+{id:'n1s9',title:'国際会議同時通訳ボランティア',meta:'N1 情報検索読解 第9篇',
+t:'第5回世界AIサミット 同時通訳ボランティア募集',
+c:'<p>2025年9月15日～17日、東京国際フォーラムで開催される「第5回世界AIサミット」で、日英同時通訳のボランティアを募集いたします。本会議は世界50カ国以上からAI研究者、企業経営者、政府関係者が集まる国際会議です。</p><table class="info-table"><tr><th>開催日</th><td>2025年9月15日（月）～17日（水） 3日間</td></tr><tr><th>会場</th><td>東京国際フォーラム ホールA・B</td></tr><tr><th>募集言語</th><td>日本語⇔英語（日英）・日本語⇔中国語（日中）・日本語⇔フランス語（日仏）</td></tr><tr><th>条件</th><td>同時通訳または逐次通訳の経験1年以上 / ビジネスレベル以上の語学力</td></tr><tr><th>謝礼</th><td>1日あたり20,000円（交通費別途支給）</td></tr><tr><th>募集人数</th><td>各言語5名程度（合計15名）</td></tr><tr><th>締め切り</th><td>2025年7月31日（木）</td></tr></table><p><strong>研修：</strong>会議の1週間前（9月8日）にオンラインでの事前研修を実施。用語集を事前に配布します。</p><p><strong>備考：</strong>ボランティアの方には、会議の聴講が無料でできる特典があります。また、全日程参加の方には「World AI Summit 2025 Certificate」を発行します。</p><p>お申し込み：https://www.aisummit2025.jp/volunteer / お問い合わせ volunteer@aisummit2025.jp</p>',
+q:[{q:'合計で何人程度を募集しているか？',o:['5名','10名','15名','30名'],a:2,e:'「各言語5名程度（合計15名）」と記載されています。'},
+  {q:'このボランティア募集について正しくないものはどれか？',o:['日中言語の通訳も募集している','謝礼は1日2万円で交通費も支給される','事前研修はオンラインで行われる','通訳経験は不要である'],a:3,e:'条件に「同時通訳または逐次通訳の経験1年以上」とあり、経験は必要です。'}]},
+
+{id:'n1s10',title:'大学寄付講座設置案内',meta:'N1 情報検索読解 第10篇',
+t:'京都大学 2026年度寄付講座設置企業・団体募集',
+c:'<p>京都大学では、産学連携の一環として企業・団体からの寄付による「寄付講座」を設置しています。2026年度は、以下の要領で寄付講座の設置を希望する企業・団体を募集いたします。</p><table class="info-table"><tr><th>設置期間</th><td>2026年4月1日～2027年3月31日（1年間 ※更新可能）</td></tr><tr><th>必要寄付金</th><td>1講座あたり 300万円～1000万円（内容により応相談）</td></tr><tr><th>講座時間</th><td>週1回・90分（15回）または集中講義形式</td></tr><tr><th>開講形態</th><td>学部・大学院の正規科目または公開講座</td></tr><tr><th>応募締め切り</th><td>2025年12月31日（水）必着</td></tr><tr><th>決定通知</th><td>2026年2月末日までに個別に通知</td></tr></table><p><strong>寄付者特典：</strong>講座名に寄付者名を冠することができます（例：「株式会社〇〇寄付講座」）。また、講座の企画に寄付者も参加できるほか、受講者の課題の閲覧、修了式への出席などが可能です。</p><p><strong>申請方法：</strong>所定の申請書（京都大学HPよりダウンロード）に必要事項を記入の上、Eメールまたは郵送でお送りください。</p><p>お問い合わせ：京都大学産学連携本部 Tel 075-753-2100 / sangaku@kyoto-u.ac.jp / https://www.kyoto-u.ac.jp/sangaku</p>',
+q:[{q:'寄付講座の設置期間はいつからいつまでか？',o:['2025年4月1日～2026年3月31日','2026年4月1日～2027年3月31日','2025年12月31日～2026年2月末日','2026年2月末日～2026年4月1日'],a:1,e:'設置期間に「2026年4月1日～2027年3月31日（1年間 ※更新可能）」と明記されています。'},
+  {q:'この案内について正しくないものはどれか？',o:['寄付金は1講座300万円から1000万円である','応募締め切りは2025年12月31日である','講座時間は週1回45分（15回）である','寄付者は講座名に名前を冠することができる'],a:2,e:'講座時間は「週1回・90分（15回）」であり、45分ではありません。'}]}
+);
+
+/* 合并前统一标记level */
+COMPARE_N1.forEach(p => p.level = 'N1');
+SEARCH_N1.forEach(p => p.level = 'N1');
+/* 合并 */
+const PASSAGES = [...COMPARE, ...SEARCH, ...COMPARE_N1, ...SEARCH_N1];
+
+/* 状态 & 渲染 */
 const state = { current:'cover', answers:{}, results:{}, answered:{} };
 
 function build() {
-  const container = document.getElementById('passages');
-  container.innerHTML = '';
+  const c = document.getElementById('passages');
+  c.innerHTML = '';
   PASSAGES.forEach((p, idx) => {
     const div = document.createElement('div');
-    div.className = 'page';
-    div.id = 'page-' + p.id;
-    const badgeClass = p.type === 'compare' ? 'badge-compare' : 'badge-search';
-    const badgeText = p.type === 'compare' ? '比較読解' : '情報検索';
-    let html = `<div class="passage-header">
-      <div class="passage-title">${p.title}<span class="badge ${badgeClass}">${badgeText}</span></div>
-      <div class="passage-meta">${p.meta}</div></div>`;
-    if (p.type === 'compare') {
-      html += `<div class="article-a"><div class="article-label">● ${p.tagA}</div><div class="article-body">${p.articleA.replace(/\n/g,'<br>')}</div></div>
-        <div class="article-b"><div class="article-label">● ${p.tagB}</div><div class="article-body">${p.articleB.replace(/\n/g,'<br>')}</div></div>`;
+    div.className = 'page'; div.id = 'page-' + p.id;
+    const isN1 = p.level === 'N1';
+    const isCompare = COMPARE.includes(p) || COMPARE_N1.includes(p);
+    const bc = isCompare ? (isN1 ? 'badge-compare-n1' : 'badge-compare') : (isN1 ? 'badge-search-n1' : 'badge-search');
+    const bt = isCompare ? (isN1 ? 'N1 比較読解' : '比較読解') : (isN1 ? 'N1 情報検索' : '情報検索');
+    let h = `<div class="passage-header"><div class="passage-title">${p.title}<span class="badge ${bc}">${bt}</span></div><div class="passage-meta">${p.meta}</div></div>`;
+    if (isCompare) {
+      h += `<div class="article-a"><div class="article-label">● ${p.tagA}</div><div class="article-body">${p.a}</div></div>
+        <div class="article-b"><div class="article-label">● ${p.tagB}</div><div class="article-body">${p.b}</div></div>`;
     } else {
-      html += `<div class="search-article">${p.searchContent}</div>`;
+      h += `<div class="search-article"><h4>${p.t}</h4>${p.c}</div>`;
     }
-    p.questions.forEach((q, qi) => {
+    p.q.forEach((qq, qi) => {
       const an = state.answered[p.id] && state.answered[p.id][qi];
       const sel = state.answers[p.id] && state.answers[p.id][qi];
       const cor = state.results[p.id] && state.results[p.id][qi];
-      html += `<div class="question"><div class="question-text">【問題${qi+1}】${q.q}</div><div class="options">`;
-      q.options.forEach((opt, oi) => {
+      h += `<div class="question"><div class="question-text">【問題${qi+1}】${qq.q}</div><div class="options">`;
+      qq.o.forEach((opt, oi) => {
         let cls = 'option';
-        if (an) { cls += ' disabled'; if (oi === q.answer) cls += ' correct'; else if (oi === sel) cls += ' wrong'; }
+        if (an) { cls += ' disabled'; if (oi === qq.a) cls += ' correct'; else if (oi === sel) cls += ' wrong'; }
         else if (sel === oi) cls += ' selected';
-        html += `<div class="${cls}">${String.fromCharCode(65+oi)}. ${opt}</div>`;
+        h += `<div class="${cls}">${String.fromCharCode(65+oi)}. ${opt}</div>`;
       });
-      html += '</div>';
+      h += '</div>';
       if (an) {
-        const bc = cor ? 'correct-box show' : 'wrong-box show';
-        const lt = cor ? '✓ 正解！' : '✗ 不正解…正解は ' + String.fromCharCode(65 + q.answer) + ' です。';
-        html += `<div class="answer-box ${bc}"><div class="answer-label">${lt}</div><div class="explanation">${q.explain}</div></div>`;
+        const bc2 = cor ? 'correct-box show' : 'wrong-box show';
+        const lt = cor ? '✓ 正解！' : '✗ 不正解…正解は ' + String.fromCharCode(65 + qq.a) + ' です。';
+        h += `<div class="answer-box ${bc2}"><div class="answer-label">${lt}</div><div class="explanation">${qq.e}</div></div>`;
       }
-      html += '</div>';
+      h += '</div>';
     });
     const prevId = idx > 0 ? PASSAGES[idx-1].id : null;
     const nextId = idx < PASSAGES.length - 1 ? PASSAGES[idx+1].id : null;
-    html += `<div class="action-buttons">
+    h += `<div class="action-buttons">
       <button class="btn btn-secondary" onclick="resetPassage('${p.id}')">🔄 リセット</button>
       <button class="btn btn-secondary" onclick="navigateTo('cover')">📋 目次へ戻る</button></div>
       <div class="nav-buttons">
       <button class="btn btn-nav" ${!prevId?'disabled':''} onclick="${prevId?`navigateTo('${prevId}')`:''}">← 前の篇</button>
       <button class="btn btn-nav" ${!nextId?'disabled':''} onclick="${nextId?`navigateTo('${nextId}')`:''}">次の篇 →</button></div>`;
-    div.innerHTML = html;
-    container.appendChild(div);
+    div.innerHTML = h;
+    c.appendChild(div);
   });
 }
 
 function renderTOC() {
   const tc = document.getElementById('toc-compare');
   const ts = document.getElementById('toc-search');
-  tc.innerHTML = ''; ts.innerHTML = '';
+  const n1c = document.getElementById('toc-n1-compare');
+  const n1s = document.getElementById('toc-n1-search');
+  tc.innerHTML = ''; ts.innerHTML = ''; n1c.innerHTML = ''; n1s.innerHTML = '';
   PASSAGES.forEach((p, idx) => {
     const dc = Object.keys(state.results[p.id]||{}).length;
     const d = document.createElement('div');
-    d.className = 'index-item' + (dc === p.questions.length ? ' done' : '');
-    d.textContent = `第${idx+1}篇 ${p.title} ${dc>0?`✓${dc}/${p.questions.length}`:''}`;
+    d.className = 'index-item' + (dc === p.q.length ? ' done' : '');
+    d.textContent = `第${idx+1}篇 ${p.title} ${dc>0?`✓${dc}/${p.q.length}`:''}`;
     d.onclick = () => navigateTo(p.id);
-    (p.type==='compare'?tc:ts).appendChild(d);
+    const isC = COMPARE.includes(p) || COMPARE_N1.includes(p);
+    (p.level==='N1' ? (isC?n1c:n1s) : (isC?tc:ts)).appendChild(d);
   });
 }
 
 function showOnly(id) {
   document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-  const target = document.getElementById('page-' + id);
-  if (target) target.classList.add('active');
+  const t = document.getElementById('page-' + id);
+  if (t) t.classList.add('active');
 }
 
 function navigateTo(id) {
-  state.current = id;
-  showOnly(id);
-  renderTOC(); updateProgress();
+  state.current = id; showOnly(id); renderTOC(); updateProgress();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-// Event delegation for answer clicks
 document.addEventListener('click', (e) => {
   const opt = e.target.closest('.option');
   if (!opt || opt.classList.contains('disabled')) return;
-  const pageEl = opt.closest('.page');
-  if (!pageEl) return;
+  const pageEl = opt.closest('.page'); if (!pageEl) return;
   const pid = pageEl.id.replace('page-','');
   const p = PASSAGES.find(x => x.id === pid);
   const qi = Array.from(pageEl.querySelectorAll('.question')).indexOf(opt.closest('.question'));
@@ -590,13 +478,8 @@ document.addEventListener('click', (e) => {
   state.results[pid] = state.results[pid] || {};
   state.answers[pid][qi] = oi;
   state.answered[pid][qi] = true;
-  state.results[pid][qi] = oi === p.questions[qi].answer;
-  // rebuild just this page
-  const idx = PASSAGES.indexOf(p);
-  const oldEl = pageEl;
-  build(); // rebuild all
-  showOnly(pid);
-  renderTOC(); updateProgress();
+  state.results[pid][qi] = oi === p.q[qi].a;
+  build(); showOnly(pid); renderTOC(); updateProgress();
 });
 
 function resetPassage(pid) {
@@ -606,16 +489,14 @@ function resetPassage(pid) {
 
 function updateProgress() {
   let total=0, correct=0;
-  PASSAGES.forEach(p => total += p.questions.length);
+  PASSAGES.forEach(p => total += p.q.length);
   Object.values(state.results).forEach(r => Object.values(r).forEach(v => { if (v) correct++; }));
   document.getElementById('score-text').textContent = correct;
   document.getElementById('total-text').textContent = total;
-  document.getElementById('overall-progress').style.width = (total>0 ? (correct/total*100) : 0) + '%';
+  document.getElementById('overall-progress').style.width = (total>0?(correct/total*100):0)+'%';
 }
 
-build();
-renderTOC();
-updateProgress();
+build(); renderTOC(); updateProgress();
 </script>
 </body>
 </html>
