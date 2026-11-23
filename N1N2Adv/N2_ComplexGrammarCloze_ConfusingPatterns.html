@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JLPT N2 复杂语法组合填空 · 专项突破</title>
+<style>
+  :root {
+    --page-bg: #FFFFFF;
+    --page-surface: #FFFBF5;
+    --page-surface-muted: #FFEFD6;
+    --page-text: #2D2415;
+    --page-text-secondary: #5C4A30;
+    --page-text-muted: #8C7A5C;
+    --page-border: #F0DDB8;
+    --page-brand: #D48806;
+    --page-brand-hover: #B87706;
+    --page-brand-soft: #FFF4E0;
+    --page-brand-soft-strong: #FFE4B8;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans GB",
+      "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--page-text);
+    background: var(--page-surface);
+    -webkit-font-smoothing: antialiased;
+  }
+  .jp, .word-card__jp, .phrase-card__jp, .compare-box__label, .quiz-question__text .jp {
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  }
+
+  /* Intro */
+  .report-intro {
+    position: relative;
+    background: linear-gradient(135deg, var(--page-brand-soft) 0%, #fff 100%);
+    border-bottom: 1px solid var(--page-border);
+    overflow: hidden;
+  }
+  .report-intro__content { max-width: 960px; margin: 0 auto; padding: 44px 24px 36px; position: relative; z-index: 1; }
+  .report-intro__eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 600; color: var(--page-brand);
+    letter-spacing: 0.08em; margin-bottom: 12px; padding: 4px 12px; background: #fff;
+    border-radius: var(--radius-pill); border: 1px solid var(--page-brand-soft-strong);
+  }
+  .report-intro h1 { font-size: 30px; font-weight: 700; line-height: 1.35; margin-bottom: 12px; }
+  .report-intro h1 span.jp { color: var(--page-brand); font-weight: 600; font-size: 22px; }
+  .report-intro__summary { font-size: 15px; color: var(--page-text-secondary); line-height: 1.8; max-width: 660px; }
+  .report-intro__meta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--page-text-muted); }
+  .report-intro__meta-item { display: flex; align-items: center; gap: 6px; }
+  .report-intro__meta-item::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--page-brand); }
+  .report-intro::before { content: ""; position: absolute; top: -50px; right: -30px; width: 180px; height: 180px; background: var(--page-brand-soft-strong); border-radius: 20px; transform: rotate(15deg); opacity: .5; }
+  .report-intro::after { content: ""; position: absolute; bottom: -60px; right: 140px; width: 120px; height: 120px; background: #fff; border-radius: 16px; transform: rotate(-10deg); opacity: .5; }
+
+  /* Sticky TOC */
+  .toc { position: sticky; top: 0; z-index: 20; background: rgba(255,251,245,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--page-border); }
+  .toc__inner { max-width: 960px; margin: 0 auto; padding: 10px 24px; display: flex; gap: 6px; overflow-x: auto; }
+  .toc__inner a { flex-shrink: 0; font-size: 12px; color: var(--page-text-secondary); text-decoration: none; padding: 5px 12px; border-radius: var(--radius-pill); transition: .2s; }
+  .toc__inner a:hover { background: var(--page-brand-soft); color: var(--page-brand); }
+
+  main { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+  section { margin-bottom: 44px; scroll-margin-top: 60px; }
+  section h2 {
+    font-size: 21px; font-weight: 700; margin-bottom: 8px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--page-brand-soft-strong); display: flex; align-items: center; gap: 10px;
+  }
+  section h2 .section-num {
+    display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px;
+    background: var(--page-brand); color: #fff; font-size: 13px; font-weight: 700; border-radius: var(--radius-sm);
+  }
+  .section-lead { font-size: 13px; color: var(--page-text-muted); margin: 0 0 20px; }
+  h3 { font-size: 16px; font-weight: 600; margin: 24px 0 12px; }
+  p { margin-bottom: 12px; }
+
+  /* Tabs */
+  .tabs { margin-bottom: 20px; }
+  .tabs__nav { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 20px; border-bottom: 2px solid var(--page-border); }
+  .tabs__btn { padding: 10px 18px; font-size: 14px; font-weight: 500; color: var(--page-text-muted); background: none; border: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s ease; font-family: inherit; }
+  .tabs__btn:hover { color: var(--page-brand); }
+  .tabs__btn.active { color: var(--page-brand); border-bottom-color: var(--page-brand); font-weight: 600; }
+  .tabs__panel { display: none; }
+  .tabs__panel.active { display: block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Step cards */
+  .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .step {
+    background: #fff; border: 1px solid var(--page-border); border-radius: var(--radius-md); padding: 20px 22px; position: relative;
+  }
+  .step__num {
+    position: absolute; top: -12px; left: 20px; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--page-brand); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .step__title { font-size: 16px; font-weight: 700; margin: 6px 0 8px; }
+  .step__desc { font-size: 13px; color: var(--page-text-secondary); line-height: 1.7; }
+  .step__signal { margin-top: 10px; font-size: 12px; color: var(--page-brand); background: var(--page-brand-soft); padding: 6px 10px; border-radius: var(--radius-sm); }
+
+  /* Pattern cards */
+  .pattern-grid { display: grid; gap: 12px; }
+  .pattern-card { background: #fff; border: 1px solid var(--page-border); border-radius: var(--radius-md); padding: 16px 20px; transition: .2s; }
+  .pattern-card:hover { border-color: var(--page-brand-soft-strong); box-shadow: 0 2px 12px rgba(212,136,6,.06); }
+  .pattern-card__header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+  .pattern-card__jp { font-size: 19px; font-weight: 700; color: var(--page-text); }
+  .pattern-card__tag { padding: 2px 10px; font-size: 11px; font-weight: 600; border-radius: var(--radius-pill); background: var(--page-brand-soft); color: var(--page-brand); }
+  .pattern-card__tag--pair { background: #EEF2FF; color: #3730A3; }
+  .pattern-card__meaning { font-size: 15px; font-weight: 600; color: var(--page-brand); margin-bottom: 4px; }
+  .pattern-card__signal { font-size: 12px; color: var(--page-text-muted); margin-bottom: 8px; }
+  .pattern-card__signal b { color: var(--page-text-secondary); font-weight: 600; }
+  .pattern-card__example { font-size: 13px; color: var(--page-text); padding: 8px 12px; background: var(--page-surface); border-radius: var(--radius-sm); }
+  .pattern-card__example .zh { color: var(--page-text-muted); margin-left: 6px; }
+
+  /* Compare */
+  .compare-box { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .compare-box__col { padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--page-border); background: #fff; }
+  .compare-box__col--a { border-color: #FED7AA; background: #FFF7ED; }
+  .compare-box__col--b { border-color: #CDE8DD; background: #F0FDF4; }
+  .compare-box__label { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .compare-box__col--a .compare-box__label { color: #C2410C; }
+  .compare-box__col--b .compare-box__label { color: #15803D; }
+  .compare-box__desc { font-size: 13px; color: var(--page-text-secondary); line-height: 1.75; }
+
+  /* Callout */
+  .callout { padding: 16px 20px; border-radius: var(--radius-md); margin: 16px 0; display: flex; gap: 12px; align-items: flex-start; }
+  .callout--warn { background: #FFF1F1; border: 1px solid #FECACA; }
+  .callout--tip { background: #F0FDF4; border: 1px solid #BBF7D0; }
+  .callout--info { background: var(--page-brand-soft); border: 1px solid var(--page-brand-soft-strong); }
+  .callout__icon { flex-shrink: 0; font-size: 18px; line-height: 1.4; }
+  .callout__title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .callout--warn .callout__title { color: #B91C1C; }
+  .callout--tip .callout__title { color: #15803D; }
+  .callout--info .callout__title { color: var(--page-brand); }
+  .callout__text { font-size: 13px; color: var(--page-text-secondary); line-height: 1.75; }
+
+  /* Accordion */
+  .accordion { display: flex; flex-direction: column; gap: 10px; }
+  .accordion__item { background: #fff; border: 1px solid var(--page-border); border-radius: var(--radius-md); overflow: hidden; }
+  .accordion__header { padding: 16px 20px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: background .2s; user-select: none; }
+  .accordion__header:hover { background: var(--page-brand-soft); }
+  .accordion__title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .accordion__scene-tag { font-size: 11px; padding: 2px 8px; background: var(--page-brand-soft); color: var(--page-brand); border-radius: var(--radius-pill); font-weight: 500; }
+  .accordion__icon { width: 20px; height: 20px; flex-shrink: 0; color: var(--page-text-muted); transition: transform .3s; }
+  .accordion__item.open .accordion__icon { transform: rotate(180deg); color: var(--page-brand); }
+  .accordion__body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+  .accordion__item.open .accordion__body { max-height: 2000px; }
+  .accordion__content { padding: 0 20px 20px; border-top: 1px solid var(--page-border); }
+  .accordion__content > * { margin-top: 16px; }
+
+  /* Table */
+  .summary-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--page-border); }
+  .summary-table th { background: var(--page-surface); padding: 12px 14px; text-align: left; font-size: 13px; font-weight: 600; color: var(--page-text-secondary); border-bottom: 1px solid var(--page-border); }
+  .summary-table td { padding: 12px 14px; border-bottom: 1px solid var(--page-border); font-size: 13px; vertical-align: top; }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table .jp { font-weight: 600; color: var(--page-brand); font-size: 14px; }
+  .ok { color: #15803D; font-weight: 600; }
+  .no { color: #B91C1C; font-weight: 600; }
+
+  /* Flashcard */
+  .flashcard-container { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .flashcard { width: 100%; max-width: 520px; height: 230px; perspective: 1000px; cursor: pointer; }
+  .flashcard__inner { position: relative; width: 100%; height: 100%; transition: transform .6s; transform-style: preserve-3d; }
+  .flashcard.flipped .flashcard__inner { transform: rotateY(180deg); }
+  .flashcard__face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--radius-lg); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; border: 2px solid var(--page-brand-soft-strong); text-align: center; }
+  .flashcard__face--front { background: #fff; }
+  .flashcard__face--back { background: var(--page-brand-soft); transform: rotateY(180deg); }
+  .flashcard__label { font-size: 12px; color: var(--page-text-muted); margin-bottom: 12px; letter-spacing: .1em; }
+  .flashcard__word { font-size: 30px; font-weight: 700; color: var(--page-text); margin-bottom: 8px; }
+  .flashcard__reading { font-size: 13px; color: var(--page-text-muted); }
+  .flashcard__meaning { font-size: 19px; font-weight: 600; color: var(--page-brand); margin-bottom: 10px; }
+  .flashcard__example { font-size: 13px; color: var(--page-text-secondary); line-height: 1.6; }
+  .flashcard-controls { display: flex; gap: 12px; align-items: center; }
+  .flashcard-btn { padding: 8px 16px; font-size: 13px; font-weight: 500; color: var(--page-brand); background: #fff; border: 1px solid var(--page-brand-soft-strong); border-radius: var(--radius-sm); cursor: pointer; transition: .2s; font-family: inherit; }
+  .flashcard-btn:hover { background: var(--page-brand-soft); }
+  .flashcard-btn--primary { background: var(--page-brand); color: #fff; border-color: var(--page-brand); }
+  .flashcard-btn--primary:hover { background: var(--page-brand-hover); }
+  .flashcard-progress { font-size: 13px; color: var(--page-text-muted); min-width: 60px; text-align: center; }
+
+  /* Quiz */
+  .quiz-container { background: #fff; border: 1px solid var(--page-border); border-radius: var(--radius-md); padding: 24px 28px; }
+  .quiz-question__num { font-size: 12px; font-weight: 600; color: var(--page-brand); margin-bottom: 8px; }
+  .quiz-question__text { font-size: 16px; font-weight: 600; line-height: 1.8; margin-bottom: 4px; }
+  .quiz-question__sub { font-size: 13px; color: var(--page-text-muted); margin-bottom: 16px; }
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-option { padding: 12px 16px; border: 1px solid var(--page-border); border-radius: var(--radius-sm); cursor: pointer; transition: .2s; font-size: 14px; display: flex; align-items: center; gap: 10px; }
+  .quiz-option:hover { border-color: var(--page-brand-soft-strong); background: var(--page-brand-soft); }
+  .quiz-option.selected { border-color: var(--page-brand); background: var(--page-brand-soft); }
+  .quiz-option.correct { border-color: #15803D; background: #F0FDF4; color: #15803D; }
+  .quiz-option.wrong { border-color: #B91C1C; background: #FEF2F2; color: #B91C1C; }
+  .quiz-option__marker { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--page-border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+  .quiz-option.correct .quiz-option__marker { border-color: #15803D; background: #15803D; color: #fff; }
+  .quiz-option.wrong .quiz-option__marker { border-color: #B91C1C; background: #B91C1C; color: #fff; }
+  .quiz-feedback { margin-top: 16px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; display: none; line-height: 1.7; }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback--correct { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
+  .quiz-feedback--wrong { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+  .quiz-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--page-border); }
+  .quiz-score { font-size: 14px; font-weight: 600; color: var(--page-brand); }
+  .quiz-nav { display: flex; gap: 8px; }
+
+  footer { max-width: 960px; margin: 0 auto; padding: 24px; border-top: 1px solid var(--page-border); font-size: 12px; color: var(--page-text-muted); text-align: center; }
+  @media (max-width: 640px) {
+    .report-intro h1 { font-size: 24px; }
+    .report-intro h1 span.jp { font-size: 17px; }
+    main { padding: 20px 16px 48px; }
+    section h2 { font-size: 18px; }
+    .steps, .compare-box { grid-template-columns: 1fr; }
+    .flashcard { height: 250px; }
+    .flashcard__word { font-size: 24px; }
+    .tabs__btn { padding: 8px 12px; font-size: 13px; }
+    .quiz-container { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="report-intro">
+  <div class="report-intro__content">
+    <span class="report-intro__eyebrow">JLPT N2 · 文法专项</span>
+    <h1>复杂语法组合填空 <span class="jp">長文の空欄補充</span></h1>
+    <p class="report-intro__summary">
+      长句、新闻/发言/观点场景、多层逻辑嵌套、四个极易混淆的 N2 句型——这类题不靠语感，靠「先定语义，再对号入座」。
+      本页汇总 <strong>解题四步法</strong>、<strong>三组 18 个易混句型</strong>、<strong>真题精讲</strong>与<strong>交互练习</strong>。
+    </p>
+    <div class="report-intro__meta">
+      <div class="report-intro__meta-item">解题四步法</div>
+      <div class="report-intro__meta-item">易混句型 18 个</div>
+      <div class="report-intro__meta-item">核心对照 3 组</div>
+      <div class="report-intro__meta-item">练习 8 题</div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc__inner">
+    <a href="#sec-method">① 解题方法</a>
+    <a href="#sec-patterns">② 易混句型</a>
+    <a href="#sec-compare">③ 核心对照</a>
+    <a href="#sec-real">④ 真题精讲</a>
+    <a href="#sec-signals">⑤ 信号词速查</a>
+    <a href="#sec-flashcards">⑥ 句型闪卡</a>
+    <a href="#sec-quiz">⑦ 小测验</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- 1 解题方法 -->
+  <section id="sec-method">
+    <h2><span class="section-num">1</span>解题四步法</h2>
+    <p class="section-lead">长句填空靠语感不稳。用固定四步把正确率锁住——先判逻辑，再定性，最后逐一验证。</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step__num">1</div>
+        <div class="step__title">抓逻辑信号词</div>
+        <div class="step__desc">先圈出句子里的逻辑连接词，定清因果、让步、立场的方向。</div>
+        <div class="step__signal">のだから / として / にもかかわらず / からには</div>
+      </div>
+      <div class="step">
+        <div class="step__num">2</div>
+        <div class="step__title">定主语立场</div>
+        <div class="step__desc">判断是说话人自己的意志责任，还是对外部情况的客观推测。</div>
+        <div class="step__signal">本人意志？外部推测？客观形势？主观感情？</div>
+      </div>
+      <div class="step">
+        <div class="step__num">3</div>
+        <div class="step__title">判语义极性</div>
+        <div class="step__desc">明确空格需要的语义：不能 / 必须 / 许可 / 忍不住 / 只好。</div>
+        <div class="step__signal">不能・必须・许可・忍不住・别无选择</div>
+      </div>
+      <div class="step">
+        <div class="step__num">4</div>
+        <div class="step__title">代入验证</div>
+        <div class="step__desc">四个选项逐一翻译回中文，只有语义和语气都吻合的才是答案。</div>
+        <div class="step__signal">每项都要能说出「为什么错」</div>
+      </div>
+    </div>
+    <div class="callout callout--tip">
+      <div class="callout__icon">◆</div>
+      <div>
+        <div class="callout__title">核心原则</div>
+        <div class="callout__text">中文翻译常常一样，差别全在<strong>语气和信号词</strong>。先靠信号词确定"该填什么语义"，再去四个句型里对号入座，而不是先看哪个眼熟。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 易混句型 -->
+  <section id="sec-patterns">
+    <h2><span class="section-num">2</span>三组易混句型（18 个）</h2>
+    <p class="section-lead">按语义场分组，每组都标出核心语气与识别信号。点击标签切换。</p>
+    <div class="tabs" id="patternTabs">
+      <div class="tabs__nav">
+        <button class="tabs__btn active" data-tab="duty">① 义务・必要</button>
+        <button class="tabs__btn" data-tab="concession">② 让步・转折</button>
+        <button class="tabs__btn" data-tab="cause">③ 因果・理由</button>
+      </div>
+      <div class="tabs__panel active" data-panel="duty"><div class="pattern-grid" id="gridDuty"></div></div>
+      <div class="tabs__panel" data-panel="concession"><div class="pattern-grid" id="gridConcession"></div></div>
+      <div class="tabs__panel" data-panel="cause"><div class="pattern-grid" id="gridCause"></div></div>
+    </div>
+  </section>
+
+  <!-- 3 核心对照 -->
+  <section id="sec-compare">
+    <h2><span class="section-num">3</span>三组核心对照（最常设陷阱）</h2>
+    <p class="section-lead">这三对是失分重灾区。把它们记成"对立轴"，做题时先判断落在哪一端。</p>
+
+    <h3>对照 1：ざるを得ない ↔ ずにはいられない</h3>
+    <div class="compare-box">
+      <div class="compare-box__col compare-box__col--a">
+        <div class="compare-box__label">〜ざるを得ない</div>
+        <div class="compare-box__desc">
+          <strong>客观形势所迫，不得不</strong><br>
+          ・主语被外部情况逼到别无选择<br>
+          ・信号：もはや・やむなく・〜ない以上<br>
+          ・例：もはや体制を見直<span class="jp">さざるを得ない</span>。<br>
+          ・严肃、正式场合
+        </div>
+      </div>
+      <div class="compare-box__col compare-box__col--b">
+        <div class="compare-box__label">〜ずにはいられない</div>
+        <div class="compare-box__desc">
+          <strong>主观感情驱动，忍不住</strong><br>
+          ・主语感情自然流露，不做心里难受<br>
+          ・信号：思わず・涙が・悲しくて<br>
+          ・例：涙を流<span class="jp">さずにはいられない</span>。<br>
+          ・感情、心理描写场景
+        </div>
+      </div>
+    </div>
+
+    <h3>对照 2：にもかかわらず ↔ とはいえ</h3>
+    <div class="compare-box">
+      <div class="compare-box__col compare-box__col--a">
+        <div class="compare-box__label">〜にもかかわらず</div>
+        <div class="compare-box__desc">
+          <strong>尽管…却（矛盾反差）</strong><br>
+          ・后项是出乎意料的反差结果<br>
+          ・信号：呼吁/努力 → 反而更糟<br>
+          ・例：節電を呼びかけ<span class="jp">たにもかかわらず</span>過去最高。<br>
+          ・前后矛盾、违背预期
+        </div>
+      </div>
+      <div class="compare-box__col compare-box__col--b">
+        <div class="compare-box__label">〜とはいえ</div>
+        <div class="compare-box__desc">
+          <strong>虽说…但（修正保留）</strong><br>
+          ・先承认，再补充修正性评价<br>
+          ・信号：ただ・確かに・とはいえ<br>
+          ・例：普及が進ん<span class="jp">だとはいえ</span>課題は残る。<br>
+          ・留有余地，非意外反差
+        </div>
+      </div>
+    </div>
+
+    <h3>对照 3：ばかりに ↔ ために</h3>
+    <div class="compare-box">
+      <div class="compare-box__col compare-box__col--a">
+        <div class="compare-box__label">〜ばかりに</div>
+        <div class="compare-box__desc">
+          <strong>正因为…才落得坏结果</strong><br>
+          ・后项必然是负面结果，带后悔/批评<br>
+          ・信号：批判を浴びる・信頼を失う<br>
+          ・例：水増しし<span class="jp">たばかりに</span>信頼を失った。<br>
+          ・见正面结果立刻排除
+        </div>
+      </div>
+      <div class="compare-box__col compare-box__col--b">
+        <div class="compare-box__label">〜ために</div>
+        <div class="compare-box__desc">
+          <strong>中性因果 / 目的</strong><br>
+          ・"为了…"或客观的"因为…"<br>
+          ・信号：〜ようとする・効率化<br>
+          ・例：効率を上げる<span class="jp">ために</span>改革した。<br>
+          ・不带后悔、无褒贬
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout--warn">
+      <div class="callout__icon">!</div>
+      <div>
+        <div class="callout__title">最阴险的一对：わけにはいかない vs ないわけにはいかない</div>
+        <div class="callout__text">只差一个「ない」，意思完全相反：前者是「（情理上）不能做」，后者是「（情理上）不能不做＝必须做」。做题第一件事，把句中所有「ない」圈出来数清楚。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 真题精讲 -->
+  <section id="sec-real">
+    <h2><span class="section-num">4</span>真题精讲（第 38 题）</h2>
+    <p class="section-lead">点开每一部分，看这道题如何套用四步法。这是最典型的"多层逻辑 + 四句型混淆"结构。</p>
+    <div class="accordion">
+      <div class="accordion__item open">
+        <div class="accordion__header">
+          <div class="accordion__title"><span class="accordion__scene-tag">题目</span>记者会 · 市长发言</div>
+          <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="accordion__body"><div class="accordion__content">
+          <p class="jp" style="font-size:15px;line-height:1.9;">市長は、記者会見で『高速道路建設に反対している市民も少なくないのだから、市長として、そのことを無視して建設計画を（　）。』と述べた。</p>
+          <p style="color:var(--page-text-muted);font-size:13px;">市长在记者会上说："反对高速公路建设的市民不在少数，作为市长，不能无视这一点去推进建设计划。"</p>
+          <div class="pattern-grid" style="margin-top:14px;">
+            <div class="pattern-card"><div class="pattern-card__jp">1. 進めそうにない</div><div class="pattern-card__meaning no">✕ 样态推测不对</div><div class="pattern-card__example">市长在陈述自身责任，不是从外部观察推测"看起来不会推进"。</div></div>
+            <div class="pattern-card"><div class="pattern-card__jp">2. 進めてもかまわない</div><div class="pattern-card__meaning no">✕ 意思相反</div><div class="pattern-card__example">"推进也没关系"与"有市民不少反对"的语境完全相反。</div></div>
+            <div class="pattern-card"><div class="pattern-card__jp">3. 進めずにはいられない</div><div class="pattern-card__meaning no">✕ 极性反了</div><div class="pattern-card__example">"忍不住／不得不推进"是感情或客观所迫，与"不能无视"的道义约束相反。</div></div>
+            <div class="pattern-card"><div class="pattern-card__jp">4. 進めるわけにはいかない</div><div class="pattern-card__meaning ok">✓ 正确答案</div><div class="pattern-card__example">"出于立场不能推进"——由「市長として」的立场与「〜のだから」的原因共同锁定。</div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="accordion__item">
+        <div class="accordion__header">
+          <div class="accordion__title"><span class="accordion__scene-tag">拆解</span>逻辑链与四步套用</div>
+          <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="accordion__body"><div class="accordion__content">
+          <div class="pattern-grid">
+            <div class="pattern-card"><div class="pattern-card__meaning">逻辑链</div><div class="pattern-card__example">市民反对（のだから·原因背景）→ 作为市长（として·立场）→ 无视反对去推进 → 结论必然是"不能推进"。</div></div>
+            <div class="pattern-card"><div class="pattern-card__meaning">① 抓信号</div><div class="pattern-card__example">「〜のだから」因果 +「〜として」立场，确定是"立场约束"语境。</div></div>
+            <div class="pattern-card"><div class="pattern-card__meaning">② 定立场</div><div class="pattern-card__example">主语是市长本人，在表明责任，不是对外的客观推测。</div></div>
+            <div class="pattern-card"><div class="pattern-card__meaning">③ 判极性 → ④ 验证</div><div class="pattern-card__example">语义极性＝"不能"。四个选项逐一验证，只有 4「わけにはいかない」表达"出于立场不能做"。</div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="accordion__item">
+        <div class="accordion__header">
+          <div class="accordion__title"><span class="accordion__scene-tag">考点</span>为什么集齐这四个选项</div>
+          <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="accordion__body"><div class="accordion__content">
+          <div class="callout callout--info" style="margin:0;">
+            <div class="callout__icon">◎</div>
+            <div>
+              <div class="callout__title">四个选项横跨四个语义筐</div>
+              <div class="callout__text">样态推测（そうにない）、许可（てもかまわない）、情不自禁（ずにはいられない）、道义禁止（わけにはいかない）。出题人就是拿"都带ない、中文都像否定"来迷惑你。把句型按语义场归类，是破解这类题的根本。</div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 信号词速查 -->
+  <section id="sec-signals">
+    <h2><span class="section-num">5</span>信号词速查表</h2>
+    <p class="section-lead">做题时先扫这张表，找到信号词＝锁定逻辑方向。</p>
+    <table class="summary-table">
+      <thead><tr><th style="width:26%">信号词 / 结构</th><th style="width:20%">逻辑方向</th><th>应填句型倾向</th></tr></thead>
+      <tbody>
+        <tr><td><span class="jp">〜のだから</span></td><td>原因背景 + 强调</td><td>后项多为道义、决心、必然结论</td></tr>
+        <tr><td><span class="jp">〜として</span></td><td>身份 / 立场</td><td>后项多为「〜わけにはいかない」等立场性表达</td></tr>
+        <tr><td><span class="jp">ただ / 確かに〜</span></td><td>先承认再修正</td><td>「〜とはいえ」「〜ものの」</td></tr>
+        <tr><td><span class="jp">呼びかけたのに</span></td><td>努力 → 反效果</td><td>「〜にもかかわらず」</td></tr>
+        <tr><td><span class="jp">もはや / やむなく</span></td><td>事到如今、别无选择</td><td>「〜ざるを得ない」「〜よりほかない」</td></tr>
+        <tr><td><span class="jp">思わず / 涙が</span></td><td>主观感情流露</td><td>「〜ずにはいられない」</td></tr>
+        <tr><td><span class="jp">批判を浴びる / 信頼を失う</span></td><td>负面结果</td><td>「〜ばかりに」；见正面结果则排除</td></tr>
+        <tr><td><span class="jp">〜と呼ばれる</span></td><td>得名 / 推断依据</td><td>「〜ことから」</td></tr>
+        <tr><td><span class="jp">〜なんです</span></td><td>辩解、说明原委</td><td>「〜ものだから」</td></tr>
+        <tr><td><span class="jp">〜からには / 〜以上は</span></td><td>既然…就</td><td>后项接意志、决心、义务</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 6 闪卡 -->
+  <section id="sec-flashcards">
+    <h2><span class="section-num">6</span>句型闪卡</h2>
+    <p class="section-lead">点击卡片翻面，检验是否记住语义语气。可用上/下一个切换全部 18 个句型。</p>
+    <div class="flashcard-container">
+      <div class="flashcard" id="flashcard">
+        <div class="flashcard__inner">
+          <div class="flashcard__face flashcard__face--front">
+            <div class="flashcard__label">句型</div>
+            <div class="flashcard__word" id="fcWord"></div>
+            <div class="flashcard__reading" id="fcReading"></div>
+          </div>
+          <div class="flashcard__face flashcard__face--back">
+            <div class="flashcard__label">语义 · 信号 · 例句</div>
+            <div class="flashcard__meaning" id="fcMeaning"></div>
+            <div class="flashcard__example" id="fcExample"></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--page-text-muted);">点击卡片翻面</div>
+      <div class="flashcard-controls">
+        <button class="flashcard-btn" id="fcPrev">← 上一个</button>
+        <span class="flashcard-progress" id="fcProgress"></span>
+        <button class="flashcard-btn flashcard-btn--primary" id="fcNext">下一个 →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 测验 -->
+  <section id="sec-quiz">
+    <h2><span class="section-num">7</span>小测验（8 题）</h2>
+    <p class="section-lead">5 道基础题 + 3 道针对性复测。选完立刻看解析。</p>
+    <div class="quiz-container" id="quizContainer">
+      <div class="quiz-question" id="quizQuestion">
+        <div class="quiz-question__num" id="quizNum"></div>
+        <div class="quiz-question__text" id="quizText"></div>
+        <div class="quiz-question__sub" id="quizSub"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+      </div>
+      <div class="quiz-actions">
+        <div class="quiz-score" id="quizScore">得分：0 / 8</div>
+        <div class="quiz-nav">
+          <button class="flashcard-btn" id="quizPrev" disabled>← 上一题</button>
+          <button class="flashcard-btn flashcard-btn--primary" id="quizNext">下一题 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>JLPT N2 复杂语法组合填空 · 专项突破 · 先定语义，再对号入座</footer>
+
+<script>
+  const patterns = {
+    duty: [
+      { jp: '〜ざるを得ない', tag: '客观所迫', meaning: '客观形势所迫，不得不', signal: '<b>信号：</b>もはや・やむなく・〜ない以上', ex: 'もはや自社の品質管理体制を見直さざるを得ない。', zh: '事到如今不得不重新审视公司的质量管理体系。' },
+      { jp: '〜ずにはいられない', tag: '主观感情', meaning: '主观感情驱动，忍不住', signal: '<b>信号：</b>思わず・涙が・悲しくて', ex: '恩師の訃報を聞き、涙を流さずにはいられない。', zh: '听到恩师讣告，忍不住落泪。' },
+      { jp: '〜ないわけにはいかない', tag: '情理必须', meaning: '情理上不能不做（必须）', signal: '<b>信号：</b>〜として・責任として', ex: '消費者に迷惑をかけた以上、説明しないわけにはいかない。', zh: '既然给消费者添了麻烦，就不能不说明。' },
+      { jp: '〜わけにはいかない', tag: '情理禁止', pair: true, meaning: '情理上不能做（禁止）', signal: '<b>信号：</b>無視して・立場として', ex: '市民の反対を無視して計画を進めるわけにはいかない。', zh: '不能无视市民反对而推进计划。' },
+      { jp: '〜べきだ', tag: '主张应当', meaning: '说话人主张的应当', signal: '<b>信号：</b>当然・〜べきではない', ex: '顧客の立場に立って考えるべきだ。', zh: '应该站在顾客的立场思考。' },
+      { jp: '〜よりほかない', tag: '别无选择', meaning: '别无选择，只好', signal: '<b>信号：</b>もう・それ以外に', ex: 'もうここで待つよりほかない。', zh: '只好在这里等了。' }
+    ],
+    concession: [
+      { jp: '〜にもかかわらず', tag: '矛盾反差', pair: true, meaning: '尽管…却（前后矛盾反差）', signal: '<b>信号：</b>呼吁/努力 → 反而更糟', ex: '節電を呼びかけたにもかかわらず、使用量は過去最高だ。', zh: '尽管呼吁节电，用电量却创了历史新高。' },
+      { jp: '〜とはいえ', tag: '修正保留', pair: true, meaning: '虽说…但（先承认再修正）', signal: '<b>信号：</b>ただ・確かに', ex: '普及が進んだとはいえ、まだ課題は残っている。', zh: '虽说普及有进展，但仍有课题。' },
+      { jp: '〜ものの', tag: '部分转折', meaning: '部分肯定后的转折，虽然', signal: '<b>信号：</b>〜ものの、まだ', ex: '評価は高いものの、売上は伸びない。', zh: '评价虽高，销量却没增长。' },
+      { jp: '〜ものを', tag: '遗憾不满', meaning: '遗憾不满，明明…却', signal: '<b>信号：</b>〜ものを、なぜ', ex: 'もっと早く助けを求めればよかったものを。', zh: '要是早点求助就好了（可惜没有）。' },
+      { jp: '〜ながらも', tag: '并存转折', meaning: '同一主体并存，虽然却', signal: '<b>信号：</b>知りながらも・弱い', ex: '危険を知りながらも近づいていった。', zh: '明知危险却还是靠近了。' },
+      { jp: '〜かといって', tag: '不可推断', meaning: '不能据此推断，倒也未必', signal: '<b>信号：</b>〜とはいえない', ex: '利用者が増えたからといって成功とはいえない。', zh: '不能因为用户增加就说成功了。' }
+    ],
+    cause: [
+      { jp: '〜ばかりに', tag: '坏结果', pair: true, meaning: '正因为…才招致坏结果', signal: '<b>信号：</b>批判を浴びる・信頼を失う', ex: '売上を水増ししたばかりに信頼を失った。', zh: '正因为虚报了销售额，才失去了信任。' },
+      { jp: '〜ために', tag: '中性因果', pair: true, meaning: '中性因果或目的', signal: '<b>信号：</b>〜ようとする・効率化', ex: '効率を上げるために改革を行った。', zh: '为了提高效率进行了改革。' },
+      { jp: '〜から', tag: '主观原因', meaning: '主观原因，直接陈述', signal: '<b>信号：</b>〜からだ', ex: '反対する市民が多いから見直す。', zh: '因为反对的市民很多，所以要重新审视。' },
+      { jp: '〜ので', tag: '客观委婉', meaning: '客观原因，委婉', signal: '<b>信号：</b>〜ので、〜ませんか', ex: '雨が降るので、会議は中止です。', zh: '因为下雨，会议取消。' },
+      { jp: '〜ものだから', tag: '辩解原委', meaning: '辩解式原因，因为嘛', signal: '<b>信号：</b>〜なんです', ex: '時間がなかったものだから、急いで書きました。', zh: '因为没时间了，就急匆匆写好了。' },
+      { jp: '〜ことから', tag: '推断依据', meaning: '由此推断或得名的依据', signal: '<b>信号：</b>〜と呼ばれる', ex: '形が似ていることから「狐の穴」と呼ばれる。', zh: '因形状相似而被称为"狐狸洞"。' }
+    ]
+  };
+
+  function renderPatterns(containerId, list) {
+    document.getElementById(containerId).innerHTML = list.map(p => `
+      <div class="pattern-card">
+        <div class="pattern-card__header">
+          <span class="pattern-card__jp">${p.jp}</span>
+          <span class="pattern-card__tag ${p.pair ? 'pattern-card__tag--pair' : ''}">${p.tag}</span>
+        </div>
+        <div class="pattern-card__meaning">${p.meaning}</div>
+        <div class="pattern-card__signal">${p.signal}</div>
+        <div class="pattern-card__example"><span class="jp">${p.ex}</span><span class="zh">${p.zh}</span></div>
+      </div>
+    `).join('');
+  }
+  renderPatterns('gridDuty', patterns.duty);
+  renderPatterns('gridConcession', patterns.concession);
+  renderPatterns('gridCause', patterns.cause);
+
+  document.querySelectorAll('.tabs').forEach(group => {
+    const buttons = group.querySelectorAll('.tabs__btn');
+    const panels = group.querySelectorAll('.tabs__panel');
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      buttons.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      group.querySelector('[data-panel="' + target + '"]').classList.add('active');
+    }));
+  });
+
+  document.querySelectorAll('.accordion__header').forEach(h =>
+    h.addEventListener('click', () => h.parentElement.classList.toggle('open'))
+  );
+
+  const flashcardsData = [];
+  Object.keys(patterns).forEach(k => patterns[k].forEach(p =>
+    flashcardsData.push({ word: p.jp, reading: p.tag, meaning: p.meaning, example: p.ex + '\n（' + p.zh + '）' })
+  ));
+  let currentCard = 0;
+  const flashcardEl = document.getElementById('flashcard');
+  const fcWord = document.getElementById('fcWord');
+  const fcReading = document.getElementById('fcReading');
+  const fcMeaning = document.getElementById('fcMeaning');
+  const fcExample = document.getElementById('fcExample');
+  const fcProgress = document.getElementById('fcProgress');
+  function updateCard() {
+    const c = flashcardsData[currentCard];
+    fcWord.textContent = c.word;
+    fcReading.textContent = c.reading;
+    fcMeaning.textContent = c.meaning;
+    fcExample.textContent = c.example;
+    fcProgress.textContent = (currentCard + 1) + ' / ' + flashcardsData.length;
+    flashcardEl.classList.remove('flipped');
+  }
+  flashcardEl.addEventListener('click', () => flashcardEl.classList.toggle('flipped'));
+  document.getElementById('fcPrev').addEventListener('click', e => {
+    e.stopPropagation();
+    currentCard = (currentCard - 1 + flashcardsData.length) % flashcardsData.length;
+    updateCard();
+  });
+  document.getElementById('fcNext').addEventListener('click', e => {
+    e.stopPropagation();
+    currentCard = (currentCard + 1) % flashcardsData.length;
+    updateCard();
+  });
+  updateCard();
+
+  const quizData = [
+    {
+      q: '大手メーカーの社長は、記者会見で「相次ぐ不正発覚で消費者の信頼は失われ、もはや自社の品質管理体制を（　）。」と述べた。',
+      sub: '选择最合适的选项 · 新闻发言场景',
+      options: ['見直すわけにはいかない', '見直さずにはいられない', '見直してもかまわない', '見直さざるを得ない'],
+      correct: 3,
+      explain: '「もはや」＋社长记者会＝客观形势所迫、别无选择 → ざるを得ない。1 意思反；2 是感情忍不住；3 语气太轻。'
+    },
+    {
+      q: '政府が繰り返し節電を呼びかけた（　）、夏の電力使用量は過去最高を更新した。',
+      sub: '选择最合适的选项 · 让步反差',
+      options: ['ものを', 'とはいえ', 'にもかかわらず', 'うえで'],
+      correct: 2,
+      explain: '"呼吁节电"却"用电创新高"是矛盾反差 → にもかかわらず。ものを带遗憾语气不合报道语体；とはいえ是修正性评价。'
+    },
+    {
+      q: '裁判長は判決の言渡しで「法廷に立った（　）、判決には責任を持つ。」と述べた。',
+      sub: '选择最合适的选项 · 立场+决心',
+      options: ['からには', 'ことだから', 'ものだから', '次第では'],
+      correct: 0,
+      explain: '后项是"责任"这种意志表达，正是 からには（既然…就）的固定搭配。ものだから后项接既成事实的原因，接不了决心。'
+    },
+    {
+      q: '新入社員は、先輩から「顧客の立場に立って考える（　）。まず相手の話を聞きなさい」と助言された。',
+      sub: '选择最合适的选项 · 忠告+命令呼应',
+      options: ['はずだ', 'わけだ', 'べきだ', 'そうだ'],
+      correct: 2,
+      explain: '前辈的具体忠告＋「〜なさい」命令呼应 → べきだ（应该）。はずだ是按理推断，わけだ是"难怪"。'
+    },
+    {
+      q: 'ある企業幹部は、業績を良く見せようと売上を水増しして報告した（　）、監査で発覚した後、社内外から強い批判を浴びた。',
+      sub: '选择最合适的选项 · 负面结果',
+      options: ['ために', 'ばかりに', 'ことから', 'ものの'],
+      correct: 1,
+      explain: '"正因为虚报才落得被批判的坏结果" → ばかりに。ために读成目的是"为了被审计发现而虚报"，不通；读成因为也是中性语气。'
+    },
+    {
+      q: '被災地を訪れた議員は、倒壊した家屋や避難所の様子を目の当たりにし、言葉を尽くすこともできず、涙を（　）。',
+      sub: '复测 1 · 主观感情',
+      options: ['流すわけにはいかない', '流さざるを得ない', '流さずにはいられない', '流してもかまわない'],
+      correct: 2,
+      explain: '主语目睹灾区后的感情，"忍不住落泪" → ずにはいられない。ざるを得ない必须客观形势所迫，不能用于感情自然流露。'
+    },
+    {
+      q: '新制度は開始から半年で利用者が着実に増えた。ただ、手続きの煩雑さは解消されておらず、担当者は「普及が進んだ（　）、まだ課題は残っている」と述べた。',
+      sub: '复测 2 · 修正保留（注意「ただ」）',
+      options: ['にもかかわらず', 'とはいえ', 'ものだから', 'うえで'],
+      correct: 1,
+      explain: '前面有「ただ」，是"先承认、再留余地"的结构 → とはいえ。にもかかわらず要求后项是意外反差，"仍有课题"并不意外。'
+    },
+    {
+      q: '彼は締切直前に無理をして一夜で原稿を書き上げた（　）、翌日の会議で内容の矛盾を指摘され、信頼を失った。',
+      sub: '复测 3 · 招致坏结果',
+      options: ['ために', 'ことから', 'ものの', 'ばかりに'],
+      correct: 3,
+      explain: '"硬赶出来 → 被指出矛盾 → 失去信任"，典型"正因…才落得坏结果" → ばかりに。ものの是转折，与因果链不符。'
+    }
+  ];
+
+  let currentQuiz = 0, score = 0;
+  let answered = [];
+  const quizNum = document.getElementById('quizNum');
+  const quizText = document.getElementById('quizText');
+  const quizSub = document.getElementById('quizSub');
+  const quizOptions = document.getElementById('quizOptions');
+  const quizFeedback = document.getElementById('quizFeedback');
+  const quizScore = document.getElementById('quizScore');
+  const quizPrev = document.getElementById('quizPrev');
+  const quizNext = document.getElementById('quizNext');
+
+  function renderQuiz() {
+    const item = quizData[currentQuiz];
+    quizNum.textContent = '第 ' + (currentQuiz + 1) + ' 题 / 共 ' + quizData.length + ' 题';
+    quizText.textContent = item.q;
+    quizSub.textContent = item.sub;
+    quizOptions.innerHTML = '';
+    item.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'quiz-option';
+      if (answered[currentQuiz] !== undefined) {
+        if (i === item.correct) div.classList.add('correct');
+        if (i === answered[currentQuiz] && i !== item.correct) div.classList.add('wrong');
+      }
+      div.innerHTML = '<span class="quiz-option__marker">' + String.fromCharCode(65 + i) + '</span><span>' + opt + '</span>';
+      div.addEventListener('click', () => selectAnswer(i));
+      quizOptions.appendChild(div);
+    });
+    if (answered[currentQuiz] !== undefined) {
+      showFeedback(answered[currentQuiz] === item.correct);
+    } else {
+      quizFeedback.className = 'quiz-feedback';
+      quizFeedback.textContent = '';
+    }
+    quizPrev.disabled = currentQuiz === 0;
+    if (currentQuiz === quizData.length - 1 && answered[currentQuiz] !== undefined) {
+      quizNext.textContent = '查看结果';
+    } else {
+      quizNext.textContent = currentQuiz === quizData.length - 1 ? '提交答案' : '下一题 →';
+    }
+  }
+  function selectAnswer(index) {
+    if (answered[currentQuiz] !== undefined) return;
+    answered[currentQuiz] = index;
+    if (index === quizData[currentQuiz].correct) score++;
+    quizScore.textContent = '得分：' + score + ' / ' + quizData.length;
+    renderQuiz();
+  }
+  function showFeedback(isCorrect) {
+    const item = quizData[currentQuiz];
+    quizFeedback.className = 'quiz-feedback show ' + (isCorrect ? 'quiz-feedback--correct' : 'quiz-feedback--wrong');
+    quizFeedback.innerHTML = '<strong>' + (isCorrect ? '✓ 回答正确！' : '✕ 回答错误') + '</strong><br>' + item.explain;
+  }
+  quizPrev.addEventListener('click', () => {
+    if (currentQuiz > 0) { currentQuiz--; renderQuiz(); }
+  });
+  quizNext.addEventListener('click', () => {
+    if (currentQuiz < quizData.length - 1) { currentQuiz++; renderQuiz(); }
+    else {
+      if (answered[currentQuiz] === undefined) return;
+      showFinalResult();
+    }
+  });
+  function showFinalResult() {
+    const pct = Math.round((score / quizData.length) * 100);
+    let message;
+    if (pct === 100) message = '完美！这类题你已经拿下了。';
+    else if (pct >= 75) message = '很棒！只差一点点。';
+    else if (pct >= 50) message = '不错，把错的句型对再过一遍闪卡。';
+    else message = '别急，回看第 3 节的核心对照表再来一次。';
+    quizText.textContent = '测验完成！';
+    quizSub.textContent = '你的得分：' + score + ' / ' + quizData.length + '（' + pct + '%）';
+    quizOptions.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:40px;margin-bottom:12px;">' + (pct >= 75 ? '🎉' : pct >= 50 ? '👍' : '📖') + '</div><div style="font-size:17px;font-weight:600;color:var(--page-brand);margin-bottom:8px;">' + message + '</div><button class="flashcard-btn flashcard-btn--primary" onclick="resetQuiz()" style="margin-top:12px;">重新测试</button></div>';
+    quizFeedback.className = 'quiz-feedback';
+    quizNum.textContent = '完成！';
+    quizNext.style.display = 'none';
+    quizPrev.style.display = 'none';
+  }
+  function resetQuiz() {
+    currentQuiz = 0; score = 0; answered = [];
+    quizScore.textContent = '得分：0 / ' + quizData.length;
+    quizNext.style.display = ''; quizPrev.style.display = '';
+    renderQuiz();
+  }
+  renderQuiz();
+</script>
+</body>
+</html>
