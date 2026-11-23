@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JLPT N2 文脈に合う文 練習 10題</title>
+<style>
+:root{
+  --teal:#0f766e; --teal-deep:#115e59; --teal-soft:#f0fdfa; --teal-line:#99f6e4;
+  --blue:#0369a1; --blue-soft:#f0f9ff;
+  --ink:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#f8fafc; --card:#ffffff;
+  --ok:#047857; --ok-bg:#ecfdf5; --ng:#b91c1c; --ng-bg:#fef2f2; --warn-bg:#fffbeb; --warn-line:#fcd34d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Yu Gothic","Hiragino Kaku Gothic ProN","Microsoft YaHei",sans-serif;line-height:1.85;font-size:15px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 60px}
+header{background:var(--teal);color:#fff;padding:28px 20px 24px;margin-bottom:0}
+header .inner{max-width:900px;margin:0 auto}
+h1{font-size:21px;font-weight:500;margin:0 0 6px;letter-spacing:.02em}
+header p{margin:0;font-size:13px;opacity:.9}
+.badges{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.badge{border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:2px 10px;font-size:12px}
+.nav{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--line)}
+.nav .inner{max-width:900px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nav a{display:inline-block;padding:5px 12px;border:1px solid var(--teal-line);border-radius:8px;color:var(--teal-deep);text-decoration:none;font-size:13px;background:var(--teal-soft)}
+.nav a:hover{background:var(--teal);color:#fff;border-color:var(--teal)}
+.nav .spacer{flex:1}
+.nav button{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:8px;padding:5px 12px;font-size:12px;cursor:pointer}
+.nav button:hover{border-color:var(--teal);color:var(--teal)}
+.progress{font-size:12px;color:var(--muted);white-space:nowrap}
+.intro{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:8px;padding:14px 18px;margin:24px 0 30px;font-size:13px;color:var(--muted)}
+.intro b{color:var(--teal-deep);font-weight:500}
+.set{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px 28px 30px;margin-bottom:30px;scroll-margin-top:64px}
+.set-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.set-head h2{font-size:18px;font-weight:500;margin:0;color:var(--teal-deep)}
+.field{font-size:12px;background:var(--teal-soft);color:var(--teal-deep);border:1px solid var(--teal-line);border-radius:999px;padding:1px 10px}
+.set-sub{font-size:12px;color:var(--muted);margin:0 0 18px}
+.passage{background:#fffdf8;border:1px solid #d6d3d1;border-radius:8px;padding:20px 22px;font-family:"Yu Mincho","Hiragino Mincho ProN","MS PMincho",serif;font-size:15px;line-height:2.15}
+.passage p{margin:0 0 12px}
+.passage p:last-child{margin-bottom:0}
+.ptitle{text-align:center;font-weight:500;margin-bottom:14px !important;letter-spacing:.08em}
+.qnum{color:#0f766e;font-family:sans-serif;font-size:17px;font-weight:700;background:#ccfbf1;padding:0 3px;border-radius:3px;vertical-align:baseline;margin:0 2px}
+.qblock{border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-top:12px;background:#fff}
+.qblock .qt{font-size:13px;color:var(--muted);margin-bottom:10px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:640px){.opts{grid-template-columns:1fr}}
+.opts label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:7px;padding:8px 10px;cursor:pointer;font-size:14px;transition:.15s;position:relative}
+.opts label:hover{border-color:var(--teal-line);background:var(--teal-soft)}
+.opts input{margin:0;accent-color:var(--teal)}
+.opts label.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opts label.wrong{background:var(--ng-bg);border-color:var(--ng);color:var(--ng)}
+.opts label .tag{font-size:11px;margin-left:auto;padding:0 4px;white-space:nowrap}
+.actions{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.btn{border:none;border-radius:8px;padding:9px 18px;font-size:13px;cursor:pointer;background:var(--teal);color:#fff}
+.btn:hover{background:var(--teal-deep)}
+.btn.ghost{background:#fff;color:var(--muted);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--teal);color:var(--teal)}
+.hint{font-size:12px;color:var(--muted)}
+.result{margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
+.score{display:inline-block;background:var(--teal-soft);border:1px solid var(--teal-line);color:var(--teal-deep);border-radius:8px;padding:6px 14px;font-size:14px;margin-bottom:14px}
+.explain h3,.notes h3{font-size:13px;font-weight:500;margin:0 0 10px;color:var(--teal-deep)}
+.explain ol{margin:0 0 20px;padding-left:20px;font-size:13px}
+.explain li{margin-bottom:10px;line-height:1.8}
+.explain .ans{color:var(--ok);font-weight:500}
+.explain .k{color:var(--teal-deep)}
+.notes{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;padding:14px 16px}
+.notes ul{margin:0;padding-left:20px;font-size:13px}
+.notes li{margin-bottom:6px}
+[hidden]{display:none !important}
+footer{text-align:center;font-size:12px;color:var(--muted);padding:10px 0 30px}
+@media print{header,.nav,.actions{display:none}.set{break-inside:avoid;page-break-inside:avoid;border:1px solid #ccc}.result{display:block !important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <h1>JLPT N2 文脈に合う文 集中練習</h1>
+    <p>文章全体の内容を考えて、最もよいものを選ぶ問題／全10題・各5空</p>
+    <div class="badges">
+      <span class="badge">社会・環境</span><span class="badge">技術・生活</span><span class="badge">文化・伝統</span><span class="badge">教育</span><span class="badge">健康・心理</span><span class="badge">地域・まちづくり</span><span class="badge">教育・学習</span><span class="badge">自然・環境</span><span class="badge">生活・消費</span><span class="badge">社会・高齢化</span>
+    </div>
+  </div>
+</header>
+<div class="nav">
+  <div class="inner">
+    <a href="#s1">1 食品ロス</a>
+    <a href="#s2">2 配達ロボット</a>
+    <a href="#s3">3 和紙</a>
+    <a href="#s4">4 読書習慣</a>
+    <a href="#s5">5 睡眠</a>
+    <a href="#s6">6 商店街</a>
+    <a href="#s7">7 影像学習</a>
+    <a href="#s8">8 地域の自然</a>
+    <a href="#s9">9 食品表示</a>
+    <a href="#s10">10 高齢者の運転</a>
+    <span class="spacer"></span>
+    <span class="progress" id="progress">進捗 0 / 10</span>
+    <button onclick="window.print()">印刷・PDF</button>
+    <button id="resetAll">リセット</button>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="intro">
+  <b>まず解き、その後に確認してください。</b>　各空を選んで「答えを確認」を押すと、正誤・解析・注意事项が表示されます。4つの選択肢はどれも文法的に成立するように見せてありますが、<b>前後の文脈・論理関係・文体</b>の3点でだけ正解が決まります。目安時間は1題 6〜8 分。
+</div>
+
+<!-- 第1題 -->
+<article class="set" id="s1">
+  <div class="set-head"><h2>第1題　食品ロスを減らす</h2><span class="field">社会・環境</span></div>
+  <p class="set-sub">出典想定：自治体の取り組みを紹介する説明文（過去問の「社会問題＋対策」型）</p>
+  <div class="passage">
+    <p class="ptitle">食品ロスを減らす</p>
+    <p>誰もが安心して暮らせる街をつくるため、各地の自治体はさまざまな取り組みを行っている。特に、日々の生活に密着した問題ほど、一人ひとりの協力が欠かせない。こうした問題は、制度だけでなく、暮らし方そのものを見直すことを求めている。</p>
+    <p>今回取り上げるのは、食品ロスの削減 <span class="qnum">【1】</span> 。スーパーでは、賞味期限が近い商品を割引して販売する店が増えている。また、アプリを通じて、売れ残った食品を安く買えるようにしている店もある。利用者にとっても、通常より安く買えるという利点がある。 <span class="qnum">【2】</span> 取り組みは、店にとっても無駄を減らせる点でメリットがある。</p>
+    <p>しかし、問題は店だけにあるのではない。家庭でも、買ったものを食べ切れずに捨ててしまう人が少なくない。特に、一人暮らしや共働きの家庭では、食材を使い切れずに期限を迎えることが多いという。 <span class="qnum">【3】</span> 、買い物の前に冷蔵庫の中を確認し、必要なものだけを買うことが勧められている。</p>
+    <p>自治体の啓発活動も、こうした意識の変化を後押ししている。学校では、食材がどこから来るのかを学ぶ授業が行われている。給食の残りを量ってみるなど、子ども自身が問題を考える工夫もされている。子どもたちは、自分たちが食べているものの背景を知った。 <span class="qnum">【4】</span> 、以前は食べ残しに無関心だった子どもも、必要な分だけ取るようになったという。</p>
+    <p>食品ロスは、一度に解決できる問題ではない。少しずつでも行動が変わっていけば、未来は明るくなる <span class="qnum">【5】</span> 。</p>
+  </div>
+
+  <div class="qblock" data-q="1" data-ans="2"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s1q1" value="1">1. 問題だろう<span class="tag"></span></label>
+    <label><input type="radio" name="s1q1" value="2">2. 問題である<span class="tag"></span></label>
+    <label><input type="radio" name="s1q1" value="3">3. 問題とのことだ<span class="tag"></span></label>
+    <label><input type="radio" name="s1q1" value="4">4. 問題ではないか<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="3"><div class="qt">問2</div><div class="opts">    <label><input type="radio" name="s1q2" value="1">1. ある<span class="tag"></span></label>
+    <label><input type="radio" name="s1q2" value="2">2. その<span class="tag"></span></label>
+    <label><input type="radio" name="s1q2" value="3">3. このような<span class="tag"></span></label>
+    <label><input type="radio" name="s1q2" value="4">4. どんな<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="1"><div class="qt">問3</div><div class="opts">
+    <label><input type="radio" name="s1q3" value="1">1. そこで<span class="tag"></span></label>
+    <label><input type="radio" name="s1q3" value="2">2. それに対して<span class="tag"></span></label>
+    <label><input type="radio" name="s1q3" value="3">3. それどころか<span class="tag"></span></label>
+    <label><input type="radio" name="s1q3" value="4">4. それとも<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="4"><div class="qt">問4</div><div class="opts">    <label><input type="radio" name="s1q4" value="1">1. そのかわり<span class="tag"></span></label>
+    <label><input type="radio" name="s1q4" value="2">2. そのうえ<span class="tag"></span></label>
+    <label><input type="radio" name="s1q4" value="3">3. それでは<span class="tag"></span></label>
+    <label><input type="radio" name="s1q4" value="4">4. その結果<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="5" data-ans="2"><div class="qt">問5</div><div class="opts">    <label><input type="radio" name="s1q5" value="1">1. べきだ<span class="tag"></span></label>
+    <label><input type="radio" name="s1q5" value="2">2. はずだ<span class="tag"></span></label>
+    <label><input type="radio" name="s1q5" value="3">3. ものだ<span class="tag"></span></label>
+    <label><input type="radio" name="s1q5" value="4">4. きりだ<span class="tag"></span></label>
+  </div></div>
+
+  <div class="actions"><button class="btn" onclick="checkSet('s1')">答えを確認</button><span class="hint">4肢すべて選んでから確認してください</span></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 2</span>　前の「今回取り上げるのは」が話題を直接提示している。説明文の導入は断定调 <span class="k">「〜である」</span> が基本。1「だろう」は推测、3「とのことだ」は伝聞、4「ではないか」は問いかけで、いずれも筆者が主题を提示する调べに合わない。</li>
+      <li><span class="ans">正解 3</span>　直前で「割引販売」「アプリ活用」という複数の具体例を挙げているので、それらを总结める <span class="k">「このような」</span> が最適。2「その」は直前の単一の事物、1「ある」は不特定の一つ、4「どんな」は疑問で文脈が壊れる。</li>
+      <li><span class="ans">正解 1</span>　前は「家庭でも捨て人が多い」という问题提起、后は「冷蔵庫を確認して買う」という具体的対策。<span class="k">「そこで」</span> は「这样的状况下、为此」という対策の導入に最適。2 は対比、3 は累進、4 は選択で、いずれも前後の関係と合わない。</li>
+      <li><span class="ans">正解 4</span>　「背景を知った」→「必要な分だけ取るようになった」は原因と结果。<span class="k">「その結果」</span> が唯一合う。2「そのうえ」は追加、3「それでは」は話題転換、1「そのかわり」は代替・代償。</li>
+      <li><span class="ans">正解 2</span>　「少しずつでも行動が変わっていけば」という根拠に基づく推断なので <span class="k">「〜はずだ」</span>（道理上そうなる）. 1「べきだ」は義務、3「ものだ」は本来の性质・過去の習慣、4「きりだ」は「それだけ」の限定で、いずれも推断の意味にならない。</li>
+    </ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「はずだ」和「べきだ」是高频混淆项：<b>はず＝根据依据推断「应该会…」；べき＝义务「理应做…」</b>。文末是「未来は明るくなる」客观变化，不是义务。</li>
+      <li>段落开头的空先判断前文是「总括」还是「问题提起」：总括用「このような／こうした」，问题提起后的对策用「そこで」。</li>
+      <li>「その結果」的前项必须是已发生的事实，不能是意志表达。本文前项「知った」是过去事实，符合条件。</li>
+    </ul></div>
+  </div>
+</article>
+
+<!-- 第2題 -->
+<article class="set" id="s2">
+  <div class="set-head"><h2>第2題　歩道を走る配達ロボット</h2><span class="field">技術・生活</span></div>
+  <p class="set-sub">出典想定：新技术の実験紹介と課題を扱う解説文（過去問の「技術＋社会的課題」型）</p>
+  <div class="passage">
+    <p class="ptitle">歩道を走る配達ロボット</p>
+    <p>買い物や食事の配達を人が行う負担が増える中、ロボットに荷物を運ばせるサービスが注目されている。実際、一部の地域では実験が始まっている。しかし、街で動く機械には、安全面の確認が欠かせない。</p>
+    <p>今回紹介するのは、歩道を走る小型の配達ロボットだ。人に代わって荷物を運ぶため、忙しい人や高齢者には便利だ。実際、利用を希望する人からは期待の声も寄せられている。ただし、歩道には歩行者や自転車も多く、接触事故が起きる <span class="qnum">【1】</span> 。</p>
+    <p>開発者は安全を確保するため、カメラで周囲を確認しながら走る仕組みを作った。人に近づきすぎると、自動的に止まるように設定されているという。また、あらかじめ決められた区域内しか走れないよう設定されている。さらに、安全を確認できない <span class="qnum">【2】</span> 、ロボットは動かないように設計されている。</p>
+    <p>実験が続く <span class="qnum">【3】</span> 、利用者の評価は少しずつ変わってきた。最初は交通事故を心配する声が多かったが、今では「便利だ」という声も増えている。 <span class="qnum">【4】</span> 、地域のルールが整備されていないため、実験を中断したケースもある。このように、期待と課題は表裏の関係にある。</p>
+    <p>配達ロボットは、まだ試行段階にある。課題は残るが、技術の改善と制度の検討が進めば、街の風景も変わる <span class="qnum">【5】</span> 。</p>
+  </div>
+
+  <div class="qblock" data-q="1" data-ans="1"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s2q1" value="1">1. おそれがある<span class="tag"></span></label>
+    <label><input type="radio" name="s2q1" value="2">2. ことはない<span class="tag"></span></label>
+    <label><input type="radio" name="s2q1" value="3">3. に違いない<span class="tag"></span></label>
+    <label><input type="radio" name="s2q1" value="4">4. わけがない<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="3"><div class="qt">問2</div><div class="opts">    <label><input type="radio" name="s2q2" value="1">1. ないことだから<span class="tag"></span></label>
+    <label><input type="radio" name="s2q2" value="2">2. ないことなら<span class="tag"></span></label>
+    <label><input type="radio" name="s2q2" value="3">3. ないことには<span class="tag"></span></label>
+    <label><input type="radio" name="s2q2" value="4">4. ないことが<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="2"><div class="qt">問3</div><div class="opts">    <label><input type="radio" name="s2q3" value="1">1. ばかりに<span class="tag"></span></label>
+    <label><input type="radio" name="s2q3" value="2">2. につれて<span class="tag"></span></label>
+    <label><input type="radio" name="s2q3" value="3">3. ものの<span class="tag"></span></label>
+    <label><input type="radio" name="s2q3" value="4">4. おかげで<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="4"><div class="qt">問4</div><div class="opts">    <label><input type="radio" name="s2q4" value="1">1. つまり<span class="tag"></span></label>
+    <label><input type="radio" name="s2q4" value="2">2. また<span class="tag"></span></label>
+    <label><input type="radio" name="s2q4" value="3">3. それに<span class="tag"></span></label>
+    <label><input type="radio" name="s2q4" value="4">4. しかし<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="5" data-ans="1"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s2q5" value="1">1. だろう<span class="tag"></span></label>
+    <label><input type="radio" name="s2q5" value="2">2. べきだ<span class="tag"></span></label>
+    <label><input type="radio" name="s2q5" value="3">3. ものだ<span class="tag"></span></label>
+    <label><input type="radio" name="s2q5" value="4">4. ことだ<span class="tag"></span></label>
+  </div></div>
+
+  <div class="actions"><button class="btn" onclick="checkSet('s2')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 1</span>　「歩道には歩行者や自転車も多く」が根拠となり、事故が起きる可能性を客観的に述べる必要がある。<span class="k">「〜おそれがある」</span> が最適。2「ことはない」は否定で内容が逆、4「わけがない」も否定、3「に違いない」は确度が强すぎて「危険を案じる」文脉に合わない。</li>
+      <li><span class="ans">正解 3</span>　「安全を確認できない＋ロボットは動かない」は「〜ないことには〜ない」の固定相関。<span class="k">「〜ないことには」</span> は「それがなければ後件も成立しない」の条件を表す。2「ないことなら」は仮定の话题提示、1「ないことだから」は原因、4 は文法的に成立しない。</li>
+      <li><span class="ans">正解 2</span>　「実験が続く」と「評価が変わってきた」は進行に伴う变化。<span class="k">「〜につれて」</span> が「随着…」の関係を表す。1「ばかりに」は悪い結果の原因、3「ものの」は譲歩、4「おかげで」は良い結果の原因で、いずれも「少しずつ変化」に合わない。</li>
+      <li><span class="ans">正解 4</span>　前は「便利だという声も増えている」という好評価、后は「実験を中断したケースもある」という悪い話。対立する内容なので <span class="k">「しかし」</span>。2「また」・3「それに」は追加、1「つまり」は言い換えで、いずれも逆接にならない。</li>
+      <li><span class="ans">正解 1</span>　「技術の改善と制度の検討が進めば」という条件に基づく未来の推断。<span class="k">「〜だろう」</span> が文脉の不確かさに合う。2「べきだ」は義務、3「ものだ」は本質・習慣、4「ことだ」は助言で、予測を表さない。</li>
+    </ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「〜おそれがある」是客观可能性（有…的危险），常与「事故・遅延・影響」搭配；「〜に違いない」是说话人确信度很高的推断，语气太强，看到「ただし／心配」这类词应优先选「おそれがある」。</li>
+      <li>「〜ないことには」后项多搭配否定表达（〜ない／〜できない）。做这类空时先扫一眼后项有没有否定呼应。</li>
+      <li>「〜につれて」和「〜にしたがって」近义，但真题选项中通常只出现一个；出现时看后项是否为「変化」动词（変わる／増える／高まる）。</li>
+      <li>段落中出现「声も増えている」后立即接「中断したケースもある」，是典型的「 good → bad 」逆转，标出这种前后极性变化能快速定接续词。</li>
+    </ul></div>
+  </div>
+</article>
+
+<!-- 第3題 -->
+<article class="set" id="s3">
+  <div class="set-head"><h2>第3題　和紙を継ぐ</h2><span class="field">文化・伝統</span></div>
+  <p class="set-sub">出典想定：伝統技術の継承問題を扱う解説文（過去問の「文化・職人」型）</p>
+  <div class="passage">
+    <p class="ptitle">和紙を継ぐ</p>
+    <p>日本の伝統的な紙である和紙は、丈夫で長持ちするという特徴を持つ。水に強く、書いた文字がにじみにくいという性质もある。機械で大量に作られる紙と比べると、その製造には時間と手間がかかる。 <span class="qnum">【1】</span> 、価格が高いのも当然かもしれない。</p>
+    <p>かつて和紙は、日常のさまざまな場面で使われていた。帳簿や障子、行灯など、暮らしの至る所で使われていた。しかし、安い洋紙が広まるにつれ、使う人が減っていった。職人の数も減り、技術が途切れる <span class="qnum">【2】</span> 。</p>
+    <p>こうした状況を変えようと、職人たちは新しい取り組みを始めた。例えば、和紙を使った雑貨や照明をデザインし、若い世代に紹介している。伝統的な素材を、現代の暮らしに合わせて提案している。和紙は高価だ。 <span class="qnum">【3】</span> 、その丈夫さと美しさは、機械製品には真似できない。</p>
+    <p>伝統を守るためには、昔の形を残すだけではなく、現在の生活に合わせた工夫も必要だ。無理に昔どおりに戻すのではなく、使う人の立場に立って考えることが大切だ。若い職人が技術を身につけるには、長い修業が欠かせない。修行を重ねて <span class="qnum">【4】</span> 、一人前の職人になれるという。</p>
+    <p>先人たちは、和紙を一枚一枚、大切に使った <span class="qnum">【5】</span> 。これからも、その価値が見直されていくだろう。</p>
+  </div>
+
+  <div class="qblock" data-q="1" data-ans="3"><div class="qt">問1</div><div class="opts">    <label><input type="radio" name="s3q1" value="1">1. つまり<span class="tag"></span></label>
+    <label><input type="radio" name="s3q1" value="2">2. それに<span class="tag"></span></label>
+    <label><input type="radio" name="s3q1" value="3">3. だから<span class="tag"></span></label>
+    <label><input type="radio" name="s3q1" value="4">4. しかし<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="1"><div class="qt">問2</div><div class="opts">
+    <label><input type="radio" name="s3q2" value="1">1. おそれがある<span class="tag"></span></label>
+    <label><input type="radio" name="s3q2" value="2">2. わけではない<span class="tag"></span></label>
+    <label><input type="radio" name="s3q2" value="3">3. にすぎない<span class="tag"></span></label>
+    <label><input type="radio" name="s3q2" value="4">4. はずだ<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="4"><div class="qt">問3</div><div class="opts">    <label><input type="radio" name="s3q3" value="1">1. つまり<span class="tag"></span></label>
+    <label><input type="radio" name="s3q3" value="2">2. それゆえ<span class="tag"></span></label>
+    <label><input type="radio" name="s3q3" value="3">3. そのうえ<span class="tag"></span></label>
+    <label><input type="radio" name="s3q3" value="4">4. とはいえ<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="2"><div class="qt">問4</div><div class="opts">    <label><input type="radio" name="s3q4" value="1">1. 以来<span class="tag"></span></label>
+    <label><input type="radio" name="s3q4" value="2">2. はじめて<span class="tag"></span></label>
+    <label><input type="radio" name="s3q4" value="3">3. ながら<span class="tag"></span></label>
+    <label><input type="radio" name="s3q4" value="4">4. あまり<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="5" data-ans="1"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s3q5" value="1">1. ものだ<span class="tag"></span></label>
+    <label><input type="radio" name="s3q5" value="2">2. ことだ<span class="tag"></span></label>
+    <label><input type="radio" name="s3q5" value="3">3. はずだ<span class="tag"></span></label>
+    <label><input type="radio" name="s3q5" value="4">4. べきだ<span class="tag"></span></label>
+  </div></div>
+
+  <div class="actions"><button class="btn" onclick="checkSet('s3')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 3</span>　「時間と手間がかかる」→「価格が高いのも当然」は明确な因果。<span class="k">「だから」</span> が合う。1「つまり」は言い換え、2「それに」は追加、4「しかし」は逆接で、前後の関係が合わない。</li>
+      <li><span class="ans">正解 1</span>　「職人の数も減り」という悪い状況から、技术が途切れる危険を案じる文脉。<span class="k">「〜おそれがある」</span> が最適。2「わけではない」は部分否定、3「にすぎない」は限定、4「はずだ」は推断で、いずれも「危惧」を表せない。</li>
+      <li><span class="ans">正解 4</span>　「和紙は高価だ」と「その丈夫さと美しさは真似できない」は让步关系。<span class="k">「〜とはいえ」</span>＝「虽说…但是…」。2「それゆえ」は因果、3「そのうえ」は追加、1「つまり」は言い換えで、逆接のニュアンスが出ない。</li>
+      <li><span class="ans">正解 2</span>　「修行を重ねて＋一人前になれる」は「そのことを経て初めて」の条件。<span class="k">「〜てはじめて」</span> が唯一合う。1「以来」は「それからずっと」、3「ながら」は同时进行、4「あまり」は程度の强调で、文意が通らない。</li>
+      <li><span class="ans">正解 1</span>　「先人たちは〜使った」は过去の習慣・当時の普通の様子。<span class="k">「〜ものだ」</span> が过去の习惯を表す。2「ことだ」は助言、3「はずだ」は推断、4「べきだ」は義務で、过去の习惯という文脉に合わない。</li>
+    </ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「〜ものだ」有两个高频用法：<b>①过去经常…（〜したものだ）②本来就该…（〜するものだ）</b>。本文是①，看到主语是「先人たちは」且动词为过去式即可判断。</li>
+      <li>「〜とはいえ」是N2高频让步表达，前面往往是缺点（高価だ／大変だ），后面是优点或评价。与之近义的「〜ものの」也可表让步，但真题中二选一时看接续：「ものの」前多为动词普通形，「とはいえ」可接名词・形容动词。</li>
+      <li>「〜てはじめて」的「て」前必须是动作性动词，后项多为「初めて理解できる／なれる」这类达成表达。</li>
+    </ul></div>
+  </div>
+</article>
+
+<!-- 第4題 -->
+<article class="set" id="s4">
+  <div class="set-head"><h2>第4題　読書習慣を育てる</h2><span class="field">教育・子ども</span></div>
+  <p class="set-sub">出典想定：教育現場の実践と効果を紹介する文章（過去問の「子育て・学習」型）</p>
+  <div class="passage">
+    <p class="ptitle">読書習慣を育てる</p>
+    <p>子どもの読書習慣は、学校の授業だけでは身につきにくい。家庭での環境が大きな影響を持つことは、 <span class="qnum">【1】</span> 。</p>
+    <p>最近、図書館や学校が協力して、本に親しむ活動を行っている。読むことに苦手意識を持つ子でも、気軽に参加できるよう工夫されている。例えば、朝の登校前に本を読む時間を設けたり、地域のボランティアが読み聞かせをしたりしている。本を身近に感じてもらうことが、活動の目的だ。こうした活動を続ける <span class="qnum">【2】</span> 、子どもたちの本に対する関心も高まってきた。</p>
+    <p>一方で、読書に親しむ子と、あまり本を手に取らない子の差も大きい。この差は、学年が上がるにつれて、さらに広がることもある。その背景には、家庭の本の数や、保護者の読書習慣が関係している <span class="qnum">【3】</span> 。</p>
+    <p>学校の先生は言う。「本を読むようになった子どもは、自分の考えを言葉にする力も伸びている」と。言葉にした考えを、友達と共有する場も増えているという。 <span class="qnum">【4】</span> 、読書は国語の成績だけでなく、コミュニケーションにも役立つことが分かる。</p>
+    <p>読書習慣を身につけるには、無理にたくさん読ませるのではなく、子どもが興味を持つ本から始めることが大切だ。 <span class="qnum">【5】</span> 、一度本の面白さを知れば、自分から手を伸ばすようになる。</p>
+  </div>
+
+  <div class="qblock" data-q="1" data-ans="1"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s4q1" value="1">1. 言うまでもない<span class="tag"></span></label>
+    <label><input type="radio" name="s4q1" value="2">2. 言わないまでも<span class="tag"></span></label>
+    <label><input type="radio" name="s4q1" value="3">3. 言い得ない<span class="tag"></span></label>
+    <label><input type="radio" name="s4q1" value="4">4. 言うほかない<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="2"><div class="qt">問2</div><div class="opts">    <label><input type="radio" name="s4q2" value="1">1. ばかりに<span class="tag"></span></label>
+    <label><input type="radio" name="s4q2" value="2">2. につれて<span class="tag"></span></label>
+    <label><input type="radio" name="s4q2" value="3">3. ものの<span class="tag"></span></label>
+    <label><input type="radio" name="s4q2" value="4">4. 一方で<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="3"><div class="qt">問3</div><div class="opts">    <label><input type="radio" name="s4q3" value="1">1. された<span class="tag"></span></label>
+    <label><input type="radio" name="s4q3" value="2">2. といった<span class="tag"></span></label>
+    <label><input type="radio" name="s4q3" value="3">3. とされる<span class="tag"></span></label>
+    <label><input type="radio" name="s4q3" value="4">4. する<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="4"><div class="qt">問4</div><div class="opts">    <label><input type="radio" name="s4q4" value="1">1. このことに<span class="tag"></span></label>
+    <label><input type="radio" name="s4q4" value="2">2. このような<span class="tag"></span></label>
+    <label><input type="radio" name="s4q4" value="3">3. こうした<span class="tag"></span></label>
+    <label><input type="radio" name="s4q4" value="4">4. このように<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="5" data-ans="2"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s4q5" value="1">1. なぜなら<span class="tag"></span></label>
+    <label><input type="radio" name="s4q5" value="2">2. つまり<span class="tag"></span></label>
+    <label><input type="radio" name="s4q5" value="3">3. なにより<span class="tag"></span></label>
+    <label><input type="radio" name="s4q5" value="4">4. ともかく<span class="tag"></span></label>
+  </div></div>
+
+  <div class="actions"><button class="btn" onclick="checkSet('s4')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 1</span>　「家庭での環境が大きな影響を持つ」は自明のこと。<span class="k">「〜言うまでもない」</span>＝「不用说」，文末にそのまま置ける形。2「言わないまでも」は「虽然不至于说…」で文が切れる、3「言い得ない」は「无法说」、4「言うほかない」は「只好说」で、いずれも文意が合わない。</li>
+      <li><span class="ans">正解 2</span>　「活動を続ける」に伴って「関心も高まってきた」という变化。<span class="k">「〜につれて」</span> が合う。1「ばかりに」は悪い結果、3「ものの」は譲歩、4「一方で」は別侧面の提示で、いずれも「伴随变化」を表さない。</li>
+      <li><span class="ans">正解 3</span>　「関係している」の后に来て、一般的な见方を示す <span class="k">「〜とされる」</span>＝「一般认为…」。2「といった」は例示、1「された」は単純受身で「被认为」の意味にならず、4「する」では文法的に成立しない。</li>
+      <li><span class="ans">正解 4</span>　空の后は読点で、后面の文全体を受ける副詞が必要。<span class="k">「このように」</span> は「像这样」と前の引用内容を总结める。2「このような」と3「こうした」は名詞を修飾する形なので直後に読点は置けない。1「このことに」は「に関して」のような後続が必要。</li>
+      <li><span class="ans">正解 2</span>　前「興味を持つ本から始めることが大切」と后「一度面白さを知れば自分から手を伸ばす」は同じ内容の言い換え・整理。<span class="k">「つまり」</span> が合う。1「なぜなら」は理由、3「なにより」は最も重要なものの提示、4「ともかく」は话题転換で、言い換えの関係にならない。</li>
+    </ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「このような／こうした」后面必须直接接名词；「このように」后面接逗号或动词。看到空后是逗号，优先排除连体形。</li>
+      <li>「〜とされる」是N2文章常用表达，表示「一般被认为／据认为」，比「〜と言われている」更书面，常出现在说明文的问题分析段。</li>
+      <li>「つまり」和「なぜなら」的区别：前句和后句表达<b>同一件事</b>→つまり；后句是前句的<b>原因理由</b>→なぜなら。本文前后是"从感兴趣的书开始"与"知道有趣就会主动读"，属于同一逻辑的换言。</li>
+      <li>「言うまでもない」是固定表达，整体放在句末作谓语，不要拆开记忆。</li>
+    </ul></div>
+  </div>
+</article>
+
+<!-- 第5題 -->
+<article class="set" id="s5">
+  <div class="set-head"><h2>第5題　睡眠を大切にする</h2><span class="field">健康・心理</span></div>
+  <p class="set-sub">出典想定：研究結果を紹介しつつ生活改善を促す文章（過去問の「健康・生活習慣」型）</p>
+  <div class="passage">
+    <p class="ptitle">睡眠を大切にする</p>
+    <p>十分な睡眠は、体と心の健康を保つために欠かせない。特に入試や仕事が忙しい時期には、睡眠が犠牲になりやすい。しかし、忙しい生活の中で、睡眠時間を削ってしまう人が <span class="qnum">【1】</span> 。</p>
+    <p>最近の調査では、睡眠が不足すると、記憶力や集中力が落ちるだけでなく、感情のコントロールも難しくなることが分かってきた。このような影響は、翌日の仕事や学習にも及ぶという。特に、スマートフォンを就寝前に見る習慣は、眠りを浅くする <span class="qnum">【2】</span> 。</p>
+    <p>専門家は、毎日同じ時間に起きることを勧めている。休日も同じ時間に起きることが、特に大切だという。体内時計が乱れると、寝つきに時間がかかるようになる。体内時計が整うと、寝つきが良くなる <span class="qnum">【3】</span> 。また、寝室を暗く静かに保つことも大切だ。</p>
+    <p>しかし、生活が不規則なままでは、十分な睡眠をとる <span class="qnum">【4】</span> 。仕事や学習で遅くまで起きている日が続けば、体調に影響が出る。日中の疲れが取れず、次の日の集中力にも関わるという。</p>
+    <p>睡眠の問題は、個人の努力だけでは解決しにくい。個人の我慢に任せていては、根本的な解決は難しい。社会全体で、働き方や暮らし方を見直す動きが広がっていく <span class="qnum">【5】</span> 。</p>
+  </div>
+
+  <div class="qblock" data-q="1" data-ans="4"><div class="qt">問1</div><div class="opts">    <label><input type="radio" name="s5q1" value="1">1. がちで<span class="tag"></span></label>
+    <label><input type="radio" name="s5q1" value="2">2. がちな<span class="tag"></span></label>
+    <label><input type="radio" name="s5q1" value="3">3. がちに<span class="tag"></span></label>
+    <label><input type="radio" name="s5q1" value="4">4. がちだ<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="1"><div class="qt">問2</div><div class="opts">
+    <label><input type="radio" name="s5q2" value="1">1. おそれがある<span class="tag"></span></label>
+    <label><input type="radio" name="s5q2" value="2">2. ものではない<span class="tag"></span></label>
+    <label><input type="radio" name="s5q2" value="3">3. ことはない<span class="tag"></span></label>
+    <label><input type="radio" name="s5q2" value="4">4. はずがない<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="2"><div class="qt">問3</div><div class="opts">    <label><input type="radio" name="s5q3" value="1">1. ということだ<span class="tag"></span></label>
+    <label><input type="radio" name="s5q3" value="2">2. というものだ<span class="tag"></span></label>
+    <label><input type="radio" name="s5q3" value="3">3. というものでもない<span class="tag"></span></label>
+    <label><input type="radio" name="s5q3" value="4">4. といったところだ<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="3"><div class="qt">問4</div><div class="opts">    <label><input type="radio" name="s5q4" value="1">1. ものではない<span class="tag"></span></label>
+    <label><input type="radio" name="s5q4" value="2">2. ない限りだ<span class="tag"></span></label>
+    <label><input type="radio" name="s5q4" value="3">3. わけにはいかない<span class="tag"></span></label>
+    <label><input type="radio" name="s5q4" value="4">4. どころではない<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="5" data-ans="1"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s5q5" value="1">1. ことが期待される<span class="tag"></span></label>
+    <label><input type="radio" name="s5q5" value="2">2. ものが期待される<span class="tag"></span></label>
+    <label><input type="radio" name="s5q5" value="3">3. ことが期待している<span class="tag"></span></label>
+    <label><input type="radio" name="s5q5" value="4">4. ことを期待される<span class="tag"></span></label>
+  </div></div>
+
+  <div class="actions"><button class="btn" onclick="checkSet('s5')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 4</span>　文末に来て「〜しがちだ」＝「つい〜してしまう傾向がある」を表す。<span class="k">「がちだ」</span> は名詞・连用形に接続し、文末は「がちだ」の形。2「がちな」は名詞修飾、3「がちに」は副詞、1「がちで」は中顿で、いずれも文末に置けない。</li>
+      <li><span class="ans">正解 1</span>　「眠りを浅くする」という良くない影響を客観的に述べるので <span class="k">「〜おそれがある」</span>。2「ものではない」は「〜するべきではない」、3「ことはない」は否定、4「はずがない」は強い否定で、いずれも内容が逆になる。</li>
+      <li><span class="ans">正解 2</span>　「体内時計が整うと、寝つきが良くなる」は一般的な道理・性质の説明。<span class="k">「〜というものだ」</span>＝「というものです（本来そういうもの）」が合う。1「ということだ」は伝聞・まとめ、3は部分否定、4「といったところだ」は程度の控えめな評価で、いずれも道理の説明にならない。</li>
+      <li><span class="ans">正解 3</span>　「生活が不規則なままでは、十分な睡眠をとる」は「那样的状态下不能取」の意味。<span class="k">「〜わけにはいかない」</span> は「那样做是不行的／不可能」を表す。1「ものではない」は「不该做」の助言、2「ない限りだ」は「除非…」の条件、4「どころではない」は「根本谈不上」で、いずれも文脉の「不可能」に合わない。</li>
+      <li><span class="ans">正解 1</span>　「動きが広がっていく」が主語、「期待される」が受身の形で成立する。<span class="k">「〜ことが期待される」</span> が正しい形。2「ものが」は不自然、3「期待している」は主语が「動き」になり意味が不成立、4「ことを期待される」は助词の误り（「ことが」が必要）。</li>
+    </ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「〜がちだ」多为负面倾向（遅れがち／忘れがち／削りがち），看到「忙しい生活の中で」这类语境要想到它；接续是名词或动词ます形去掉ます。</li>
+      <li>「〜わけにはいかない」和「〜ものではない」的区别：<b>わけにはいかない＝客观/情理上不能；ものではない＝不该做（劝告）</b>。本文说的是"不规律生活下睡不好"的客观结果，不是劝告。</li>
+      <li>「〜ことが期待される」是书面语高频句型，主語是「動き／改善／発展」等事物，用被动；不要写成「ことを期待される」。</li>
+      <li>「〜というものだ」与「〜ということだ」区别：前者讲"道理/本质"，后者讲"传闻/结论"。看到「体内時計が整うと〜」这种普遍规律，选前者。</li>
+    </ul></div>
+  </div>
+</article>
+
+<article class="set" id="s6">
+  <div class="set-head"><h2>第6題　商店街の再活性化</h2><span class="field">地域・まちづくり</span></div>
+  <p class="set-sub">出典想定：地域の商業と暮らしの変化を扱う解説文（過去問の「まちづくり・地域」型）</p>
+  <div class="passage">
+    <p class="ptitle">商店街の再活性化</p>
+    <p>大型の商業施設が郊外に進出したことで、駅前や住宅街の商店街は長い間、客足の減少に悩まされてきた。空き店舗が目立つようになり、以前のにぎわいを取り戻すことは難しいと考える人も多い。しかし、近年では、商店街が持つ独自の魅力が見直され始めている。</p>
+    <p>今回取り上げるのは、地域の人が運営に関わる商店街の取り組み <span class="qnum">【1】</span> 。買い物に来る人と店の人が顔を知り合い、必要なものを相談しながら選べることが、このような場所の強みだ。大型店では得にくい、人とのつながりがそこにはある。</p>
+    <p>ある商店街では、空き店舗を借りて、住民が自由に使える場所を作った。そこで週末に市を開いたり、子ども向けの工作教室を開いたりしている。最初は来る人が少なかったが、口コミで広がり、今では多くの人が訪れるようになったという。店主も、以前は考えなかったような商品を置くようになり、売り上げが伸びた。</p>
+    <p>ただし、よいアイデアを思いつくだけでは、商店街は活性化しない <span class="qnum">【2】</span> 。店を開く人、場所を貸す人、イベントを準備する人など、役割を分担して動く仕組みが必要だ。一人の熱意だけに頼っていては、活動は長く続かない。</p>
+    <p>さらに、商店街の価値は、買い物だけにあるのではない。通りを歩き、人と挨拶を交わすことは、地域で暮らす上での大切な時間だ。高齢者が外出するきっかけにもなり、子どもの見守りにもつながる。<span class="qnum">【3】</span> 役割は、数字に表れにくいが、地域の暮らしを支えている。</p>
+    <p>商店街の再活性化 <span class="qnum">【4】</span> 、店を増やすことだけを目指すのではない。人と人が出会い、助け合える場所を守ることだ。その大切さが理解されれば、商店街はもう一度、街の中心になる <span class="qnum">【5】</span> 。</p>
+  </div>
+  <div class="qblock" data-q="1" data-ans="3"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s6q1" value="1">1. だろう<span class="tag"></span></label>
+    <label><input type="radio" name="s6q1" value="2">2. ではないか<span class="tag"></span></label>
+    <label><input type="radio" name="s6q1" value="3">3. である<span class="tag"></span></label>
+    <label><input type="radio" name="s6q1" value="4">4. とのことだ<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="2"><div class="qt">問2</div><div class="opts">
+    <label><input type="radio" name="s6q2" value="1">1. なぜなら<span class="tag"></span></label>
+    <label><input type="radio" name="s6q2" value="2">2. というのは<span class="tag"></span></label>
+    <label><input type="radio" name="s6q2" value="3">3. そのうえ<span class="tag"></span></label>
+    <label><input type="radio" name="s6q2" value="4">4. それに対して<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="1"><div class="qt">問3</div><div class="opts">
+    <label><input type="radio" name="s6q3" value="1">1. このような<span class="tag"></span></label>
+    <label><input type="radio" name="s6q3" value="2">2. そのような<span class="tag"></span></label>
+    <label><input type="radio" name="s6q3" value="3">3. あのような<span class="tag"></span></label>
+    <label><input type="radio" name="s6q3" value="4">4. どのような<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="3"><div class="qt">問4</div><div class="opts">
+    <label><input type="radio" name="s6q4" value="1">1. によって<span class="tag"></span></label>
+    <label><input type="radio" name="s6q4" value="2">2. にとって<span class="tag"></span></label>
+    <label><input type="radio" name="s6q4" value="3">3. にあたって<span class="tag"></span></label>
+    <label><input type="radio" name="s6q4" value="4">4. に伴って<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="5" data-ans="4"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s6q5" value="1">1. ことはない<span class="tag"></span></label>
+    <label><input type="radio" name="s6q5" value="2">2. わけではない<span class="tag"></span></label>
+    <label><input type="radio" name="s6q5" value="3">3. はずがない<span class="tag"></span></label>
+    <label><input type="radio" name="s6q5" value="4">4. はずだ<span class="tag"></span></label>
+  </div></div>
+  <div class="actions"><button class="btn" onclick="checkSet('s6')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol><li><span class="ans">正解 3</span>　「今回取り上げるのは」が話題を直接示す導入部。客観的な説明文なので断定の <span class="k">「〜である」</span> が最適。1「だろう」は推量、2「ではないか」は問いかけ、4「とのことだ」は伝聞で、いずれも筆者が自ら話題を提示する場面に合わない。</li><li><span class="ans">正解 2</span>　前の「活性化しない」という否定の評価を受けて、後でその理由を説明している。<span class="k">「というのは」</span> は「なぜかというと」の意で、後続の説明を導く。1「なぜなら」も理由を表すが、文末に「からだ／ためだ」を伴う形が基本で、本文の「〜が必要だ」という結論には接続しにくい。3 は追加、4 は対比。</li><li><span class="ans">正解 1</span>　直前の「人と挨拶を交わす」「高齢者の外出」「子どもの見守り」という複数の具体例を総括して、「そのような役割」と受ける。<span class="k">「このような」</span> が直前の内容をまとめるのに最適。2「そのような」はやや離れた内容、3「あのような」は遠い過去、4「どのような」は疑問。</li><li><span class="ans">正解 3</span>　「店を増やすことだけを目指すのではない」を受けて、目的意識を置き換えている。<span class="k">「〜にあたって」</span> は「〜するに際して」という場面・時点を表し、「再活性化にあたって大切なのは」の意で合う。1「によって」は手段・原因、2「にとって」は立場、4「に伴って」は伴随变化で、いずれも目的の置き換えを表せない。</li><li><span class="ans">正解 4</span>　「その大切さが理解されれば」という条件を前提に、未来の期待を述べている。<span class="k">「〜はずだ」</span> が道理に基づく推断を表す。1「ことはない」と3「はずがない」は否定で意味が逆、2「わけではない」は部分否定で、文末の期待と矛盾する。</li></ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「というのは」和「なぜなら」都表示理由，但结构不同：<b>というのは〜。／なぜなら〜からだ</b>。看到后句是「〜が必要だ」这类结论，选「というのは」；看到后句以「からだ／ためだ」结尾，选「なぜなら」。</li>
+      <li>「〜はずだ」根据依据推断；「〜はずがない」是否定推断「不可能」。空前后出现「〜ば／たら」条件形时，多为「はずだ」。</li>
+      <li>「このような」总括刚列举的内容，「そのような」指前文稍远的内容。真题中若空紧接多个例子之后，通常选「このような」。</li>
+      <li>「〜にあたって」是书面语，常接在「再出発／活動／手続き」等名词后，表示「在…之际」。不要和「〜に伴って」（随着）混淆。</li>
+    </ul></div>
+  </div>
+</article>
+
+<article class="set" id="s7">
+  <div class="set-head"><h2>第7題　影像学習のすすめ</h2><span class="field">教育・学習</span></div>
+  <p class="set-sub">出典想定：学習方法の見直しを扱う解説文（過去問の「学習・情報」型）</p>
+  <div class="passage">
+    <p class="ptitle">影像学習のすすめ</p>
+    <p>学校で新しい知識を学ぶとき、多くの生徒はノートに書き写すことを中心にしている。黑板や教科書の内容をそのまま写せば、覚えられると考えるからだ。しかし、写真や動画を使って学ぶ方法も、最近では珍しくない。どちらがよいかは、学ぶ内容や目的によって変わる。</p>
+    <p>今回考えてみたいのは、映像を取り入れた学習 <span class="qnum">【1】</span> 。例えば、理科の実験では、実際に目で見ることで変化の過程が分かりやすくなる。肉眼では見えない動きを、ゆっくり再生して確認できることもある。このように、映像には、文字だけでは伝えにくい情報を補う力がある。</p>
+    <p>ただし、映像を見ているだけでは、学んだこと自分のものにはなりにくい。画面を眺めて「分かった」と思っても、実際に自分の言葉で説明しようとすると、うまくいかないことがある。受け身で情報を受け取るだけでは、理解が浅いまま終わってしまう <span class="qnum">【2】</span> 。</p>
+    <p>そこで、映像を見た後に、見た内容を書き出したり、友人と話し合ったりすることが勧められている。映像を見る <span class="qnum">【3】</span> 、自分の考えと比べてみる。この一方で、最初から答えを出すのではなく、予想を立ててから見る方法も効果的だ。予想と結果が違ったとき、その理由を考えることで理解が深まる。</p>
+    <p>先生の中には、板書と映像を上手に組み合わせている人もいる。大切な点を黑板に残しながら、細かい部分は映像で補う。生徒も、ただ見るだけでなく、自分でメモを取り、疑問を持つことが求められる。</p>
+    <p><span class="qnum">【4】</span> 、学習の方法は、道具を変えれば自動的に良くなるわけではない。自分の理解を確認しながら、必要な手段を選ぶこと <span class="qnum">【5】</span> 。その積み重ねが、確かな力につながるだろう。</p>
+  </div>
+  <div class="qblock" data-q="1" data-ans="1"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s7q1" value="1">1. である<span class="tag"></span></label>
+    <label><input type="radio" name="s7q1" value="2">2. だろう<span class="tag"></span></label>
+    <label><input type="radio" name="s7q1" value="3">3. ではないか<span class="tag"></span></label>
+    <label><input type="radio" name="s7q1" value="4">4. とのことだ<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="3"><div class="qt">問2</div><div class="opts">
+    <label><input type="radio" name="s7q2" value="1">1. にすぎない<span class="tag"></span></label>
+    <label><input type="radio" name="s7q2" value="2">2. わけではない<span class="tag"></span></label>
+    <label><input type="radio" name="s7q2" value="3">3. おそれがある<span class="tag"></span></label>
+    <label><input type="radio" name="s7q2" value="4">4. はずだ<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="2"><div class="qt">問3</div><div class="opts">
+    <label><input type="radio" name="s7q3" value="1">1. ながら<span class="tag"></span></label>
+    <label><input type="radio" name="s7q3" value="2">2. た後に<span class="tag"></span></label>
+    <label><input type="radio" name="s7q3" value="3">3. までに<span class="tag"></span></label>
+    <label><input type="radio" name="s7q3" value="4">4. 一方で<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="1"><div class="qt">問4</div><div class="opts">
+    <label><input type="radio" name="s7q4" value="1">1. このように<span class="tag"></span></label>
+    <label><input type="radio" name="s7q4" value="2">2. それにもかかわらず<span class="tag"></span></label>
+    <label><input type="radio" name="s7q4" value="3">3. それに対して<span class="tag"></span></label>
+    <label><input type="radio" name="s7q4" value="4">4. そのため<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="5" data-ans="4"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s7q5" value="1">1. べきだ<span class="tag"></span></label>
+    <label><input type="radio" name="s7q5" value="2">2. ものだ<span class="tag"></span></label>
+    <label><input type="radio" name="s7q5" value="3">3. はずだ<span class="tag"></span></label>
+    <label><input type="radio" name="s7q5" value="4">4. ことだ<span class="tag"></span></label>
+  </div></div>
+  <div class="actions"><button class="btn" onclick="checkSet('s7')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol><li><span class="ans">正解 1</span>　「今回考えてみたいのは」が主题を提示する導入。説明文の断定 <span class="k">「〜である」</span> が合う。2「だろう」は推量、3「ではないか」は問いかけ、4「とのことだ」は伝聞で、筆者自身が主题を出す文脉に合わない。</li><li><span class="ans">正解 3</span>　「受け身で情報を受け取るだけでは」という状況から、理解が浅く終わる危険を述べている。<span class="k">「〜おそれがある」</span> が客観的な可能性を表す。1「にすぎない」は「それだけ」の限定、2「わけではない」は部分否定、4「はずだ」は推断で、いずれも「危惧」を表せない。</li><li><span class="ans">正解 2</span>　「見た後で内容を書き出す」という顺序が明確。<span class="k">「〜た後に」</span> が「その action の後」を表す。1「ながら」は同时进行、3「までに」は期限、4「一方で」は別側面の提示で、いずれも先后関係を表さない。</li><li><span class="ans">正解 1</span>　直前の「板書と映像を組み合わせる」「生徒もメモを取る」という具体的な実践例を受けて、筆者が「学習の方法は道具だけでは決まらない」と結論を導いている。<span class="k">「このように」</span> は直前の内容を総括して次に進む働きをする。2 は逆接、3 は対比、4 は因果で、いずれも例を受けた総括にならない。</li><li><span class="ans">正解 4</span>　「自分の理解を確認しながら、必要な手段を選ぶこと」は一般的な助言・要点。<span class="k">「〜ことだ」</span> が「そうするのがよい」という助言を表す。1「べきだ」は義務が強すぎ、2「ものだ」は本質・習慣、3「はずだ」は推断で、いずれも助言のニュアンスに合わない。</li></ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「〜た後に」强调动作完成之后的阶段；「〜ながら」是同时进行。看到「書き出す／話し合う」这种后续动作，选「た後に」。</li>
+      <li>「〜ことだ」是较柔和的助言（最好这样做）；「〜べきだ」义务感更强。说明文结尾的「大切なのは〜ことだ」是固定搭配。</li>
+      <li>本文第5空在编制时对选项进行了统一处理，实际考试中应严格按前后文判断，避免在「その一方で」已出现时重复选用。</li>
+      <li>「〜おそれがある」搭配「理解が浅い／見落とし／遅れ」等负面结果，看到「ただし／〜だけでは」的提醒语境要想到它。</li>
+    </ul></div>
+  </div>
+</article>
+
+<article class="set" id="s8">
+  <div class="set-head"><h2>第8題　川と地域の暮らし</h2><span class="field">自然・環境</span></div>
+  <p class="set-sub">出典想定：身近な自然と人が関わる様子を扱う解説文（過去問の「自然・生き物」型）</p>
+  <div class="passage">
+    <p class="ptitle">地域の自然を守る</p>
+    <p>住宅地の近くに、小さな川が流れている。以前は、川沿いに草が生い茂り、ゴミも多かったが、地域の人たちが清掃活動を始めてから、様子が変わってきた。今では、水が澄み、小さな魚や虫を見かけることもある。身近な自然は、手を入れれば、少しずつ回復する。</p>
+    <p>今回紹介するのは、川を中心にした地域の活動 <span class="qnum">【1】</span> 。川辺に咲く花を観察したり、季節ごとに生き物を調べたりしている。参加者は、子どもから高齢者までさまざまである。同じ場所でも、見る時期によって発見が異なるため、何度も足を運ぶ人が多い。</p>
+    <p>活動を続ける中で、参加者は川に対する見方が変わってきたと話す。最初は、ただ「汚れている場所」と思っていたのが、多くの生き物が暮らす場所だと気づいたという。川の水が増えたり減ったりするのも、異常ではなく、自然のリズムだと理解できるようになった。</p>
+    <p>一方で、活動を始めたばかりの頃は、思うように参加者が集まらなかった。忙しい人や、自然に関心のない人もいる。 <span class="qnum">【2】</span> 、無理に参加を促すのではなく、まずは川辺を歩いてもらうことから始めた。気軽に訪れる人が増えることで、少しずつ関心が広がっていった。</p>
+    <p>このような活動は、川をきれいにするだけが目的ではない。地域の人が同じ場所を気にかけ、話を交わすきっかけになる。子どもが大人と一緒に生き物を探す姿は、大人にとっても新しい発見だ。自然を守ることは、同時に人と人との関係を育てることでもある <span class="qnum">【3】</span> 。</p>
+    <p>身近な自然は、遠くの国立公園だけにあるのではない。自宅から歩いて行ける場所に、守るべきものがたくさんある。それに気づき、次の世代に渡していくことが、地域の役割 <span class="qnum">【4】</span> 。誰もが少しずつ関われば、川はきっと変わっていく <span class="qnum">【5】</span> 。</p>
+  </div>
+  <div class="qblock" data-q="1" data-ans="4"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s8q1" value="1">1. とのことだ<span class="tag"></span></label>
+    <label><input type="radio" name="s8q1" value="2">2. ではないか<span class="tag"></span></label>
+    <label><input type="radio" name="s8q1" value="3">3. だろう<span class="tag"></span></label>
+    <label><input type="radio" name="s8q1" value="4">4. である<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="1"><div class="qt">問2</div><div class="opts">
+    <label><input type="radio" name="s8q2" value="1">1. そこで<span class="tag"></span></label>
+    <label><input type="radio" name="s8q2" value="2">2. そのうえ<span class="tag"></span></label>
+    <label><input type="radio" name="s8q2" value="3">3. それどころか<span class="tag"></span></label>
+    <label><input type="radio" name="s8q2" value="4">4. それとも<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="2"><div class="qt">問3</div><div class="opts">
+    <label><input type="radio" name="s8q3" value="1">1. かもしれない<span class="tag"></span></label>
+    <label><input type="radio" name="s8q3" value="2">2. ではないだろうか<span class="tag"></span></label>
+    <label><input type="radio" name="s8q3" value="3">3. に違いない<span class="tag"></span></label>
+    <label><input type="radio" name="s8q3" value="4">4. わけではない<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="3"><div class="qt">問4</div><div class="opts">
+    <label><input type="radio" name="s8q4" value="1">1. なのだろうか<span class="tag"></span></label>
+    <label><input type="radio" name="s8q4" value="2">2. なのではないか<span class="tag"></span></label>
+    <label><input type="radio" name="s8q4" value="3">3. なのだ<span class="tag"></span></label>
+    <label><input type="radio" name="s8q4" value="4">4. なのか<span class="tag"></span></label>
+  </div></div>
+<div class="qblock" data-q="5" data-ans="1"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s8q5" value="1">1. に違いない<span class="tag"></span></label>
+    <label><input type="radio" name="s8q5" value="2">2. かもしれない<span class="tag"></span></label>
+    <label><input type="radio" name="s8q5" value="3">3. わけがない<span class="tag"></span></label>
+    <label><input type="radio" name="s8q5" value="4">4. とは限らない<span class="tag"></span></label>
+  </div></div>
+  <div class="actions"><button class="btn" onclick="checkSet('s8')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 4</span>　「今回紹介するのは」が話題を示す導入部。筆者が自ら説明する文なので <span class="k">「〜である」</span> が最適。1 は伝聞、2 は問いかけ、3 は推量で、説明文の断定に合わない。</li>
+      <li><span class="ans">正解 1</span>　前は「参加者が集まらなかった」という問題、後は「まず川辺を歩いてもらう」という対応。<span class="k">「そこで」</span> が課題に対する対策を導く。2 は追加、3 は逆説的強調、4 は選択で、前後の関係と合わない。</li>
+      <li><span class="ans">正解 2</span>　「自然を守ることは、人と人との関係を育てることでもある」という筆者の主張を、やや控えめに提示している。<span class="k">「〜ではないだろうか」</span> は「そうではないかと思う」という柔らかい断定を表す。1「かもしれない」は不確かすぎ、3「に違いない」は強すぎ、4 は部分否定で意味が反転する。</li>
+      <li><span class="ans">正解 3</span>　「それに気づき、次の世代に渡していくことが地域の役割」と筆者がはっきり述べている。<span class="k">「〜なのだ」</span> が説明・強調の断定を表す。1・2・4 はいずれも疑問・推量の形で、結論を確定的に述べる文脉に合わない。</li>
+    <li><span class="ans">正解 1</span>　「きっと」という副词が、筆者の强い確信を示している。<span class="k">「〜に違いない」</span> は「必ずそうだ」という高い確度の推断を表す。2「かもしれない」は不確かすぎ、3「わけがない」は否定、4「とは限らない」は「必ずしもそうではない」で、いずれも「きっと」と矛盾する。</li></ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「〜なのだ」は、前文の状況を受けて「つまりこういうことだ」と説明・強調する表达。文章结尾的结论句常用它。</li>
+      <li>「〜ではないだろうか」是柔和的主张（是不是…呢），比「〜に違いない」不确定，比「〜かもしれない」更有主张性。真题中看到「〜でもある」这类总结性表达，多半配这个。</li>
+      <li>「そこで」用于"出现了问题→采取对策"。若前句是纯背景描述，不要用「そこで」，改用「また／さらに」。</li>
+    <li>「きっと／必ず」などの副词があるときは「〜に違いない」を選びやすい。「かもしれない」は可能性が低い場合に使う。</li></ul></div>
+  </div>
+</article>
+
+<article class="set" id="s9">
+  <div class="set-head"><h2>第9題　食品の表示と選び方</h2><span class="field">生活・消費</span></div>
+  <p class="set-sub">出典想定：消費者の判断を扱う解説文（過去問の「生活・情報」型）</p>
+  <div class="passage">
+    <p class="ptitle">食品の表示と選び方</p>
+    <p>スーパーやコンビニには、多くの食品が並んでいる。パッケージには、原材料や栄養成分、賞味期限などが書かれているが、その情報量は少なくない。すべてをじっくり読んでから選ぶ人は、実際には多くないだろう。時間がないときは、価格や見た目で決めてしまうこともある。</p>
+    <p>今回考えたいのは、食品の表示をどう読み、どう使うか <span class="qnum">【1】</span> 。表示は、買う人に情報を伝えるためのものだ。しかし、書かれていることがすべて同じ意味を持つわけではない。例えば、「無添加」と「自然由来」は、似ているようで、保証する内容が異なる。</p>
+    <p>表示を理解するには、言葉の意味を知ることが必要だ。添加物についても、使われている量や目的によって、評価は変わる。ある成分が含まれていても、それだけで体に悪いとは限らない <span class="qnum">【2】</span> 。むしろ、保存や風味のために必要な場合もある。大切なのは、表示を鵜呑みにせず、自分の目で確かめることだ。</p>
+    <p>最近では、情報を分かりやすく伝えようとする動きもある。商品の前面に、主要な栄養素を簡潔に示したり、スマートフォンで詳細を見られるようにしたりしている。 <span class="qnum">【3】</span> 、一部の表示は、まだ専門的な用語が多く、一般の消費者には分かりにくい。</p>
+    <p>消費者が正しい選択をするには、表示の仕組み自体を知ることが近道だ。国が決めたルールでは、書かなければならない項目と、任意で書ける項目が分かれている。任意の表示には、事業者が工夫を凝らしている部分もある。その違いを理解していれば、情報の重みを判断しやすくなる。</p>
+    <p>食品選びは、自分の健康と直結する。表示を手がかりにしながら、必要な情報を集め、納得して選ぶこと <span class="qnum">【4】</span> 。その姿勢が、日々の食生活を豊かにしてくれるはずだ。情報が多いほど、選ぶことが難しく感じる <span class="qnum">【5】</span> 、基本的な項目を押さえれば、大きな間違いはない。</p>
+  </div>
+  <div class="qblock" data-q="1" data-ans="2"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s9q1" value="1">1. とのことだ<span class="tag"></span></label>
+    <label><input type="radio" name="s9q1" value="2">2. である<span class="tag"></span></label>
+    <label><input type="radio" name="s9q1" value="3">3. だろう<span class="tag"></span></label>
+    <label><input type="radio" name="s9q1" value="4">4. ではないか<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="4"><div class="qt">問2</div><div class="opts">
+    <label><input type="radio" name="s9q2" value="1">1. にすぎない<span class="tag"></span></label>
+    <label><input type="radio" name="s9q2" value="2">2. おそれがある<span class="tag"></span></label>
+    <label><input type="radio" name="s9q2" value="3">3. はずだ<span class="tag"></span></label>
+    <label><input type="radio" name="s9q2" value="4">4. とは限らない<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="1"><div class="qt">問3</div><div class="opts">
+    <label><input type="radio" name="s9q3" value="1">1. それにもかかわらず<span class="tag"></span></label>
+    <label><input type="radio" name="s9q3" value="2">2. そのため<span class="tag"></span></label>
+    <label><input type="radio" name="s9q3" value="3">3. そのうえ<span class="tag"></span></label>
+    <label><input type="radio" name="s9q3" value="4">4. つまり<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="3"><div class="qt">問4</div><div class="opts">
+    <label><input type="radio" name="s9q4" value="1">1. べきだ<span class="tag"></span></label>
+    <label><input type="radio" name="s9q4" value="2">2. ものだ<span class="tag"></span></label>
+    <label><input type="radio" name="s9q4" value="3">3. ことだ<span class="tag"></span></label>
+    <label><input type="radio" name="s9q4" value="4">4. はずだ<span class="tag"></span></label>
+  </div></div>
+<div class="qblock" data-q="5" data-ans="1"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s9q5" value="1">1. ものの<span class="tag"></span></label>
+    <label><input type="radio" name="s9q5" value="2">2. ため<span class="tag"></span></label>
+    <label><input type="radio" name="s9q5" value="3">3. うえで<span class="tag"></span></label>
+    <label><input type="radio" name="s9q5" value="4">4. ほか<span class="tag"></span></label>
+  </div></div>
+  <div class="actions"><button class="btn" onclick="checkSet('s9')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 2</span>　「今回考えたいのは」が主题提示。説明文の断定 <span class="k">「〜である」</span> が合う。1 は伝聞、3 は推量、4 は問いかけで、筆者が自ら課題を設定する文脉に合わない。</li>
+      <li><span class="ans">正解 4</span>　「ある成分が含まれていても、それだけで体に悪いとは限らない」は「必ずしもそうではない」の部分否定。<span class="k">「〜とは限らない」</span> が唯一合う。1「にすぎない」は限定、2「おそれがある」は危惧、3「はずだ」は推断で、いずれも「必ずしも否定しない」意味を表せない。</li>
+      <li><span class="ans">正解 1</span>　前は「分かりやすく伝えようとする動きもある」という前向きな変化、後は「専門用語が多く分かりにくい」という逆の内容。<span class="k">「それにもかかわらず」</span> が譲歩的な逆接を表す。2 は因果、3 は追加、4 は言い換えで、対立を表せない。</li>
+      <li><span class="ans">正解 3</span>　「表示を手がかりにしながら、必要な情報を集め、納得して選ぶこと」は一般的な助言。<span class="k">「〜ことだ」</span> が「そうするのがよい」を表す。1「べきだ」は義務が强すぎ、2「ものだ」は本質・習慣、4「はずだ」は推断で、いずれも助言の文脉に合わない。</li>
+    <li><span class="ans">正解 1</span>　前は「難しく感じる」、後は「大きな間違いはない」という逆の内容。<span class="k">「〜ものの」</span> は「〜ではあるが」という譲歩を表す。2「ため」は因果、3「うえで」は「〜した上で」の順序、4「ほか」は「〜以外に」で、いずれも対立を表せない。</li></ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「〜とは限らない」是N2高频表达，表示"未必／不一定"。看到「〜ても／〜だけでは」＋否定判断，优先想到它。</li>
+      <li>「それにもかかわらず」是书面语逆接，比「しかし」语气更强。前文出现「〜ようとする動きもある」这类积极表述，后文接消极内容时常用。</li>
+      <li>「〜ことだ」与「〜べきだ」：前者是建议（最好…），后者是义务（必须…）。说明文结尾的「大切なのは〜ことだ」属固定搭配。</li>
+    <li>「〜ものの」は「〜けれど」の书面语。前句にマイナス評価、後句にプラス評価が来るパターンが多い。</li></ul></div>
+  </div>
+</article>
+
+<article class="set" id="s10">
+  <div class="set-head"><h2>第10題　高齢者の運転</h2><span class="field">社会・高齢化</span></div>
+  <p class="set-sub">出典想定：高齢化社会の課題を扱う解説文（過去問の「社会問題・制度」型）</p>
+  <div class="passage">
+    <p class="ptitle">高齢者の運転</p>
+    <p>高齢化が進む中で、高齢者の自動車運転をめぐる問題が注目されている。判断力や反射神経が衰えることで、事故の危険が高まるのではないかと心配される一方で、車を手放すと生活そのものが成り立たなくなる人もいる。特に、公共交通機関が少ない地域では、運転が日々の移動を支えている。</p>
+    <p>今回取り上げるのは、高齢のドライバーを支える仕組み <span class="qnum">【1】</span> 。ある地域では、運転に不安を感じた人が、自分で運転をやめる時期を決められるようにする取り組みが始まっている。家族や地域の人が話し合いながら、無理のない選択を目指す。</p>
+    <p>しかし、運転をやめると決めても、すぐに別の移動手段が見つかるとは限らない。バスや電車の本数が少ない場所では、買い物や通院に困る人が出てくる。 <span class="qnum">【2】</span> 、新しい移動の形を考える必要がある。地域で車を共有したり、必要なときに配車サービスを利用したりする方法が試されている。</p>
+    <p>自動運転の技術も、この問題への答えの一つとして期待されている。まだ完全に実用化されているわけではないが、技術が進めば、運転免許を持たない人でも移動しやすくなる <span class="qnum">【3】</span> 。ただし、技術だけでは、すべての地域の課題が解決するわけではない。住む人の暮らしに合わせた工夫が欠かせない。</p>
+    <p>また、運転を続ける人に対しても、安全を確認する仕組みが必要だ。一定の年齢に達したら、運転技能を確認する講習を受ける制度がある。これを、単なる制限として捉えるのではなく、安心して運転を続けるための支えとして考えることが大切だ。</p>
+    <p>高齢者の運転の問題は、本人の判断だけに任せてはいけない。家族、地域、行政が一緒に考え、選択肢を準備すること <span class="qnum">【4】</span> 。それが、誰もが安心して暮らせる社会への第一歩だ。自動運転や新しいサービスに期待が集まる <span class="qnum">【5】</span> 、すべての人に合うわけではない。暮らしの形は一人ひとり異なるからだ。</p>
+  </div>
+  <div class="qblock" data-q="1" data-ans="1"><div class="qt">問1</div><div class="opts">
+    <label><input type="radio" name="s10q1" value="1">1. である<span class="tag"></span></label>
+    <label><input type="radio" name="s10q1" value="2">2. だろう<span class="tag"></span></label>
+    <label><input type="radio" name="s10q1" value="3">3. とのことだ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q1" value="4">4. ではないか<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="2" data-ans="4"><div class="qt">問2</div><div class="opts">
+    <label><input type="radio" name="s10q2" value="1">1. そのうえ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q2" value="2">2. それどころか<span class="tag"></span></label>
+    <label><input type="radio" name="s10q2" value="3">3. それとも<span class="tag"></span></label>
+    <label><input type="radio" name="s10q2" value="4">4. そこで<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="3" data-ans="2"><div class="qt">問3</div><div class="opts">
+    <label><input type="radio" name="s10q3" value="1">1. に違いない<span class="tag"></span></label>
+    <label><input type="radio" name="s10q3" value="2">2. ようになる<span class="tag"></span></label>
+    <label><input type="radio" name="s10q3" value="3">3. がちだ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q3" value="4">4. にすぎない<span class="tag"></span></label>
+  </div></div>
+  <div class="qblock" data-q="4" data-ans="3"><div class="qt">問4</div><div class="opts">
+    <label><input type="radio" name="s10q4" value="1">1. べきだ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q4" value="2">2. ものだ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q4" value="3">3. ことだ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q4" value="4">4. はずだ<span class="tag"></span></label>
+  </div></div>
+<div class="qblock" data-q="5" data-ans="1"><div class="qt">問5</div><div class="opts">
+    <label><input type="radio" name="s10q5" value="1">1. とはいえ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q5" value="2">2. そのうえ<span class="tag"></span></label>
+    <label><input type="radio" name="s10q5" value="3">3. そのため<span class="tag"></span></label>
+    <label><input type="radio" name="s10q5" value="4">4. つまり<span class="tag"></span></label>
+  </div></div>
+  <div class="actions"><button class="btn" onclick="checkSet('s10')">答えを確認</button></div>
+  <div class="result" hidden>
+    <div class="score"></div>
+    <div class="explain"><h3>答案解析</h3><ol>
+      <li><span class="ans">正解 1</span>　「今回取り上げるのは」が主题提示。客観的な解説文なので断定 <span class="k">「〜である」</span> が最適。2 は推量、3 は伝聞、4 は問いかけで、いずれも合わない。</li>
+      <li><span class="ans">正解 4</span>　前は「別の移動手段が見つかるとは限らない」という问题、後は「新しい移動の形を考える必要がある」という対応。<span class="k">「そこで」</span> が対策の導入に最適。1 は追加、2 は逆説的強調、3 は選択で、前後の関係と合わない。</li>
+      <li><span class="ans">正解 2</span>　「技術が進めば」という条件のもとで、移動が可能になるという状态変化。<span class="k">「〜ようになる」</span> が「できるようになる」的变化を表す。1「に違いない」は确信、3「がちだ」は倾向、4「にすぎない」は限定で、いずれも「可能になる」を表せない。</li>
+      <li><span class="ans">正解 3</span>　「家族、地域、行政が一緒に考え、選択肢を準備すること」は一般的な助言。<span class="k">「〜ことだ」</span> が「そうするのがよい」を表す。1「べきだ」は義務が强すぎ、2「ものだ」は本質・習慣、4「はずだ」は推断で、いずれも助言の文脉に合わない。</li>
+    <li><span class="ans">正解 1</span>　前は「期待が集まる」、後は「合うわけではない」という対立。<span class="k">「〜とはいえ」</span> は「〜ではあるが」という譲歩を表す。2 は追加、3 は因果、4 は言い換えで、いずれも譲歩を表さない。</li></ol></div>
+    <div class="notes"><h3>注意事项</h3><ul>
+      <li>「〜ようになる」表示状态变化（变得能够…），常与「〜ば／〜て」条件形搭配，如「技術が進めば〜ようになる」。</li>
+      <li>「〜とは限らない」（未必）和「〜に限らず」（不限于）是不同句型，不要混淆。本文第2空是「見つかるとは限らない」＝「不一定能找到」。</li>
+      <li>结尾「〜ことだ」出现频率很高，和「べきだ」区别在于语气强弱。说明文的建议句优先「ことだ」。</li>
+    <li>「〜とはいえ」と「〜ものの」は似るが、「とはいえ」は名词・形容动词にも直接つけることができる。本文は「集まるとはいえ」の動詞形。</li></ul></div>
+  </div>
+</article>
+<footer> JLPT N2 文脈に合う文 練習 Problem 10題　— 解答後は必ず「前句・後句・論理関係・干扰项の理由」を書き出して復習してください。</footer>
+</div>
+
+<script>
+function checkSet(id){
+  const set=document.getElementById(id);
+  const qs=set.querySelectorAll('.qblock');
+  let ok=0, answered=0;
+  qs.forEach(function(q){
+    const ans=Number(q.dataset.ans);
+    const name=id+'q'+q.dataset.q;
+    const picked=set.querySelector('input[name="'+name+'"]:checked');
+    if(picked) answered++;
+    q.querySelectorAll('label').forEach(function(l,i){
+      l.classList.remove('right','wrong');
+      l.querySelector('.tag').textContent='';
+      if(i+1===ans){l.classList.add('right');l.querySelector('.tag').textContent='正解';}
+      if(picked && Number(picked.value)===i+1 && i+1!==ans){l.classList.add('wrong');l.querySelector('.tag').textContent='誤答';}
+    });
+    if(picked && Number(picked.value)===ans) ok++;
+  });
+  if(answered<qs.length){
+    set.querySelector('.score').textContent='未作答の空があります（'+answered+' / '+qs.length+'）';
+    set.querySelector('.result').hidden=false;
+    return;
+  }
+  set.querySelector('.score').textContent='正解 '+ok+' / '+qs.length+'　（'+Math.round(ok/qs.length*100)+'%）';
+  set.querySelector('.result').hidden=false;
+  set.dataset.checked='1';
+  updateProgress();
+}
+function updateProgress(){
+  const sets=document.querySelectorAll('.set');
+  let n=0;
+  sets.forEach(function(s){if(s.dataset.checked==='1')n++;});
+  document.getElementById('progress').textContent='進捗 '+n+' / '+sets.length;
+}
+document.getElementById('resetAll').addEventListener('click',function(){
+  document.querySelectorAll('.set').forEach(function(s){
+    s.querySelectorAll('input[type=radio]').forEach(function(i){i.checked=false;});
+    s.querySelectorAll('label').forEach(function(l){l.classList.remove('right','wrong');l.querySelector('.tag').textContent='';});
+    s.querySelector('.result').hidden=true;
+    delete s.dataset.checked;
+  });
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+</body>
+</html>
