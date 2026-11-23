@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JLPT N2 备考速记手册 · 词汇 / 语法 / 技巧 / 读解填空</title>
+<style>
+  :root{
+    --bg:#F4F9F9;
+    --surface:#FFFFFF;
+    --surface-2:#F0FAF9;
+    --brand:#0D8C86;
+    --brand-dark:#0A6E69;
+    --brand-soft:#E3F5F3;
+    --brand-line:#BFE6E2;
+    --accent:#0E7490;
+    --accent-soft:#E0F2FE;
+    --ink:#143C3A;
+    --ink-2:#3E5B59;
+    --ink-3:#718C8A;
+    --line:#DCEBE9;
+    --ok:#0D8C86;
+    --no:#C2413B;
+    --no-soft:#FBECEA;
+    --warn:#B4690E;
+    --warn-soft:#FDF3E3;
+    --r-s:8px; --r-m:13px; --r-l:18px; --r-p:999px;
+    --shadow:0 1px 2px rgba(13,140,134,.05),0 6px 20px rgba(13,140,134,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans GB","Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;
+    font-size:14px;line-height:1.75;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;
+  }
+  .jp{font-family:"Hiragino Sans","Yu Gothic","Meiryo","MS Gothic",sans-serif}
+
+  /* ===== Cover ===== */
+  .cover{position:relative;background:linear-gradient(135deg,var(--brand-soft) 0%,#fff 62%,var(--accent-soft) 100%);border-bottom:1px solid var(--brand-line);overflow:hidden}
+  .cover__in{max-width:1040px;margin:0 auto;padding:46px 28px 40px;position:relative;z-index:1}
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--brand-dark);background:#fff;border:1px solid var(--brand-line);padding:5px 14px;border-radius:var(--r-p)}
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand)}
+  .cover h1{font-size:31px;line-height:1.3;font-weight:800;margin:16px 0 10px;letter-spacing:-.01em}
+  .cover h1 .jp{color:var(--brand-dark)}
+  .cover__sub{font-size:15px;color:var(--ink-2);max-width:720px;line-height:1.85}
+  .cover__meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .chip{font-size:12.5px;color:var(--ink-2);background:#fff;border:1px solid var(--brand-line);padding:6px 13px;border-radius:var(--r-p)}
+  .chip b{color:var(--brand-dark);font-weight:700}
+  .cover::before{content:"";position:absolute;top:-70px;right:-40px;width:230px;height:230px;background:var(--brand-soft);border-radius:26px;transform:rotate(14deg)}
+  .cover::after{content:"";position:absolute;bottom:-80px;right:180px;width:150px;height:150px;background:#fff;border-radius:20px;transform:rotate(-12deg)}
+
+  /* ===== Toolbar ===== */
+  .toolbar{background:rgba(255,255,255,.94);backdrop-filter:blur(9px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+  .toolbar__in{max-width:1040px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;gap:10px}
+  .toc{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:none}
+  .toc::-webkit-scrollbar{display:none}
+  .toc a{flex-shrink:0;font-size:12.5px;color:var(--ink-2);text-decoration:none;padding:6px 13px;border-radius:var(--r-p);transition:.18s;white-space:nowrap}
+  .toc a:hover{background:var(--brand-soft);color:var(--brand-dark)}
+  .btn{font-family:inherit;font-size:12.5px;font-weight:600;color:#fff;background:var(--brand);border:none;padding:8px 15px;border-radius:var(--r-p);cursor:pointer;transition:.18s;white-space:nowrap}
+  .btn:hover{background:var(--brand-dark)}
+  .btn--ghost{background:#fff;color:var(--brand-dark);border:1px solid var(--brand-line)}
+  .btn--ghost:hover{background:var(--brand-soft)}
+
+  main{max-width:1040px;margin:0 auto;padding:30px 28px 80px}
+  section{margin-bottom:46px;scroll-margin-top:64px}
+  .sec-h{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+  .sec-n{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--brand);color:#fff;border-radius:10px;font-size:15px;font-weight:800}
+  .sec-h h2{font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .sec-lead{color:var(--ink-3);font-size:13px;margin:0 0 22px 47px}
+  h3{font-size:16px;font-weight:700;margin:26px 0 13px;display:flex;align-items:center;gap:9px}
+  h3::before{content:"";width:4px;height:17px;border-radius:3px;background:var(--accent)}
+  p{margin-bottom:11px}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:18px 20px;box-shadow:var(--shadow)}
+  .word__top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .word__jp{font-size:20px;font-weight:800;color:var(--ink)}
+  .word__kana{font-size:12.5px;color:var(--ink-3)}
+  .tag{font-size:11px;font-weight:700;padding:2px 9px;border-radius:var(--r-p);background:var(--brand-soft);color:var(--brand-dark)}
+  .tag--accent{background:var(--accent-soft);color:var(--accent)}
+  .tag--warn{background:var(--warn-soft);color:var(--warn)}
+  .word__mean{font-size:14px;color:var(--ink-2);margin:6px 0 10px}
+  .word__mean b{color:var(--brand-dark)}
+  .senses{list-style:none;display:grid;gap:5px;margin-bottom:11px}
+  .senses li{font-size:13px;color:var(--ink-2);padding-left:16px;position:relative}
+  .senses li::before{content:"";position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:var(--brand-line)}
+  .note{font-size:12.5px;padding:8px 11px;border-radius:var(--r-s);line-height:1.7}
+  .note--key{background:var(--brand-soft);color:var(--brand-dark)}
+  .note--no{background:var(--no-soft);color:var(--no)}
+  .note--warn{background:var(--warn-soft);color:var(--warn)}
+  .note b{font-weight:700}
+
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-m);background:var(--surface);box-shadow:var(--shadow)}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--surface-2);color:var(--brand-dark);font-weight:700;font-size:12.5px;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#FAFDFC}
+  td .jp{font-weight:600;color:var(--ink)}
+  .yes{color:var(--ok);font-weight:700}
+  .no{color:var(--no);font-weight:700}
+
+  .pattern{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:var(--r-m);padding:16px 19px;box-shadow:var(--shadow)}
+  .pattern__h{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin-bottom:5px}
+  .pattern__jp{font-size:18px;font-weight:800;color:var(--brand-dark)}
+  .pattern__mean{font-size:14px;font-weight:700;color:var(--ink)}
+  .pattern__conn{font-size:12px;color:var(--ink-3);margin:2px 0 9px}
+  .pattern__conn b{color:var(--ink-2)}
+  .pattern__ex{font-size:13px;background:var(--surface-2);border-radius:var(--r-s);padding:8px 12px;margin-bottom:8px}
+  .pattern__ex .jp{color:var(--ink)}
+  .pattern__ex .zh{color:var(--ink-3);margin-left:8px}
+  .pattern__tip{font-size:12.5px;color:var(--warn);background:var(--warn-soft);padding:7px 11px;border-radius:var(--r-s)}
+  .pattern__tip b{font-weight:700}
+  .mnemonic{display:inline-block;font-size:12px;font-weight:700;color:var(--brand-dark);background:var(--brand-soft);padding:3px 10px;border-radius:var(--r-p);margin-top:2px}
+
+  .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:14px 0;border:1px solid var(--brand-line);border-radius:var(--r-m);overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+  .vs__side{padding:15px 18px}
+  .vs__side h4{font-size:15px;font-weight:800;color:var(--brand-dark);margin-bottom:6px;font-family:"Hiragino Sans",sans-serif}
+  .vs__side p{font-size:12.5px;color:var(--ink-2);margin:0}
+  .vs__mid{display:flex;align-items:center;justify-content:center;background:var(--brand-soft);color:var(--brand-dark);font-size:12px;font-weight:800;padding:0 6px;writing-mode:vertical-rl;letter-spacing:.1em}
+
+  .steps{counter-reset:st;display:grid;gap:12px}
+  .step{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:15px 18px 15px 56px;box-shadow:var(--shadow)}
+  .step::before{counter-increment:st;content:counter(st);position:absolute;left:16px;top:15px;width:27px;height:27px;background:var(--accent);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+  .step h4{font-size:14.5px;font-weight:700;margin-bottom:4px}
+  .step p{font-size:13px;color:var(--ink-2);margin:0}
+  .step .signal{display:inline-block;margin-top:8px;font-size:12px;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:var(--r-s)}
+
+  .callout{background:linear-gradient(135deg,var(--brand-soft),#fff);border:1px solid var(--brand-line);border-radius:var(--r-l);padding:20px 24px;margin:16px 0}
+  .callout h4{font-size:15px;font-weight:800;color:var(--brand-dark);margin-bottom:8px}
+  .callout p{font-size:13.5px;color:var(--ink-2);margin-bottom:8px}
+  .callout ul{margin:6px 0 0 18px}
+  .callout li{font-size:13.5px;color:var(--ink-2);margin-bottom:5px}
+
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:14px 0}
+  .flow__n{flex:1;min-width:120px;background:var(--surface);border:1px solid var(--brand-line);border-radius:var(--r-m);padding:13px 14px;text-align:center;position:relative;margin-right:18px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .flow__n:last-child{margin-right:0}
+  .flow__n::after{content:"→";position:absolute;right:-16px;top:50%;transform:translateY(-50%);color:var(--brand);font-weight:800;font-size:16px}
+  .flow__n:last-child::after{display:none}
+  .flow__n b{display:block;font-size:13px;color:var(--brand-dark)}
+  .flow__n span{font-size:11.5px;color:var(--ink-3)}
+
+  .quiz-q{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-m);padding:15px 18px;margin-bottom:11px;box-shadow:var(--shadow)}
+  .quiz-q__no{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;background:var(--brand);color:#fff;border-radius:7px;font-size:12px;font-weight:800;margin-right:8px}
+  .quiz-q__text{font-size:13.5px;color:var(--ink);margin-bottom:7px}
+  .quiz-q__ans{font-size:13px;color:var(--brand-dark);background:var(--brand-soft);padding:7px 11px;border-radius:var(--r-s)}
+  .quiz-q__ans b{font-weight:800}
+
+  .mask-tip{font-size:12px;color:var(--ink-3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .mask-tip .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  body.mask-mode .maskable{background:var(--brand-soft);color:transparent;border-radius:4px;user-select:none;cursor:default}
+  body.mask-mode .maskable *{color:transparent!important}
+
+  footer{text-align:center;color:var(--ink-3);font-size:12px;padding:22px 0 0;border-top:1px solid var(--line)}
+
+  @media print{
+    :root{--bg:#fff}
+    .toolbar,.btn,.mask-tip{display:none!important}
+    body{font-size:11.5px;background:#fff}
+    .cover__in{padding:22px 0}
+    main{padding:0;max-width:100%}
+    section{page-break-inside:avoid;margin-bottom:24px}
+    .card,.pattern,.step,.tbl-wrap,.quiz-q,.callout,.vs{box-shadow:none;break-inside:avoid}
+    .cover::before,.cover::after{display:none}
+    h3{break-after:avoid}
+    body.mask-mode .maskable{background:none;color:inherit}
+    body.mask-mode .maskable *{color:inherit}
+    @page{margin:14mm}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="cover__in">
+    <span class="eyebrow">JLPT N2 · 备考知识速记</span>
+    <h1>词汇 · 语法 · 技巧 <span class="jp">一日速记手册</span></h1>
+    <p class="cover__sub">基于《N2 备考题目解析与语法笔记（会话汇总）》全量整理。按<b>词汇 / 语法 / 技巧</b>三类归档，附易混对比与记忆口诀；末章专项拆解「读解看文章填空」的题型本质、四步解题法与刻意训练方案。</p>
+    <div class="cover__meta">
+      <span class="chip">覆盖 <b>5 大题型</b></span>
+      <span class="chip">核心词条 <b>20+</b></span>
+      <span class="chip">核心句型 <b>16 个</b></span>
+      <span class="chip">专项方法 <b>3 套</b></span>
+      <span class="chip">读解填空 <b>50–54 实战</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar__in">
+    <nav class="toc">
+      <a href="#vocab">词汇速记</a>
+      <a href="#grammar">语法速记</a>
+      <a href="#skill">技巧速记</a>
+      <a href="#reading">读解填空专项</a>
+      <a href="#training">训练方案</a>
+    </nav>
+    <button class="btn btn--ghost" id="maskBtn">遮挡记忆</button>
+    <button class="btn" id="printBtn">导出 / 打印</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ============ 词汇 ============ -->
+  <section id="vocab">
+    <div class="sec-h"><span class="sec-n">1</span><h2>词汇速记</h2></div>
+    <p class="sec-lead">高频实词深度辨析 + 固定搭配 + 易混副词，抓住「搭配」与「语感」两个得分点。</p>
+
+    <h3>A. 高频实词深度辨析</h3>
+    <div class="grid g2">
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">荒れる</span><span class="word__kana jp">あれる</span><span class="tag">动词</span></div>
+        <ul class="senses">
+          <li>天气、海面狂暴、汹涌</li>
+          <li>土地、物品荒芜、破旧</li>
+          <li>秩序、业绩混乱、变差</li>
+          <li>皮肤粗糙</li>
+        </ul>
+        <div class="note note--key"><b>真题搭配：</b>海・天気が荒れる（海上风浪大）——最经典高频，必考。</div>
+        <div class="note note--no" style="margin-top:8px"><b>易错反例：</b>鞋子磨损→すり減る；业绩下滑→落ちる／悪くなる；苹果腐烂→腐る（くさる）。</div>
+      </div>
+
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">ベテラン</span><span class="tag">名词</span></div>
+        <div class="word__mean">老手、经验丰富的人 —— <b>只能形容人</b>。</div>
+        <div class="note note--key"><b>正解：</b>ベテランの先生（经验丰富的老师）。</div>
+        <div class="note note--no" style="margin-top:8px"><b>不能用于：</b>电车、钟表、餐馆（第 29 题 1/3/4 均错）。</div>
+      </div>
+
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">でたらめ</span><span class="word__kana jp">出鱈目</span><span class="tag">ナ形/副</span></div>
+        <div class="word__mean">胡乱、瞎蒙、毫无依据。</div>
+        <div class="note note--key"><b>真题：</b>でたらめに答えた（瞎蒙着答，居然答对了）。副词用法「でたらめに＋动词」高频。</div>
+        <div class="note note--warn" style="margin-top:8px"><b>近义区分：</b>いい加減＝敷衍马虎；でたらめ＝毫无依据、瞎来。</div>
+      </div>
+
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">かわいそう</span><span class="word__kana jp">可哀想</span><span class="tag">ナ形</span></div>
+        <div class="word__mean">可怜的。<b>わずかな人生</b>（短暂坎坷的一生）→ かわいそうな人生。</div>
+        <div class="note note--no"><b>排除：</b>退屈（无聊）／おかし（奇怪）／不安（不安）。</div>
+      </div>
+
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">～を欠かさない</span><span class="word__kana jp">かかさない</span><span class="tag">动词搭配</span></div>
+        <div class="word__mean">从不间断、不落下。</div>
+        <div class="note note--key"><b>真题：</b>どんなに忙しくても朝食と運動を欠かさない（再忙也不缺早餐和晨练）。</div>
+      </div>
+
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">じたばたする</span><span class="tag">动词</span></div>
+        <div class="word__mean">手忙脚乱、急得团团转。<b>同义替换＝慌てる（あわてる）</b>。</div>
+        <div class="note note--key"><b>整句：</b>試験前一天になっても慌ててもしかたない（就算慌张也无济于事）。</div>
+      </div>
+    </div>
+
+    <h3>B. 词汇题 13–25 固定搭配速记</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>题号</th><th>正解</th><th>固定搭配 / 考点</th></tr></thead>
+        <tbody>
+          <tr><td>13</td><td class="jp">率（りつ）</td><td><span class="jp">進学率</span>＝升学率；量・値・割均不构成该词。</td></tr>
+          <tr><td>14</td><td class="jp">助（じょ）</td><td><span class="jp">補助大臣</span>（ほじょだいじん）辅佐大臣，固定官名。</td></tr>
+          <tr><td>15</td><td class="jp">別（べつ）</td><td><span class="jp">学年別</span>＝按每个学年分别来看。</td></tr>
+          <tr><td>16</td><td class="jp">発揮（はっき）</td><td><span class="jp">実力を発揮する</span> 发挥实力。</td></tr>
+          <tr><td>17</td><td class="jp">アレンジ</td><td>按喜好调整、改编（调味）；コメント评论／デザイン设计／ケア照料。</td></tr>
+          <tr><td>18</td><td class="jp">独特（どくとく）</td><td><span class="jp">独特の雰囲気</span> 独有氛围；専属专属／限定限定／孤立孤立。</td></tr>
+          <tr><td>19</td><td class="jp">欠かさない</td><td><span class="jp">～を欠かさない</span> 从不间断。</td></tr>
+          <tr><td>20</td><td class="jp">でたらめ</td><td><span class="jp">でたらめに答えた</span> 瞎蒙胡乱回答。</td></tr>
+          <tr><td>21</td><td class="jp">達した（たっした）</td><td><span class="jp">～度に達した</span> 达到数值（零下 20 度）。</td></tr>
+          <tr><td>22</td><td class="jp">着々と（ちゃくちゃくと）</td><td><span class="jp">着々と進む</span> 稳步推进；慎重に慎重／いちいち逐一／ぐんぐん势头猛。</td></tr>
+          <tr><td>23</td><td class="jp">ぶつけて</td><td><span class="jp">ボールを車にぶつける</span> 把球撞到车上＝题干「車にボールを当てて」。</td></tr>
+          <tr><td>24</td><td class="jp">かわいそうな</td><td>短暂坎坷一生 → 可怜的一生。</td></tr>
+          <tr><td>25</td><td class="jp">しばらく</td><td><span class="jp">当分（とうぶん）</span>＝暂且、暂时，同义「しばらく」。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>C. 易混副词对比（同义替换必考）</h3>
+    <div class="grid g2">
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">着々と</span><span class="tag tag--accent">副词</span></div>
+        <div class="word__mean">稳步地、扎实有序地（计划・工事・筹备推进，褒义）。修饰「進む・進行する・準備する」。</div>
+        <div class="note note--warn"><b>限制：</b>只用于有目标的计划、项目，不能形容天气、情绪慢慢变化。<br><span class="mnemonic">着＝落实，一步一步落实 → 稳步推进</span></div>
+      </div>
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">次第に</span><span class="word__kana jp">しだいに</span><span class="tag tag--accent">副词</span></div>
+        <div class="word__mean">渐渐地、逐步地（随时间推移，状态缓慢变化），书面感强。</div>
+        <div class="note note--warn"><b>三兄弟辨析：</b>次第に（书面慢变）／だんだん（通用可互换）／次々（接连不断，<b>不能</b>表慢变）。<br><span class="mnemonic">次第＝顺序 → 顺时间慢慢变化</span></div>
+      </div>
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">当分 ／ しばらく</span><span class="tag tag--warn">同义</span></div>
+        <div class="word__mean">暂且、暂时、一段时间之内。</div>
+        <div class="note note--warn"><b>差别：</b>当分（书面，常配否定「当分～ない」，中长期暂时）；しばらく（通用，可短可长，可表单小会儿）。<br><b>坑：</b>「しばらく待ってください」不能换成当分。</div>
+      </div>
+      <div class="card word">
+        <div class="word__top"><span class="word__jp jp">むしろ／いったい／ちっとも</span><span class="tag">副词</span></div>
+        <div class="word__mean"><b>むしろ</b>＝反倒、不如（转折递进）；<b>いったい</b>＝究竟；<b>ちっとも</b>＝一点也（后续必须接否定）。</div>
+        <div class="note note--key"><b>第 32 题：</b>小时候讨厌青椒，现在「むしろ」成了喜欢的蔬菜之一 —— 转折递进信号。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 语法 ============ -->
+  <section id="grammar">
+    <div class="sec-h"><span class="sec-n">2</span><h2>语法速记</h2></div>
+    <p class="sec-lead">核心句型按「接续 + 含义 + 使用场景 + 口诀」归档，重点背诵成对易混句型。</p>
+
+    <h3>A. 核心句型卡</h3>
+    <div class="grid g2">
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～わけにはいかない</span><span class="pattern__mean">情理上不能</span></div>
+        <div class="pattern__conn"><b>接续：</b>动词辞書形＋。否定变体「ないわけにはいかない」＝不能不、必须。</div>
+        <div class="pattern__ex"><span class="jp">無視して計画を進めるわけにはいかない。</span><span class="zh">不能无视而推进计划（38 原题）</span></div>
+        <div class="pattern__tip"><b>不是能力做不到，是道理/身份不允许。</b>别译成"不可能"。<span class="mnemonic">わけ＝道理 → 按道理不能做</span></div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～ずにはいられない</span><span class="pattern__mean">忍不住、情不自禁</span></div>
+        <div class="pattern__conn"><b>属性：</b>内心冲动（与上面的"道义约束"是最大对比点）。</div>
+        <div class="pattern__ex"><span class="jp">進めずにはいられない。</span><span class="zh">忍不住非要推进（38 题干扰项，语义相反）</span></div>
+        <div class="pattern__tip"><b>成对必背：</b>わけにはいかない【外部约束】 vs ずにはいられない【内心冲动】。</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～てでも</span><span class="pattern__mean">不惜代价也要</span></div>
+        <div class="pattern__conn"><b>接续：</b>动词て形＋でも。后半多接意志/必须类（～たい、～なければならない）。</div>
+        <div class="pattern__ex"><span class="jp">徹夜でもレポートを終わらせないといけない。</span><span class="zh">就算熬夜也要完成报告（47 题）</span></div>
+        <div class="pattern__tip"><b>区别于「ても」：</b>ても单纯"即使"；てでも带主动承担代价的语感。<span class="mnemonic">てでも＝不惜代价也要</span></div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～てはどうかと思います</span><span class="pattern__mean">委婉提议</span></div>
+        <div class="pattern__conn"><b>接续：</b>动词て形＋。会议、学习讨论高频礼貌提案。</div>
+        <div class="pattern__ex"><span class="jp">分析方法を取り上げてはどうかと思います。</span><span class="zh">不妨把分析方法拿出来当主题（44 原题）</span></div>
+        <div class="pattern__tip"><b>对比：</b>～たらどうですか 更口语直接；てはどうかと思います 更礼貌正式。<span class="mnemonic">てはどうか＝提议，と思います软化</span></div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～出すと、～ほど</span><span class="pattern__mean">一启动就到某程度</span></div>
+        <div class="pattern__conn"><b>拆分：</b>Vます＋出す（开始，带"一发不可收拾"语感）＋と（一…就）＋ほど（程度）。</div>
+        <div class="pattern__ex"><span class="jp">一度食べ出すと、止まらないほど好きだ。</span><span class="zh">一旦吃起来就停不下来（48 原题）</span></div>
+        <div class="pattern__tip"><b>出す ≠ 始める：</b>始める只是单纯开始；出す带"一旦启动"语感。排序题常绑定「一度～と」。</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～ように言われる／注意する</span><span class="pattern__mean">被吩咐 / 叮嘱</span></div>
+        <div class="pattern__conn"><b>接续：</b>动词ない形＋ように。传达指示、要求。</div>
+        <div class="pattern__ex"><span class="jp">疲れた顔を見せないように注意された。</span><span class="zh">被叮嘱不要露出疲惫表情（41 原题）</span></div>
+        <div class="pattern__tip"><b>辨析：</b>～ように（叮嘱、要求） vs ～ために（表目的，不适合叮嘱句式）。</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～ておく／～ておきなさい</span><span class="pattern__mean">预先做好</span></div>
+        <div class="pattern__conn"><b>接续：</b>动词て形＋おく。ておきなさい＝长辈叮嘱的命令形。</div>
+        <div class="pattern__ex"><span class="jp">寝る前に準備をしておきなさい。</span><span class="zh">睡前一定要准备好（42 原题）</span></div>
+        <div class="pattern__tip"><b>题干呼应：</b>妈妈叮嘱 + 孩子答"もう終わってるよ" → 选命令形的ておきなさい。</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern__h"><span class="pattern__jp jp">～させられたものだ</span><span class="pattern__mean">当年被迫常做</span></div>
+        <div class="pattern__conn"><b>拆解：</b>させられる（使役被动，被迫做）＋ものだ（回忆往昔、过去常常）。</div>
+        <div class="pattern__ex"><span class="jp">電話の応対の練習を2週間させられたものだ。</span><span class="zh">当年被迫接受两周电话训练（43 原题）</span></div>
+        <div class="pattern__tip"><b>标志：</b>「入社すると…まず」回忆旧制度、往昔经历 → ものだ。</div>
+      </div>
+    </div>
+
+    <h3>B. 其余高频句型速查</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>句型</th><th>核心意思</th><th>感情 / 使用场景</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">～ように注意</td><td>提醒不要 / 要</td><td>叮嘱、告诫</td></tr>
+          <tr><td class="jp">～ておく</td><td>预先做好</td><td>提前准备</td></tr>
+          <tr><td class="jp">～させられたものだ</td><td>当年被迫常做</td><td>回忆研修、旧制度</td></tr>
+          <tr><td class="jp">～てはどうかと思う</td><td>不妨……怎么样</td><td>委婉提议</td></tr>
+          <tr><td class="jp">～に欠かせない</td><td>对……必不可少</td><td>定语高频</td></tr>
+          <tr><td class="jp">～てでも</td><td>就算付出代价也要</td><td>强硬决心</td></tr>
+          <tr><td class="jp">～出すと</td><td>一做起……就</td><td>触发式</td></tr>
+          <tr><td class="jp">次第に</td><td>渐渐地</td><td>慢慢变化</td></tr>
+          <tr><td class="jp">わけにはいかない</td><td>情理上不能</td><td>责任道义</td></tr>
+          <tr><td class="jp">ずにはいられない</td><td>忍不住、情不自禁</td><td>内心冲动</td></tr>
+          <tr><td class="jp">～たびに</td><td>每当……</td><td>反复契机（37 题：言ってくれるたびに）</td></tr>
+          <tr><td class="jp">～そうになる</td><td>差点……</td><td>几乎发生（41 题：飛ばされそうになった）</td></tr>
+          <tr><td class="jp">～だろう</td><td>委婉推测、询问</td><td>"想必…吧"（51 题：ご存じだろう）</td></tr>
+          <tr><td class="jp">～わけだ</td><td>归结、解释缘由</td><td>"难怪、正是因为"（54 题：支えてくれているわけだ）</td></tr>
+          <tr><td class="jp">どんなに～ても</td><td>无论多么……</td><td>让步（46 题）</td></tr>
+          <tr><td class="jp">～ものだ</td><td>回忆往昔 / 理所当然</td><td>过去常态（43 题）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>C. 三组必背对比</h3>
+    <div class="vs">
+      <div class="vs__side"><h4 class="jp">わけにはいかない</h4><p>外部约束、道义责任 — 按道理<b>不能</b>做（市长不能无视反对）</p></div>
+      <div class="vs__mid">对比</div>
+      <div class="vs__side"><h4 class="jp">ずにはいられない</h4><p>内心冲动 — <b>忍不住</b>要做（忍不住想推进）</p></div>
+    </div>
+    <div class="vs">
+      <div class="vs__side"><h4 class="jp">～てでも</h4><p>主动承担代价也要做（<b>不惜代价</b>）</p></div>
+      <div class="vs__mid">对比</div>
+      <div class="vs__side"><h4 class="jp">～ても</h4><p>单纯的"即使"，无主动承担语感</p></div>
+    </div>
+    <div class="vs">
+      <div class="vs__side"><h4 class="jp">～てはどうかと思います</h4><p>礼貌正式提案（会议、讨论）</p></div>
+      <div class="vs__mid">对比</div>
+      <div class="vs__side"><h4 class="jp">～たらどうですか</h4><p>口语直接建议</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 技巧 ============ -->
+  <section id="skill">
+    <div class="sec-h"><span class="sec-n">3</span><h2>技巧速记</h2></div>
+    <p class="sec-lead">两套被真题验证的通用解题流程：排序题四步法、长句发言类五步法。</p>
+
+    <h3>A. 句子排序题 · 四步法</h3>
+    <div class="steps">
+      <div class="step"><h4>抓固定搭配，锁定相邻词</h4><p>「一度～出すと」「～に欠かせない」「～てでも」这类固定句型的两个成分一定挨在一起，直接锁定相对位置。</p><span class="signal">如：目標を＋達成した → 必然相邻</span></div>
+      <div class="step"><h4>抓逻辑信号词</h4><p>时间词（次第に、～とき）、让步（どんなに～ても、てでも）、条件（～と）是排列顺序的路标。</p><span class="signal">信号词决定先后</span></div>
+      <div class="step"><h4>谓语永远在句尾</h4><p>先找最后的动词，搭起句子主干，再把修饰成分往前填。</p><span class="signal">先定主干，后填修饰</span></div>
+      <div class="step"><h4>通读翻译验证</h4><p>排好后整句翻译一遍，逻辑不通大概率是错的。</p><span class="signal">读出声，查通顺</span></div>
+    </div>
+
+    <h3>B. 长句场景发言类语法填空 · 五步法（38 题同类）</h3>
+    <p style="font-size:13px;color:var(--ink-3)">题型特征：长句、新闻／记者发言／观点场景，多层逻辑嵌套，选项是高度易混的 N2 句型。结构常为「背景事实 → だから／のだから → 结论（空格）」。</p>
+    <div class="steps">
+      <div class="step"><h4>拆长句，圈逻辑连词</h4><p>先圈「のだから／ので／から／が／けれど」，分清哪里是理由、哪里是结论。很多人错在盯着空格，忽略前面的因果前提。</p></div>
+      <div class="step"><h4>给四个选项标注句型属性</h4><p>不要只翻译中文，要归类：样态推测（そうにない）／许可（てもかまわない）／内心冲动（ずにはいられない）／道义约束（わけにはいかない）。</p></div>
+      <div class="step"><h4>匹配说话人身份立场（出题核心）</h4><p>市长、管理者 → 责任道义（わけにはいかない）；抒发个人情绪 → ずにはいられない；单纯猜测 → そうにない；许可别人 → てもかまわない。</p></div>
+      <div class="step"><h4>反向排除法</h4><p>先删语义完全相反的选项。38 题：前面有市民反对 → 排除「推进也没关系」「忍不住要推进」，再区分剩下的两项。</p></div>
+      <div class="step"><h4>复盘归档，贴标签</h4><p>把这类题单独整理，给句型贴属性标签，建立对比本。</p></div>
+    </div>
+    <div class="callout">
+      <h4>配套训练建议</h4>
+      <ul>
+        <li>专门搜集 N2 真题「記者会見・コメント・意見文」语法填空（37–42 题高频）；</li>
+        <li>强制流程：圈逻辑词 → 标注句型类型 → 匹配说话人立场 → 排除；</li>
+        <li>重点背三组成对句型（见语法速记 C 部分）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 读解填空 ============ -->
+  <section id="reading">
+    <div class="sec-h"><span class="sec-n">4</span><h2>读解「看文章填空」专项</h2></div>
+    <p class="sec-lead">以《道路のひみつ》50–54 为范本，拆解这一类"读文章填空"题的本质与通用解法。</p>
+
+    <div class="callout">
+      <h4>先弄清：这类题到底考什么？</h4>
+      <p>它考的不是孤立背单词，而是<b>「文脈（上下文逻辑）」</b>——在文章挖空处，选出能与前后文无缝衔接的词或句子。所以正确解法是"先看懂文章，再看选项"，而不是"先看选项，往里套"。</p>
+      <p>《道路のひみつ》5 个空恰好覆盖 5 种典型空格：<span class="tag">名词/指代</span> <span class="tag tag--accent">语气推测</span> <span class="tag">接续词</span> <span class="tag tag--warn">整句</span> <span class="tag">句末归结</span></p>
+    </div>
+
+    <h3>A. 四步解题流程（每题都套用）</h3>
+    <div class="flow">
+      <div class="flow__n"><b>① 通读全文</b><span>抓主题：谁/什么/怎么样</span></div>
+      <div class="flow__n"><b>② 判空格功能</b><span>名词？接续？整句？句末？</span></div>
+      <div class="flow__n"><b>③ 看前后标志</b><span>圈逻辑词、找指代对象</span></div>
+      <div class="flow__n"><b>④ 代入验证</b><span>翻译＋朗读，查通顺</span></div>
+    </div>
+
+    <h3>B. 四类空格攻克法</h3>
+    <div class="grid g2">
+      <div class="card">
+        <div class="word__top"><span class="tag">类型 1</span><span style="font-weight:700">名词 / 指代类</span></div>
+        <p style="font-size:13px;color:var(--ink-2)"><b>做法：</b>回看前文，找被指代、被说明的主题词。答案往往就是文章反复出现的核心名词。</p>
+        <div class="note note--key"><b>50 题：</b>前文"上班、购物、出游都受它照顾" → 点明主题就是 <span class="jp">道路</span>。</div>
+      </div>
+      <div class="card">
+        <div class="word__top"><span class="tag tag--accent">类型 2</span><span style="font-weight:700">语气 / 推测类</span></div>
+        <p style="font-size:13px;color:var(--ink-2)"><b>做法：</b>判断说话人的语气功能：是委婉推测、断定，还是询问。</p>
+        <div class="note note--key"><b>51 题：</b><span class="jp">ご存じだろう</span> — だろう表委婉推测"想必大家都知道吧"，不是肯定也不是否定。</div>
+      </div>
+      <div class="card">
+        <div class="word__top"><span class="tag tag--warn">类型 3</span><span style="font-weight:700">接续词类</span></div>
+        <p style="font-size:13px;color:var(--ink-2)"><b>做法：</b>判断前后句的逻辑关系——追加 / 转折 / 因果 / 对比，再选对应接续词。</p>
+        <div class="note note--key"><b>52 题：</b>前讲雨天排水路面，后讲寒冷地区防结冰路面 → 并列追加，选 <span class="jp">また</span>（另外、还有）。</div>
+      </div>
+      <div class="card">
+        <div class="word__top"><span class="tag">类型 4</span><span style="font-weight:700">整句 / 句末归结类</span></div>
+        <p style="font-size:13px;color:var(--ink-2)"><b>做法：</b>看与前后文的衔接、主语一致，以及句末语气（归结、义务、委婉）。</p>
+        <div class="note note--key"><b>53/54 题：</b>「<span class="jp">工夫も考えられる</span>」承上段举例；「<span class="jp">支えてくれているわけだ</span>」— わけだ表归结"正是一直在支撑我们"。</div>
+      </div>
+    </div>
+
+    <h3>C. 《道路のひみつ》50–54 实战复盘</h3>
+    <div class="quiz-q"><span class="quiz-q__no jp">50</span><span class="quiz-q__text">承接"上班、买东西、出去玩都受它照顾"，点明这个东西就是 <b>道路</b>。</span><div class="quiz-q__ans"><b>类型1 名词</b>　答案 1 <span class="jp">道路</span></div></div>
+    <div class="quiz-q"><span class="quiz-q__no jp">51</span><span class="quiz-q__text">～だろう 是委婉推测／询问"想必大家知道吧"，不是肯定知道，也不是"不知道吧"。</span><div class="quiz-q__ans"><b>类型2 语气</b>　答案 3 <span class="jp">ご存じだろう</span></div></div>
+    <div class="quiz-q"><span class="quiz-q__no jp">52</span><span class="quiz-q__text">前面讲雨天排水路面，后面转寒冷地区防结冰路面，并列追加另一项工夫 →"另外、还有"。</span><div class="quiz-q__ans"><b>类型3 接续</b>　答案 1 <span class="jp">また</span></div></div>
+    <div class="quiz-q"><span class="quiz-q__no jp">53</span><span class="quiz-q__text">这段介绍降温路面，"也能看出／想到这样一种巧思工夫"。</span><div class="quiz-q__ans"><b>类型4 整句</b>　答案 2 <span class="jp">工夫も考えられる</span></div></div>
+    <div class="quiz-q"><span class="quiz-q__no jp">54</span><span class="quiz-q__text">わけだ 表归结、解释缘由：虽然肉眼看不出差别，但正是道路一直支撑我们安全生活。</span><div class="quiz-q__ans"><b>类型4 句末</b>　答案 2 <span class="jp">支えてくれているわけだ</span></div></div>
+    <div class="note note--key" style="margin-top:12px"><b>全文大意：</b>默默照顾我们的其实是道路。它理所当然地存在、被很多人使用，却少有人知道其中藏着各种巧思——不易积水的路面、寒冷地区碾冰防滑的路面、能降低路面温度的设计……外观差别也许看不出，但正是它们一直支撑着我们的安全生活。</div>
+    <div class="note note--warn" style="margin-top:8px"><b>本篇考点：</b>また＝追加列举；～だろう＝委婉推测；～わけだ＝解释归结。</div>
+  </section>
+
+  <!-- ============ 训练方案 ============ -->
+  <section id="training">
+    <div class="sec-h"><span class="sec-n">5</span><h2>看文章填空题 · 刻意训练方案</h2></div>
+    <p class="sec-lead">把"读文章填空"当成一项可拆解的技能来练，而不是靠语感碰运气。按下面五条执行，正确率能稳定提升。</p>
+
+    <div class="steps">
+      <div class="step"><h4>先大意后空格（最关键的习惯）</h4><p>拿到文章先<b>通读一遍抓主题</b>（这篇文章讲什么、作者态度如何），再回头看空。切忌一上来就盯着空格选项——这是这类题失分的第一大原因。</p></div>
+      <div class="step"><h4>给每个空贴"功能标签"</h4><p>填入前先判断这个空要的是<b>名词／接续词／整句／句末语气</b>中的哪一类。类型一确定，选项往往立刻少一半。</p><span class="signal">名词找指代 · 接续找逻辑 · 句末找语气</span></div>
+      <div class="step"><h4>建"逻辑信号词"清单</h4><p>把常见信号词做成卡片反复认：追加（また、それに）、转折（しかし、ところが、けれど）、因果（から、ので、だから）、归结（つまり、わけだ）、推测（だろう、らしい）。看到信号词就知道前后关系。</p></div>
+      <div class="step"><h4>答完"代入 + 朗读"验证</h4><p>把答案代回原文，把整句<b>出声读一遍</b>。日语靠语感，读起来别扭的十有八九是错的。这一步能救回大量"第一眼选错"的题。</p></div>
+      <div class="step"><h4>错题按"归因"归类，别只记答案</h4><p>每道错题标注错因：①没读懂大意 ②没判断空格类型 ③逻辑词没抓到 ④代入没验证。统计后针对最高频的错因专项突破。</p></div>
+    </div>
+
+    <div class="callout">
+      <h4>推荐训练节奏</h4>
+      <ul>
+        <li><b>专项刷：</b>每天只做 1 篇读解的填空题（4–5 空），做完把每个空的"功能标签 + 信号词"写在旁边；</li>
+        <li><b>还原朗读：</b>对答案后把正确选项代回，全文朗读 2–3 遍，培养文脉语感；</li>
+        <li><b>限时：</b>一篇读解控制在 8–10 分钟，练"先大意后细节"的速度；</li>
+        <li><b>复盘模板：</b>用《道路のひみつ》5 题当模板，每道按"类型—信号—答案—验证"四栏记录，形成自己的题型库。</li>
+      </ul>
+    </div>
+
+    <div class="note note--key" style="margin-top:14px;font-size:13.5px"><b>一句话口诀：</b>先读全文抓大意 → 判空格类型 → 抓逻辑信号 → 代入朗读验。四步固定下来，看文章填空就能从"靠猜"变成"有据可依"。</div>
+  </section>
+
+  <footer>根据《N2 备考题目解析与语法笔记（会话汇总）》整理 · 点击顶部"遮挡记忆"自测 · "导出/打印"可存为 PDF 或用 Word 打开</footer>
+</main>
+
+<script>
+  document.getElementById('printBtn').addEventListener('click',function(){window.print()});
+  document.getElementById('maskBtn').addEventListener('click',function(){
+    document.body.classList.toggle('mask-mode');
+    this.textContent=document.body.classList.contains('mask-mode')?'显示答案':'遮挡记忆';
+  });
+  document.querySelectorAll('.word__mean,.senses,.note,.pattern__ex,.pattern__tip').forEach(function(el){el.classList.add('maskable')});
+  // active TOC highlight
+  var links=document.querySelectorAll('.toc a');
+  var secs=[].map.call(links,function(a){return document.querySelector(a.getAttribute('href'))});
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY+90,idx=0;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)idx=i});
+    links.forEach(function(a,i){a.style.background=(i===idx)?'var(--brand-soft)':'';a.style.color=(i===idx)?'var(--brand-dark)':''});
+  },{passive:true});
+</script>
+</body>
+</html>
